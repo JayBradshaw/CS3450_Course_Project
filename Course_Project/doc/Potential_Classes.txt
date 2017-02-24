@@ -1,13 +1,10 @@
 Potential Classes CS 3450:
 
-MainScreen
-CheckoutScreen
-PrintReciept
-Order
-Product
-Customer
-CreditCardInfo
-ValidateProductChanges
-ManageInventory
-ProductAvailabilityScreen
-
+MainScreen -User Interface
+CheckoutScreen -User Interface
+ManageInventoryScreen -User Interface
+Order - Data Access
+Product - Data Access
+Customer - Data Access
+CreditCardInfo - Business Logic
+ValidateProductChanges -Business Logic
