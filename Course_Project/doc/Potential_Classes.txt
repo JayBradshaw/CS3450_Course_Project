@@ -1,0 +1,13 @@
+Potential Classes CS 3450:
+
+MainScreen
+CheckoutScreen
+PrintReciept
+Order
+Product
+Customer
+CreditCardInfo
+ValidateProductChanges
+ManageInventory
+ProductAvailabilityScreen
+
