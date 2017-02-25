@@ -1,10 +1,12 @@
-Potential Classes CS 3450:
+CS 3450 Class Diagram Layers:
 
 MainScreen -User Interface
 CheckoutScreen -User Interface
 ManageInventoryScreen -User Interface
+ManageProductScreen -UserInterface
 Order - Data Access
 Product - Data Access
 Customer - Data Access
 CreditCardInfo - Business Logic
 ValidateProductChanges -Business Logic
+ValidateOrder -Business Logic
