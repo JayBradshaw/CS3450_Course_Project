@@ -44,10 +44,11 @@ public class MainScreen {
 
 	public MainScreen(){
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(600, 400);
+		frame.setSize(700, 400);
 		pane = frame.getContentPane();
 		pane.setLayout(new BorderLayout());
 		
+		//make the header look pretty
 		storeHeader.setIconTextGap(25);
 		storeHeader.setBackground(baseColor);
 		storeHeader.setForeground(secondaryColor);
@@ -56,7 +57,7 @@ public class MainScreen {
 		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
 		
-		
+		//make the checkout button look pretty
 		checkout.setBackground(baseColor);
 		checkout.setForeground(secondaryColor);
 		checkout.setFont(buttonFont);
@@ -72,10 +73,12 @@ public class MainScreen {
 						System.out.println("Checkout Button Pressed!!!!");
 						//frame.dispose(); //closes the frame
 						//create a new frame here for the checkout screen
+						System.out.println("Creating checkout page");
 					}
 					
 				});
 		
+		//make the inventory button look pretty
 		inventory.setBackground(baseColor);
 		inventory.setForeground(secondaryColor);
 		inventory.setFont(buttonFont);
@@ -91,18 +94,19 @@ public class MainScreen {
 						System.out.println("Inventory Button Pressed!!!!");
 						//frame.dispose(); //close the frame
 						//create a new frame here for the manage inventory screen
+						System.out.println("Creating new page for Managing Inventory");
 					}
 					
 				});
 
-		
+		//make the footer look pretty
 		storeFooter.setBackground(baseColor);
 		storeFooter.setForeground(secondaryColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);
 
-		
+
 		pane.add(storeHeader, BorderLayout.PAGE_START);
 		pane.add(checkout, BorderLayout.CENTER);
 		pane.add(inventory, BorderLayout.LINE_END);
