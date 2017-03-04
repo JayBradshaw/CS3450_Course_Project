@@ -4,17 +4,35 @@
 package CS3450.course_project.dataAccess;
 
 /**
- * @author justin bradshaw
+ * @author Justin Bradshaw
  * 
  * class for dealing with a specific product
  *
  */
 public class Product {
+	/**
+	 * name of the product
+	 */
 	private String name;
+	/**
+	 * product barcode number
+	 */
 	private long barcodeNumber;
+	/**
+	 * how many units are available
+	 */
 	private int availableUnits;
+	/**
+	 * cost of one unit of the product
+	 */
 	private double price;
+	/**
+	 * name of the person or company who provides the product
+	 */
 	private String providerName;
+	/**
+	 * information for provider including address and phone number
+	 */
 	private String providerInfo;
 	
 	

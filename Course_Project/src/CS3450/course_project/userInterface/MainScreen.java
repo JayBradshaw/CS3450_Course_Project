@@ -29,19 +29,55 @@ import javax.swing.SwingUtilities;
  * program runs
  */
 public class MainScreen {
+	/**
+	 * frame where the system will be produced
+	 */
 	private JFrame frame = new JFrame("Grocery Store Checkout System");
+	/**
+	 * pane to be contained in the frame
+	 */
 	private Container pane;
+	/**
+	 * image of a shopping card
+	 */
 	private ImageIcon cartImage = new ImageIcon("data/shoppingCart.png");
+	/**
+	 * stores the header for the pane
+	 */
 	private JLabel storeHeader = new JLabel("Mr. Smith's Groceries" , cartImage , JLabel.CENTER);
+	/**
+	 * stores the footer for the pane
+	 */
 	private JLabel storeFooter = new JLabel("Copyright Info", JLabel.CENTER);
+	/**
+	 * button for checking out
+	 */
 	private JButton checkout = new JButton("Checkout");
+	/**
+	 * button for managing inventory
+	 */
 	private JButton inventory = new JButton("Manage Inventory");
+	/**
+	 * base color for the GUI
+	 */
 	private Color baseColor = new Color(180,242,110);
+	/**
+	 * secondary color for the GUI
+	 */
 	private Color secondaryColor = Color.GRAY.darker();
+	/**
+	 * base font for the header
+	 */
 	private Font baseFont = new Font("Verdana", Font.BOLD,16);
+	/**
+	 * font specifications for the buttons
+	 */
 	private Font buttonFont = new Font("Verdana", Font.PLAIN, 16);
 		
 
+	/**
+	 * default constructor
+	 */
 	public MainScreen(){
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
@@ -64,6 +100,7 @@ public class MainScreen {
 		checkout.setPreferredSize(new Dimension(frame.getWidth()/2,150));
 		checkout.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
 		checkout.setMargin(new Insets(15,15,15,15));
+		//listener for the checkout button
 		checkout.addActionListener(
 				new ActionListener(){
 
@@ -85,6 +122,7 @@ public class MainScreen {
 		inventory.setPreferredSize(new Dimension(frame.getWidth()/2,150));
 		inventory.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
 		inventory.setMargin(new Insets(15,15,15,15));
+		//listener for the manage inventory button
 		inventory.addActionListener(
 				new ActionListener(){
 
