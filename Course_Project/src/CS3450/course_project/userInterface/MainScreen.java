@@ -115,7 +115,8 @@ public class MainScreen {
 		pane.setLayout(new BorderLayout());
 		
 		if (!accessed){
-		createProductList();
+			prodListNoDatabase();
+			//createProductList();
 		}
 		accessed = true;
 		
@@ -183,7 +184,7 @@ public class MainScreen {
 		
 		//check to see if product list initialized correctly
 		for (Product p : productList){
-			System.out.println(p.getName());
+			System.out.println(p.getName() + " " + p.getBarcodeNumber());
 		}
 
 
@@ -229,11 +230,21 @@ public class MainScreen {
 		try {
 			while(result.next()){
 				productList.add(new Product(result.getString(1),result.getInt(2),result.getDouble(3),result.getInt(4),result.getString(5),result.getString(6)));
+				System.out.println(result.getString(1) + " "  + result.getInt(2) + " "  + result.getDouble(3) + " "  + result.getInt(4) + " "  + result.getString(5) + " "  + result.getString(6));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void prodListNoDatabase(){
+			productList.add(new Product("Apple", 56, 0.99,1568494530, "568 S 400 W Atlanta, Georgia 48934 895-594-8745","Johnny Appleseed"));
+			productList.add(new Product("Banana", 86,0.58,1578965445,"896 W 500 N Tallahassee, Florida 45897 458-521-8452","Dole Johnson"));
+			productList.add(new Product("Coca-Cola", 36, 0.75, 1897456328, "345 E Bubbly St. Tacoma, Washington 45879 568-895-5142","Kris Kringle"));
+			productList.add(new Product("Carrots", 26, 1.25, 1356984571, "978 Greeny Way Santa Fe, New Mexico 54876 528-965-4521", "Jimmy Red"));
+			productList.add(new Product("Bread", 14, 2.5, 1589478532, "9855 W Dough Avenue Salt Lake City, Utah 82564 801-896-5846","Chris Pillsbury"));
+			productList.add(new Product("Potatoes", 88, 0.69, 1563254896, "341 Big Creek Drive Idaho Falls, Idaho 85412 435-986-8541", "Alicia Spud"));
 	}
 	/**
 	 * @param args
