@@ -108,7 +108,7 @@ public class MainScreen {
 					public void actionPerformed(ActionEvent e) {
 						//deal with the new screen that should appear
 						System.out.println("Checkout Button Pressed!!!!");
-						//frame.dispose(); //closes the frame
+						frame.dispose(); //closes the frame
 						//create a new frame here for the checkout screen
 						System.out.println("Creating checkout page");
 						CheckoutScreen c = new CheckoutScreen();
