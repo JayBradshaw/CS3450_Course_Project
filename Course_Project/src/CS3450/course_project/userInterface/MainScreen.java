@@ -20,6 +20,16 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import CS3450.course_project.dataAccess.Product;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+
 /**
  * @author Justin Bradshaw
  * CS 3450 Course Project 
@@ -73,7 +83,13 @@ public class MainScreen {
 	 * font specifications for the buttons
 	 */
 	private Font buttonFont = new Font("Verdana", Font.PLAIN, 16);
-		
+	
+	/**
+	 * array list to store the products from the database
+	 */
+	private ArrayList<Product> productList= new ArrayList();
+	
+	private CheckoutScreen checkoutscreen;
 
 	/**
 	 * default constructor
@@ -83,6 +99,8 @@ public class MainScreen {
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
 		pane.setLayout(new BorderLayout());
+		
+		createProductList();
 		
 		//make the header look pretty
 		storeHeader.setIconTextGap(25);
@@ -111,7 +129,7 @@ public class MainScreen {
 						frame.dispose(); //closes the frame
 						//create a new frame here for the checkout screen
 						System.out.println("Creating checkout page");
-						CheckoutScreen c = new CheckoutScreen();
+						checkoutscreen = new CheckoutScreen();
 					}
 					
 				});
@@ -144,6 +162,11 @@ public class MainScreen {
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);
+		
+		//check to see if product list initialized correctly
+		for (Product p : productList){
+			System.out.println(p.getName());
+		}
 
 
 		pane.add(storeHeader, BorderLayout.PAGE_START);
@@ -153,6 +176,47 @@ public class MainScreen {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
+	
+	/**
+	 * creates the product list from the database connection
+	 */
+	public void createProductList(){
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		PreparedStatement statement = null;
+		try {
+			statement = con.prepareStatement("select * from products");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ResultSet result = null;
+		try {
+			result = statement.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			while(result.next()){
+				productList.add(new Product(result.getString(1),result.getInt(2),result.getDouble(3),result.getInt(4),result.getString(5),result.getString(6)));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * @param args
 	 */
@@ -161,6 +225,7 @@ public class MainScreen {
 			@Override
 			public void run() {
 				//System.out.println("Grocery Store!");
+				
 				new MainScreen();
 			}});
 	}

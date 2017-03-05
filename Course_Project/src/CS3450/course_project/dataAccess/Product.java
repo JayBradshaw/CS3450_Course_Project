@@ -17,7 +17,7 @@ public class Product {
 	/**
 	 * product barcode number
 	 */
-	private long barcodeNumber;
+	private int barcodeNumber;
 	/**
 	 * how many units are available
 	 */
@@ -36,6 +36,28 @@ public class Product {
 	private String providerInfo;
 	
 	
+	public Product(){
+		//empty default constructor
+	}
+	
+	/**
+	 * @param name
+	 * @param availableUnits
+	 * @param price
+	 * @param barcodeNumber
+	 * @param providerInfo
+	 * @param providerName
+	 * 
+	 * non-default constructor to read from the database and initialize the variables
+	 */
+	public Product(String name, int availableUnits, double price, int barcodeNumber, String providerInfo, String providerName) {
+		this.name = name;
+		this.availableUnits = availableUnits;
+		this.price = price;
+		this.barcodeNumber = barcodeNumber;
+		this.providerInfo = providerInfo;
+		this.providerName = providerName;
+	}
 	public String getName() {
 		return name;
 	}
@@ -45,7 +67,7 @@ public class Product {
 	public long getBarcodeNumber() {
 		return barcodeNumber;
 	}
-	public void setBarcodeNumber(long barcodeNumber) {
+	public void setBarcodeNumber(int barcodeNumber) {
 		this.barcodeNumber = barcodeNumber;
 	}
 	public int getAvailableUnits() {
