@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+
+import CS3450.course_project.dataAccess.Product;
 
 /**
  * 
@@ -80,6 +83,16 @@ public class CheckoutScreen {
 	 * font specifications for the buttons
 	 */
 	private Font buttonFont = new Font("Verdana", Font.PLAIN, 16);
+	
+	/**
+	 * JBradshaw: Array list to store the products
+	 */
+	private ArrayList<Product> productList;
+	
+	/**
+	 * JBradshaw: Allow ability to return to the main screen
+	 */
+	private MainScreen screen;
 	/**
 	 * default constructor
 	 */
@@ -210,6 +223,9 @@ public class CheckoutScreen {
 						System.out.println("Main Screen Button Pressed!!!!");
 						//close checkout window and take user back to main screen
 						System.out.println("Back to main screen...");
+						//JBradshaw: add ability to return back to the main screen
+						frame.dispose();
+						screen = new MainScreen();
 					}
 					
 		});
