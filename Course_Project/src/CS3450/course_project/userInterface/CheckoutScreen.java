@@ -1,11 +1,11 @@
 package CS3450.course_project.userInterface;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Insets;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 /**
  * 
@@ -27,9 +28,9 @@ import javax.swing.SwingConstants;
  */
 public class CheckoutScreen {
 	/**
-	 * frame that holds the checkout screen 
+	 * frame where the system will be produced
 	 */
-	private JFrame frame = new JFrame("Grocery Store Checkout Page");
+	private JFrame frame = new JFrame("Grocery Store Checkout System");
 	/**
 	 * pane to be contained in the frame
 	 */
@@ -47,19 +48,19 @@ public class CheckoutScreen {
 	 */
 	private JLabel storeFooter = new JLabel("Copyright Info", JLabel.CENTER);
 	/**
-	 * button for adding an item to checkout list
+	 * button for adding an item
 	 */
-	private JButton add = new JButton("Add");
+	private JButton addItem = new JButton("Add Item");
 	/**
-	 * button for removing an item from checkout list
+	 * button for removing an item
 	 */
-	private JButton remove = new JButton("Remove");
+	private JButton removeItem = new JButton("Remove Item");
 	/**
-	 * button for adding an item to checkout list
+	 * button to cancel order and return to main screen
 	 */
-	private JButton homePage = new JButton("Home Page");
+	private JButton mainScreen = new JButton("Return to Main Screen");
 	/**
-	 * button for adding an item to checkout list
+	 * button to finish and pay
 	 */
 	private JButton finishAndPay = new JButton("Finish and Pay");
 	/**
@@ -78,8 +79,6 @@ public class CheckoutScreen {
 	 * font specifications for the buttons
 	 */
 	private Font buttonFont = new Font("Verdana", Font.PLAIN, 16);
-		
-
 	/**
 	 * default constructor
 	 */
@@ -87,7 +86,7 @@ public class CheckoutScreen {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
-		pane.setLayout(new BorderLayout());
+		pane.setLayout(new GridBagLayout()); 
 		
 		//make the header look pretty
 		storeHeader.setIconTextGap(25);
@@ -95,69 +94,150 @@ public class CheckoutScreen {
 		storeHeader.setForeground(secondaryColor);
 		storeHeader.setFont(baseFont);
 		storeHeader.setHorizontalTextPosition(SwingConstants.LEADING);
-		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
+		//constraints for header
+		GridBagConstraints h = new GridBagConstraints();
+		h.fill = GridBagConstraints.BOTH;
+		h.weightx = 1;
+	    h.weighty = .16;
+	    h.gridx = 0;
+	    h.gridy = 0;
+	    h.gridwidth = 3;
+	    h.gridheight = 1;
+		h.anchor = GridBagConstraints.PAGE_START;
 		
-		//make the checkout button look pretty
-		checkout.setBackground(baseColor);
-		checkout.setForeground(secondaryColor);
-		checkout.setFont(buttonFont);
-		checkout.setPreferredSize(new Dimension(frame.getWidth()/2,150));
-		checkout.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		checkout.setMargin(new Insets(15,15,15,15));
-		//listener for the checkout button
-		checkout.addActionListener(
+		//make add item button look pretty
+		addItem.setBackground(baseColor);
+		addItem.setForeground(secondaryColor);
+		addItem.setFont(buttonFont);
+		addItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+		//constraints for add item button 
+		GridBagConstraints a = new GridBagConstraints();
+		a.weightx = .16;
+	    a.weighty = .16;
+	    a.gridx = 2;
+	    a.gridy = 1;
+	    a.gridwidth = 1;
+	    a.fill = GridBagConstraints.BOTH;
+		//a.anchor = GridBagConstraints.EAST;
+		//listener for the add item button
+		addItem.addActionListener(
 				new ActionListener(){
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						//deal with the new screen that should appear
-						System.out.println("Checkout Button Pressed!!!!");
-						//frame.dispose(); //closes the frame
-						//create a new frame here for the checkout screen
-						System.out.println("Creating checkout page");
+						//creates pop up button to input item barcode
+						System.out.println("Add Item Button Pressed!!!!");
+						//adds item to checkout list
+						System.out.println("Adding item to checkout list page");
 					}
 					
-				});
+		});
 		
-		//make the inventory button look pretty
-		inventory.setBackground(baseColor);
-		inventory.setForeground(secondaryColor);
-		inventory.setFont(buttonFont);
-		inventory.setPreferredSize(new Dimension(frame.getWidth()/2,150));
-		inventory.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		inventory.setMargin(new Insets(15,15,15,15));
-		//listener for the manage inventory button
-		inventory.addActionListener(
+		//make remove item button look pretty
+		removeItem.setBackground(baseColor);
+		removeItem.setForeground(secondaryColor);
+		removeItem.setFont(buttonFont);
+		removeItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+		//constraints for remove item button
+		GridBagConstraints r = new GridBagConstraints();
+		r.weightx = .16;
+		r.weighty = .16;
+		r.gridx = 2;
+		r.gridy = 2;
+		r.gridwidth = 1;
+		r.fill = GridBagConstraints.BOTH;
+		//listener for the remove item button
+		removeItem.addActionListener(
 				new ActionListener(){
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						//deal with the new screen that should appear
-						System.out.println("Inventory Button Pressed!!!!");
-						//frame.dispose(); //close the frame
-						//create a new frame here for the manage inventory screen
-						System.out.println("Creating new page for Managing Inventory");
+						//creates pop up button to input item barcode
+						System.out.println("Remove Item Button Pressed!!!!");
+						//removes item from checkout list
+						System.out.println("Removing item to checkout list page");
 					}
 					
-				});
+		});
+
+		//make finishAndPay button look pretty
+		finishAndPay.setBackground(baseColor);
+		finishAndPay.setForeground(secondaryColor);
+		finishAndPay.setFont(buttonFont);
+		finishAndPay.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+		//constraints for finishAndPaym button 
+		GridBagConstraints f = new GridBagConstraints();
+		f.weightx = .16;
+	    f.weighty = .16;
+	    f.gridx = 2;
+	    f.gridy = 3;
+	    f.gridwidth = 1;
+	    f.fill = GridBagConstraints.BOTH;
+		//listener for the finishAndPay button
+	    finishAndPay.addActionListener(
+				new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						//display payment screen 
+						System.out.println("Finish and Pay Button Pressed!!!!");
+						//print receipt
+						System.out.println("Printing Receipt");
+					}
+					
+		});
+
+		//make back to mainscreen button look pretty
+		mainScreen.setBackground(baseColor);
+		mainScreen.setForeground(secondaryColor);
+		mainScreen.setFont(buttonFont);
+		mainScreen.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+		//constraints for finishAndPaym button 
+		GridBagConstraints m = new GridBagConstraints();
+		m.weightx = .16;
+	    m.weighty = .16;
+	    m.gridx = 2;
+	    m.gridy = 4;
+	    m.gridwidth = 1;
+	    m.fill = GridBagConstraints.BOTH;
+		//listener for the finishAndPay button
+	    mainScreen.addActionListener(
+				new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						//cancel order 
+						System.out.println("Main Screen Button Pressed!!!!");
+						//close checkout window and take user back to main screen
+						System.out.println("Back to main screen...");
+					}
+					
+		});
 
 		//make the footer look pretty
 		storeFooter.setBackground(baseColor);
 		storeFooter.setForeground(secondaryColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
-		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);
-
-
-		pane.add(storeHeader, BorderLayout.PAGE_START);
-		pane.add(checkout, BorderLayout.CENTER);
-		pane.add(inventory, BorderLayout.LINE_END);
-		pane.add(storeFooter, BorderLayout.PAGE_END);
+		//constraints for footer
+		GridBagConstraints fo = new GridBagConstraints();
+		fo.fill = GridBagConstraints.BOTH;
+		fo.weightx = 1;
+	    fo.weighty = .16;
+	    fo.gridx = 0;
+	    fo.gridy = 5;
+	    fo.gridwidth = 3;
+	    fo.gridheight = 1;
+		fo.anchor = GridBagConstraints.PAGE_END;
+		
+		//add components to container
+		pane.add(storeHeader, h);
+		pane.add(addItem, a);
+		pane.add(removeItem, r);
+		pane.add(finishAndPay, f);
+		pane.add(mainScreen, m);
+		pane.add(storeFooter, fo);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
-
-	
 
 }
