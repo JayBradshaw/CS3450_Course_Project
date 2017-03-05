@@ -111,6 +111,7 @@ public class MainScreen {
 						//frame.dispose(); //closes the frame
 						//create a new frame here for the checkout screen
 						System.out.println("Creating checkout page");
+						CheckoutScreen c = new CheckoutScreen();
 					}
 					
 				});
@@ -159,9 +160,8 @@ public class MainScreen {
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override
 			public void run() {
-				System.out.println("Grocery Store!");
+				//System.out.println("Grocery Store!");
 				new MainScreen();
 			}});
 	}
-
 }
