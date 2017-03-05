@@ -96,6 +96,8 @@ public class CheckoutScreen {
 	/**
 	 * default constructor
 	 */
+	private AddProductScreen AddProductScreen;
+	
 	public CheckoutScreen(ArrayList<Product> productList){
 		this.productList = productList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -143,6 +145,8 @@ public class CheckoutScreen {
 					public void actionPerformed(ActionEvent e) {
 						//creates pop up button to input item barcode
 						System.out.println("Add Item Button Pressed!!!!");
+						frame.dispose();
+						AddProductScreen = new AddProductScreen(productList);
 						//adds item to checkout list
 						System.out.println("Adding item to checkout list page");
 					}
