@@ -27,7 +27,7 @@ public class AddProductScreen {
 	/**
 	 * frame where the system will be produced
 	 */
-	private JFrame frame = new JFrame("Grocery Store Checkout System");
+	private JFrame frame = new JFrame("Grocery Store Checkout System: Add Product");
 	/**
 	 * pane to be contained in the frame
 	 */
@@ -49,9 +49,8 @@ public class AddProductScreen {
 	 */
 	private JButton addItem = new JButton("Add Item");
 	/**
-	 * button for cancelling an item
+	 * button for canceling an item
 	 */
-
 	private JButton checkoutScreen = new JButton("Cancel");
 	
 	/**
@@ -92,9 +91,7 @@ public class AddProductScreen {
 	 * JBradshaw: Allow ability to return to the main screen
 	 */
 	private CheckoutScreen checkoutscreen;
-	/**
-	 * default constructor
-	 */
+
 	
 	public AddProductScreen(ArrayList<Product> productList){
 		this.productList = productList;
@@ -114,7 +111,11 @@ public class AddProductScreen {
 		//drop down menu for selecting item.
 		//dropDownMenu.setModel(new DefaultComboBoxModel(productList.toArray()));
 		dropDownMenu = new JComboBox(productNames);
-		dropDownMenu.setSelectedIndex(0);
+		//change to .length-1 in case the list of products is empty
+		dropDownMenu.setSelectedIndex(productNames.length - 1);
+		//JBradshaw added this to make sure that if the user doesn't change
+		//the drop down it will still add the item that first appears
+		temporary = productList.get(productNames.length-1); 
 		dropDownMenu.setBackground(baseColor);
 		dropDownMenu.setForeground(secondaryColor);
 		dropDownMenu.setFont(baseFont);
@@ -219,6 +220,9 @@ public class AddProductScreen {
 						//cancel order 
 						System.out.println("Add Item Button Pressed!!!!");
 						System.out.println("adding " + spinner.getValue() + " " + temporary.getName());
+						//JBradshaw right here is where we will update the orderHelper list to 
+						//include the new product
+						System.out.println(temporary.getPrice());
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();

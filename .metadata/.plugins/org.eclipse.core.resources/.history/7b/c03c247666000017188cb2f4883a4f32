@@ -1,0 +1,69 @@
+/**
+ * 
+ */
+package CS3450.course_project.dataAccess;
+
+import java.util.ArrayList;
+
+import CS3450.course_project.businessLogic.CreditCard;
+import CS3450.course_project.businessLogic.OrderHelper;
+
+/**
+ * @author Justin Bradshaw
+ *
+ *
+ *deals with a finalized order
+ *need to store a list of products and the quantity of that product that is requested
+ */
+public class Order {
+	private int orderID;
+	private Customer customer;
+	private String paymentType;
+	private double totalCost = 0.0;
+	private String deliveryMethod;
+	private CreditCard creditCard; //will be used for credit card info if a credit card is the payment type
+	private ArrayList<OrderHelper> list;
+	
+	public Order(ArrayList<OrderHelper> list){
+		this.list = list; //create a list of Order Helper Objects
+	}
+	public int getOrderID() {
+		return orderID;
+	}
+	public void setOrderID(int orderID) {
+		this.orderID = orderID;
+	}
+	public Customer getCustomer() {
+		return customer;
+	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	public String getPaymentType() {
+		return paymentType;
+	}
+	public void setPaymentType(String paymentType) {
+		this.paymentType = paymentType;
+	}
+	public double getTotalCost() {
+		return totalCost;
+	}
+	public void setTotalCost() { //iterate through the array list
+		for (OrderHelper item : list){
+			totalCost += item.getProductPrice();
+		}
+	}
+	public void incrementTotalCost(double value){ //this could be for a coupon or sale or something
+		totalCost += value;
+	}
+	public String getDeliveryMethod() {
+		return deliveryMethod;
+	}
+	public void setDeliveryMethod(String deliveryMethod) {
+		this.deliveryMethod = deliveryMethod;
+	}
+	public void printReceipt(){ 
+		
+	}
+	
+}

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<item value="C:\Program Files\mysql-connector-java-5.1.40\mysql-connector-java-5.1.40" key="org.eclipse.jdt.ui.lastextjar"/>
 	<section name="javadoc">
 		<item value="private" key="access"/>
 		<item value="false" key="noindex"/>
@@ -44,6 +45,9 @@
 		<item value="567" key="DIALOG_HEIGHT"/>
 		<item value="383" key="DIALOG_X_ORIGIN"/>
 		<item value="8" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="BuildPathsPropertyPage">
+		<item value="3" key="pageIndex"/>
 	</section>
 	<section name="completion_proposal_size">
 	</section>

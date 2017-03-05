@@ -1,0 +1,15 @@
+/**
+ * 
+ */
+package CS3450.course_project.businessLogic;
+
+/**
+ * @author Justin Bradshaw
+ * 
+ * class that creates a credit card in the case that the user
+ * wants to pay for their items with a credit card
+ *
+ */
+public class CreditCard {
+
+}

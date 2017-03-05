@@ -34,7 +34,7 @@ public class CheckoutScreen {
 	/**
 	 * frame where the system will be produced
 	 */
-	private JFrame frame = new JFrame("Grocery Store Checkout System");
+	private JFrame frame = new JFrame("Grocery Store Checkout System: Checkout");
 	/**
 	 * pane to be contained in the frame
 	 */
@@ -83,21 +83,24 @@ public class CheckoutScreen {
 	 * font specifications for the buttons
 	 */
 	private Font buttonFont = new Font("Verdana", Font.PLAIN, 16);
-	
 	/**
 	 * JBradshaw: Array list to store the products
 	 */
 	private ArrayList<Product> productList;
-	
 	/**
 	 * JBradshaw: Allow ability to return to the main screen
 	 */
 	private MainScreen screen;
 	/**
-	 * default constructor
+	 * move to add product screen
 	 */
 	private AddProductScreen AddProductScreen;
 	
+	/**
+	 * @param productList
+	 * 
+	 * constructor
+	 */
 	public CheckoutScreen(ArrayList<Product> productList){
 		this.productList = productList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -211,7 +214,7 @@ public class CheckoutScreen {
 		mainScreen.setForeground(secondaryColor);
 		mainScreen.setFont(buttonFont);
 		mainScreen.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		//constraints for finishAndPaym button 
+		//constraints for main screen button 
 		GridBagConstraints m = new GridBagConstraints();
 		m.weightx = .16;
 	    m.weighty = .16;
@@ -219,7 +222,7 @@ public class CheckoutScreen {
 	    m.gridy = 4;
 	    m.gridwidth = 1;
 	    m.fill = GridBagConstraints.BOTH;
-		//listener for the finishAndPay button
+		//listener for the main screen button
 	    mainScreen.addActionListener(
 				new ActionListener(){
 					@Override
@@ -230,7 +233,7 @@ public class CheckoutScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						screen = new MainScreen();
+						screen = new MainScreen(productList);
 					}
 					
 		});

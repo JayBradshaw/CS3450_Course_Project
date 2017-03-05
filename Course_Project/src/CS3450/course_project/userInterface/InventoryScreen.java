@@ -10,6 +10,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,6 +18,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import CS3450.course_project.dataAccess.Product;
 
 /**
  * @author Melanie Pena
@@ -26,7 +29,7 @@ public class InventoryScreen {
 	/**
 	 * frame where the system will be produced
 	 */
-	private JFrame frame = new JFrame("Grocery Store Checkout System");
+	private JFrame frame = new JFrame("Grocery Store Checkout System: Inventory");
 	/**
 	 * pane to be contained in the frame
 	 */
@@ -80,10 +83,16 @@ public class InventoryScreen {
 	 * JBradshaw: Allow ability to return to the main screen
 	 */
 	private MainScreen screen;
+	
+	/**
+	 * array list to store all of the products
+	 */
+	private ArrayList<Product> productList;
 	/**
 	 * default constructor
-	 */
-	public InventoryScreen(){
+	 */ 
+	public InventoryScreen(ArrayList<Product> productList){ //JBradshaw added parameter productList so that when we jump from screen to screen we don't lose the products
+		this.productList = productList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -204,7 +213,7 @@ public class InventoryScreen {
   						//close inventory window 
   						System.out.println("Return to main screen...");
   						frame.dispose();
-  						screen = new MainScreen();
+  						screen = new MainScreen(productList);
   					}
   		});
   	    
