@@ -134,6 +134,7 @@ public class MainScreen {
 						//frame.dispose(); //close the frame
 						//create a new frame here for the manage inventory screen
 						System.out.println("Creating new page for Managing Inventory");
+						InventoryScreen i = new InventoryScreen();
 					}
 					
 				});
