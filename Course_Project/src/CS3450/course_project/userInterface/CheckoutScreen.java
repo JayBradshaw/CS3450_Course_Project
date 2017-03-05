@@ -96,7 +96,8 @@ public class CheckoutScreen {
 	/**
 	 * default constructor
 	 */
-	public CheckoutScreen(){
+	public CheckoutScreen(ArrayList<Product> productList){
+		this.productList = productList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();

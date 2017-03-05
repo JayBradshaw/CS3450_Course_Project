@@ -89,7 +89,21 @@ public class MainScreen {
 	 */
 	private ArrayList<Product> productList= new ArrayList();
 	
+	/**
+	 * will be used to create a new checkout screen
+	 */
 	private CheckoutScreen checkoutscreen;
+	
+	/**
+	 * object for the inventory screen
+	 */
+	private InventoryScreen inventoryscreen;
+	
+	/**
+	 * static boolean for the entire class that will tell whether or not the database has already been 
+	 * accessed. No need to reaccess the database if we have already accessed it.
+	 */
+	private static boolean accessed = false;
 
 	/**
 	 * default constructor
@@ -100,7 +114,10 @@ public class MainScreen {
 		pane = frame.getContentPane();
 		pane.setLayout(new BorderLayout());
 		
+		if (!accessed){
 		createProductList();
+		}
+		accessed = true;
 		
 		//make the header look pretty
 		storeHeader.setIconTextGap(25);
@@ -129,7 +146,7 @@ public class MainScreen {
 						frame.dispose(); //closes the frame
 						//create a new frame here for the checkout screen
 						System.out.println("Creating checkout page");
-						checkoutscreen = new CheckoutScreen();
+						checkoutscreen = new CheckoutScreen(productList);
 					}
 					
 				});
@@ -152,7 +169,7 @@ public class MainScreen {
 						//frame.dispose(); //close the frame
 						//create a new frame here for the manage inventory screen
 						System.out.println("Creating new page for Managing Inventory");
-						InventoryScreen i = new InventoryScreen();
+						inventoryscreen = new InventoryScreen();
 					}
 					
 				});
