@@ -129,8 +129,6 @@ public class MainScreen {
 			customerListNoDatabase();
 			orderListNoDatabase();
 			//createProductList();
-			//createCustomerList();
-			//createOrderList();
 		}
 		accessed = true;
 		
@@ -195,6 +193,12 @@ public class MainScreen {
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);
+		
+		//check to see if product list initialized correctly
+		for (Product p : productList){
+			System.out.println(p.getName() + " " + p.getBarcodeNumber());
+		}
+
 
 		pane.add(storeHeader, BorderLayout.PAGE_START);
 		pane.add(checkout, BorderLayout.CENTER);
@@ -331,100 +335,12 @@ public class MainScreen {
 		}
 	}
 	
-	/**
-	 * create a list of orders from the database
-	 */
 	public void createOrderList(){
-		Connection con = null;
-		PreparedStatement statement = null;
-		ResultSet result = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//deal with product list
-		
-		try {
-			statement = con.prepareStatement("select * from orders");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			result = statement.executeQuery();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			while(result.next()){
-				orderList.add(new Order(result.getInt(1),result.getInt(2),result.getString(3),result.getDouble(4),result.getString(5)));
-				System.out.println(result.getInt(1)+ " " + result.getInt(2) + " " + result.getString(3) + " " + result.getDouble(4) + " " + result.getString(5));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
-	/**
-	 * create a list of orders from the database
-	 */
-	public void createCustomerList(){
-		Connection con = null;
-		PreparedStatement statement = null;
-		ResultSet result = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//deal with product list
-		
-		try {
-			statement = con.prepareStatement("select * from customers");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			result = statement.executeQuery();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			while(result.next()){
-				customerList.add(new Customer(result.getInt(1),result.getString(2),result.getString(3)));
-				System.out.println(result.getInt(1)+ " " + result.getString(2) + " " + result.getString(3));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+	
+	//deal with orders
 	
 	public void prodListNoDatabase(){
 		productList.add(new Product("Apple", 56, 0.99,1568494530, "568 S 400 W Atlanta, Georgia 48934 895-594-8745","Johnny Appleseed"));

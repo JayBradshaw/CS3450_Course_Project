@@ -129,8 +129,6 @@ public class MainScreen {
 			customerListNoDatabase();
 			orderListNoDatabase();
 			//createProductList();
-			//createCustomerList();
-			//createOrderList();
 		}
 		accessed = true;
 		
@@ -195,6 +193,12 @@ public class MainScreen {
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);
+		
+		//check to see if product list initialized correctly
+		for (Product p : productList){
+			System.out.println(p.getName() + " " + p.getBarcodeNumber());
+		}
+
 
 		pane.add(storeHeader, BorderLayout.PAGE_START);
 		pane.add(checkout, BorderLayout.CENTER);

@@ -125,12 +125,12 @@ public class MainScreen {
 		pane.setLayout(new BorderLayout());
 		
 		if (!accessed){
-			prodListNoDatabase();
-			customerListNoDatabase();
-			orderListNoDatabase();
-			//createProductList();
-			//createCustomerList();
-			//createOrderList();
+			//prodListNoDatabase();
+			//customerListNoDatabase();
+			//orderListNoDatabase();
+			createProductList();
+			createCustomerList();
+			createOrderList();
 		}
 		accessed = true;
 		
