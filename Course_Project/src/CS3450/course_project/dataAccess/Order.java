@@ -27,7 +27,7 @@ public class Order {
 	/**
 	 * information for the customer that is tied to a specific order
 	 */
-	private Customer customer;
+	private int customerID;
 	/**
 	 * payment type: card, cash, check
 	 */
@@ -44,15 +44,47 @@ public class Order {
 	 * stores the credit card information of an order if necessary
 	 */
 	private CreditCard creditCard; //will be used for credit card info if a credit card is the payment type
+	/**
+	 * list of items bought
+	 */
 	private ArrayList<OrderHelper> list;
-	
+	/**
+	 * Each order has a customer
+	 */
+	private Customer customer;
+	/**
+	 * default constructor
+	 */
+	/**
+	 * default constructor
+	 */
+	public Order(){
+		//empty
+	}
+	/**
+	 * @param orderID
+	 * @param customerID
+	 * @param paymentType
+	 * @param totalCost
+	 * @param deliveryMethod
+	 * 
+	 * constructor that initializes all of the important attributes
+	 */
+	public Order(int orderID, int customerID, String paymentType, double totalCost, String deliveryMethod){
+		this.orderID = orderID;
+		this.customerID =customerID;
+		this.paymentType = paymentType;
+		this.totalCost = totalCost;
+		this.deliveryMethod = deliveryMethod;
+	}
 	/**
 	 * @param list
 	 * 
 	 * order constructor that takes a list of order helper items
 	 */
-	public Order(ArrayList<OrderHelper> list){
+	public Order(ArrayList<OrderHelper> list, Customer customer){
 		this.list = list; //create a list of Order Helper Objects
+		this.customer = customer; //set the customer for an order
 	}
 	public int getOrderID() {
 		return orderID;
@@ -60,11 +92,11 @@ public class Order {
 	public void setOrderID(int orderID) {
 		this.orderID = orderID;
 	}
-	public Customer getCustomer() {
-		return customer;
+	public int getCustomerID() {
+		return customerID;
 	}
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setCustomerID(int customerID) {
+		this.customerID = customerID;
 	}
 	public String getPaymentType() {
 		return paymentType;

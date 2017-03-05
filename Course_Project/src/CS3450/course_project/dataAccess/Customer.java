@@ -17,7 +17,7 @@ public class Customer {
 	/**
 	 * stores the specific ID of each customer
 	 */
-	private int CustomerID;
+	private int customerID;
 	/**
 	 * name of the customer
 	 */
@@ -26,13 +26,29 @@ public class Customer {
 	 * stores the customer's address
 	 */
 	private String address;
-	//figure out something with orders. Do we care if the customer is linked to 
-	//a specific set of orders? Is it really necessary
+	/**
+	 * default constructor
+	 */
+	public Customer(){
+		//empty
+	}
+	/**
+	 * @param customerID
+	 * @param name
+	 * @param address
+	 * 
+	 * non-default constructor
+	 */
+	public Customer(int customerID, String name, String address){
+		this.customerID = customerID;
+		this.name = name;
+		this.address = address;
+	}
 	public int getCustomerID() {
-		return CustomerID;
+		return customerID;
 	}
 	public void setCustomerID(int customerID) {
-		CustomerID = customerID;
+		customerID = customerID;
 	}
 	public String getName() {
 		return name;
