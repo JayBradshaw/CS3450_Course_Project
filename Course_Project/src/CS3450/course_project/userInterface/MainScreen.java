@@ -166,7 +166,7 @@ public class MainScreen {
 					public void actionPerformed(ActionEvent e) {
 						//deal with the new screen that should appear
 						System.out.println("Inventory Button Pressed!!!!");
-						//frame.dispose(); //close the frame
+						frame.dispose(); //close the frame
 						//create a new frame here for the manage inventory screen
 						System.out.println("Creating new page for Managing Inventory");
 						inventoryscreen = new InventoryScreen();

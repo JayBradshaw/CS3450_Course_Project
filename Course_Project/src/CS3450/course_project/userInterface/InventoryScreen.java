@@ -77,6 +77,10 @@ public class InventoryScreen {
 	private Font buttonFont = new Font("Verdana", Font.PLAIN, 16);
 	
 	/**
+	 * JBradshaw: Allow ability to return to the main screen
+	 */
+	private MainScreen screen;
+	/**
 	 * default constructor
 	 */
 	public InventoryScreen(){
@@ -200,6 +204,7 @@ public class InventoryScreen {
   						//close inventory window 
   						System.out.println("Return to main screen...");
   						frame.dispose();
+  						screen = new MainScreen();
   					}
   		});
   	    
