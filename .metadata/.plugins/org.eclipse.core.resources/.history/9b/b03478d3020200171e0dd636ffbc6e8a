@@ -31,6 +31,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 /**
  * @author Justin Bradshaw
  * CS 3450 Course Project 
@@ -160,7 +161,7 @@ public class MainScreen {
 						frame.dispose(); //closes the frame
 						//create a new frame here for the checkout screen
 						System.out.println("Creating checkout page");
-						checkoutscreen = new CheckoutScreen(productList,customerList);
+						checkoutscreen = new CheckoutScreen(productList);
 					}
 					
 				});
@@ -203,16 +204,11 @@ public class MainScreen {
 		frame.setVisible(true);
 	}
 	
-	
 	/**
-	 * @param productList
-	 * @param customerList
-	 * 
-	 * non-default constructor
+	 * default constructor
 	 */
-	public MainScreen(ArrayList<Product> productList, ArrayList<Customer> customerList){
+	public MainScreen(ArrayList<Product> productList){
 		this.productList = productList;
-		this.customerList = customerList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -245,7 +241,7 @@ public class MainScreen {
 						frame.dispose(); //closes the frame
 						//create a new frame here for the checkout screen
 						System.out.println("Creating checkout page");
-						checkoutscreen = new CheckoutScreen(productList,customerList);
+						checkoutscreen = new CheckoutScreen(productList);
 					}
 					
 				});

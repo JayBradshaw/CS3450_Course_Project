@@ -1,6 +1,3 @@
-/**
- * 
- */
 package CS3450.course_project.userInterface;
 
 import java.awt.Color;
@@ -13,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,10 +21,9 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
-import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Product;
 
-public class RemoveProductScreen {
+public class AddProductScreen {
 	/**
 	 * frame where the system will be produced
 	 */
@@ -50,7 +47,7 @@ public class RemoveProductScreen {
 	/**
 	 * button for adding an item
 	 */
-	private JButton removeItem = new JButton("Remove Item");
+	private JButton addItem = new JButton("Add Item");
 	/**
 	 * button for canceling an item
 	 */
@@ -77,7 +74,6 @@ public class RemoveProductScreen {
 	 * JBradshaw: Array list to store the products
 	 */
 	private ArrayList<Product> productList;
-	private ArrayList<Customer> customerList;
 	
 	/**
 	 * spinner object for getting quantity of product 
@@ -97,9 +93,8 @@ public class RemoveProductScreen {
 	private CheckoutScreen checkoutscreen;
 
 	
-	public RemoveProductScreen(ArrayList<Product> productList, ArrayList<Customer> customerList){
+	public AddProductScreen(ArrayList<Product> productList){
 		this.productList = productList;
-		this.customerList = customerList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -197,17 +192,17 @@ public class RemoveProductScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						checkoutscreen = new CheckoutScreen(productList,customerList);
+						checkoutscreen = new CheckoutScreen(productList);
 					}
 					
 		});
 	    
 	    
 	    //add the selected item and quantity
-	    removeItem.setBackground(baseColor);
-	    removeItem.setForeground(secondaryColor);
-	    removeItem.setFont(buttonFont);
-	    removeItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+	    addItem.setBackground(baseColor);
+	    addItem.setForeground(secondaryColor);
+	    addItem.setFont(buttonFont);
+	    addItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
 		
 		GridBagConstraints a = new GridBagConstraints();
 		a.weightx = .16;
@@ -218,20 +213,20 @@ public class RemoveProductScreen {
 	    a.fill = GridBagConstraints.BOTH;
 	    
 	    //returns to previous checkout screen.
-	    removeItem.addActionListener(
+	    addItem.addActionListener(
 				new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						//cancel order 
-						System.out.println("Remove Item Button Pressed!!!!");
-						System.out.println("removing " + spinner.getValue() + " " + temporary.getName());
+						System.out.println("Add Item Button Pressed!!!!");
+						System.out.println("adding " + spinner.getValue() + " " + temporary.getName());
 						//JBradshaw right here is where we will update the orderHelper list to 
 						//include the new product
 						System.out.println(temporary.getPrice());
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						checkoutscreen = new CheckoutScreen(productList,customerList);
+						checkoutscreen = new CheckoutScreen(productList);
 					}
 					
 		});
@@ -253,7 +248,7 @@ public class RemoveProductScreen {
 		
 		//add components to container
 		pane.add(storeHeader, h);
-		pane.add(removeItem, a);
+		pane.add(addItem, a);
 		pane.add(dropDownMenu, r);
 		pane.add(spinner, f);
 		pane.add(checkoutScreen, m);
@@ -264,4 +259,3 @@ public class RemoveProductScreen {
 	
 	
 }
-

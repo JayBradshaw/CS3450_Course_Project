@@ -21,6 +21,7 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
+import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Product;
 
 public class AddProductScreen {
@@ -74,6 +75,7 @@ public class AddProductScreen {
 	 * JBradshaw: Array list to store the products
 	 */
 	private ArrayList<Product> productList;
+	private ArrayList<Customer> customerList;
 	
 	/**
 	 * spinner object for getting quantity of product 
@@ -93,8 +95,9 @@ public class AddProductScreen {
 	private CheckoutScreen checkoutscreen;
 
 	
-	public AddProductScreen(ArrayList<Product> productList){
+	public AddProductScreen(ArrayList<Product> productList, ArrayList<Customer> customerList){
 		this.productList = productList;
+		this.customerList = customerList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -192,7 +195,7 @@ public class AddProductScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						checkoutscreen = new CheckoutScreen(productList);
+						checkoutscreen = new CheckoutScreen(productList, customerList);
 					}
 					
 		});
@@ -226,7 +229,7 @@ public class AddProductScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						checkoutscreen = new CheckoutScreen(productList);
+						checkoutscreen = new CheckoutScreen(productList,customerList);
 					}
 					
 		});

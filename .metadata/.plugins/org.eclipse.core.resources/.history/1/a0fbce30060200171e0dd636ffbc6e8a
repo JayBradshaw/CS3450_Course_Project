@@ -212,7 +212,6 @@ public class MainScreen {
 	 */
 	public MainScreen(ArrayList<Product> productList, ArrayList<Customer> customerList){
 		this.productList = productList;
-		this.customerList = customerList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();

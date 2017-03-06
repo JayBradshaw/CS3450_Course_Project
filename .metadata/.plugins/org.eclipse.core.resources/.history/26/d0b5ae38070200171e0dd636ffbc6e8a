@@ -192,7 +192,7 @@ public class CheckoutScreen {
 						//removes item from checkout list
 						System.out.println("Removing item to checkout list page");
 						frame.dispose();
-						removeProductScreen = new RemoveProductScreen(productList,customerList);
+						removeProductScreen = new RemoveProductScreen(productList);
 					}
 					
 		});
@@ -279,19 +279,8 @@ public class CheckoutScreen {
 		frame.setVisible(true);
 	}
 	
-	/**
-	 * @param ID
-	 * @return
-	 * 
-	 * gets a specific customer based on a customer ID
-	 */
 	public Customer getCustomerFromID(int ID){
-		for (int i =0; i < customerList.size(); ++i){
-			if (customerList.get(i).getCustomerID() == ID){
-				return customerList.get(i);
-			}
-		}
-		return null;
+		for (int i =0; i < )
 	}
 
 }
