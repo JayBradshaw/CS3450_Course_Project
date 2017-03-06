@@ -196,7 +196,7 @@ public class CheckoutScreen {
 						//removes item from checkout list
 						System.out.println("Removing item to checkout list page");
 						frame.dispose();
-						removeProductScreen = new RemoveProductScreen(productList,customerList, orderHelperList);
+						removeProductScreen = new RemoveProductScreen(productList,customerList);
 					}
 					
 		});
@@ -365,7 +365,7 @@ public class CheckoutScreen {
 						//removes item from checkout list
 						System.out.println("Removing item to checkout list page");
 						frame.dispose();
-						removeProductScreen = new RemoveProductScreen(productList,customerList, orderHelperList);
+						removeProductScreen = new RemoveProductScreen(productList,customerList);
 					}
 					
 		});

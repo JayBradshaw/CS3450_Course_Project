@@ -165,7 +165,7 @@ public class CheckoutScreen {
 						//creates pop up button to input item barcode
 						System.out.println("Add Item Button Pressed!!!!");
 						frame.dispose();
-						AddProductScreen = new AddProductScreen(productList, customerList, orderHelperList);
+						AddProductScreen = new AddProductScreen(productList, customerList);
 						//adds item to checkout list
 						System.out.println("Adding item to checkout list page");
 					}
@@ -196,7 +196,7 @@ public class CheckoutScreen {
 						//removes item from checkout list
 						System.out.println("Removing item to checkout list page");
 						frame.dispose();
-						removeProductScreen = new RemoveProductScreen(productList,customerList, orderHelperList);
+						removeProductScreen = new RemoveProductScreen(productList,customerList);
 					}
 					
 		});
@@ -334,7 +334,7 @@ public class CheckoutScreen {
 						//creates pop up button to input item barcode
 						System.out.println("Add Item Button Pressed!!!!");
 						frame.dispose();
-						AddProductScreen = new AddProductScreen(productList, customerList, orderHelperList);
+						AddProductScreen = new AddProductScreen(productList, customerList);
 						//adds item to checkout list
 						System.out.println("Adding item to checkout list page");
 					}
@@ -365,7 +365,7 @@ public class CheckoutScreen {
 						//removes item from checkout list
 						System.out.println("Removing item to checkout list page");
 						frame.dispose();
-						removeProductScreen = new RemoveProductScreen(productList,customerList, orderHelperList);
+						removeProductScreen = new RemoveProductScreen(productList,customerList);
 					}
 					
 		});
@@ -389,9 +389,6 @@ public class CheckoutScreen {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						//display payment screen 
-						if (orderHelperList.size() == 0){
-							JOptionPane.showMessageDialog(null, "Error! No order to process!");
-						}
 						System.out.println("Finish and Pay Button Pressed!!!!");
 						//print receipt
 						System.out.println("Printing Receipt");
