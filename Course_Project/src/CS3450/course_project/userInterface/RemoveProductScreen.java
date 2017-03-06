@@ -237,6 +237,7 @@ public class RemoveProductScreen {
 						//JBradshaw right here is where we will update the orderHelper list to 
 						//include the new product
 						System.out.println(temporary.getPrice());
+						
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();

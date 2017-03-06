@@ -264,12 +264,7 @@ public class AddProductScreen {
 							checkoutscreen = new CheckoutScreen(productList,customerList,orderHelperList);
 						}
 						else if (!invalidEntry){
-							if ((int) spinner.getValue() == 0){
-								JOptionPane.showMessageDialog(null, "No reason to add 0 items!");
-							}
-							else {
 							JOptionPane.showMessageDialog(null, "Error! Cannot add negative values");
-							}
 						}
 					}
 					

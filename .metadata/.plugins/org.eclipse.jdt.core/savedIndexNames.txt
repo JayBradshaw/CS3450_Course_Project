@@ -15,7 +15,6 @@ INDEX VERSION 1.127+C:\Users\justin\Documents\Justin\Utah State\CS 3450\CS3450_C
 339541322.index
 3660875416.index
 3845719238.index
-1195759217.index
 2806052160.index
 3358167540.index
 2575123618.index
