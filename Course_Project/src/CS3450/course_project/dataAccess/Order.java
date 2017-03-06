@@ -126,11 +126,7 @@ public class Order {
 	public void setDeliveryMethod(String deliveryMethod) {
 		this.deliveryMethod = deliveryMethod;
 	}
-	public void setCardInfo(long cardNumber, String expirationDate, String name){
-		creditCard.setCardNumber(cardNumber);
-		creditCard.setExpirationDate(expirationDate);
-		creditCard.setName(name);
-	}
+
 	/**
 	 * @param fileName 
 	 * 

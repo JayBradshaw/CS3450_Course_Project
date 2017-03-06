@@ -3,14 +3,22 @@ Thank you for choosing Mr. Smith's Groceries!
 Here is your final receipt
 
 
+Customer Info:
 
-Date: 2017/03/05 22:54:13
+Mason Jones
+584 Center St. San Francisco, CA 65860
+
+Card Info: 
+Card Holder: Jacob Bowers
+Card Number: 2193905
+Expiration Date: 5/59
+
+Date: 2017/03/05 23:51:53
+
+Product:                            Cost: Quantity:
+
+Potatoes                         0.690000          6
 
 
-Product:                            Cost:  Quantity:
-Banana                           0.580000          5
-Coca-Cola                        0.750000          5
-
-
-Total Cost: 6.65
-Payment Method: Cash
+Total Cost: 4.14
+Payment Method: Card

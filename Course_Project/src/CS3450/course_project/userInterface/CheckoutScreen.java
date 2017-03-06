@@ -32,6 +32,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import CS3450.course_project.businessLogic.CreditCard;
 import CS3450.course_project.businessLogic.OrderHelper;
 import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Order;
@@ -151,6 +152,22 @@ public class CheckoutScreen {
 	 * check radio button
 	 */
 	private JRadioButton check;
+	
+	/**
+	 * tells you whether or not the user is a new customer
+	 * if a new customer, they must be added to the customer list
+	 */
+	private boolean isNewCustomer = false;
+	/**
+	 * radio button for existing customer
+	 */
+	private JRadioButton existing;
+	/**
+	 * radio button for new customer
+	 */
+	private JRadioButton newCustomer;
+	
+	private CreditCard creditCard;
 	
 	/**
 	 * @param productList
@@ -440,33 +457,83 @@ public class CheckoutScreen {
 						else{ //print out the receipt based on the orderHelperList
 							getPaymentMethod();
 							if (cashSelected){
+								int custID;
+								getCustomerType();
+								if (isNewCustomer){
+									custID = customerList.get(customerList.size()-1).getCustomerID() + 1;
+									String custName = JOptionPane.showInputDialog("Enter your full name");
+									String custAddress = JOptionPane.showInputDialog("Enter your address");
+									customerList.add(new Customer(custID,custName,custAddress));
+									//create new customer from this info
+								}
+								else {
+									while (!checkValidCustID(custID = Integer.parseInt(JOptionPane.showInputDialog("Enter your customer ID")))){
+										JOptionPane.showMessageDialog(null, "Please enter a valid customer ID");
+									}
+						
+								}
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
 										+ "Please come again soon!");
 								//deal with adding a new order based on the order info 
 								//if cash just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
-								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,orderList.get(orderListIndex).getCustomerID()+ 1, "cash", getTotalOrderCost(),"Pick up" ));
-								printReceipt("cash");
+								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "cash", getTotalOrderCost(),"Pick up" ));
+								printReceipt("cash",custID,false);
 								orderHelperList.clear();
 							}
 							else if (cardSelected){
+								int custID;
+								getCustomerType();
+								if (isNewCustomer){
+									custID = customerList.get(customerList.size()-1).getCustomerID() + 1;
+									String custName = JOptionPane.showInputDialog("Enter your full name");
+									String custAddress = JOptionPane.showInputDialog("Enter your address");
+									customerList.add(new Customer(custID,custName,custAddress));
+								}
+								else {
+									while (!checkValidCustID(custID = Integer.parseInt(JOptionPane.showInputDialog("Enter your customer ID")))){
+										JOptionPane.showMessageDialog(null, "Please enter a valid customer ID");
+									}
+								}
+								//get card info
+								String cardName = JOptionPane.showInputDialog("Enter your name as it appears on the card");
+								int cardNumber =  Integer.parseInt(JOptionPane.showInputDialog("Enter your card number"));
+								String expirationDate = JOptionPane.showInputDialog("Enter the expiration date(m/yy)");
+								creditCard = new CreditCard(cardNumber,expirationDate,cardName);
+								
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
 										+ "Please come again soon!");
+								int orderListIndex = orderList.size()-1;
+								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "cash", getTotalOrderCost(),"Pick up" ));
+								printReceipt("card",custID,cardSelected);
 								orderHelperList.clear();
-								//deal with getting card info
-								//deal with adding a new order based on the order info
 							}
 							else if (checkSelected){
+								int custID;
+								getCustomerType();
+								if (isNewCustomer){
+									custID = customerList.get(customerList.size()-1).getCustomerID() + 1;
+									String custName = JOptionPane.showInputDialog("Enter your full name");
+									String custAddress = JOptionPane.showInputDialog("Enter your address");
+									customerList.add(new Customer(custID,custName,custAddress));
+									//create new customer from this info
+								}
+								else {
+									while (!checkValidCustID(custID = Integer.parseInt(JOptionPane.showInputDialog("Enter your customer ID")))){
+										JOptionPane.showMessageDialog(null, "Please enter a valid customer ID");
+									}
+								}
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
 										+ "Please come again soon!");
-								orderHelperList.clear();
 								//deal with adding a new order based on the order info
 								//if check just add to order list and print receipt
+								int orderListIndex = orderList.size()-1;
+								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "cash", getTotalOrderCost(),"Pick up" ));
+								printReceipt("check",custID,false);
+								orderHelperList.clear();
 							}
-							
 						}
-					}
-					
+					}	
 		});
 
 		//make back to mainscreen button look pretty
@@ -567,6 +634,26 @@ public class CheckoutScreen {
 		JOptionPane.showConfirmDialog(null, selectionPanel, "Payment Method", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 	}
 	
+	public void getCustomerType() {
+		BoxListener boxLis = new BoxListener();
+		
+		existing = new JRadioButton("Existing Customer",true);
+		existing.addItemListener(boxLis);
+		newCustomer = new JRadioButton("New Customer");
+		newCustomer.addItemListener(boxLis);
+		
+		ButtonGroup paymentMethods = new ButtonGroup();
+		paymentMethods.add(existing);
+		paymentMethods.add(newCustomer);
+		
+		JPanel selectionPanel = new JPanel();
+		selectionPanel.add(existing);
+		selectionPanel.add(newCustomer);
+		selectionPanel.setLayout(new BoxLayout(selectionPanel, BoxLayout.Y_AXIS));
+		
+		JOptionPane.showConfirmDialog(null, selectionPanel, "Customer Type", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+	}
+	
 	/**
 	 * @author Justin Bradshaw
 	 * 
@@ -599,13 +686,19 @@ public class CheckoutScreen {
 						checkSelected=false;
 						cardSelected=true;
 					}
+					else if (tempRadio == existing){
+						isNewCustomer = false;
+					}
+					else if (tempRadio == newCustomer){
+						isNewCustomer = true;
+					}
 				}
 			}
 			
 		}
 	}
 	
-	public void printReceipt(String paymentMethod){
+	public void printReceipt(String paymentMethod, int custID, boolean card){
 		PrintWriter fileOutput = null;
 		int size = orderList.size()-1;
 		String fileName = "data/order(" + size + ").txt"; //string to store the order 
@@ -615,12 +708,21 @@ public class CheckoutScreen {
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
-
+		Customer customer = getCustomerFromID(custID);
 		fileOutput.println("Thank you for choosing Mr. Smith's Groceries!\n");
-		fileOutput.println("Here is your final receipt\n\n\n");
+		fileOutput.println("Here is your final receipt\n\n");
+		fileOutput.println("Customer Info:\n");
+		fileOutput.println(customer.getName());
+		fileOutput.println(customer.getAddress() + "\n");
+		if (card){
+			fileOutput.println("Card Info: ");
+			fileOutput.println("Card Holder: " + creditCard.getName());
+			fileOutput.println("Card Number: " + creditCard.getCardNumber());
+			fileOutput.println("Expiration Date: " + creditCard.getExpirationDate() + "\n");
+		}
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
-		fileOutput.println("Date: " + dateFormat.format(date) + "\n\n");
+		fileOutput.println("Date: " + dateFormat.format(date) + "\n");
 		fileOutput.println(String.format("%-30s %10s %10s", "Product:" , "Cost:", "Quantity:\n"));
 		for(OrderHelper item : this.orderHelperList){
 			fileOutput.println(String.format("%-30s %10f %10s", item.getProductName(), item.getProductPrice(), Integer.toString(item.getQuantity())));
@@ -643,6 +745,13 @@ public class CheckoutScreen {
 		if (cashSelected) return "Cash";
 		else if (cardSelected) return "Card";
 		else return "Check";		
+	}
+	
+	public boolean checkValidCustID(int id){
+		if (id >=0 && id < customerList.size()){
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -27,7 +27,7 @@ public class ManageProductScreen {
 	/**
 	 * frame where the system will be produced
 	 */
-	private JFrame frame = new JFrame("Grocery Store Checkout System: Add Product");
+	private JFrame frame = new JFrame("Grocery Store Checkout System: Manage Products");
 	/**
 	 * pane to be contained in the frame
 	 */
