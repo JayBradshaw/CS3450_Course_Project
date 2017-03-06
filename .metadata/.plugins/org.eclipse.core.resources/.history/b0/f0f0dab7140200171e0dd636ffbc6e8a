@@ -21,9 +21,6 @@ public class OrderHelper {
 	private double productPrice;
 	private int quantity;
 	
-	/**
-	 * default constructor
-	 */
 	public OrderHelper(){
 		//empty
 	}

@@ -268,7 +268,7 @@ public class RemoveProductScreen {
 						}
 						//check to make sure we aren't removing more than we have
 						if (tempHelper.getQuantity() < (int)spinner.getValue()){
-							JOptionPane.showMessageDialog(null, "Error! Cannot remove a quantity greater than\n what is a part of the current order!");
+							JOptionPane.showMessageDialog(null, "Error! Cannot remove a quantity greater than what\nis a part of the current order!");
 							return;
 						} 
 						

@@ -21,19 +21,6 @@ public class OrderHelper {
 	private double productPrice;
 	private int quantity;
 	
-	/**
-	 * default constructor
-	 */
-	public OrderHelper(){
-		//empty
-	}
-	/**
-	 * @param productName
-	 * @param productPrice
-	 * @param quantity
-	 * 
-	 * constructor
-	 */
 	public OrderHelper(String productName, double productPrice, int quantity){
 		this.productName = productName;
 		this.productPrice = productPrice;

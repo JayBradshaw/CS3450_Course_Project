@@ -238,47 +238,24 @@ public class RemoveProductScreen {
 						//JBradshaw right here is where we will update the orderHelper list to 
 						//include the new product
 						System.out.println(temporary.getPrice());
-						int orderHelperIndex = 0;
-						
+						int productIndex = 0;
+						boolean invalidEntry = false;
 						//make sure that the item you want to remove is a part of the current order
 						if (!isInOrderList(temporary.getName())){
 							JOptionPane.showMessageDialog(null, "Error! Item is not a part of the current order!");
 							return;
 						}
-						
-						//make sure that they aren't trying to remove a negative value
-						if ((int)spinner.getValue() < 0){
-							JOptionPane.showMessageDialog(null, "Error! Cannot remove a negative number of items!");
-							return;
-						}
-						
-						//make sure we aren't removing 0 items
-						if ((int)spinner.getValue() == 0){
-							JOptionPane.showMessageDialog(null, "Error! Cannot remove 0 items!");
-							return;
-						}
-						
 						//create temp OrderHelper so that we can use it later
-						OrderHelper tempHelper = null;
+						OrderHelper tempHelper;
 						for (int i = 0; i < orderHelperList.size(); ++i){
-							if (orderHelperList.get(i).getProductName() == temporary.getName()){
-								orderHelperIndex = i;
-								tempHelper = orderHelperList.get(i);
-							}
+							if (orderHelperList.get(i).getProductName() == temporary.getName()) tempHelper = orderHelperList.get(i);
 						}
-						//check to make sure we aren't removing more than we have
-						if (tempHelper.getQuantity() < (int)spinner.getValue()){
-							JOptionPane.showMessageDialog(null, "Error! Cannot remove a quantity greater than\n what is a part of the current order!");
-							return;
-						} 
 						
-						//ok now that we have made the checks we can remove the quantity from the orderList
-						orderHelperList.get(orderHelperIndex).setQuantity(orderHelperList.get(orderHelperIndex).getQuantity()-(int)spinner.getValue());
-						
+						//make sure you aren't trying to remove more items than are part of the entry
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						checkoutscreen = new CheckoutScreen(productList,customerList,orderHelperList);
+						checkoutscreen = new CheckoutScreen(productList,customerList);
 					}
 					
 		});
