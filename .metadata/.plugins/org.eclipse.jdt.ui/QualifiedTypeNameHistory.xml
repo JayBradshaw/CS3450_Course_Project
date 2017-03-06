@@ -2,4 +2,8 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="CS3450.course_project.dataAccess.Product"/>
+<fullyQualifiedTypeName name="CS3450.course_project.dataAccess.Order"/>
+<fullyQualifiedTypeName name="CS3450.course_project.dataAccess.Customer"/>
+<fullyQualifiedTypeName name="CS3450.course_project.businessLogic.OrderHelper"/>
+<fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
 </qualifiedTypeNameHistroy>
