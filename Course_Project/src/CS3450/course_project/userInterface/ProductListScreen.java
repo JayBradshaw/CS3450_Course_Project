@@ -72,7 +72,7 @@ public class ProductListScreen {
 	 */
 	private JButton returnBtn = new JButton("Return");
 	
-	public ProductListScreen(ArrayList productList, ArrayList<Customer> customerList){
+	public ProductListScreen(ArrayList<Product> productList, ArrayList<Customer> customerList){
 		this.productList = productList;
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
