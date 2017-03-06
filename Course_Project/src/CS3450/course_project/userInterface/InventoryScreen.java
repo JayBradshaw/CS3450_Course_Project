@@ -85,6 +85,8 @@ public class InventoryScreen {
 	 */
 	private MainScreen screen;
 	
+	private ProductListScreen prodListScreen;
+	
 	/**
 	 * array list to store all of the products
 	 */
@@ -189,6 +191,8 @@ public class InventoryScreen {
   					public void actionPerformed(ActionEvent e) {
   						//opens window to view current inventory
   						System.out.println("Show Availability Button Pressed!!!!");
+  						frame.dispose();
+  						prodListScreen = new ProductListScreen(productList, customerList);
   						System.out.println("Creating new window to show availability of products");
   					}
   		});
