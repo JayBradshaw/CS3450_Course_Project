@@ -85,6 +85,7 @@ public class InventoryScreen {
 	 */
 	private MainScreen screen;
 	
+	private AddInventoryScreen addInvScreen;
 	private ProductListScreen prodListScreen;
 	
 	/**
@@ -142,6 +143,8 @@ public class InventoryScreen {
 						//creates pop up button to input product info
 						System.out.println("Add Product Button Pressed!!!!");
 						//adds product and info to database
+						frame.dispose();
+						addInvScreen = new AddInventoryScreen(productList, customerList);
 						System.out.println("Adding product to inventory");
 					}
 		});
