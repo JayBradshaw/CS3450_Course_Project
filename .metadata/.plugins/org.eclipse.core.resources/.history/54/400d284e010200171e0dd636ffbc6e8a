@@ -20,7 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-import CS3450.course_project.businessLogic.OrderHelper;
 import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
@@ -90,7 +89,7 @@ public class MainScreen {
 	/**
 	 * array list to store the products from the database
 	 */
-	private ArrayList<Product> productList= new ArrayList<Product>();
+	private ArrayList<Product> productList= new ArrayList();
 	
 	/**
 	 * will be used to create a new checkout screen
@@ -104,12 +103,11 @@ public class MainScreen {
 	/**
 	 * array list to store the orders already placed from the database
 	 */
-	private ArrayList<Order> orderList = new ArrayList<Order>();
+	private ArrayList<Order> orderList = new ArrayList();
 	/**
 	 * array list to store the customers already in the database
 	 */
-	private ArrayList<Customer> customerList = new ArrayList<Customer>();
-	private ArrayList<OrderHelper> orderHelperList = new ArrayList<OrderHelper>();
+	private ArrayList<Customer> customerList = new ArrayList();
 	
 	/**
 	 * static boolean for the entire class that will tell whether or not the database has already been 

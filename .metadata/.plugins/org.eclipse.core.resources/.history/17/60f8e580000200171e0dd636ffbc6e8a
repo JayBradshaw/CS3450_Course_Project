@@ -95,10 +95,6 @@ public class CheckoutScreen {
 	 * move to add product screen
 	 */
 	private AddProductScreen AddProductScreen;
-	/**
-	 * move to remove product screen
-	 */
-	private RemoveProductScreen removeProductScreen;
 	
 	/**
 	 * @param productList
@@ -183,8 +179,6 @@ public class CheckoutScreen {
 						System.out.println("Remove Item Button Pressed!!!!");
 						//removes item from checkout list
 						System.out.println("Removing item to checkout list page");
-						frame.dispose();
-						removeProductScreen = new RemoveProductScreen(productList);
 					}
 					
 		});

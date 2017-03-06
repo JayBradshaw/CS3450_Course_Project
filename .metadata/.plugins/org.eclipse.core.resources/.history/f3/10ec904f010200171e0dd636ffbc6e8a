@@ -183,8 +183,6 @@ public class CheckoutScreen {
 						System.out.println("Remove Item Button Pressed!!!!");
 						//removes item from checkout list
 						System.out.println("Removing item to checkout list page");
-						frame.dispose();
-						removeProductScreen = new RemoveProductScreen(productList);
 					}
 					
 		});
