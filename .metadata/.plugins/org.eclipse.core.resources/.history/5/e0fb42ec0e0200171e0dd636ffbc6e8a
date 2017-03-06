@@ -232,18 +232,16 @@ public class AddProductScreen {
 						System.out.println(temporary.getPrice());
 						int productIndex = 0; //stores the index of the product
 						//make sure we are entering valid values
-						boolean invalidEntry = false;
 						for (int i = 0; i < productList.size(); ++i){
 							if (productList.get(i).getName() == temporary.getName()){
 								productIndex = i;
 								if ((int)spinner.getValue() > productList.get(i).getAvailableUnits()){
 									//print out an error message
-									invalidEntry = true;
 									JOptionPane.showMessageDialog(null, "Error! Quantity to add is greater than inventory!");
 								}
 							}
 						}
-						if ((int)spinner.getValue() > 0 && !invalidEntry){
+						if ((int)spinner.getValue() > 0 ){
 							if (contains(temporary.getName())){ //if the item is already in the list, just increment the quantity
 								for (int i = 0; i < orderHelperList.size(); ++i){
 									//if the correct object increment the quantity
@@ -263,7 +261,7 @@ public class AddProductScreen {
 							frame.dispose();
 							checkoutscreen = new CheckoutScreen(productList,customerList,orderHelperList);
 						}
-						else if (!invalidEntry){
+						else {
 							JOptionPane.showMessageDialog(null, "Error! Cannot add negative values");
 						}
 					}

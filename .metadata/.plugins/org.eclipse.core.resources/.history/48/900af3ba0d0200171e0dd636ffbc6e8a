@@ -232,38 +232,34 @@ public class AddProductScreen {
 						System.out.println(temporary.getPrice());
 						int productIndex = 0; //stores the index of the product
 						//make sure we are entering valid values
-						boolean invalidEntry = false;
 						for (int i = 0; i < productList.size(); ++i){
 							if (productList.get(i).getName() == temporary.getName()){
 								productIndex = i;
 								if ((int)spinner.getValue() > productList.get(i).getAvailableUnits()){
 									//print out an error message
-									invalidEntry = true;
 									JOptionPane.showMessageDialog(null, "Error! Quantity to add is greater than inventory!");
 								}
 							}
 						}
-						if ((int)spinner.getValue() > 0 && !invalidEntry){
+						if ((int)spinner.getValue() > 0 ){
 							if (contains(temporary.getName())){ //if the item is already in the list, just increment the quantity
 								for (int i = 0; i < orderHelperList.size(); ++i){
 									//if the correct object increment the quantity
 									if (orderHelperList.get(i).getProductName() == temporary.getName()){
 										orderHelperList.get(i).setQuantity(orderHelperList.get(i).getQuantity() + (int)spinner.getValue());
-										productList.get(productIndex).setAvailableUnits(productList.get(productIndex).getAvailableUnits() - orderHelperList.get(i).getQuantity());
 									}
 								}
 							}
 							else { //create a new order helper item
 								System.out.println("Adding new item to order helper");
 								orderHelperList.add(new OrderHelper(productList.get(productIndex).getName(),productList.get(productIndex).getPrice(),(int)spinner.getValue()));
-								productList.get(productIndex).setAvailableUnits(productList.get(productIndex).getAvailableUnits() - orderHelperList.get(orderHelperList.size()-1).getQuantity());
 							}
 							System.out.println("Back to main screen...");
 							//JBradshaw: add ability to return back to the main screen
 							frame.dispose();
-							checkoutscreen = new CheckoutScreen(productList,customerList,orderHelperList);
+							checkoutscreen = new CheckoutScreen(productList,customerList);
 						}
-						else if (!invalidEntry){
+						else {
 							JOptionPane.showMessageDialog(null, "Error! Cannot add negative values");
 						}
 					}
