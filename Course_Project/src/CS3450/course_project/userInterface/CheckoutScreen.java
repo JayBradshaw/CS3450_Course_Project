@@ -6,22 +6,30 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import CS3450.course_project.businessLogic.OrderHelper;
 import CS3450.course_project.dataAccess.Customer;
+import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
 
 /**
@@ -110,6 +118,34 @@ public class CheckoutScreen {
 	 * list of customers
 	 */
 	private ArrayList<Customer> customerList = new ArrayList<Customer>();
+	/**
+	 * include the order list
+	 */
+	private ArrayList<Order> orderList = new ArrayList<Order>();
+	/**
+	 * know if cash is selected
+	 */
+	private boolean cashSelected = true;
+	/**
+	 * know if card is selected
+	 */
+	private boolean cardSelected = false;
+	/**
+	 * know if check is selected
+	 */
+	private boolean checkSelected = false;
+	/**
+	 * cash radio button
+	 */
+	private JRadioButton cash;
+	/**
+	 * card radio button
+	 */
+	private JRadioButton card;
+	/**
+	 * check radio button
+	 */
+	private JRadioButton check;
 	
 	/**
 	 * @param productList
@@ -165,7 +201,7 @@ public class CheckoutScreen {
 						//creates pop up button to input item barcode
 						System.out.println("Add Item Button Pressed!!!!");
 						frame.dispose();
-						AddProductScreen = new AddProductScreen(productList, customerList, orderHelperList);
+						AddProductScreen = new AddProductScreen(productList, customerList, orderHelperList,orderList);
 						//adds item to checkout list
 						System.out.println("Adding item to checkout list page");
 					}
@@ -196,7 +232,7 @@ public class CheckoutScreen {
 						//removes item from checkout list
 						System.out.println("Removing item to checkout list page");
 						frame.dispose();
-						removeProductScreen = new RemoveProductScreen(productList,customerList, orderHelperList);
+						removeProductScreen = new RemoveProductScreen(productList,customerList, orderHelperList,orderList);
 					}
 					
 		});
@@ -252,7 +288,7 @@ public class CheckoutScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						screen = new MainScreen(productList,customerList);
+						screen = new MainScreen(productList,customerList, orderList);
 					}
 					
 		});
@@ -284,7 +320,7 @@ public class CheckoutScreen {
 		frame.setVisible(true);
 	}
 	
-	public CheckoutScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<OrderHelper> orderHelperList){
+	public CheckoutScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<OrderHelper> orderHelperList, ArrayList<Order> orderList){
 		this.productList = productList;
 		this.customerList = customerList;
 		this.orderHelperList = orderHelperList;
@@ -334,7 +370,7 @@ public class CheckoutScreen {
 						//creates pop up button to input item barcode
 						System.out.println("Add Item Button Pressed!!!!");
 						frame.dispose();
-						AddProductScreen = new AddProductScreen(productList, customerList, orderHelperList);
+						AddProductScreen = new AddProductScreen(productList, customerList, orderHelperList, orderList);
 						//adds item to checkout list
 						System.out.println("Adding item to checkout list page");
 					}
@@ -365,7 +401,7 @@ public class CheckoutScreen {
 						//removes item from checkout list
 						System.out.println("Removing item to checkout list page");
 						frame.dispose();
-						removeProductScreen = new RemoveProductScreen(productList,customerList, orderHelperList);
+						removeProductScreen = new RemoveProductScreen(productList,customerList, orderHelperList,orderList);
 					}
 					
 		});
@@ -395,7 +431,27 @@ public class CheckoutScreen {
 						if (orderHelperList.size() == 0){
 							JOptionPane.showMessageDialog(null, "Error! No order to process!");
 						}
-						else{
+						else{ //print out the receipt based on the orderHelperList
+							getPaymentMethod();
+							if (cashSelected){
+								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
+										+ "Please come again soon!");
+								orderHelperList.clear();
+								//deal with adding a new order based on the order info
+							}
+							else if (cardSelected){
+								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
+										+ "Please come again soon!");
+								orderHelperList.clear();
+								//deal with getting card info
+								//deal with adding a new order based on the order info
+							}
+							else if (checkSelected){
+								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
+										+ "Please come again soon!");
+								orderHelperList.clear();
+								//deal with adding a new order based on the order info
+							}
 							
 						}
 					}
@@ -426,7 +482,7 @@ public class CheckoutScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						screen = new MainScreen(productList,customerList);
+						screen = new MainScreen(productList,customerList,orderList);
 					}
 					
 		});
@@ -471,6 +527,71 @@ public class CheckoutScreen {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * gets the payment method
+	 */
+	public void getPaymentMethod(){
+		BoxListener boxLis = new BoxListener();
+		
+		cash = new JRadioButton("Cash",true);
+		cash.addItemListener(boxLis);
+		check = new JRadioButton("Check");
+		check.addItemListener(boxLis);
+		card = new JRadioButton("Card");
+		card.addItemListener(boxLis);
+		
+		ButtonGroup paymentMethods = new ButtonGroup();
+		paymentMethods.add(cash);
+		paymentMethods.add(check);
+		paymentMethods.add(card);
+		
+		JPanel selectionPanel = new JPanel();
+		selectionPanel.add(cash);
+		selectionPanel.add(check);
+		selectionPanel.add(card);
+		selectionPanel.setLayout(new BoxLayout(selectionPanel, BoxLayout.Y_AXIS));
+		
+		JOptionPane.showConfirmDialog(null, selectionPanel, "Payment Method", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+	}
+	
+	/**
+	 * @author Justin Bradshaw
+	 * 
+	 * this will tell us what button is pressed
+	 *
+	 */
+	private class BoxListener implements ItemListener{
+
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+			Object tempObject = e.getSource();
+			if (tempObject instanceof JRadioButton){
+				JRadioButton tempRadio = (JRadioButton)tempObject;
+				if (tempRadio.isSelected()){
+					if (tempRadio == cash){
+						System.out.println("Cash button pressed");
+						cashSelected=true;
+						checkSelected=false;
+						cardSelected=false;
+					}
+					else if (tempRadio == check){
+						System.out.println("Check button pressed");
+						cashSelected=false;
+						checkSelected=true;
+						cardSelected=false;
+					}
+					else if (tempRadio == card){
+						System.out.println("Card button pressed");
+						cashSelected=false;
+						checkSelected=false;
+						cardSelected=true;
+					}
+				}
+			}
+			
+		}
 	}
 
 }

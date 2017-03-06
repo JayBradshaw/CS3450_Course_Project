@@ -103,9 +103,9 @@ public class ProductListScreen {
 		textArea.setBackground(baseColor);
 		textArea.setForeground(secondaryColor);
 		for(Product v : this.productList){
-			textArea.setText(String.format("%-15s= %s",(String)v.getName(), Integer.toString(v.getAvailableUnits())) + "\n" +
-					textArea.getText());
+			textArea.append(String.format("%-15s %10d %n",v.getName() + ":", v.getAvailableUnits()));
 		}
+		textArea.setEditable(false); //JBradshaw need this or the user can edit the text
 		GridBagConstraints ta = new GridBagConstraints();
 	    	ta.fill = GridBagConstraints.BOTH;
 	    	ta.weightx = 1;

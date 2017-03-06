@@ -24,6 +24,7 @@ import javax.swing.SwingConstants;
 
 import CS3450.course_project.businessLogic.OrderHelper;
 import CS3450.course_project.dataAccess.Customer;
+import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
 
 public class AddProductScreen {
@@ -79,6 +80,7 @@ public class AddProductScreen {
 	private ArrayList<Product> productList;
 	private ArrayList<Customer> customerList;
 	private ArrayList<OrderHelper> orderHelperList;
+	private ArrayList<Order> orderList;
 	
 	/**
 	 * spinner object for getting quantity of product 
@@ -98,10 +100,11 @@ public class AddProductScreen {
 	private CheckoutScreen checkoutscreen;
 
 	
-	public AddProductScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<OrderHelper> orderHelperList){
+	public AddProductScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<OrderHelper> orderHelperList, ArrayList<Order> orderList){
 		this.productList = productList;
 		this.customerList = customerList;
 		this.orderHelperList = orderHelperList;
+		this.orderList = orderList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -199,7 +202,7 @@ public class AddProductScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						checkoutscreen = new CheckoutScreen(productList, customerList, orderHelperList);
+						checkoutscreen = new CheckoutScreen(productList, customerList, orderHelperList,orderList);
 					}
 					
 		});
@@ -261,7 +264,7 @@ public class AddProductScreen {
 							System.out.println("Back to main screen...");
 							//JBradshaw: add ability to return back to the main screen
 							frame.dispose();
-							checkoutscreen = new CheckoutScreen(productList,customerList,orderHelperList);
+							checkoutscreen = new CheckoutScreen(productList,customerList,orderHelperList,orderList);
 						}
 						else if (!invalidEntry){
 							if ((int) spinner.getValue() == 0){

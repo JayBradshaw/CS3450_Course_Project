@@ -26,6 +26,7 @@ import javax.swing.SwingConstants;
 
 import CS3450.course_project.businessLogic.OrderHelper;
 import CS3450.course_project.dataAccess.Customer;
+import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
 
 public class RemoveProductScreen {
@@ -87,6 +88,10 @@ public class RemoveProductScreen {
 	 * list for order helper
 	 */
 	private ArrayList<OrderHelper> orderHelperList;
+	/**
+	 * order list
+	 */
+	private ArrayList<Order> orderList;
 	
 	/**
 	 * spinner object for getting quantity of product 
@@ -106,10 +111,11 @@ public class RemoveProductScreen {
 	private CheckoutScreen checkoutscreen;
 
 	
-	public RemoveProductScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<OrderHelper> orderHelperList){
+	public RemoveProductScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<OrderHelper> orderHelperList, ArrayList<Order> orderList){
 		this.productList = productList;
 		this.customerList = customerList;
 		this.orderHelperList = orderHelperList;
+		this.orderList = orderList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -207,7 +213,7 @@ public class RemoveProductScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						checkoutscreen = new CheckoutScreen(productList,customerList, orderHelperList);
+						checkoutscreen = new CheckoutScreen(productList,customerList, orderHelperList, orderList);
 					}
 					
 		});
@@ -278,9 +284,8 @@ public class RemoveProductScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						checkoutscreen = new CheckoutScreen(productList,customerList,orderHelperList);
-					}
-					
+						checkoutscreen = new CheckoutScreen(productList,customerList,orderHelperList,orderList);
+					}	
 		});
 		//make the footer look pretty
 		storeFooter.setBackground(baseColor);
