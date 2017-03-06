@@ -87,6 +87,9 @@ public class InventoryScreen {
 	
 	private AddInventoryScreen addInvScreen;
 	private ProductListScreen prodListScreen;
+	private ManageProductScreen manageProductScreen;
+	
+	
 	
 	/**
 	 * array list to store all of the products
@@ -170,6 +173,8 @@ public class InventoryScreen {
   						//opens window to edit current inventory
   						System.out.println("Manage Existing Products Button Pressed!!!!");
   						//allows user to change product info
+  						frame.dispose();
+  						manageProductScreen = new ManageProductScreen(productList, customerList);
   						System.out.println("Edit products here");
   					}
   		});
