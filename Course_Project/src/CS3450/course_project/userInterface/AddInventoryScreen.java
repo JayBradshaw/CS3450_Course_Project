@@ -122,7 +122,7 @@ public class AddInventoryScreen {
 			iPrice 			= new TextField("");
 			priceLabel = new JLabel("Price");
 			iBarcode 		= new TextField("");
-			barcodeLabel = new JLabel("Bardcode Nubmer");
+			barcodeLabel = new JLabel("Bardcode Number");
 			iProviderInfo	= new TextField("");
 			pInfoLabel = new JLabel("Provider Information");
 			iProviderName	= new TextField("");
@@ -278,7 +278,7 @@ public class AddInventoryScreen {
 									barcode = Integer.valueOf(iBarcode.getText());
 								}catch(NumberFormatException er){
 									System.out.println("input was not a integer.");
-									JOptionPane.showMessageDialog(frame, "Inputted price was not a integer value.",
+									JOptionPane.showMessageDialog(frame, "Inputted barcode was not a integer value.",
 											"Input Error", JOptionPane.ERROR_MESSAGE);
 									iBarcode.setText("");
 								}
