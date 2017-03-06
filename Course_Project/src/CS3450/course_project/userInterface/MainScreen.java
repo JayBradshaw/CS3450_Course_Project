@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import CS3450.course_project.businessLogic.OrderHelper;
 import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
@@ -89,6 +90,8 @@ public class MainScreen {
 	 * array list to store the products from the database
 	 */
 	private ArrayList<Product> productList= new ArrayList<Product>();
+	
+	private ArrayList<OrderHelper> orderHelperList = new ArrayList<OrderHelper>();
 	
 	/**
 	 * will be used to create a new checkout screen
@@ -160,7 +163,7 @@ public class MainScreen {
 						frame.dispose(); //closes the frame
 						//create a new frame here for the checkout screen
 						System.out.println("Creating checkout page");
-						checkoutscreen = new CheckoutScreen(productList,customerList);
+						checkoutscreen = new CheckoutScreen(productList,customerList, orderHelperList, orderList);
 					}
 					
 				});

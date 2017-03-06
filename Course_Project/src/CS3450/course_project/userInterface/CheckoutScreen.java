@@ -11,7 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -324,6 +329,7 @@ public class CheckoutScreen {
 		this.productList = productList;
 		this.customerList = customerList;
 		this.orderHelperList = orderHelperList;
+		this.orderList = orderList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -436,8 +442,12 @@ public class CheckoutScreen {
 							if (cashSelected){
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
 										+ "Please come again soon!");
+								//deal with adding a new order based on the order info 
+								//if cash just add to order list and print receipt
+								int orderListIndex = orderList.size()-1;
+								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,orderList.get(orderListIndex).getCustomerID()+ 1, "cash", getTotalOrderCost(),"Pick up" ));
+								printReceipt("cash");
 								orderHelperList.clear();
-								//deal with adding a new order based on the order info
 							}
 							else if (cardSelected){
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
@@ -451,6 +461,7 @@ public class CheckoutScreen {
 										+ "Please come again soon!");
 								orderHelperList.clear();
 								//deal with adding a new order based on the order info
+								//if check just add to order list and print receipt
 							}
 							
 						}
@@ -592,6 +603,46 @@ public class CheckoutScreen {
 			}
 			
 		}
+	}
+	
+	public void printReceipt(String paymentMethod){
+		PrintWriter fileOutput = null;
+		int size = orderList.size()-1;
+		String fileName = "data/order(" + size + ").txt"; //string to store the order 
+		System.out.println(fileName);
+		try {
+			fileOutput = new PrintWriter(fileName);
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
+
+		fileOutput.println("Thank you for choosing Mr. Smith's Groceries!\n");
+		fileOutput.println("Here is your final receipt\n\n\n");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		fileOutput.println("Date: " + dateFormat.format(date) + "\n\n");
+		fileOutput.println(String.format("%-30s %10s %10s", "Product:" , "Cost:", "Quantity:\n"));
+		for(OrderHelper item : this.orderHelperList){
+			fileOutput.println(String.format("%-30s %10f %10s", item.getProductName(), item.getProductPrice(), Integer.toString(item.getQuantity())));
+		}
+		fileOutput.println("\n\nTotal Cost: " + getTotalOrderCost());
+		fileOutput.println("Payment Method: " + printPaymentMethod());
+		
+		fileOutput.close();
+	}
+	
+	public double getTotalOrderCost(){
+		double totalCost = 0.0;
+		for(OrderHelper item : this.orderHelperList){
+			totalCost += item.getProductPrice() * item.getQuantity();
+		}
+		return totalCost;
+	}
+	
+	public String printPaymentMethod(){
+		if (cashSelected) return "Cash";
+		else if (cardSelected) return "Card";
+		else return "Check";		
 	}
 
 }

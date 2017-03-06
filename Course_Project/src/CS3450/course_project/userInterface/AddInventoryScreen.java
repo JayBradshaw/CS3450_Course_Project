@@ -122,7 +122,7 @@ public class AddInventoryScreen {
 			iPrice 			= new TextField("");
 			priceLabel = new JLabel("Price");
 			iBarcode 		= new TextField("");
-			barcodeLabel = new JLabel("Bardcode Number");
+			barcodeLabel = new JLabel("Bardcode Number (10 digits beginning with 1)");
 			iProviderInfo	= new TextField("");
 			pInfoLabel = new JLabel("Provider Information");
 			iProviderName	= new TextField("");

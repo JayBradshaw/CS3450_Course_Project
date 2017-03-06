@@ -1,0 +1,16 @@
+Thank you for choosing Mr. Smith's Groceries!
+
+Here is your final receipt
+
+
+
+Date: 2017/03/05 22:54:13
+
+
+Product:                            Cost:  Quantity:
+Banana                           0.580000          5
+Coca-Cola                        0.750000          5
+
+
+Total Cost: 6.65
+Payment Method: Cash
