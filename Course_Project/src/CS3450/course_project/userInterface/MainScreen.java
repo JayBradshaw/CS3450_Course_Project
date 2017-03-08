@@ -186,7 +186,7 @@ public class MainScreen {
 						frame.dispose(); //close the frame
 						//create a new frame here for the manage inventory screen
 						System.out.println("Creating new page for Managing Inventory");
-						inventoryscreen = new InventoryScreen(productList,customerList);
+						inventoryscreen = new InventoryScreen(productList,customerList, orderList);
 					}
 					
 				});
@@ -249,7 +249,7 @@ public class MainScreen {
 						frame.dispose(); //closes the frame
 						//create a new frame here for the checkout screen
 						System.out.println("Creating checkout page");
-						checkoutscreen = new CheckoutScreen(productList,customerList);
+						checkoutscreen = new CheckoutScreen(productList,customerList, orderList);
 					}
 					
 				});
@@ -272,7 +272,7 @@ public class MainScreen {
 						frame.dispose(); //close the frame
 						//create a new frame here for the manage inventory screen
 						System.out.println("Creating new page for Managing Inventory");
-						inventoryscreen = new InventoryScreen(productList,customerList);
+						inventoryscreen = new InventoryScreen(productList,customerList,orderList);
 					}
 					
 				});
@@ -291,91 +291,7 @@ public class MainScreen {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
-	
-	/**
-	 * @param productList
-	 * @param customerList
-	 * 
-	 * non-default constructor
-	 */
-	public MainScreen(ArrayList<Product> productList, ArrayList<Customer> customerList){
-		this.productList = productList;
-		this.customerList = customerList;
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(700, 400);
-		pane = frame.getContentPane();
-		pane.setLayout(new BorderLayout());
-		
-		//make the header look pretty
-		storeHeader.setIconTextGap(25);
-		storeHeader.setBackground(baseColor);
-		storeHeader.setForeground(secondaryColor);
-		storeHeader.setFont(baseFont);
-		storeHeader.setHorizontalTextPosition(SwingConstants.LEADING);
-		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
-		storeHeader.setOpaque(true);
-		
-		//make the checkout button look pretty
-		checkout.setBackground(baseColor);
-		checkout.setForeground(secondaryColor);
-		checkout.setFont(buttonFont);
-		checkout.setPreferredSize(new Dimension(frame.getWidth()/2,150));
-		checkout.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		checkout.setMargin(new Insets(15,15,15,15));
-		//listener for the checkout button
-		checkout.addActionListener(
-				new ActionListener(){
 
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						//deal with the new screen that should appear
-						System.out.println("Checkout Button Pressed!!!!");
-						frame.dispose(); //closes the frame
-						//create a new frame here for the checkout screen
-						System.out.println("Creating checkout page");
-						checkoutscreen = new CheckoutScreen(productList,customerList);
-					}
-					
-				});
-		
-		//make the inventory button look pretty
-		inventory.setBackground(baseColor);
-		inventory.setForeground(secondaryColor);
-		inventory.setFont(buttonFont);
-		inventory.setPreferredSize(new Dimension(frame.getWidth()/2,150));
-		inventory.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		inventory.setMargin(new Insets(15,15,15,15));
-		//listener for the manage inventory button
-		inventory.addActionListener(
-				new ActionListener(){
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						//deal with the new screen that should appear
-						System.out.println("Inventory Button Pressed!!!!");
-						frame.dispose(); //close the frame
-						//create a new frame here for the manage inventory screen
-						System.out.println("Creating new page for Managing Inventory");
-						inventoryscreen = new InventoryScreen(productList,customerList);
-					}
-					
-				});
-
-		//make the footer look pretty
-		storeFooter.setBackground(baseColor);
-		storeFooter.setForeground(secondaryColor);
-		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
-		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
-		storeFooter.setOpaque(true);
-
-		pane.add(storeHeader, BorderLayout.PAGE_START);
-		pane.add(checkout, BorderLayout.CENTER);
-		pane.add(inventory, BorderLayout.LINE_END);
-		pane.add(storeFooter, BorderLayout.PAGE_END);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-	}
-	
 	/**
 	 * creates the product list from the database connection
 	 */

@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import CS3450.course_project.dataAccess.Customer;
+import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
 
 /**
@@ -99,7 +100,7 @@ public class InventoryScreen {
 	/**
 	 * default constructor
 	 */ 
-	public InventoryScreen(ArrayList<Product> productList, ArrayList<Customer> customerList){ //JBradshaw added parameter productList so that when we jump from screen to screen we don't lose the products
+	public InventoryScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){ //JBradshaw added parameter productList so that when we jump from screen to screen we don't lose the products
 		this.productList = productList;
 		this.customerList = customerList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -138,7 +139,7 @@ public class InventoryScreen {
 	    a.gridy = 1;
 	    a.gridwidth = 1;
 	    a.fill = GridBagConstraints.BOTH;
-		//listener for the add procuct button
+		//listener for the add product button
 	    addProduct.addActionListener(
 				new ActionListener(){
 					@Override
@@ -147,7 +148,7 @@ public class InventoryScreen {
 						System.out.println("Add Product Button Pressed!!!!");
 						//adds product and info to database
 						frame.dispose();
-						addInvScreen = new AddInventoryScreen(productList, customerList);
+						addInvScreen = new AddInventoryScreen(productList, customerList, orderList);
 						System.out.println("Adding product to inventory");
 					}
 		});
@@ -174,7 +175,7 @@ public class InventoryScreen {
   						System.out.println("Manage Existing Products Button Pressed!!!!");
   						//allows user to change product info
   						frame.dispose();
-  						manageProductScreen = new ManageProductScreen(productList, customerList);
+  						manageProductScreen = new ManageProductScreen(productList, customerList, orderList);
   						System.out.println("Edit products here");
   					}
   		});
@@ -200,7 +201,7 @@ public class InventoryScreen {
   						//opens window to view current inventory
   						System.out.println("Show Availability Button Pressed!!!!");
   						frame.dispose();
-  						prodListScreen = new ProductListScreen(productList, customerList);
+  						prodListScreen = new ProductListScreen(productList, customerList, orderList);
   						System.out.println("Creating new window to show availability of products");
   					}
   		});
@@ -228,7 +229,7 @@ public class InventoryScreen {
   						//close inventory window 
   						System.out.println("Return to main screen...");
   						frame.dispose();
-  						screen = new MainScreen(productList, customerList);
+  						screen = new MainScreen(productList, customerList, orderList);
   					}
   		});
   	    

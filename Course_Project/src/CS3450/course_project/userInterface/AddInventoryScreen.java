@@ -24,6 +24,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import CS3450.course_project.dataAccess.Customer;
+import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
 
 public class AddInventoryScreen {
@@ -89,7 +90,7 @@ public class AddInventoryScreen {
 	 */
 	private JButton addItem = new JButton("Add Item");
 	
-	public AddInventoryScreen(ArrayList<Product> productList, ArrayList<Customer> customerList){
+	public AddInventoryScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){
 		this.ProductList = productList;
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -241,7 +242,7 @@ public class AddInventoryScreen {
 						public void actionPerformed(ActionEvent e) {
 							
 							frame.dispose();
-							screen = new InventoryScreen(productList, customerList);
+							screen = new InventoryScreen(productList, customerList, orderList);
 						}
 						
 			});
@@ -262,10 +263,15 @@ public class AddInventoryScreen {
     	addItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
     	addItem.addActionListener(
 						new ActionListener(){
+							//JBradshaw return statements added so that user does not have to put in all of the information again
 							double price;
 							int barcode;
 							@Override
 							public void actionPerformed(ActionEvent e) {
+								if (iPrice.getText().isEmpty() || iBarcode.getText().isEmpty() || iName.getText().isEmpty() || iProviderInfo.getText().isEmpty() || iProviderName.getText().isEmpty()){
+									JOptionPane.showMessageDialog(null, "Error! One or more fields are blank!");
+									return;
+								}
 								try{
 									price = Double.valueOf(iPrice.getText());
 									}catch(NumberFormatException er){
@@ -273,6 +279,7 @@ public class AddInventoryScreen {
 										JOptionPane.showMessageDialog(frame, "Inputted price was not a double value.",
 												"Input Error", JOptionPane.ERROR_MESSAGE);
 										iPrice.setText("");
+										return;
 									}
 								try{
 									barcode = Integer.valueOf(iBarcode.getText());
@@ -281,6 +288,7 @@ public class AddInventoryScreen {
 									JOptionPane.showMessageDialog(frame, "Inputted barcode was not a integer value.",
 											"Input Error", JOptionPane.ERROR_MESSAGE);
 									iBarcode.setText("");
+									return;
 								}
 								if ((int) spinner.getValue() < 0){
 									JOptionPane.showMessageDialog(null, "Error! Cannot enter a negative\nvalue for quantity!");
@@ -296,7 +304,7 @@ public class AddInventoryScreen {
 											price, Integer.parseInt(iBarcode.getText()),
 											iProviderInfo.getText(), iProviderName.getText()));
 									frame.dispose();
-									screen = new InventoryScreen(ProductList, customerList);
+									screen = new InventoryScreen(ProductList, customerList, orderList);
 								}
 								else
 									System.out.println("Adding Failed.");

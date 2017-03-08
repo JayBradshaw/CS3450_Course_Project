@@ -202,6 +202,7 @@ public class AddProductScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
+						//use the previous old list if we cancel the changes we made
 						checkoutscreen = new CheckoutScreen(productList, customerList, orderHelperList,orderList);
 					}
 					
@@ -239,7 +240,7 @@ public class AddProductScreen {
 						for (int i = 0; i < productList.size(); ++i){
 							if (productList.get(i).getName() == temporary.getName()){
 								productIndex = i;
-								if ((int)spinner.getValue() > productList.get(i).getAvailableUnits()){
+								if ((int)spinner.getValue() > productList.get(i).getOrderAvailability()){
 									//print out an error message
 									invalidEntry = true;
 									JOptionPane.showMessageDialog(null, "Error! Quantity to add is greater than inventory!");
@@ -252,14 +253,14 @@ public class AddProductScreen {
 									//if the correct object increment the quantity
 									if (orderHelperList.get(i).getProductName() == temporary.getName()){
 										orderHelperList.get(i).setQuantity(orderHelperList.get(i).getQuantity() + (int)spinner.getValue());
-										productList.get(productIndex).setAvailableUnits(productList.get(productIndex).getAvailableUnits() - orderHelperList.get(i).getQuantity());
+										productList.get(productIndex).setOrderAvailability(productList.get(productIndex).getOrderAvailability() - (int)spinner.getValue());
 									}
 								}
 							}
 							else { //create a new order helper item
 								System.out.println("Adding new item to order helper");
 								orderHelperList.add(new OrderHelper(productList.get(productIndex).getName(),productList.get(productIndex).getPrice(),(int)spinner.getValue()));
-								productList.get(productIndex).setAvailableUnits(productList.get(productIndex).getAvailableUnits() - orderHelperList.get(orderHelperList.size()-1).getQuantity());
+								productList.get(productIndex).setOrderAvailability(productList.get(productIndex).getOrderAvailability() - (int)spinner.getValue());
 							}
 							System.out.println("Back to main screen...");
 							//JBradshaw: add ability to return back to the main screen

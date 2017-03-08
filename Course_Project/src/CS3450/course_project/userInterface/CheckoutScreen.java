@@ -174,7 +174,7 @@ public class CheckoutScreen {
 	 * 
 	 * constructor
 	 */
-	public CheckoutScreen(ArrayList<Product> productList, ArrayList<Customer> customerList){
+	public CheckoutScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){
 		this.productList = productList;
 		this.customerList = customerList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -480,8 +480,9 @@ public class CheckoutScreen {
 								int orderListIndex = orderList.size()-1;
 								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "cash", getTotalOrderCost(),"Pick up" ));
 								printReceipt("cash",custID,false);
+								updateProductList();
 								//add order to database
-								orderList.get(orderList.size()-1).addToDatabase();
+								//orderList.get(orderList.size()-1).addToDatabase();
 								orderHelperList.clear();
 							}
 							else if (cardSelected){
@@ -509,10 +510,11 @@ public class CheckoutScreen {
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
 										+ "Please come again soon!");
 								int orderListIndex = orderList.size()-1;
-								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "cash", getTotalOrderCost(),"Pick up" ));
+								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "card", getTotalOrderCost(),"Pick up" ));
 								printReceipt("card",custID,cardSelected);
+								updateProductList();
 								//add order to databse
-								orderList.get(orderList.size()-1).addToDatabase();
+								//orderList.get(orderList.size()-1).addToDatabase();
 								orderHelperList.clear();
 							}
 							else if (checkSelected){
@@ -536,10 +538,11 @@ public class CheckoutScreen {
 								//deal with adding a new order based on the order info
 								//if check just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
-								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "cash", getTotalOrderCost(),"Pick up" ));
+								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "check", getTotalOrderCost(),"Pick up" ));
 								printReceipt("check",custID,false);
+								updateProductList();
 								//add order to database
-								orderList.get(orderList.size()-1).addToDatabase();
+								//orderList.get(orderList.size()-1).addToDatabase();
 								orderHelperList.clear();
 							}
 						}
@@ -762,5 +765,14 @@ public class CheckoutScreen {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * product list must be updated if an order is actually placed
+	 */
+	private void updateProductList(){
+			for (int j = 0; j < productList.size(); ++j){
+				productList.get(j).setAvailableUnits(productList.get(j).getOrderAvailability());
+			}
 	}
 }

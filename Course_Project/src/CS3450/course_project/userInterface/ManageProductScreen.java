@@ -22,6 +22,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import CS3450.course_project.dataAccess.Customer;
+import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
 
 public class ManageProductScreen {
@@ -85,7 +86,7 @@ public class ManageProductScreen {
 	private JComboBox dropDownMenu = new JComboBox();
 	private Product temporary;
 	
-	public ManageProductScreen(ArrayList<Product> productList, ArrayList<Customer> customerList){
+	public ManageProductScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){
 		this.ProductList = productList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
@@ -123,7 +124,7 @@ public class ManageProductScreen {
 			//change to .length-1 in case the list of products is empty
 			dropDownMenu.setSelectedIndex(productNames.length - 1);
 			
-			spinner.setValue(productList.get(dropDownMenu.getSelectedIndex()).getAvailableUnits());
+			spinner.setValue(productList.get(dropDownMenu.getSelectedIndex()).getTotalUnits());
 			//JBradshaw added this to make sure that if the user doesn't change
 			//the drop down it will still add the item that first appears
 			temporary = productList.get(productNames.length-1); 
@@ -171,7 +172,7 @@ public class ManageProductScreen {
 						public void actionPerformed(ActionEvent e) {
 							
 							frame.dispose();
-							screen = new InventoryScreen(productList, customerList);
+							screen = new InventoryScreen(productList, customerList, orderList);
 						}
 						
 			});
@@ -199,11 +200,13 @@ public class ManageProductScreen {
 									return;
 								}
 								temporary.setAvailableUnits((int)spinner.getValue());
+								temporary.setOrderAvailability((int)spinner.getValue());
 								//if(temporary.getAvailableUnits()==0){ //JBradshaw don't think you want to remove the product, just say that there are no available units
 									//productList.remove(temporary);	
 								//}
+								
 							frame.dispose();
-							screen = new InventoryScreen(productList, customerList);
+							screen = new InventoryScreen(productList, customerList, orderList);
 							}
 						});
 	    GridBagConstraints u = new GridBagConstraints();

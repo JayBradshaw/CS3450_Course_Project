@@ -213,6 +213,7 @@ public class RemoveProductScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
+						//if we cancel we just use the old original orderList and 
 						checkoutscreen = new CheckoutScreen(productList,customerList, orderHelperList, orderList);
 					}
 					
@@ -278,10 +279,17 @@ public class RemoveProductScreen {
 							return;
 						} 
 						
-						//ok now that we have made the checks we can remove the quantity from the orderList
+						//ok now that we have made the checks we can remove the quantity from the orderHelperList
 						orderHelperList.get(orderHelperIndex).setQuantity(orderHelperList.get(orderHelperIndex).getQuantity()-(int)spinner.getValue());
-						
-						System.out.println("Back to main screen...");
+						//need to change the availability of the product
+						for (int i = 0; i < productList.size(); ++i){
+							if (temporary.getName() == productList.get(i).getName()){
+								System.out.println("Increasing availability of product");
+								System.out.println(productList.get(i).getName());
+								productList.get(i).setOrderAvailability(productList.get(i).getOrderAvailability() + (int)spinner.getValue());
+							}
+						}
+						System.out.println("Back to checkout screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
 						checkoutscreen = new CheckoutScreen(productList,customerList,orderHelperList,orderList);

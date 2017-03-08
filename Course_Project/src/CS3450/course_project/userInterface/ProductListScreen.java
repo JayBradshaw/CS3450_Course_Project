@@ -19,6 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import CS3450.course_project.dataAccess.Customer;
+import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
 
 public class ProductListScreen {
@@ -72,7 +73,7 @@ public class ProductListScreen {
 	 */
 	private JButton returnBtn = new JButton("Return");
 	
-	public ProductListScreen(ArrayList<Product> productList, ArrayList<Customer> customerList){
+	public ProductListScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){
 		this.productList = productList;
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,7 +104,7 @@ public class ProductListScreen {
 		textArea.setBackground(baseColor);
 		textArea.setForeground(secondaryColor);
 		for(Product v : this.productList){
-			textArea.append(String.format("%-15s %10d %n",v.getName() + ":", v.getAvailableUnits()));
+			textArea.append(String.format("%-15s %10d %n",v.getName() + ":", v.getTotalUnits()));
 		}
 		textArea.setEditable(false); //JBradshaw need this or the user can edit the text
 		GridBagConstraints ta = new GridBagConstraints();
@@ -124,7 +125,7 @@ public class ProductListScreen {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						frame.dispose();
-						screen = new InventoryScreen(productList, customerList);
+						screen = new InventoryScreen(productList, customerList, orderList);
 					}
 					
 		});

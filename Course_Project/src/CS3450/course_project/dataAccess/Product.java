@@ -39,6 +39,10 @@ public class Product {
 	 * information for provider including address and phone number
 	 */
 	private String providerInfo;
+	/**
+	 * sets the availability of each product
+	 */
+	private int orderAvailability;
 	
 	
 	public Product(){
@@ -62,6 +66,7 @@ public class Product {
 		this.barcodeNumber = barcodeNumber;
 		this.providerInfo = providerInfo;
 		this.providerName = providerName;
+		this.orderAvailability = availableUnits;
 	}
 	public String getName() {
 		return name;
@@ -76,6 +81,9 @@ public class Product {
 		this.barcodeNumber = barcodeNumber;
 	}
 	public int getAvailableUnits() {
+		return orderAvailability;
+	}
+	public int getTotalUnits(){
 		return availableUnits;
 	}
 	public void setAvailableUnits(int availableUnits) {
@@ -98,6 +106,12 @@ public class Product {
 	}
 	public void setProviderInfo(String providerInfo) {
 		this.providerInfo = providerInfo;
+	}
+	public int getOrderAvailability(){
+		return orderAvailability;
+	}
+	public void setOrderAvailability(int value){
+		this.orderAvailability = value;
 	}
 	
 	public void addToDatabase(){

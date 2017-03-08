@@ -5,16 +5,15 @@ Here is your final receipt
 
 Customer Info:
 
-Test Johnson
-Test Ave 58483
+William Banks
+856 S Christmas Ave. Charleston, South Carolina 59587
 
-Date: 2017/03/06 00:12:00
+Date: 2017/03/08 15:33:58
 
 Product:                            Cost: Quantity:
 
-Potatoes                         0.690000         13
-Banana                           0.580000         45
+Potatoes                         0.690000         18
 
 
-Total Cost: 35.06999999999999
+Total Cost: 12.419999999999998
 Payment Method: Cash
