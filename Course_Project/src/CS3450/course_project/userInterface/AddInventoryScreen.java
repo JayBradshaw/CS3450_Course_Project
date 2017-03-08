@@ -30,7 +30,7 @@ public class AddInventoryScreen {
 	/**
 	 * frame where the system will be produced
 	 */
-	private JFrame frame = new JFrame("Grocery Store Checkout System: Add Product");
+	private JFrame frame = new JFrame("Grocery Store Checkout System: Add New Product");
 	/**
 	 * pane to be contained in the frame
 	 */
@@ -282,14 +282,19 @@ public class AddInventoryScreen {
 											"Input Error", JOptionPane.ERROR_MESSAGE);
 									iBarcode.setText("");
 								}
+								if ((int) spinner.getValue() < 0){
+									JOptionPane.showMessageDialog(null, "Error! Cannot enter a negative\nvalue for quantity!");
+									return;
+								}
+								if (price < 0){
+									JOptionPane.showMessageDialog(null, "Error! Price cannot be less than 0!");
+									return;
+								}
 								
 								if(!iPrice.getText().isEmpty() && !iBarcode.getText().isEmpty()){
 									ProductList.add(new Product((String)iName.getText(), (int)spinner.getValue(),
 											price, Integer.parseInt(iBarcode.getText()),
 											iProviderInfo.getText(), iProviderName.getText()));
-									for(Product v : ProductList){
-										System.out.println(v.getName());
-									}
 									frame.dispose();
 									screen = new InventoryScreen(ProductList, customerList);
 								}

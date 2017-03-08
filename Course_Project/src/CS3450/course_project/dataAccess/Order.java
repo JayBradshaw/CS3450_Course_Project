@@ -9,6 +9,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import CS3450.course_project.businessLogic.CreditCard;
 import CS3450.course_project.businessLogic.OrderHelper;
 
@@ -41,20 +47,10 @@ public class Order {
 	 */
 	private String deliveryMethod;
 	/**
-	 * stores the credit card information of an order if necessary
-	 */
-	private CreditCard creditCard; //will be used for credit card info if a credit card is the payment type
-	/**
 	 * list of items bought
 	 */
 	private ArrayList<OrderHelper> list;
-	/**
-	 * Each order has a customer
-	 */
-	private Customer customer;
-	/**
-	 * default constructor
-	 */
+
 	/**
 	 * default constructor
 	 */
@@ -76,15 +72,6 @@ public class Order {
 		this.paymentType = paymentType;
 		this.totalCost = totalCost;
 		this.deliveryMethod = deliveryMethod;
-	}
-	/**
-	 * @param list
-	 * 
-	 * order constructor that takes a list of order helper items
-	 */
-	public Order(ArrayList<OrderHelper> list, Customer customer){
-		this.list = list; //create a list of Order Helper Objects
-		this.customer = customer; //set the customer for an order
 	}
 	public int getOrderID() {
 		return orderID;
@@ -126,30 +113,40 @@ public class Order {
 	public void setDeliveryMethod(String deliveryMethod) {
 		this.deliveryMethod = deliveryMethod;
 	}
-
-	/**
-	 * @param fileName 
-	 * 
-	 * prints the receipt for an order
-	 */
-	public void printReceipt(){ 
-		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-		PrintWriter fileOutput = null;
+	public void addToDatabase(){
+		Connection con = null;
+		PreparedStatement statement = null;
 		try {
-			fileOutput = new PrintWriter("data/" + customer.getName() + timeStamp + ".txt");
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		fileOutput.println("Mr. Smith's Groceries");
-		fileOutput.println("Order ID: " + getOrderID());
-		fileOutput.println("Date: " + timeStamp);
-		fileOutput.println("Product Information:");
-		for(OrderHelper item : list){ //print out the info for the products bought
-			fileOutput.println(item.getProductName() + "\t( " + item.getQuantity() + " )\t" + item.getProductPrice());
+		
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		fileOutput.println("Thank you for coming! Come back soon!");
-
-		fileOutput.close();
+		//get the query from the database
+		String query = "insert into orders (orderID, customerID, paymentType, totalCost, deliveryMethod) values (" +
+		getOrderID() + "," + getCustomerID() + ',' + '"' + getPaymentType() + '"'
+		+ ',' + getTotalCost() + ',' + '"' + getDeliveryMethod() + '"' + ");";
+		System.out.println(query);
+		
+		try {
+			statement = con.prepareStatement(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			statement.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
-
 }

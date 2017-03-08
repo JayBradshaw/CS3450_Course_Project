@@ -376,8 +376,6 @@ public class MainScreen {
 		frame.setVisible(true);
 	}
 	
-	
-	
 	/**
 	 * creates the product list from the database connection
 	 */
@@ -391,7 +389,6 @@ public class MainScreen {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
 		} catch (SQLException e) {
@@ -399,7 +396,6 @@ public class MainScreen {
 			e.printStackTrace();
 		}
 		//deal with product list
-		
 		try {
 			statement = con.prepareStatement("select * from products");
 		} catch (SQLException e) {

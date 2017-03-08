@@ -110,7 +110,7 @@ public class AddProductScreen {
 		pane = frame.getContentPane();
 		pane.setLayout(new GridBagLayout());
 		
-		//string for holding object names.
+		//string for holding object names
 		String[] productNames = new String[productList.size()];
 		int i=0;
 				for(Product v : productList){

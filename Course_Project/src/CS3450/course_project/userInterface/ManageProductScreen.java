@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -86,7 +87,6 @@ public class ManageProductScreen {
 	
 	public ManageProductScreen(ArrayList<Product> productList, ArrayList<Customer> customerList){
 		this.ProductList = productList;
-		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -194,10 +194,14 @@ public class ManageProductScreen {
 						new ActionListener(){
 							@Override
 							public void actionPerformed(ActionEvent e) {
-								temporary.setAvailableUnits((int)spinner.getValue());
-								if(temporary.getAvailableUnits()==0){
-									productList.remove(temporary);
+								if ((int)spinner.getValue() < 0){
+									JOptionPane.showMessageDialog(null, "Error cannot have negative\nquantity for product!");
+									return;
 								}
+								temporary.setAvailableUnits((int)spinner.getValue());
+								//if(temporary.getAvailableUnits()==0){ //JBradshaw don't think you want to remove the product, just say that there are no available units
+									//productList.remove(temporary);	
+								//}
 							frame.dispose();
 							screen = new InventoryScreen(productList, customerList);
 							}

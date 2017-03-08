@@ -464,7 +464,8 @@ public class CheckoutScreen {
 									String custName = JOptionPane.showInputDialog("Enter your full name");
 									String custAddress = JOptionPane.showInputDialog("Enter your address");
 									customerList.add(new Customer(custID,custName,custAddress));
-									//create new customer from this info
+									//add new customer to database
+									customerList.get(customerList.size()-1).addToDatabase();
 								}
 								else {
 									while (!checkValidCustID(custID = Integer.parseInt(JOptionPane.showInputDialog("Enter your customer ID")))){
@@ -479,6 +480,8 @@ public class CheckoutScreen {
 								int orderListIndex = orderList.size()-1;
 								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "cash", getTotalOrderCost(),"Pick up" ));
 								printReceipt("cash",custID,false);
+								//add order to database
+								orderList.get(orderList.size()-1).addToDatabase();
 								orderHelperList.clear();
 							}
 							else if (cardSelected){
@@ -489,6 +492,8 @@ public class CheckoutScreen {
 									String custName = JOptionPane.showInputDialog("Enter your full name");
 									String custAddress = JOptionPane.showInputDialog("Enter your address");
 									customerList.add(new Customer(custID,custName,custAddress));
+									//add customer to database
+									customerList.get(customerList.size()-1).addToDatabase();
 								}
 								else {
 									while (!checkValidCustID(custID = Integer.parseInt(JOptionPane.showInputDialog("Enter your customer ID")))){
@@ -506,6 +511,8 @@ public class CheckoutScreen {
 								int orderListIndex = orderList.size()-1;
 								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "cash", getTotalOrderCost(),"Pick up" ));
 								printReceipt("card",custID,cardSelected);
+								//add order to databse
+								orderList.get(orderList.size()-1).addToDatabase();
 								orderHelperList.clear();
 							}
 							else if (checkSelected){
@@ -516,7 +523,8 @@ public class CheckoutScreen {
 									String custName = JOptionPane.showInputDialog("Enter your full name");
 									String custAddress = JOptionPane.showInputDialog("Enter your address");
 									customerList.add(new Customer(custID,custName,custAddress));
-									//create new customer from this info
+									//add customer to database
+									customerList.get(customerList.size()-1).addToDatabase();
 								}
 								else {
 									while (!checkValidCustID(custID = Integer.parseInt(JOptionPane.showInputDialog("Enter your customer ID")))){
@@ -530,6 +538,8 @@ public class CheckoutScreen {
 								int orderListIndex = orderList.size()-1;
 								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "cash", getTotalOrderCost(),"Pick up" ));
 								printReceipt("check",custID,false);
+								//add order to database
+								orderList.get(orderList.size()-1).addToDatabase();
 								orderHelperList.clear();
 							}
 						}
@@ -698,7 +708,7 @@ public class CheckoutScreen {
 		}
 	}
 	
-	public void printReceipt(String paymentMethod, int custID, boolean card){
+	private void printReceipt(String paymentMethod, int custID, boolean card){
 		PrintWriter fileOutput = null;
 		int size = orderList.size()-1;
 		String fileName = "data/order(" + size + ").txt"; //string to store the order 
@@ -733,7 +743,7 @@ public class CheckoutScreen {
 		fileOutput.close();
 	}
 	
-	public double getTotalOrderCost(){
+	private double getTotalOrderCost(){
 		double totalCost = 0.0;
 		for(OrderHelper item : this.orderHelperList){
 			totalCost += item.getProductPrice() * item.getQuantity();
@@ -741,17 +751,16 @@ public class CheckoutScreen {
 		return totalCost;
 	}
 	
-	public String printPaymentMethod(){
+	private String printPaymentMethod(){
 		if (cashSelected) return "Cash";
 		else if (cardSelected) return "Card";
 		else return "Check";		
 	}
 	
-	public boolean checkValidCustID(int id){
+	private boolean checkValidCustID(int id){
 		if (id >=0 && id < customerList.size()){
 			return true;
 		}
 		return false;
 	}
-
 }

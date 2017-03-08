@@ -3,6 +3,11 @@
  */
 package CS3450.course_project.dataAccess;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 /**
  * @author Justin Bradshaw
  *
@@ -61,6 +66,43 @@ public class Customer {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	
+	public void addToDatabase(){
+		Connection con = null;
+		PreparedStatement statement = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//get the query from the database
+		String query = "insert into customers (customerID, name, address) values (" +
+		getCustomerID() + ',' + '"' + getName() + '"'
+		+ ',' + getAddress()+ ");";
+		System.out.println(query);
+		
+		try {
+			statement = con.prepareStatement(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			statement.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 }
