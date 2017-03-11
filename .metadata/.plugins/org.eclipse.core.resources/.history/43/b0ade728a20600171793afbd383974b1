@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
@@ -26,11 +27,11 @@ import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
 
-public class ManageProductScreen {
+public class AddInventoryScreen {
 	/**
 	 * frame where the system will be produced
 	 */
-	private JFrame frame = new JFrame("Grocery Store Checkout System: Manage Existing Products");
+	private JFrame frame = new JFrame("Grocery Store Checkout System: Add New Product");
 	/**
 	 * pane to be contained in the frame
 	 */
@@ -50,8 +51,7 @@ public class ManageProductScreen {
 	/**
 	 * list of products
 	 */
-	private InventoryScreen screen;
-	private ArrayList<Product> ProductList;
+	private ArrayList<Product> productList;
 	/**
 	 * primary color for the GUI
 	 */
@@ -65,15 +65,22 @@ public class ManageProductScreen {
 	 */
 	private Font baseFont = new Font("Verdana", Font.BOLD,16);
 	/**
-	 * font specifications for the buttons
-	 */
-	private Font buttonFont = new Font("Verdana", Font.PLAIN, 16);
-	/**
 	 * spinner object for getting quantity of product 
 	 */
 	private SpinnerModel model1 = new SpinnerNumberModel();
 	private JSpinner spinner = new JSpinner(model1);
 	private JLabel spinnerLabel = new JLabel("Quantity");
+	/**
+	 * Item being added to arraylist
+	 */
+	private String itemName;
+	/**
+	 * temporarily holds the object of selected item.
+	 */
+	private TextField iName, iPrice, iBarcode, iProviderInfo, iProviderName;
+	private JLabel nameLabel, priceLabel, barcodeLabel, pInfoLabel, pNameLabel;
+	private Font buttonFont = new Font("Verdana", Font.PLAIN, 16);
+	private InventoryScreen screen;
 	/**
 	 * return to inventory screen, cancel changes.
 	 */
@@ -81,33 +88,13 @@ public class ManageProductScreen {
 	/**
 	 * return to inventory screen, finalize changes.
 	 */
-	private JButton updateBtn = new JButton("Apply Update");
-	/**
-	 * input fields
-	 */
-	private TextField iPrice, iBarcode, iProviderInfo, iProviderName;
+	private JButton addItem = new JButton("Add Item");
 	
-	private JLabel  priceLabel, barcodeLabel, pInfoLabel, pNameLabel;
-	/**
-	 * Drop down menu for selecting items.
-	 */
-	private JComboBox dropDownMenu = new JComboBox();
-	private Product temporary;
-	
-	public ManageProductScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){
-		this.ProductList = productList;
-		
-		iPrice 			= new TextField("");
-		priceLabel = new JLabel("Price");
-		iBarcode 		= new TextField("");
-		barcodeLabel = new JLabel("Bardcode Number (10 digits beginning with 1)");
-		iProviderInfo	= new TextField("");
-		pInfoLabel = new JLabel("Provider Information");
-		iProviderName	= new TextField("");
-		pNameLabel = new JLabel("Provider Name");
+	public AddInventoryScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){
+		this.productList = productList;
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(900, 400);
+		frame.setSize(700, 400);
 		pane = frame.getContentPane();
 		pane.setLayout(new GridBagLayout());
 		
@@ -129,58 +116,36 @@ public class ManageProductScreen {
 		    h.gridwidth = 3;
 		    h.gridheight = 1;
 			h.anchor = GridBagConstraints.PAGE_START;
-			
-			//string for holding object names.
-			String[] productNames = new String[productList.size()];
-			int i=0;
-					for(Product v : productList){
-						productNames[i++] = v.getName();
-					}
-			//drop down menu for selecting item.
-			dropDownMenu = new JComboBox(productNames);
-			//change to .length-1 in case the list of products is empty
-			dropDownMenu.setSelectedIndex(productNames.length - 1);
-			
-			spinner.setValue(productList.get(dropDownMenu.getSelectedIndex()).getAvailableUnits());
-			iPrice.setText("$" + Double.toString(productList.get(dropDownMenu.getSelectedIndex()).getPrice()));
-			iBarcode.setText(Long.toString(productList.get(dropDownMenu.getSelectedIndex()).getBarcodeNumber()));
-			iProviderInfo.setText(productList.get(dropDownMenu.getSelectedIndex()).getProviderInfo());
-			iProviderName.setText(productList.get(dropDownMenu.getSelectedIndex()).getProviderName());
-			//JBradshaw added this to make sure that if the user doesn't change
-			//the drop down it will still add the item that first appears
-			temporary = productList.get(productNames.length-1); 
-			dropDownMenu.setBackground(baseColor);
-			dropDownMenu.setForeground(secondaryColor);
-			dropDownMenu.setFont(baseFont);
-			dropDownMenu.addActionListener(new ActionListener(){
-				@Override
-				public void actionPerformed(ActionEvent e) {
 					
-					JComboBox cb = (JComboBox) e.getSource();
-					temporary = productList.get(cb.getSelectedIndex());
-					System.out.println("selected: " + (String)cb.getSelectedItem());
-					spinner.setValue(temporary.getAvailableUnits());
-					iPrice.setText("$" + Double.toString(temporary.getPrice()));
-					iBarcode.setText(Long.toString(temporary.getBarcodeNumber()));
-					iProviderInfo.setText(temporary.getProviderInfo());
-					iProviderName.setText(temporary.getProviderName());
-
-					frame.revalidate();
 					
-				}
-			});
-			GridBagConstraints r = new GridBagConstraints();
-			r.weightx = .16;
-		    r.weighty = .08;
-		    r.gridx = 1;
-		    r.gridy = 1;
-		    r.gridwidth = 2;
-		    r.fill = GridBagConstraints.BOTH;
-		    
-
+			iName 			= new TextField("");
+			nameLabel = new JLabel("Name");
+			iPrice 			= new TextField("");
+			priceLabel = new JLabel("Price");
+			iBarcode 		= new TextField("");
+			barcodeLabel = new JLabel("Bardcode Number (10 digits beginning with 1)");
+			iProviderInfo	= new TextField("");
+			pInfoLabel = new JLabel("Provider Information");
+			iProviderName	= new TextField("");
+			pNameLabel = new JLabel("Provider Name");
 			
-			
-
+			//name textfield
+			GridBagConstraints n = new GridBagConstraints();
+				n.weightx = 1;
+			    n.weighty = .08;
+			    n.gridx = 2;
+			    n.gridy = 1;
+			    n.gridwidth = 2;
+			    n.fill = GridBagConstraints.BOTH;
+			//name label
+			GridBagConstraints nl = new GridBagConstraints();
+				nl.weightx = 1;
+			    nl.weighty = .08;
+			    nl.gridx = 1;
+			    nl.gridy = 1;
+			    nl.gridwidth = 2;
+			    nl.fill = GridBagConstraints.BOTH;		
+			    
 		    //quantity spinner
 			GridBagConstraints q = new GridBagConstraints();
 				q.weightx = 1;
@@ -265,9 +230,8 @@ public class ManageProductScreen {
 			    pnl.gridy = 6;
 			    pnl.gridwidth = 2;
 			    pnl.fill = GridBagConstraints.BOTH;
-			
-			
-		//returns to the inventory screen.
+			 
+			//returns to the inventory screen.
 		cancel.setBackground(baseColor);
 		cancel.setForeground(secondaryColor);
 	    cancel.setFont(buttonFont);
@@ -293,38 +257,28 @@ public class ManageProductScreen {
 		    	
 		    	
 		    	
-    	updateBtn.setBackground(baseColor);
-    	updateBtn.setForeground(secondaryColor);
-    	updateBtn.setFont(buttonFont);
-    	updateBtn.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-    	updateBtn.addActionListener(
+    	addItem.setBackground(baseColor);
+    	addItem.setForeground(secondaryColor);
+    	addItem.setFont(buttonFont);
+    	addItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+    	addItem.addActionListener(
 						new ActionListener(){
+							//JBradshaw return statements added so that user does not have to put in all of the information again
+							double price;
+							int barcode;
 							@Override
 							public void actionPerformed(ActionEvent e) {
-								if ((int)spinner.getValue() < 0){
-									JOptionPane.showMessageDialog(null, "Error cannot have negative\nquantity for product!");
+								if (iPrice.getText().isEmpty() || iBarcode.getText().isEmpty() || iName.getText().isEmpty() || iProviderInfo.getText().isEmpty() || iProviderName.getText().isEmpty()){
+									JOptionPane.showMessageDialog(null, "Error! One or more fields are blank!");
 									return;
 								}
-								temporary.setAvailableUnits((int)spinner.getValue());
-								temporary.setOrderAvailability((int)spinner.getValue());
-
-								//if(temporary.getAvailableUnits()==0){
-								//	productList.remove(temporary);
-								//}
-								int barcode;
-								double price;
 								try{
-									//getting rid of possible character entries that would break double input.
-									String temp = iPrice.getText();
-									temp = temp.replace("$", "");
-									temp = temp.replace(" ", "");
-									price = Double.valueOf(temp);
+									price = Double.valueOf(iPrice.getText());
 									}catch(NumberFormatException er){
 										System.out.println("input was not a double.");
 										JOptionPane.showMessageDialog(frame, "Inputted price was not a double value.",
 												"Input Error", JOptionPane.ERROR_MESSAGE);
 										iPrice.setText("");
-										price = -1;
 										return;
 									}
 								try{
@@ -334,76 +288,71 @@ public class ManageProductScreen {
 									JOptionPane.showMessageDialog(frame, "Inputted barcode was not a integer value.",
 											"Input Error", JOptionPane.ERROR_MESSAGE);
 									iBarcode.setText("");
-									barcode = -1;
 									return;
 								}
-								
-								if(!iPrice.getText().isEmpty() && !iBarcode.getText().isEmpty()&& 
-										!iProviderInfo.getText().isEmpty()&& !iProviderName.getText().isEmpty()){
-									temporary.setAvailableUnits((int)spinner.getValue());
-									temporary.setBarcodeNumber(barcode);
-									temporary.setPrice(price);
-									temporary.setProviderInfo(iProviderInfo.getText());
-									temporary.setProviderName(iProviderName.getText());
-									for(Product v : ProductList){
-										System.out.println(v.getName());
-									}
+								if ((int) spinner.getValue() < 0){
+									JOptionPane.showMessageDialog(null, "Error! Cannot enter a negative\nvalue for quantity!");
+									return;
+								}
+								if (price < 0){
+									JOptionPane.showMessageDialog(null, "Error! Price cannot be less than 0!");
+									return;
+								}
 
-								}
-								else {
-									System.out.println("Adding Failed, Incorrect or invalid input entered.");
-									JOptionPane.showMessageDialog(null,"Error! One or more\nfields was left empty!");
-									return;
-								}
-							
-							temporary.updateDatabase();
-							frame.dispose();
-							screen = new InventoryScreen(productList, customerList, orderList);
+								productList.add(new Product((String)iName.getText(), (int)spinner.getValue(),
+										price, Integer.parseInt(iBarcode.getText()),
+										iProviderInfo.getText(), iProviderName.getText()));
+								frame.dispose();
+								screen = new InventoryScreen(productList, customerList, orderList);
+								//add new product to the database
+								productList.get(productList.size()-1).addToDatabase();
+
+								
 							}
-						});
-	    GridBagConstraints u = new GridBagConstraints();
-    	u.fill = GridBagConstraints.BOTH;
-    	u.weightx = 1;
-    	u.weighty = .16;
-    	u.gridx = 2;
-    	u.gridy = 7;
-    	u.gridwidth = 1;
-    	
-		//make the footer look pretty
-		storeFooter.setBackground(baseColor);
-		storeFooter.setForeground(secondaryColor);
-		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
-		storeFooter.setOpaque(true);
-		//constraints for footer
-		GridBagConstraints fo = new GridBagConstraints();
-		fo.fill = GridBagConstraints.BOTH;
-		fo.weightx = 1;
-	    fo.weighty = .16;
-	    fo.gridx = 0;
-	    fo.gridy = 8;
-	    fo.gridwidth = 3;
-	    fo.gridheight = 1;
-		fo.anchor = GridBagConstraints.PAGE_END;
-		
-		
-		//add components to container
-		pane.add(storeHeader, h);
-		pane.add(iPrice, p);
-		pane.add(priceLabel, pl);
-		pane.add(spinnerLabel, ql);
-		pane.add(spinner, q);
-		pane.add(iBarcode, b);
-		pane.add(iProviderInfo, pi);
-		pane.add(iProviderName, pn);
-		pane.add(barcodeLabel, bl);
-		pane.add(pInfoLabel, pil);
-		pane.add(pNameLabel, pnl);
-		pane.add(cancel, c);
-		pane.add(updateBtn, u);
-		pane.add(dropDownMenu, r);
-		pane.add(storeFooter, fo);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		
+							
+				});
+		    GridBagConstraints ai = new GridBagConstraints();
+		    	ai.fill = GridBagConstraints.BOTH;
+		    	ai.weightx = 1;
+		    	ai.weighty = .16;
+		    	ai.gridx = 2;
+		    	ai.gridy = 7;
+		    	ai.gridwidth = 1;
+			//make the footer look pretty
+			storeFooter.setBackground(baseColor);
+			storeFooter.setForeground(secondaryColor);
+			storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
+			storeFooter.setOpaque(true);
+			//constraints for footer
+			GridBagConstraints fo = new GridBagConstraints();
+				fo.fill = GridBagConstraints.BOTH;
+				fo.weightx = 1;
+			    fo.weighty = .16;
+			    fo.gridx = 0;
+			    fo.gridy = 9;
+			    fo.gridwidth = 3;
+			    fo.gridheight = 1;
+				fo.anchor = GridBagConstraints.PAGE_END;
+			
+			//add components to container
+			pane.add(storeHeader, h);
+			pane.add(iName, n);
+			pane.add(nameLabel, nl);
+			pane.add(iPrice, p);
+			pane.add(priceLabel, pl);
+			pane.add(spinnerLabel, ql);
+			pane.add(spinner, q);
+			pane.add(iBarcode, b);
+			pane.add(iProviderInfo, pi);
+			pane.add(iProviderName, pn);
+			pane.add(barcodeLabel, bl);
+			pane.add(pInfoLabel, pil);
+			pane.add(pNameLabel, pnl);
+			pane.add(cancel, c);
+			pane.add(addItem, ai);
+			pane.add(storeFooter, fo);
+			frame.setLocationRelativeTo(null);
+			frame.setVisible(true);
+			
 	}
 }

@@ -452,30 +452,29 @@ public class CheckoutScreen {
 						}
 						else{ //print out the receipt based on the orderHelperList
 							getPaymentMethod();
-							//add a get delivery method here
-							//figure out if existing or new customer
-							int custID;
-							getCustomerType();
-							if (isNewCustomer){
-								custID = customerList.get(customerList.size()-1).getCustomerID() + 1;
-								String custName = JOptionPane.showInputDialog("Enter your full name");
-								String custAddress = JOptionPane.showInputDialog("Enter your address");
-								customerList.add(new Customer(custID,custName,custAddress));
-								//add customer to database
-								customerList.get(customerList.size()-1).addToDatabase();
-							}
-							else {
-								while (!checkValidCustID(custID = Integer.parseInt(JOptionPane.showInputDialog("Enter your customer ID")))){
-									JOptionPane.showMessageDialog(null, "Please enter a valid customer ID");
-								}
-							}
 							if (cashSelected){
+								int custID;
+								getCustomerType();
+								if (isNewCustomer){
+									custID = customerList.get(customerList.size()-1).getCustomerID() + 1;
+									String custName = JOptionPane.showInputDialog("Enter your full name");
+									String custAddress = JOptionPane.showInputDialog("Enter your address");
+									customerList.add(new Customer(custID,custName,custAddress));
+									//add new customer to database
+									customerList.get(customerList.size()-1).addToDatabase();
+								}
+								else {
+									while (!checkValidCustID(custID = Integer.parseInt(JOptionPane.showInputDialog("Enter your customer ID")))){
+										JOptionPane.showMessageDialog(null, "Please enter a valid customer ID");
+									}
+						
+								}
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
 										+ "Please come again soon!");
 								//deal with adding a new order based on the order info 
 								//if cash just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
-								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Cash", getTotalOrderCost(),"Pick Up" ));
+								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "cash", getTotalOrderCost(),"Pick up" ));
 								printReceipt("cash",custID,false);
 								updateProductList();
 								//add order to database
@@ -483,16 +482,31 @@ public class CheckoutScreen {
 								orderHelperList.clear();
 							}
 							else if (cardSelected){
+								int custID;
+								getCustomerType();
+								if (isNewCustomer){
+									custID = customerList.get(customerList.size()-1).getCustomerID() + 1;
+									String custName = JOptionPane.showInputDialog("Enter your full name");
+									String custAddress = JOptionPane.showInputDialog("Enter your address");
+									customerList.add(new Customer(custID,custName,custAddress));
+									//add customer to database
+									customerList.get(customerList.size()-1).addToDatabase();
+								}
+								else {
+									while (!checkValidCustID(custID = Integer.parseInt(JOptionPane.showInputDialog("Enter your customer ID")))){
+										JOptionPane.showMessageDialog(null, "Please enter a valid customer ID");
+									}
+								}
 								//get card info
 								String cardName = JOptionPane.showInputDialog("Enter your name as it appears on the card");
-								long cardNumber =  Long.parseLong(JOptionPane.showInputDialog("Enter your card number"));
-								String expirationDate = JOptionPane.showInputDialog("Enter the expiration date(mm/yy)");
+								int cardNumber =  Integer.parseInt(JOptionPane.showInputDialog("Enter your card number"));
+								String expirationDate = JOptionPane.showInputDialog("Enter the expiration date(m/yy)");
 								creditCard = new CreditCard(cardNumber,expirationDate,cardName);
 								
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
 										+ "Please come again soon!");
 								int orderListIndex = orderList.size()-1;
-								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Card", getTotalOrderCost(),"Pick Up"));
+								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "card", getTotalOrderCost(),"Pick up" ));
 								printReceipt("card",custID,cardSelected);
 								updateProductList();
 								//add order to database
@@ -500,12 +514,27 @@ public class CheckoutScreen {
 								orderHelperList.clear();
 							}
 							else if (checkSelected){
+								int custID;
+								getCustomerType();
+								if (isNewCustomer){
+									custID = customerList.get(customerList.size()-1).getCustomerID() + 1;
+									String custName = JOptionPane.showInputDialog("Enter your full name");
+									String custAddress = JOptionPane.showInputDialog("Enter your address");
+									customerList.add(new Customer(custID,custName,custAddress));
+									//add customer to database
+									customerList.get(customerList.size()-1).addToDatabase();
+								}
+								else {
+									while (!checkValidCustID(custID = Integer.parseInt(JOptionPane.showInputDialog("Enter your customer ID")))){
+										JOptionPane.showMessageDialog(null, "Please enter a valid customer ID");
+									}
+								}
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
 										+ "Please come again soon!");
 								//deal with adding a new order based on the order info
 								//if check just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
-								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),"Pick Up" ));
+								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "check", getTotalOrderCost(),"Pick up" ));
 								printReceipt("check",custID,false);
 								updateProductList();
 								//add order to database

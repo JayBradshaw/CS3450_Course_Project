@@ -5,15 +5,22 @@ Here is your final receipt
 
 Customer Info:
 
-Jim Bortles
-5489 W. 345 S. Louisville, Kentucky 84521
+Wilfred Test
+555 Test Ave. Salt Lake City, Utah 84521
 
-Date: 2017/03/11 13:42:35
+Card Info: 
+Card Holder: Wilfred J Test
+Card Number: 4587965214589856
+Expiration Date: 05/20
+
+Date: 2017/03/11 15:08:29
 
 Product:                            Cost: Quantity:
 
-Carrots                          1.250000         15
+Tuna                             0.990000          7
+Banana                           0.580000          8
+Apple                            0.990000         12
 
 
-Total Cost: 18.75
-Payment Method: Cash
+Total Cost: 23.45
+Payment Method: Card

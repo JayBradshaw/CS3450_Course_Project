@@ -51,7 +51,7 @@ public class AddInventoryScreen {
 	/**
 	 * list of products
 	 */
-	private ArrayList<Product> ProductList;
+	private ArrayList<Product> productList;
 	/**
 	 * primary color for the GUI
 	 */
@@ -91,7 +91,7 @@ public class AddInventoryScreen {
 	private JButton addItem = new JButton("Add Item");
 	
 	public AddInventoryScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){
-		this.ProductList = productList;
+		this.productList = productList;
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
@@ -298,16 +298,14 @@ public class AddInventoryScreen {
 									JOptionPane.showMessageDialog(null, "Error! Price cannot be less than 0!");
 									return;
 								}
-								
-								if(!iPrice.getText().isEmpty() && !iBarcode.getText().isEmpty()){
-									ProductList.add(new Product((String)iName.getText(), (int)spinner.getValue(),
-											price, Integer.parseInt(iBarcode.getText()),
-											iProviderInfo.getText(), iProviderName.getText()));
-									frame.dispose();
-									screen = new InventoryScreen(ProductList, customerList, orderList);
-								}
-								else
-									System.out.println("Adding Failed.");
+
+								productList.add(new Product((String)iName.getText(), (int)spinner.getValue(),
+										price, Integer.parseInt(iBarcode.getText()),
+										iProviderInfo.getText(), iProviderName.getText()));
+								frame.dispose();
+								screen = new InventoryScreen(productList, customerList, orderList);
+								//add new product to the database
+								productList.get(productList.size()-1).addToDatabase();
 								
 							}
 							

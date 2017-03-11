@@ -423,7 +423,7 @@ public class MainScreen {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -30,7 +30,7 @@ public class ManageProductScreen {
 	/**
 	 * frame where the system will be produced
 	 */
-	private JFrame frame = new JFrame("Grocery Store Checkout System: Manage Existing Products");
+	private JFrame frame = new JFrame("Grocery Store Checkout System: Manage Products");
 	/**
 	 * pane to be contained in the frame
 	 */
@@ -356,7 +356,7 @@ public class ManageProductScreen {
 									return;
 								}
 							
-							temporary.updateDatabase();
+							
 							frame.dispose();
 							screen = new InventoryScreen(productList, customerList, orderList);
 							}

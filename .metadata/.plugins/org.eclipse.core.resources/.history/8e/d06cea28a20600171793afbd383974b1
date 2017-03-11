@@ -356,7 +356,7 @@ public class ManageProductScreen {
 									return;
 								}
 							
-							temporary.updateDatabase();
+							//update the product info here
 							frame.dispose();
 							screen = new InventoryScreen(productList, customerList, orderList);
 							}

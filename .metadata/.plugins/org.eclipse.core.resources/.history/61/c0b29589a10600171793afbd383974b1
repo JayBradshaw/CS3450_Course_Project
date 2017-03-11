@@ -176,26 +176,11 @@ public class Product {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		//price,barcode,providerInfo,providerName
 		String query = "update products set name = " + '"' + getName() + '"' + ", availableUnits = " + getTotalUnits() + 
 				", barcode = " + getBarcodeNumber() + ", providerInfo = " + '"' + getProviderInfo() + '"' + ", providerName = " +
 				'"' + getProviderName() + '"' + "\nwhere name = " + '"' + getName() + '"' + ";";
 		System.out.println(query);
-		try {
-			statement = con.createStatement();
-			statement.executeUpdate(query);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			con.close();
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 }

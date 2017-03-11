@@ -15,7 +15,7 @@ public class CreditCard {
 	private String expirationDate;
 	private String name;
 	
-	public CreditCard(long cardNumber, String expirationDate, String name){
+	public CreditCard(int cardNumber, String expirationDate, String name){
 		this.cardNumber = cardNumber;
 		this.expirationDate = expirationDate;
 		this.name = name;
