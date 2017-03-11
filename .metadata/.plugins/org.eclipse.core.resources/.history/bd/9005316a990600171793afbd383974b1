@@ -335,18 +335,6 @@ public class MainScreen {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	/**
@@ -394,18 +382,6 @@ public class MainScreen {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	/**
@@ -449,18 +425,6 @@ public class MainScreen {
 				customerList.add(new Customer(result.getInt(1),result.getString(2),result.getString(3)));
 				System.out.println(result.getInt(1)+ " " + result.getString(2) + " " + result.getString(3));
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

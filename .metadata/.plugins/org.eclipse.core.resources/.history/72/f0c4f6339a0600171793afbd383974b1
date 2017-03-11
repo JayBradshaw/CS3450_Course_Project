@@ -5,10 +5,8 @@ package CS3450.course_project.dataAccess;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-
-
 
 /**
  * @author Justin Bradshaw
@@ -55,7 +53,7 @@ public class Customer {
 		return customerID;
 	}
 	public void setCustomerID(int customerID) {
-		this.customerID = customerID;
+		customerID = customerID;
 	}
 	public String getName() {
 		return name;
@@ -72,10 +70,17 @@ public class Customer {
 	
 	public void addToDatabase(){
 		Connection con = null;
-		Statement statement = null;
+		PreparedStatement statement = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -86,27 +91,18 @@ public class Customer {
 		System.out.println(query);
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
-		} catch (SQLException e1) {
+			statement = con.prepareStatement(query);
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e.printStackTrace();
+		}
+		try {
+			statement.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		try {
-			statement = con.createStatement();
-			statement.executeUpdate(query);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			statement.close();
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 	}
 	
 }

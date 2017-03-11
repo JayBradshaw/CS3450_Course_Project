@@ -5,15 +5,15 @@ Here is your final receipt
 
 Customer Info:
 
-William Banks
-856 S Christmas Ave. Charleston, South Carolina 59587
+Jim Bortles
+5489 W. 345 S. Louisville, Kentucky 84521
 
-Date: 2017/03/08 15:33:58
+Date: 2017/03/11 13:42:35
 
 Product:                            Cost: Quantity:
 
-Potatoes                         0.690000         18
+Carrots                          1.250000         15
 
 
-Total Cost: 12.419999999999998
+Total Cost: 18.75
 Payment Method: Cash

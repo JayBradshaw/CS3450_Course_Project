@@ -5,8 +5,8 @@ package CS3450.course_project.dataAccess;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * @author Justin Bradshaw
@@ -116,7 +116,7 @@ public class Product {
 	
 	public void addToDatabase(){
 		Connection con = null;
-		Statement statement = null;
+		PreparedStatement statement = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -137,16 +137,13 @@ public class Product {
 		System.out.println(query);
 		
 		try {
-			statement = con.createStatement();
-			statement.executeUpdate(query);
+			statement = con.prepareStatement(query);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		try {
-			con.close();
-			statement.close();
+			statement.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

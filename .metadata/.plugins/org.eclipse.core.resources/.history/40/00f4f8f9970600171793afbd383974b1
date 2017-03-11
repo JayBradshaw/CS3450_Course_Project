@@ -127,12 +127,12 @@ public class MainScreen {
 		pane.setLayout(new BorderLayout());
 		
 		if (!accessed){
-			//prodListNoDatabase();
-			//customerListNoDatabase();
-			//orderListNoDatabase();
-			createProductList();
-			createCustomerList();
-			createOrderList();
+			prodListNoDatabase();
+			customerListNoDatabase();
+			orderListNoDatabase();
+			//createProductList();
+			//createCustomerList();
+			//createOrderList();
 		}
 		accessed = true;
 		
@@ -335,18 +335,6 @@ public class MainScreen {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	/**
@@ -394,22 +382,12 @@ public class MainScreen {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
+	
+	
 	/**
-	 * create a list of customers from the database
+	 * create a list of orders from the database
 	 */
 	public void createCustomerList(){
 		Connection con = null;
@@ -449,18 +427,6 @@ public class MainScreen {
 				customerList.add(new Customer(result.getInt(1),result.getString(2),result.getString(3)));
 				System.out.println(result.getInt(1)+ " " + result.getString(2) + " " + result.getString(3));
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
