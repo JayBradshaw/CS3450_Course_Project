@@ -306,7 +306,7 @@ public class ManageProductScreen {
 									return;
 								}
 								temporary.setAvailableUnits((int)spinner.getValue());
-								temporary.setOrderAvailability((int)spinner.getValue());
+																										temporary.setOrderAvailability((int)								spinner.getValue());
 
 								//if(temporary.getAvailableUnits()==0){
 								//	productList.remove(temporary);
@@ -325,7 +325,6 @@ public class ManageProductScreen {
 												"Input Error", JOptionPane.ERROR_MESSAGE);
 										iPrice.setText("");
 										price = -1;
-										return;
 									}
 								try{
 									barcode = Integer.valueOf(iBarcode.getText());
@@ -335,7 +334,6 @@ public class ManageProductScreen {
 											"Input Error", JOptionPane.ERROR_MESSAGE);
 									iBarcode.setText("");
 									barcode = -1;
-									return;
 								}
 								
 								if(!iPrice.getText().isEmpty() && !iBarcode.getText().isEmpty()&& 
@@ -353,7 +351,6 @@ public class ManageProductScreen {
 								else {
 									System.out.println("Adding Failed, Incorrect or invalid input entered.");
 									JOptionPane.showMessageDialog(null,"Error! One or more\nfields was left empty!");
-									return;
 								}
 							
 							

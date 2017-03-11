@@ -353,7 +353,6 @@ public class ManageProductScreen {
 								else {
 									System.out.println("Adding Failed, Incorrect or invalid input entered.");
 									JOptionPane.showMessageDialog(null,"Error! One or more\nfields was left empty!");
-									return;
 								}
 							
 							
