@@ -17,4 +17,5 @@
 <fullyQualifiedTypeName name="CS3450.course_project.businessLogic.CreditCard"/>
 <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
 <fullyQualifiedTypeName name="CS3450.course_project.dataAccess.Order"/>
+<fullyQualifiedTypeName name="com.mysql.jdbc.Statement"/>
 </qualifiedTypeNameHistroy>

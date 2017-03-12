@@ -163,7 +163,20 @@ public class CheckoutScreen {
 	 */
 	private JRadioButton newCustomer;
 	
+	/**
+	 * will store credit card info if a credit card is the payment method
+	 */
 	private CreditCard creditCard;
+	private boolean isPickUp = true;
+	private boolean isDelivery = false;
+	/**
+	 * radio button to know whether or not the delivery method is pick up
+	 */
+	private JRadioButton pickUp;
+	/**
+	 * radio button to know whether or not the delivery method is delivery
+	 */
+	private JRadioButton delivery;
 	
 	/**
 	 * @param productList
@@ -453,6 +466,7 @@ public class CheckoutScreen {
 						else{ //print out the receipt based on the orderHelperList
 							getPaymentMethod();
 							//add a get delivery method here
+							String deliveryMethod = getDeliveryMethod();
 							//figure out if existing or new customer
 							int custID;
 							getCustomerType();
@@ -475,7 +489,7 @@ public class CheckoutScreen {
 								//deal with adding a new order based on the order info 
 								//if cash just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
-								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Cash", getTotalOrderCost(),"Pick Up" ));
+								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Cash", getTotalOrderCost(),deliveryMethod ));
 								printReceipt("cash",custID,false);
 								updateProductList();
 								//add order to database
@@ -492,7 +506,7 @@ public class CheckoutScreen {
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
 										+ "Please come again soon!");
 								int orderListIndex = orderList.size()-1;
-								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Card", getTotalOrderCost(),"Pick Up"));
+								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Card", getTotalOrderCost(),deliveryMethod));
 								printReceipt("card",custID,cardSelected);
 								updateProductList();
 								//add order to database
@@ -505,7 +519,7 @@ public class CheckoutScreen {
 								//deal with adding a new order based on the order info
 								//if check just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
-								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),"Pick Up" ));
+								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod));
 								printReceipt("check",custID,false);
 								updateProductList();
 								//add order to database
@@ -614,6 +628,9 @@ public class CheckoutScreen {
 		JOptionPane.showConfirmDialog(null, selectionPanel, "Payment Method", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 	}
 	
+	/**
+	 * get the type of customer for the order
+	 */
 	public void getCustomerType() {
 		BoxListener boxLis = new BoxListener();
 		
@@ -632,6 +649,32 @@ public class CheckoutScreen {
 		selectionPanel.setLayout(new BoxLayout(selectionPanel, BoxLayout.Y_AXIS));
 		
 		JOptionPane.showConfirmDialog(null, selectionPanel, "Customer Type", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+	}
+	
+	/**
+	 * get the delivery method for a specific order
+	 */
+	public String getDeliveryMethod(){
+		BoxListener boxLis = new BoxListener();
+		
+		pickUp = new JRadioButton("Pick Up",true);
+		pickUp.addItemListener(boxLis);
+		delivery = new JRadioButton("Delivery");
+		delivery.addItemListener(boxLis);
+		
+		ButtonGroup deliveryOptions = new ButtonGroup();
+		deliveryOptions.add(pickUp);
+		deliveryOptions.add(delivery);
+		
+		JPanel selectionPanel = new JPanel();
+		selectionPanel.add(pickUp);
+		selectionPanel.add(delivery);
+		selectionPanel.setLayout(new BoxLayout(selectionPanel, BoxLayout.Y_AXIS));
+		
+		JOptionPane.showConfirmDialog(null, selectionPanel, "Delivery Method", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+		
+		if (isPickUp) return "Pick Up";
+		else return "Delivery";
 	}
 	
 	/**
@@ -671,6 +714,14 @@ public class CheckoutScreen {
 					}
 					else if (tempRadio == newCustomer){
 						isNewCustomer = true;
+					}
+					else if (tempRadio == pickUp){
+						isPickUp = true;
+						isDelivery = false;
+					}
+					else if (tempRadio == delivery){
+						isDelivery = true;
+						isPickUp = false;
 					}
 				}
 			}
