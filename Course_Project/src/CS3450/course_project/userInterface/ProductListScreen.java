@@ -67,12 +67,22 @@ public class ProductListScreen {
 	 * font specifications for the buttons
 	 */
 	private Font buttonFont = new Font("Verdana", Font.PLAIN, 16);
+	/**
+	 * ability to return to the inventory screen
+	 */
 	private InventoryScreen screen;
 	/**
 	 * return to inventory screen.
 	 */
 	private JButton returnBtn = new JButton("Return");
 	
+	/**
+	 * @param productList
+	 * @param customerList
+	 * @param orderList
+	 * 
+	 * non-default constructor
+	 */
 	public ProductListScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){
 		this.productList = productList;
 		

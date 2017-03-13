@@ -51,6 +51,9 @@ public class ManageProductScreen {
 	 * list of products
 	 */
 	private InventoryScreen screen;
+	/**
+	 * array list to store the products
+	 */
 	private ArrayList<Product> ProductList;
 	/**
 	 * primary color for the GUI
@@ -72,7 +75,13 @@ public class ManageProductScreen {
 	 * spinner object for getting quantity of product 
 	 */
 	private SpinnerModel model1 = new SpinnerNumberModel();
+	/**
+	 * spinner based on the spinner model
+	 */
 	private JSpinner spinner = new JSpinner(model1);
+	/**
+	 * label for the spinner
+	 */
 	private JLabel spinnerLabel = new JLabel("Quantity");
 	/**
 	 * return to inventory screen, cancel changes.
@@ -86,14 +95,26 @@ public class ManageProductScreen {
 	 * input fields
 	 */
 	private TextField iPrice, iBarcode, iProviderInfo, iProviderName;
-	
+	/**
+	 * labels for the products
+	 */
 	private JLabel  priceLabel, barcodeLabel, pInfoLabel, pNameLabel;
 	/**
 	 * Drop down menu for selecting items.
 	 */
 	private JComboBox dropDownMenu = new JComboBox();
+	/**
+	 * temporary product that will be set based on the drop down menu
+	 */
 	private Product temporary;
 	
+	/**
+	 * @param productList
+	 * @param customerList
+	 * @param orderList
+	 * 
+	 * non-default constructor
+	 */
 	public ManageProductScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){
 		this.ProductList = productList;
 		

@@ -68,27 +68,66 @@ public class Order {
 		this.totalCost = totalCost;
 		this.deliveryMethod = deliveryMethod;
 	}
+	/**
+	 * @return
+	 * 
+	 * returns the order ID
+	 */
 	public int getOrderID() {
 		return orderID;
 	}
+	/**
+	 * @param orderID
+	 * 
+	 * sets the order ID
+	 */
 	public void setOrderID(int orderID) {
 		this.orderID = orderID;
 	}
+	/**
+	 * @return
+	 * 
+	 * returns the customer ID of the order
+	 */
 	public int getCustomerID() {
 		return customerID;
 	}
+	/**
+	 * @param customerID
+	 * 
+	 * sets the custmer ID of an order
+	 */
 	public void setCustomerID(int customerID) {
 		this.customerID = customerID;
 	}
+	/**
+	 * @return
+	 * 
+	 * returns the payment type of the order
+	 * cash,card,check
+	 */
 	public String getPaymentType() {
 		return paymentType;
 	}
+	/**
+	 * @param paymentType
+	 * 
+	 * sets the payment type of the order
+	 */
 	public void setPaymentType(String paymentType) {
 		this.paymentType = paymentType;
 	}
+	/**
+	 * @return
+	 * 
+	 * returns the total cost of an order
+	 */
 	public double getTotalCost() {
 		return totalCost;
 	}
+	/**
+	 * sets the total cost of an order
+	 */
 	public void setTotalCost() { //iterate through the array list
 		for (OrderHelper item : list){
 			totalCost += item.getProductPrice();
@@ -102,12 +141,26 @@ public class Order {
 	public void incrementTotalCost(double value){ //this could be for a coupon or sale or something
 		totalCost += value;
 	}
+	/**
+	 * @return
+	 * 
+	 * returns the delivery method of an order
+	 * Pick Up, Delivery
+	 */
 	public String getDeliveryMethod() {
 		return deliveryMethod;
 	}
+	/**
+	 * @param deliveryMethod
+	 * 
+	 * sets the delivery method of the order
+	 */
 	public void setDeliveryMethod(String deliveryMethod) {
 		this.deliveryMethod = deliveryMethod;
 	}
+	/**
+	 * adds an order to the database
+	 */
 	public void addToDatabase(){
 		Connection con = null;
 		Statement statement = null;

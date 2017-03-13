@@ -68,18 +68,33 @@ public class AddInventoryScreen {
 	 * spinner object for getting quantity of product 
 	 */
 	private SpinnerModel model1 = new SpinnerNumberModel();
+	/**
+	 * spinner associated with the spinner model
+	 */
 	private JSpinner spinner = new JSpinner(model1);
+	/**
+	 * label for the spinner
+	 */
 	private JLabel spinnerLabel = new JLabel("Quantity");
 	/**
-	 * Item being added to arraylist
+	 * Item being added to array list
 	 */
 	private String itemName;
 	/**
 	 * temporarily holds the object of selected item.
 	 */
 	private TextField iName, iPrice, iBarcode, iProviderInfo, iProviderName;
+	/**
+	 * labels for the text fields
+	 */
 	private JLabel nameLabel, priceLabel, barcodeLabel, pInfoLabel, pNameLabel;
+	/**
+	 * font for the labels
+	 */
 	private Font buttonFont = new Font("Verdana", Font.PLAIN, 16);
+	/**
+	 * inventory screen
+	 */
 	private InventoryScreen screen;
 	/**
 	 * return to inventory screen, cancel changes.
@@ -90,6 +105,13 @@ public class AddInventoryScreen {
 	 */
 	private JButton addItem = new JButton("Add Item");
 	
+	/**
+	 * @param productList
+	 * @param customerList
+	 * @param orderList
+	 * 
+	 * non-default constructor
+	 */
 	public AddInventoryScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){
 		this.productList = productList;
 		

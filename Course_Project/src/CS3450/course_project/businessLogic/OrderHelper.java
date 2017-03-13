@@ -39,21 +39,51 @@ public class OrderHelper {
 		this.productPrice = productPrice;
 		this.quantity = quantity;
 	}
+	/**
+	 * @return
+	 * 
+	 * returns  the name of a given product
+	 */
 	public String getProductName() {
 		return productName;
 	}
+	/**
+	 * @param productName
+	 * 
+	 * sets the name of a given product
+	 */
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+	/**
+	 * @return
+	 * 
+	 * returns the price of a product
+	 */
 	public double getProductPrice() {
 		return productPrice;
 	}
+	/**
+	 * @param productPrice
+	 * 
+	 * sets the price of a product
+	 */
 	public void setProductPrice(double productPrice) {
 		this.productPrice = productPrice;
 	}
+	/**
+	 * @return
+	 * 
+	 * returns the quantity ordered of a given product
+	 */
 	public int getQuantity() {
 		return quantity;
 	}
+	/**
+	 * @param quantity
+	 * 
+	 * sets the quantity ordered of a given product
+	 */
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}

@@ -12,6 +12,7 @@ import java.awt.event.ItemListener;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -148,7 +149,6 @@ public class CheckoutScreen {
 	 * check radio button
 	 */
 	private JRadioButton check;
-	
 	/**
 	 * tells you whether or not the user is a new customer
 	 * if a new customer, they must be added to the customer list
@@ -162,12 +162,17 @@ public class CheckoutScreen {
 	 * radio button for new customer
 	 */
 	private JRadioButton newCustomer;
-	
 	/**
 	 * will store credit card info if a credit card is the payment method
 	 */
 	private CreditCard creditCard;
+	/**
+	 * know whether the delivery method is in store pick up
+	 */
 	private boolean isPickUp = true;
+	/**
+	 * know whether the delivery method is home delivery
+	 */
 	private boolean isDelivery = false;
 	/**
 	 * radio button to know whether or not the delivery method is pick up
@@ -181,7 +186,7 @@ public class CheckoutScreen {
 	/**
 	 * @param productList
 	 * 
-	 * constructor
+	 * non-default constructor
 	 */
 	public CheckoutScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){
 		this.productList = productList;
@@ -351,6 +356,14 @@ public class CheckoutScreen {
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * @param productList
+	 * @param customerList
+	 * @param orderHelperList
+	 * @param orderList
+	 * 
+	 * non-default constructor
+	 */
 	public CheckoutScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<OrderHelper> orderHelperList, ArrayList<Order> orderList){
 		this.productList = productList;
 		this.customerList = customerList;
@@ -490,8 +503,10 @@ public class CheckoutScreen {
 								//if cash just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
 								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Cash", getTotalOrderCost(),deliveryMethod ));
-								printReceipt("cash",custID,false);
+								printReceipt("cash",custID,false,deliveryMethod);
+								//update the product list to reflect the changes
 								updateProductList();
+								updateProductListDatabase();
 								//add order to database
 								orderList.get(orderList.size()-1).addToDatabase();
 								orderHelperList.clear();
@@ -507,8 +522,10 @@ public class CheckoutScreen {
 										+ "Please come again soon!");
 								int orderListIndex = orderList.size()-1;
 								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Card", getTotalOrderCost(),deliveryMethod));
-								printReceipt("card",custID,cardSelected);
+								printReceipt("card",custID,cardSelected,deliveryMethod);
+								//update the product list to reflect the changes
 								updateProductList();
+								updateProductListDatabase();
 								//add order to database
 								orderList.get(orderList.size()-1).addToDatabase();
 								orderHelperList.clear();
@@ -520,8 +537,10 @@ public class CheckoutScreen {
 								//if check just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
 								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod));
-								printReceipt("check",custID,false);
+								printReceipt("check",custID,false,deliveryMethod);
+								//update the product list to reflect the changes
 								updateProductList();
+								updateProductListDatabase();
 								//add order to database
 								orderList.get(orderList.size()-1).addToDatabase();
 								orderHelperList.clear();
@@ -729,7 +748,15 @@ public class CheckoutScreen {
 		}
 	}
 	
-	private void printReceipt(String paymentMethod, int custID, boolean card){
+	/**
+	 * @param paymentMethod
+	 * @param custID
+	 * @param card
+	 * @param deliveryMethod
+	 * 
+	 * prints out a receipt based on an order
+	 */
+	private void printReceipt(String paymentMethod, int custID, boolean card, String deliveryMethod){
 		PrintWriter fileOutput = null;
 		int size = orderList.size()-1;
 		String fileName = "data/order(" + size + ").txt"; //string to store the order 
@@ -756,14 +783,22 @@ public class CheckoutScreen {
 		fileOutput.println("Date: " + dateFormat.format(date) + "\n");
 		fileOutput.println(String.format("%-30s %10s %10s", "Product:" , "Cost:", "Quantity:\n"));
 		for(OrderHelper item : this.orderHelperList){
-			fileOutput.println(String.format("%-30s %10f %10s", item.getProductName(), item.getProductPrice(), Integer.toString(item.getQuantity())));
+			String price = new DecimalFormat("0.00").format(item.getProductPrice());
+			System.out.println("PRICE: " + price);
+			fileOutput.println(String.format("%-30s %10s %10s", item.getProductName(), price, Integer.toString(item.getQuantity())));
 		}
-		fileOutput.println("\n\nTotal Cost: " + getTotalOrderCost());
+		fileOutput.println(String.format("\n\nTotal Cost: %.2f", getTotalOrderCost()));
 		fileOutput.println("Payment Method: " + printPaymentMethod());
+		fileOutput.println("Delivery Method: " + deliveryMethod);
 		
 		fileOutput.close();
 	}
 	
+	/**
+	 * @return
+	 * 
+	 * gets the total cost of an order
+	 */
 	private double getTotalOrderCost(){
 		double totalCost = 0.0;
 		for(OrderHelper item : this.orderHelperList){
@@ -772,15 +807,26 @@ public class CheckoutScreen {
 		return totalCost;
 	}
 	
+	/**
+	 * @return
+	 * 
+	 * prints the payment method
+	 */
 	private String printPaymentMethod(){
 		if (cashSelected) return "Cash";
 		else if (cardSelected) return "Card";
 		else return "Check";		
 	}
 	
+	/**
+	 * @param id id to be checked against
+	 * @return
+	 * 
+	 * checks whether or not an ID is valid
+	 */
 	private boolean checkValidCustID(int id){
-		if (id >=0 && id < customerList.size()){
-			return true;
+		for (int i = 0; i < customerList.size(); ++i){
+			if (customerList.get(i).getCustomerID() == id) return true;
 		}
 		return false;
 	}
@@ -793,4 +839,18 @@ public class CheckoutScreen {
 				productList.get(j).setAvailableUnits(productList.get(j).getOrderAvailability());
 			}
 	}
+	
+	/**
+	 * updates the availability of items, or available units, based on the order
+	 */
+	private void updateProductListDatabase(){
+		for (int i = 0; i < productList.size(); ++i){
+			for (int j =0; j < orderHelperList.size(); ++j){
+				if (productList.get(i).getName() == orderHelperList.get(j).getProductName()){
+					productList.get(i).updateQuantity(); //update the quantity so that it reflects the subtraction from the order
+				}
+			}
+		}
+	}
+	
 }

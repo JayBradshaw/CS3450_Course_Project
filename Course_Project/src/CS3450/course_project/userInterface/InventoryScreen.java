@@ -80,25 +80,33 @@ public class InventoryScreen {
 	 * font specifications for the buttons
 	 */
 	private Font buttonFont = new Font("Verdana", Font.PLAIN, 16);
-	
 	/**
 	 * JBradshaw: Allow ability to return to the main screen
 	 */
 	private MainScreen screen;
 	
+	/**
+	 * ability to return to AddInventoryScreen
+	 */
 	private AddInventoryScreen addInvScreen;
+	/**
+	 * ability to return to ProductListScreen
+	 */
 	private ProductListScreen prodListScreen;
+	/**
+	 * ability to return to ManageProductScreen
+	 */
 	private ManageProductScreen manageProductScreen;
-	
-	
-	
 	/**
 	 * array list to store all of the products
 	 */
 	private ArrayList<Product> productList;
+	/**
+	 * array list to store all of the customers
+	 */
 	private ArrayList<Customer> customerList;
 	/**
-	 * default constructor
+	 * non-default constructor
 	 */ 
 	public InventoryScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){ //JBradshaw added parameter productList so that when we jump from screen to screen we don't lose the products
 		this.productList = productList;

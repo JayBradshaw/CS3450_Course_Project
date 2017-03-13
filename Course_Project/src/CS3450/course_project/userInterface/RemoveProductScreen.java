@@ -58,7 +58,6 @@ public class RemoveProductScreen {
 	 * button for canceling an item
 	 */
 	private JButton checkoutScreen = new JButton("Cancel");
-	
 	/**
 	 * primary color for the GUI
 	 */
@@ -75,7 +74,6 @@ public class RemoveProductScreen {
 	 * font specifications for the buttons
 	 */
 	private Font buttonFont = new Font("Verdana", Font.PLAIN, 16);
-	
 	/**
 	 * JBradshaw: Array list to store the products
 	 */
@@ -92,18 +90,21 @@ public class RemoveProductScreen {
 	 * order list
 	 */
 	private ArrayList<Order> orderList;
-	
 	/**
 	 * spinner object for getting quantity of product 
 	 */
 	private SpinnerModel model1 = new SpinnerNumberModel();
+	/**
+	 * spinner based on the spinner model
+	 */
 	private JSpinner spinner = new JSpinner(model1);
-	
 	/**
 	 * Drop down menu for selecting items.
 	 */
 	private JComboBox dropDownMenu = new JComboBox();
-	
+	/**
+	 * temporary product that will be set based on the drop down menu
+	 */
 	private Product temporary;
 	/**
 	 * JBradshaw: Allow ability to return to the main screen
@@ -111,6 +112,14 @@ public class RemoveProductScreen {
 	private CheckoutScreen checkoutscreen;
 
 	
+	/**
+	 * @param productList
+	 * @param customerList
+	 * @param orderHelperList
+	 * @param orderList
+	 * 
+	 * non-default constructor
+	 */
 	public RemoveProductScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<OrderHelper> orderHelperList, ArrayList<Order> orderList){
 		this.productList = productList;
 		this.customerList = customerList;
@@ -322,6 +331,12 @@ public class RemoveProductScreen {
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * @param name
+	 * @return
+	 * 
+	 * determines whether or not a product is a part of the current order
+	 */
 	boolean isInOrderList(String name){
 		for (int i = 0; i < orderHelperList.size(); ++i){
 			if (orderHelperList.get(i).getProductName() == name){
@@ -330,7 +345,6 @@ public class RemoveProductScreen {
 		}
 		return false;
 	}
-	
 	
 }
 

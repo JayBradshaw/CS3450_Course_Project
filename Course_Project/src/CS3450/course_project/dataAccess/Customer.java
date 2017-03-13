@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-
 /**
  * @author Justin Bradshaw
  *
@@ -51,25 +50,58 @@ public class Customer {
 		this.name = name;
 		this.address = address;
 	}
+	/**
+	 * @return
+	 * 
+	 * returns the ID of a customer
+	 */
 	public int getCustomerID() {
 		return customerID;
 	}
+	/**
+	 * @param customerID
+	 * 
+	 * sets the ID of a customer
+	 */
 	public void setCustomerID(int customerID) {
 		this.customerID = customerID;
 	}
+	/**
+	 * @return
+	 * 
+	 * returns the name of a specific customer
+	 */
 	public String getName() {
 		return name;
 	}
+	/**
+	 * @param name
+	 * 
+	 * sets the name of a specific customer
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+	/**
+	 * @return
+	 * 
+	 * returns the address of a specific customer
+	 */
 	public String getAddress() {
 		return address;
 	}
+	/**
+	 * @param address
+	 * 
+	 * sets the address of a specific customer
+	 */
 	public void setAddress(String address) {
 		this.address = address;
 	}
 	
+	/**
+	 * adds a new customer to the database
+	 */
 	public void addToDatabase(){
 		Connection con = null;
 		Statement statement = null;

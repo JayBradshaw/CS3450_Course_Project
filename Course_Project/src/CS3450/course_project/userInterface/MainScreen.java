@@ -85,19 +85,18 @@ public class MainScreen {
 	 * font specifications for the buttons
 	 */
 	private Font buttonFont = new Font("Verdana", Font.PLAIN, 16);
-	
 	/**
 	 * array list to store the products from the database
 	 */
 	private ArrayList<Product> productList= new ArrayList<Product>();
-	
+	/**
+	 * array list to store items that are part of the current order
+	 */
 	private ArrayList<OrderHelper> orderHelperList = new ArrayList<OrderHelper>();
-	
 	/**
 	 * will be used to create a new checkout screen
 	 */
 	private CheckoutScreen checkoutscreen;
-	
 	/**
 	 * object for the inventory screen
 	 */
@@ -110,10 +109,9 @@ public class MainScreen {
 	 * array list to store the customers already in the database
 	 */
 	private ArrayList<Customer> customerList = new ArrayList<Customer>();
-	
 	/**
 	 * static boolean for the entire class that will tell whether or not the database has already been 
-	 * accessed. No need to reaccess the database if we have already accessed it.
+	 * accessed. No need to re-access the database if we have already accessed it.
 	 */
 	private static boolean accessed = false;
 
@@ -127,6 +125,7 @@ public class MainScreen {
 		pane.setLayout(new BorderLayout());
 		
 		if (!accessed){
+			//access the database for the customers, orders, and products
 			//prodListNoDatabase();
 			//customerListNoDatabase();
 			//orderListNoDatabase();
@@ -468,6 +467,9 @@ public class MainScreen {
 	}
 
 	
+	/**
+	 * creates a dummy product list without accessing the database
+	 */
 	public void prodListNoDatabase(){
 		productList.add(new Product("Apple", 56, 0.99,1568494530, "568 S 400 W Atlanta, Georgia 48934 895-594-8745","Johnny Appleseed"));
 		productList.add(new Product("Banana", 86,0.58,1578965445,"896 W 500 N Tallahassee, Florida 45897 458-521-8452","Dole Johnson"));
@@ -477,12 +479,18 @@ public class MainScreen {
 		productList.add(new Product("Potatoes", 88, 0.69, 1563254896, "341 Big Creek Drive Idaho Falls, Idaho 85412 435-986-8541", "Alicia Spud"));
 	}
 	
+	/**
+	 * creates a dummy order list without accessing the database
+	 */
 	public void orderListNoDatabase(){
 		orderList.add(new Order(0,0,"Cash",56.89,"Pick Up"));
 		orderList.add(new Order(1,1,"Check",45.27,"Pick Up"));
 		orderList.add(new Order(2,2,"Card",89.36,"Delivery"));
 	}
 	
+	/**
+	 * creates a dummy customer list without accessing the database
+	 */
 	public void customerListNoDatabase(){
 		customerList.add(new Customer(0,"William Banks","856 S Christmas Ave. Charleston, South Carolina 59587"));
 		customerList.add(new Customer(1,"Mason Jones", "584 Center St. San Francisco, CA 65860"));		
@@ -490,6 +498,8 @@ public class MainScreen {
 	}
 	/**
 	 * @param args
+	 * 
+	 * main method where the program will run
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable(){
