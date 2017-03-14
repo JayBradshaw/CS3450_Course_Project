@@ -445,10 +445,6 @@ public class CheckoutScreen {
 						System.out.println("Remove Item Button Pressed!!!!");
 						//removes item from checkout list
 						System.out.println("Removing item to checkout list page");
-						if (orderHelperList.size() ==0){
-							JOptionPane.showMessageDialog(null, "Error! No products to remove!");
-							return;
-						}
 						frame.dispose();
 						removeProductScreen = new RemoveProductScreen(productList,customerList, orderHelperList,orderList);
 					}

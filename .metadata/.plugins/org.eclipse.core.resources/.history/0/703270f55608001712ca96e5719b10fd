@@ -88,7 +88,7 @@ public class InventoryScreen {
 	/**
 	 * ability to return to AddInventoryScreen
 	 */
-	private AddNewProductScreen addNewProductScreen;
+	private AddInventoryScreen addInvScreen;
 	/**
 	 * ability to return to ProductListScreen
 	 */
@@ -156,7 +156,7 @@ public class InventoryScreen {
 						System.out.println("Add Product Button Pressed!!!!");
 						//adds product and info to database
 						frame.dispose();
-						addNewProductScreen = new AddNewProductScreen(productList, customerList, orderList);
+						addInvScreen = new AddInventoryScreen(productList, customerList, orderList);
 						System.out.println("Adding product to inventory");
 					}
 		});

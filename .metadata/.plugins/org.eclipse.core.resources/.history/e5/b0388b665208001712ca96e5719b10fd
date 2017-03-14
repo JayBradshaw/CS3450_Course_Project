@@ -61,12 +61,14 @@ public class Order {
 	 * 
 	 * constructor that initializes all of the important attributes
 	 */
-	public Order(int orderID, int customerID, String paymentType, double totalCost, String deliveryMethod){
+	public Order(int orderID, int customerID, String paymentType, String deliveryMethod, ArrayList<OrderHelper> list){
 		this.orderID = orderID;
 		this.customerID =customerID;
 		this.paymentType = paymentType;
-		this.totalCost = totalCost;
+		setTotalCost();
+		this.totalCost = getTotalCost();
 		this.deliveryMethod = deliveryMethod;
+		this.list = list;
 	}
 	/**
 	 * @return

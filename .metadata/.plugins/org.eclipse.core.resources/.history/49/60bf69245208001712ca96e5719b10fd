@@ -130,7 +130,7 @@ public class Order {
 	 */
 	public void setTotalCost() { //iterate through the array list
 		for (OrderHelper item : list){
-			totalCost += (item.getProductPrice()*item.getQuantity());
+			totalCost += item.getProductPrice();
 		}
 	}
 	/**

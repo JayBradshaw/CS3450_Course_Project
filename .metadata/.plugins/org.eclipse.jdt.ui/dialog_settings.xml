@@ -32,6 +32,11 @@
 		<item value="C:\Users\justin\Documents\Justin\Utah State\CS 3450\CS3450_Course_Project\Course_Project\doc" key="destdir"/>
 		<item value="false" key="openinbrowser"/>
 		<section name="projects">
+			<section name="Course_Project">
+				<item value="C:\Users\justin\Documents\Justin\Utah State\CS 3450\CS3450_Course_Project\Course_Project\javadoc.xml" key="antpath"/>
+				<item value="C:\Users\justin\Documents\Justin\Utah State\CS 3450\CS3450_Course_Project\Course_Project\doc" key="destdir"/>
+				<item value="" key="href"/>
+			</section>
 		</section>
 	</section>
 	<section name="org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart">

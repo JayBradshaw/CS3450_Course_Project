@@ -33,7 +33,7 @@ public class RemoveProductScreen {
 	/**
 	 * frame where the system will be produced
 	 */
-	private JFrame frame = new JFrame("Grocery Store Checkout System: Remove Product");
+	private JFrame frame = new JFrame("Grocery Store Checkout System: Add Product");
 	/**
 	 * pane to be contained in the frame
 	 */
