@@ -324,12 +324,10 @@ public class AddNewProductScreen {
 								productList.add(new Product((String)iName.getText(), (int)spinner.getValue(),
 										price, Integer.parseInt(iBarcode.getText()),
 										iProviderInfo.getText(), iProviderName.getText()));
-								
-								//add new product to the database
-								productList.get(productList.size()-1).addToDatabase();
-								
 								frame.dispose();
 								screen = new InventoryScreen(productList, customerList, orderList);
+								//add new product to the database
+								productList.get(productList.size()-1).addToDatabase();
 								
 							}
 							
