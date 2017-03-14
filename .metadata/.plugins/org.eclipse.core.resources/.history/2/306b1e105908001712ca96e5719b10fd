@@ -29,7 +29,7 @@ import CS3450.course_project.dataAccess.Product;
 
 public class AddNewProductScreen {
 	/**
-i	 * frame where the system will be produced
+	 * frame where the system will be produced
 	 */
 	private JFrame frame = new JFrame("Grocery Store Checkout System: Add New Product");
 	/**

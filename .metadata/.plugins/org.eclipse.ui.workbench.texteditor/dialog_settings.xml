@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="InventoryScreen" key="selection"/>
+		<item value="List" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="list"/>
 			<item value="InventoryScreen"/>
 			<item value="setAvai"/>
 			<item value="set"/>
@@ -15,7 +16,6 @@
 			<item value="checkoutScreen"/>
 			<item value="CheckoutScreen"/>
 			<item value="new CheckoutScreen"/>
-			<item value="for"/>
 		</list>
 		<list key="replacehistory">
 		</list>
