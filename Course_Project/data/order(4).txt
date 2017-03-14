@@ -5,15 +5,19 @@ Here is your final receipt
 
 Customer Info:
 
-Harry Plopper
-888 Wizard Way, Narsaq, Greenland 
+Jonathan James
+123 Wisdom Way Rexbug, Idaho 85621
 
-Date: 2017/03/12 12:43:21
+Date: 2017/03/14 11:08:33
 
 Product:                            Cost: Quantity:
 
-Tuna                             0.990000          4
+Banana                               0.58          6
+Coca-Cola                            0.75          4
+Bread                                2.50          1
+Apple                                0.99          6
 
 
-Total Cost: 3.96
+Total Cost: 14.92
 Payment Method: Cash
+Delivery Method: Pick Up

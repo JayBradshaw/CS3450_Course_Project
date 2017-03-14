@@ -517,31 +517,9 @@ public class CheckoutScreen {
 							}
 							else if (cardSelected){
 								//get card info
-								String cardName = "";
-								long cardNumber = 0;
-								String expirationDate = "";
-								while (cardName.isEmpty()){
-									cardName = JOptionPane.showInputDialog("Enter your name as it appears on the card");
-									if (cardName == null)return;
-									if (cardName.isEmpty()) JOptionPane.showMessageDialog(null, "Error! Invalid card name entered!");
-								}
-								while (cardNumber == 0){
-									String cardNum = JOptionPane.showInputDialog("Enter your card number");
-									if (cardNum == null) return;
-									try{
-									cardNumber =  Long.parseLong(cardNum);
-
-									}
-									catch(NumberFormatException er){
-										JOptionPane.showMessageDialog(null,"Error! Invalid card number entered!");
-										cardNumber = 0;
-									}
-								}
-								while (expirationDate.isEmpty()){
-									expirationDate = JOptionPane.showInputDialog("Enter the expiration date(mm/yy)");
-									if (expirationDate == null) return;
-									if (expirationDate.isEmpty()) JOptionPane.showMessageDialog(null, "Error! Invalid card name entered!");
-								}
+								String cardName = JOptionPane.showInputDialog("Enter your name as it appears on the card");
+								long cardNumber =  Long.parseLong(JOptionPane.showInputDialog("Enter your card number"));
+								String expirationDate = JOptionPane.showInputDialog("Enter the expiration date(mm/yy)");
 								creditCard = new CreditCard(cardNumber,expirationDate,cardName);
 								
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
