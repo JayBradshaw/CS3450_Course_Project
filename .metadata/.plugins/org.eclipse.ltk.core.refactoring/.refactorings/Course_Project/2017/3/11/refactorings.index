@@ -1,3 +1,7 @@
 1489363542080	Delete elements
 1489510886418	Delete element
 1489511064443	Delete element
+1489549690788	Encapsulate field 'name'
+1489549695887	Encapsulate field 'password'
+1489549703275	Encapsulate field 'accessRights'
+1489549765212	Encapsulate field 'image'

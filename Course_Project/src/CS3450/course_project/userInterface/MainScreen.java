@@ -496,18 +496,5 @@ public class MainScreen {
 		customerList.add(new Customer(1,"Mason Jones", "584 Center St. San Francisco, CA 65860"));		
 		customerList.add(new Customer(2,"Harry Plopper","888 Wizard Way, Narsaq, Greenland "));
 	}
-	/**
-	 * @param args
-	 * 
-	 * main method where the program will run
-	 */
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable(){
-			@Override
-			public void run() {
-				//System.out.println("Grocery Store!");
-				
-				new MainScreen();
-			}});
-	}
+
 }

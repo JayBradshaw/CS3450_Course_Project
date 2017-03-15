@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="CS3450.course_project.dataAccess.Product"/>
 <fullyQualifiedTypeName name="CS3450.course_project.dataAccess.Customer"/>
 <fullyQualifiedTypeName name="javax.swing.JPanel"/>
@@ -19,4 +18,7 @@
 <fullyQualifiedTypeName name="CS3450.course_project.dataAccess.Order"/>
 <fullyQualifiedTypeName name="com.mysql.jdbc.Statement"/>
 <fullyQualifiedTypeName name="java.text.DecimalFormat"/>
+<fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="CS3450.course_project.dataAccess.Employee"/>
 </qualifiedTypeNameHistroy>

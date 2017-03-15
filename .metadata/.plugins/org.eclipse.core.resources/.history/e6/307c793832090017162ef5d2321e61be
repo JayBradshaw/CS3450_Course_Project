@@ -1,0 +1,41 @@
+/**
+ * 
+ */
+package CS3450.course_project.dataAccess;
+
+/**
+ * @author Justin Bradshaw
+ * 
+ * class that will deal with all of the employees
+ * for accessRights:
+ * 1: Full access (manager)
+ * 2: Employee that can checkout and return items
+ * 3: Cashier that can only do checkout
+ * 4: Customer Support Employee that can only do returns
+ *
+ */
+public class Employees {
+	/**
+	 * stores the name of the employee in the form first name last initial
+	 * eg: James R
+	 */
+	private String name;
+	/**
+	 * stores the password for a given employee
+	 */
+	private String password;
+	/**
+	 * stores the access rights for an employee
+	 */
+	private short accessRights;
+	/**
+	 * string that stores an image related to the employee
+	 */
+	private String image;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+}

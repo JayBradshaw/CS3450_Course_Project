@@ -1,0 +1,20 @@
+/**
+ * 
+ */
+package CS3450.course_project.userInterface;
+
+/**
+ * @author justin
+ *
+ */
+public class LoginScreen {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
