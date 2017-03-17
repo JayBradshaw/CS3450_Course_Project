@@ -1,0 +1,26 @@
+Thank you for choosing Mr. Smith's Groceries!
+
+Here is your final receipt
+
+
+Customer Info:
+
+Jonathan James
+123 Wisdom Way Rexbug, Idaho 85621
+
+Card Info: 
+Card Holder: James Jones
+Card Number: 1459658778965412
+Expiration Date: 05/20
+
+Date: 2017/03/15 16:36:32
+
+Product:                            Cost: Quantity:
+
+Banana                               0.58          6
+Carrots                              1.25          4
+
+
+Total Cost: 8.48
+Payment Method: Card
+Delivery Method: Pick Up
