@@ -3,9 +3,6 @@
  */
 package CS3450.course_project.dataAccess;
 
-
-import java.util.ArrayList;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -42,10 +39,10 @@ public class Order {
 	 */
 	private String deliveryMethod;
 	/**
-	 * list of items bought
+	 * stores the info for an order including product names, cost per item, and quantity
+	 * Example: "Apple,0.99,13|Peach,1.25,89|Coca-Cola,45" (item,cost,quantity)
 	 */
-	private ArrayList<OrderHelper> list;
-
+	private String orderInfo;
 	/**
 	 * default constructor
 	 */
@@ -61,12 +58,13 @@ public class Order {
 	 * 
 	 * constructor that initializes all of the important attributes
 	 */
-	public Order(int orderID, int customerID, String paymentType, double totalCost, String deliveryMethod){
+	public Order(int orderID, int customerID, String paymentType, double totalCost, String deliveryMethod, String orderInfo){
 		this.orderID = orderID;
 		this.customerID =customerID;
 		this.paymentType = paymentType;
 		this.totalCost = totalCost;
 		this.deliveryMethod = deliveryMethod;
+		this.orderInfo = orderInfo;
 	}
 	/**
 	 * @return
@@ -126,14 +124,6 @@ public class Order {
 		return totalCost;
 	}
 	/**
-	 * sets the total cost of an order
-	 */
-	public void setTotalCost() { //iterate through the array list
-		for (OrderHelper item : list){
-			totalCost += (item.getProductPrice()*item.getQuantity());
-		}
-	}
-	/**
 	 * @param value
 	 * 
 	 * increments the total cost of the order
@@ -158,6 +148,10 @@ public class Order {
 	public void setDeliveryMethod(String deliveryMethod) {
 		this.deliveryMethod = deliveryMethod;
 	}
+	
+	public String getOrderInfo(){
+		return this.orderInfo;
+	}
 	/**
 	 * adds an order to the database
 	 */
@@ -180,7 +174,7 @@ public class Order {
 		//get the query from the database
 		String query = "insert into orders (orderID, customerID, paymentType, totalCost, deliveryMethod) values (" +
 		getOrderID() + "," + getCustomerID() + ',' + '"' + getPaymentType() + '"'
-		+ ',' + getTotalCost() + ',' + '"' + getDeliveryMethod() + '"' + ");";
+		+ ',' + getTotalCost() + ',' + '"' + getDeliveryMethod() + '"' + ',' + '"' + getOrderInfo() + '"' + ");";
 		System.out.println(query);
 		
 		try {

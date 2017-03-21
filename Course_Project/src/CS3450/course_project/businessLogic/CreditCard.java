@@ -76,4 +76,14 @@ public class CreditCard {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * @return
+	 * 
+	 * returns the last four digits of the credit card so that they may be printed on the receipt
+	 */
+	public String lastFourDigits(){
+		String toReturn = Long.toString(cardNumber);
+		return toReturn.substring(12,toReturn.length());
+	}
 }

@@ -506,7 +506,8 @@ public class CheckoutScreen {
 								//deal with adding a new order based on the order info 
 								//if cash just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
-								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Cash", getTotalOrderCost(),deliveryMethod ));
+								System.out.println(buildOrderInfo());
+								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Cash", getTotalOrderCost(),deliveryMethod,buildOrderInfo()));
 								printReceipt("cash",custID,false,deliveryMethod);
 								//update the product list to reflect the changes
 								updateProductList();
@@ -547,7 +548,8 @@ public class CheckoutScreen {
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
 										+ "Please come again soon!");
 								int orderListIndex = orderList.size()-1;
-								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Card", getTotalOrderCost(),deliveryMethod));
+								System.out.println(buildOrderInfo());
+								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Card", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
 								printReceipt("card",custID,cardSelected,deliveryMethod);
 								//update the product list to reflect the changes
 								updateProductList();
@@ -562,7 +564,8 @@ public class CheckoutScreen {
 								//deal with adding a new order based on the order info
 								//if check just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
-								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod));
+								System.out.println(buildOrderInfo());
+								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
 								printReceipt("check",custID,false,deliveryMethod);
 								//update the product list to reflect the changes
 								updateProductList();
@@ -801,7 +804,7 @@ public class CheckoutScreen {
 		if (card){
 			fileOutput.println("Card Info: ");
 			fileOutput.println("Card Holder: " + creditCard.getName());
-			fileOutput.println("Card Number: " + creditCard.getCardNumber());
+			fileOutput.println("Card Number: ************" + creditCard.lastFourDigits());
 			fileOutput.println("Expiration Date: " + creditCard.getExpirationDate() + "\n");
 		}
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -830,6 +833,8 @@ public class CheckoutScreen {
 		for(OrderHelper item : this.orderHelperList){
 			totalCost += item.getProductPrice() * item.getQuantity();
 		}
+		//add in tax of .06 (6%)
+		totalCost += totalCost * 0.06;
 		return totalCost;
 	}
 	
@@ -877,6 +882,18 @@ public class CheckoutScreen {
 				}
 			}
 		}
+	}
+	
+	private String buildOrderInfo(){
+		String toReturn = "";
+		//for each object print out the necessary info
+		for (int i = 0; i < orderHelperList.size(); ++i){
+			toReturn += orderHelperList.get(i).createOrderInfo();
+			if (i < orderHelperList.size()-1){
+				toReturn += '|';
+			}
+		}
+		return toReturn;
 	}
 	
 }
