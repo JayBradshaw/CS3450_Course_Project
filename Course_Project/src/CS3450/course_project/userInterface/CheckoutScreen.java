@@ -191,6 +191,7 @@ public class CheckoutScreen {
 	public CheckoutScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){
 		this.productList = productList;
 		this.customerList = customerList;
+		this.orderList = orderList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -787,8 +788,8 @@ public class CheckoutScreen {
 	 */
 	private void printReceipt(String paymentMethod, int custID, boolean card, String deliveryMethod){
 		PrintWriter fileOutput = null;
-		int size = orderList.size()-1;
-		String fileName = "data/order(" + size + ").txt"; //string to store the order 
+		int orderID = orderList.get(orderList.size()-1).getOrderID(); //get the correct id for the order
+		String fileName = "data/order(" + orderID + ").txt"; //string to store the order 
 		System.out.println(fileName);
 		try {
 			fileOutput = new PrintWriter(fileName);
@@ -813,7 +814,7 @@ public class CheckoutScreen {
 		fileOutput.println(String.format("%-30s %10s %10s", "Product:" , "Cost:", "Quantity:\n"));
 		for(OrderHelper item : this.orderHelperList){
 			String price = new DecimalFormat("0.00").format(item.getProductPrice());
-			System.out.println("PRICE: " + price);
+			//System.out.println("PRICE: " + price);
 			fileOutput.println(String.format("%-30s %10s %10s", item.getProductName(), price, Integer.toString(item.getQuantity())));
 		}
 		fileOutput.println(String.format("\n\nTotal Cost: %.2f", getTotalOrderCost()));

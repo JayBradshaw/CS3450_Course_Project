@@ -1,0 +1,27 @@
+Thank you for choosing Mr. Smith's Groceries!
+
+Here is your final receipt
+
+
+Customer Info:
+
+Tyler Lawson
+574 Main St. Denver, Colorado 87896
+
+Card Info: 
+Card Holder: Tyler J. Lawson
+Card Number: ************5894
+Expiration Date: 05/19
+
+Date: 2017/03/21 16:20:30
+
+Product:                            Cost: Quantity:
+
+Coca-Cola                            0.75          4
+Carrots                              1.25          3
+Bread                                2.50          1
+
+
+Total Cost: 9.81
+Payment Method: Card
+Delivery Method: Pick Up

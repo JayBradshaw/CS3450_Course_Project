@@ -172,7 +172,7 @@ public class Order {
 			e.printStackTrace();
 		}
 		//get the query from the database
-		String query = "insert into orders (orderID, customerID, paymentType, totalCost, deliveryMethod) values (" +
+		String query = "insert into orders (orderID, customerID, paymentType, totalCost, deliveryMethod, orderInfo) values (" +
 		getOrderID() + "," + getCustomerID() + ',' + '"' + getPaymentType() + '"'
 		+ ',' + getTotalCost() + ',' + '"' + getDeliveryMethod() + '"' + ',' + '"' + getOrderInfo() + '"' + ");";
 		System.out.println(query);

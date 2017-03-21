@@ -22,6 +22,7 @@ import javax.swing.SwingUtilities;
 
 import CS3450.course_project.businessLogic.OrderHelper;
 import CS3450.course_project.dataAccess.Customer;
+import CS3450.course_project.dataAccess.Employee;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
 
@@ -93,6 +94,7 @@ public class MainScreen {
 	 * array list to store items that are part of the current order
 	 */
 	private ArrayList<OrderHelper> orderHelperList = new ArrayList<OrderHelper>();
+	private ArrayList<Employee> employeeList = new ArrayList<Employee>();
 	/**
 	 * will be used to create a new checkout screen
 	 */
@@ -109,11 +111,6 @@ public class MainScreen {
 	 * array list to store the customers already in the database
 	 */
 	private ArrayList<Customer> customerList = new ArrayList<Customer>();
-	/**
-	 * static boolean for the entire class that will tell whether or not the database has already been 
-	 * accessed. No need to re-access the database if we have already accessed it.
-	 */
-	private static boolean accessed = false;
 
 	/**
 	 * default constructor
@@ -123,17 +120,6 @@ public class MainScreen {
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
 		pane.setLayout(new BorderLayout());
-		
-		if (!accessed){
-			//access the database for the customers, orders, and products
-			//prodListNoDatabase();
-			//customerListNoDatabase();
-			//orderListNoDatabase();
-			createProductList();
-			createCustomerList();
-			createOrderList();
-		}
-		accessed = true;
 		
 		//make the header look pretty
 		storeHeader.setIconTextGap(25);
@@ -216,6 +202,7 @@ public class MainScreen {
 		this.productList = productList;
 		this.customerList = customerList;
 		this.orderList = orderList;
+		//System.out.println(productList.get(3).getName());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -289,216 +276,6 @@ public class MainScreen {
 		pane.add(storeFooter, BorderLayout.PAGE_END);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-	}
-
-	/**
-	 * creates the product list from the database connection
-	 */
-	public void createProductList(){
-		Connection con = null;
-		PreparedStatement statement = null;
-		ResultSet result = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//deal with product list
-		try {
-			statement = con.prepareStatement("select * from products");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			result = statement.executeQuery();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			while(result.next()){
-				productList.add(new Product(result.getString(1),result.getInt(2),result.getDouble(3),result.getInt(4),result.getString(5),result.getString(6)));
-				System.out.println(result.getString(1) + " "  + result.getInt(2) + " "  + result.getDouble(3) + " "  + result.getInt(4) + " "  + result.getString(5) + " "  + result.getString(6));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * create a list of orders from the database
-	 */
-	public void createOrderList(){
-		Connection con = null;
-		PreparedStatement statement = null;
-		ResultSet result = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//deal with product list
-		
-		try {
-			statement = con.prepareStatement("select * from orders");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			result = statement.executeQuery();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			while(result.next()){
-				orderList.add(new Order(result.getInt(1),result.getInt(2),result.getString(3),result.getDouble(4),result.getString(5),result.getString(6)));
-				System.out.println(result.getInt(1)+ " " + result.getInt(2) + " " + result.getString(3) + " " + result.getDouble(4) + " " + result.getString(5) + " " + result.getString(6));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * create a list of customers from the database
-	 */
-	public void createCustomerList(){
-		Connection con = null;
-		PreparedStatement statement = null;
-		ResultSet result = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//deal with product list
-		
-		try {
-			statement = con.prepareStatement("select * from customers");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			result = statement.executeQuery();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			while(result.next()){
-				customerList.add(new Customer(result.getInt(1),result.getString(2),result.getString(3)));
-				System.out.println(result.getInt(1)+ " " + result.getString(2) + " " + result.getString(3));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	
-	/**
-	 * creates a dummy product list without accessing the database
-	 */
-	public void prodListNoDatabase(){
-		productList.add(new Product("Apple", 56, 0.99,1568494530, "568 S 400 W Atlanta, Georgia 48934 895-594-8745","Johnny Appleseed"));
-		productList.add(new Product("Banana", 86,0.58,1578965445,"896 W 500 N Tallahassee, Florida 45897 458-521-8452","Dole Johnson"));
-		productList.add(new Product("Coca-Cola", 36, 0.75, 1897456328, "345 E Bubbly St. Tacoma, Washington 45879 568-895-5142","Kris Kringle"));
-		productList.add(new Product("Carrots", 26, 1.25, 1356984571, "978 Greeny Way Santa Fe, New Mexico 54876 528-965-4521", "Jimmy Red"));
-		productList.add(new Product("Bread", 14, 2.5, 1589478532, "9855 W Dough Avenue Salt Lake City, Utah 82564 801-896-5846","Chris Pillsbury"));
-		productList.add(new Product("Potatoes", 88, 0.69, 1563254896, "341 Big Creek Drive Idaho Falls, Idaho 85412 435-986-8541", "Alicia Spud"));
-		productList.add(new Product("Tuna", 43, 0.99, 1458965700, "678 Aquarium Ave. Augusta, Maine 45214 985-785-4587", "Anita Fishman"));
-		
-	}
-	
-	/**
-	 * creates a dummy order list without accessing the database
-	 */
-	public void orderListNoDatabase(){
-		orderList.add(new Order(0,0,"Cash",12.83,"Pick Up","Apple,0.99,4|Coca-Cola,0.75,2|Bread,2.5,1|Potatoes,0.69,6"));
-		orderList.add(new Order(1,1,"Check",11.86,"Pick Up","Tuna,0.99,6|Coca-Cola,0.75,2|Carrots,3,1.25"));
-		orderList.add(new Order(2,2,"Card",15.16,"Delivery","Potatoes,0.69,14|Banana,8,0.58"));
-		orderList.add(new Order(5,4,"Card",32.27,"Pick Up","Carrots,1.25,6|Potatoes,0.69,26|Bread,2.5,2"));
-	}
-	
-	/**
-	 * creates a dummy customer list without accessing the database
-	 */
-	public void customerListNoDatabase(){
-		customerList.add(new Customer(0,"William Banks","856 S Christmas Ave. Charleston, South Carolina 59587"));
-		customerList.add(new Customer(1,"Mason Jones", "584 Center St. San Francisco, CA 65860"));		
-		customerList.add(new Customer(2,"Harry Plopper","888 Wizard Way, Narsaq, Greenland "));
-		customerList.add(new Customer(4,"Jonathan James","123 Wisdom Way Rexburg, Idaho 85621"));
 	}
 
 }
