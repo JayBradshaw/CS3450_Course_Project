@@ -1,10 +1,14 @@
 package CS3450.course_project.userInterface;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -27,7 +31,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 import CS3450.course_project.businessLogic.CreditCard;
 import CS3450.course_project.businessLogic.OrderHelper;
@@ -172,6 +179,14 @@ public class CheckoutScreen {
 	 * radio button to know whether or not the delivery method is delivery
 	 */
 	private JRadioButton delivery;
+	/**
+	 * text area to hold the order info
+	 */
+	private JTextArea orderDetails = new JTextArea();
+	/**
+	 * create a panel to hold all of the buttons
+	 */
+	private JPanel buttonPanel = new JPanel(new FlowLayout());
 	
 	/**
 	 * @param productList
@@ -186,7 +201,7 @@ public class CheckoutScreen {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
-		pane.setLayout(new GridBagLayout()); 
+		pane.setLayout(new BorderLayout()); 
 		
 		//make the header look pretty
 		storeHeader.setIconTextGap(25);
@@ -194,39 +209,37 @@ public class CheckoutScreen {
 		storeHeader.setForeground(secondaryColor);
 		storeHeader.setFont(baseFont);
 		storeHeader.setHorizontalTextPosition(SwingConstants.LEADING);
+		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
-		//constraints for header
-		GridBagConstraints h = new GridBagConstraints();
-		h.fill = GridBagConstraints.BOTH;
-		h.weightx = 1;
-	    h.weighty = .16;
-	    h.gridx = 0;
-	    h.gridy = 0;
-	    h.gridwidth = 3;
-	    h.gridheight = 1;
-		h.anchor = GridBagConstraints.PAGE_START;
+		
+		
+		//set the preferred size for the text area
+		orderDetails.setPreferredSize(new Dimension(frame.getWidth()/2,150));
+		orderDetails.setEditable(false);
+		orderDetails.setText(populateTextArea());
+		orderDetails.setForeground(secondaryColor);
+		orderDetails.setBackground(baseColor);
+		orderDetails.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+		
+		//set the preferred size for the button panel
+		buttonPanel.setPreferredSize(new Dimension(frame.getWidth()/2,150));
+		buttonPanel.setBackground(baseColor);
+		//buttonPanel.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
 		
 		//make add item button look pretty
 		addItem.setBackground(baseColor);
 		addItem.setForeground(secondaryColor);
 		addItem.setFont(buttonFont);
+		addItem.setPreferredSize(new Dimension(frame.getWidth()/2,60));
 		addItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		//constraints for add item button 
-		GridBagConstraints a = new GridBagConstraints();
-		a.weightx = .16;
-	    a.weighty = .16;
-	    a.gridx = 2;
-	    a.gridy = 1;
-	    a.gridwidth = 1;
-	    a.fill = GridBagConstraints.BOTH;
-		//a.anchor = GridBagConstraints.EAST;
+		addItem.setMargin(new Insets(0,0,0,0));
 		//listener for the add item button
 		addItem.addActionListener(
 				new ActionListener(){
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						//creates pop up button to input item barcode
+						//creates pop up button to input item bar code
 						System.out.println("Add Item Button Pressed!!!!");
 						frame.dispose();
 						AddProductScreen = new AddProductScreen(databaseConnection, orderHelperList);
@@ -239,15 +252,9 @@ public class CheckoutScreen {
 		removeItem.setBackground(baseColor);
 		removeItem.setForeground(secondaryColor);
 		removeItem.setFont(buttonFont);
+		removeItem.setPreferredSize(new Dimension(frame.getWidth()/2,60));
 		removeItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		//constraints for remove item button
-		GridBagConstraints r = new GridBagConstraints();
-		r.weightx = .16;
-		r.weighty = .16;
-		r.gridx = 2;
-		r.gridy = 2;
-		r.gridwidth = 1;
-		r.fill = GridBagConstraints.BOTH;
+		removeItem.setMargin(new Insets(0,0,0,0));
 		//listener for the remove item button
 		removeItem.addActionListener(
 				new ActionListener(){
@@ -268,15 +275,9 @@ public class CheckoutScreen {
 		finishAndPay.setBackground(baseColor);
 		finishAndPay.setForeground(secondaryColor);
 		finishAndPay.setFont(buttonFont);
+		finishAndPay.setPreferredSize(new Dimension(frame.getWidth()/2,60));
 		finishAndPay.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		//constraints for finishAndPaym button 
-		GridBagConstraints f = new GridBagConstraints();
-		f.weightx = .16;
-	    f.weighty = .16;
-	    f.gridx = 2;
-	    f.gridy = 3;
-	    f.gridwidth = 1;
-	    f.fill = GridBagConstraints.BOTH;
+		finishAndPay.setMargin(new Insets(0,0,0,0));
 		//listener for the finishAndPay button
 	    finishAndPay.addActionListener(
 				new ActionListener(){
@@ -293,15 +294,9 @@ public class CheckoutScreen {
 		mainScreen.setBackground(baseColor);
 		mainScreen.setForeground(secondaryColor);
 		mainScreen.setFont(buttonFont);
+		mainScreen.setPreferredSize(new Dimension(frame.getWidth()/2,60));
 		mainScreen.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		//constraints for main screen button 
-		GridBagConstraints m = new GridBagConstraints();
-		m.weightx = .16;
-	    m.weighty = .16;
-	    m.gridx = 2;
-	    m.gridy = 4;
-	    m.gridwidth = 1;
-	    m.fill = GridBagConstraints.BOTH;
+		mainScreen.setMargin(new Insets(0,0,0,0));
 		//listener for the main screen button
 	    mainScreen.addActionListener(
 				new ActionListener(){
@@ -317,30 +312,26 @@ public class CheckoutScreen {
 					}
 					
 		});
+	    
+	    //add all of the buttons to the button panel
+	    buttonPanel.add(addItem);
+	    buttonPanel.add(removeItem);
+	    buttonPanel.add(finishAndPay);
+	    buttonPanel.add(mainScreen);
+	    //buttonPanel.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
 
 		//make the footer look pretty
 		storeFooter.setBackground(baseColor);
 		storeFooter.setForeground(secondaryColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
+		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);
-		//constraints for footer
-		GridBagConstraints fo = new GridBagConstraints();
-		fo.fill = GridBagConstraints.BOTH;
-		fo.weightx = 1;
-	    fo.weighty = .16;
-	    fo.gridx = 0;
-	    fo.gridy = 5;
-	    fo.gridwidth = 3;
-	    fo.gridheight = 1;
-		fo.anchor = GridBagConstraints.PAGE_END;
 		
 		//add components to container
-		pane.add(storeHeader, h);
-		pane.add(addItem, a);
-		pane.add(removeItem, r);
-		pane.add(finishAndPay, f);
-		pane.add(mainScreen, m);
-		pane.add(storeFooter, fo);
+		pane.add(storeHeader, BorderLayout.PAGE_START);
+		pane.add(orderDetails,BorderLayout.CENTER);
+		pane.add(buttonPanel,BorderLayout.LINE_END);
+		pane.add(storeFooter,BorderLayout.PAGE_END);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
@@ -359,10 +350,13 @@ public class CheckoutScreen {
 		orderList = databaseConnection.getOrderList();
 		employeeList = databaseConnection.getEmployeeList();
 		this.orderHelperList = orderHelperList;
+		for (OrderHelper x: orderHelperList){
+			System.out.println(x.getProductName() + " " + x.getQuantity());
+		}
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
-		pane.setLayout(new GridBagLayout()); 
+		pane.setLayout(new BorderLayout()); 
 		
 		//make the header look pretty
 		storeHeader.setIconTextGap(25);
@@ -370,32 +364,29 @@ public class CheckoutScreen {
 		storeHeader.setForeground(secondaryColor);
 		storeHeader.setFont(baseFont);
 		storeHeader.setHorizontalTextPosition(SwingConstants.LEADING);
+		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
-		//constraints for header
-		GridBagConstraints h = new GridBagConstraints();
-		h.fill = GridBagConstraints.BOTH;
-		h.weightx = 1;
-	    h.weighty = .16;
-	    h.gridx = 0;
-	    h.gridy = 0;
-	    h.gridwidth = 3;
-	    h.gridheight = 1;
-		h.anchor = GridBagConstraints.PAGE_START;
+
+		//set the preferred size for the text area
+		orderDetails.setPreferredSize(new Dimension(frame.getWidth()/2,150));
+		orderDetails.setEditable(false);
+		orderDetails.setText(populateTextArea());
+		orderDetails.setForeground(secondaryColor);
+		orderDetails.setBackground(baseColor);
+		orderDetails.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+		
+		//set the preferred size for the button panel
+		buttonPanel.setPreferredSize(new Dimension(frame.getWidth()/2,150));
+		buttonPanel.setBackground(baseColor);
 		
 		//make add item button look pretty
 		addItem.setBackground(baseColor);
 		addItem.setForeground(secondaryColor);
 		addItem.setFont(buttonFont);
+		addItem.setPreferredSize(new Dimension(frame.getWidth()/2,60));
 		addItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		//constraints for add item button 
-		GridBagConstraints a = new GridBagConstraints();
-		a.weightx = .16;
-	    a.weighty = .16;
-	    a.gridx = 2;
-	    a.gridy = 1;
-	    a.gridwidth = 1;
-	    a.fill = GridBagConstraints.BOTH;
-		//a.anchor = GridBagConstraints.EAST;
+		addItem.setMargin(new Insets(15,15,15,15));
+
 		//listener for the add item button
 		addItem.addActionListener(
 				new ActionListener(){
@@ -416,15 +407,11 @@ public class CheckoutScreen {
 		removeItem.setBackground(baseColor);
 		removeItem.setForeground(secondaryColor);
 		removeItem.setFont(buttonFont);
+		removeItem.setPreferredSize(new Dimension(frame.getWidth()/2,60));
 		removeItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		//constraints for remove item button
-		GridBagConstraints r = new GridBagConstraints();
-		r.weightx = .16;
-		r.weighty = .16;
-		r.gridx = 2;
-		r.gridy = 2;
-		r.gridwidth = 1;
-		r.fill = GridBagConstraints.BOTH;
+		removeItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+		removeItem.setMargin(new Insets(15,15,15,15));
+
 		//listener for the remove item button
 		removeItem.addActionListener(
 				new ActionListener(){
@@ -449,15 +436,11 @@ public class CheckoutScreen {
 		finishAndPay.setBackground(baseColor);
 		finishAndPay.setForeground(secondaryColor);
 		finishAndPay.setFont(buttonFont);
+		finishAndPay.setPreferredSize(new Dimension(frame.getWidth()/2,60));
 		finishAndPay.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		//constraints for finishAndPaym button 
-		GridBagConstraints f = new GridBagConstraints();
-		f.weightx = .16;
-	    f.weighty = .16;
-	    f.gridx = 2;
-	    f.gridy = 3;
-	    f.gridwidth = 1;
-	    f.fill = GridBagConstraints.BOTH;
+		finishAndPay.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+		finishAndPay.setMargin(new Insets(15,15,15,15));
+
 		//listener for the finishAndPay button
 	    finishAndPay.addActionListener(
 				new ActionListener(){
@@ -491,8 +474,9 @@ public class CheckoutScreen {
 								}
 							}
 							if (cashSelected){
-								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
-										+ "Please come again soon!");
+								
+								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\nTotal Cost: $" + 
+								getTotalOrderCost() +  "\nPlease come again soon!");
 								//deal with adding a new order based on the order info 
 								//if cash just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
@@ -535,8 +519,8 @@ public class CheckoutScreen {
 								}
 								creditCard = new CreditCard(cardNumber,expirationDate,cardName);
 								
-								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
-										+ "Please come again soon!");
+								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\nTotal Cost: $" + 
+										getTotalOrderCost() +  "\nPlease come again soon!");
 								int orderListIndex = orderList.size()-1;
 								System.out.println(buildOrderInfo());
 								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Card", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
@@ -549,8 +533,8 @@ public class CheckoutScreen {
 								orderHelperList.clear();
 							}
 							else if (checkSelected){
-								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\n"
-										+ "Please come again soon!");
+								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\nTotal Cost: $" + 
+										getTotalOrderCost() +  "\nPlease come again soon!");
 								//deal with adding a new order based on the order info
 								//if check just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
@@ -572,15 +556,10 @@ public class CheckoutScreen {
 		mainScreen.setBackground(baseColor);
 		mainScreen.setForeground(secondaryColor);
 		mainScreen.setFont(buttonFont);
+		mainScreen.setPreferredSize(new Dimension(frame.getWidth()/2,60));
 		mainScreen.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		//constraints for main screen button 
-		GridBagConstraints m = new GridBagConstraints();
-		m.weightx = .16;
-	    m.weighty = .16;
-	    m.gridx = 2;
-	    m.gridy = 4;
-	    m.gridwidth = 1;
-	    m.fill = GridBagConstraints.BOTH;
+		mainScreen.setMargin(new Insets(15,15,15,15));
+
 		//listener for the main screen button
 	    mainScreen.addActionListener(
 				new ActionListener(){
@@ -596,30 +575,24 @@ public class CheckoutScreen {
 					}
 					
 		});
+	    
+	    buttonPanel.add(addItem);
+	    buttonPanel.add(removeItem);
+	    buttonPanel.add(finishAndPay);
+	    buttonPanel.add(mainScreen);
 
 		//make the footer look pretty
 		storeFooter.setBackground(baseColor);
 		storeFooter.setForeground(secondaryColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
+		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);
-		//constraints for footer
-		GridBagConstraints fo = new GridBagConstraints();
-		fo.fill = GridBagConstraints.BOTH;
-		fo.weightx = 1;
-	    fo.weighty = .16;
-	    fo.gridx = 0;
-	    fo.gridy = 5;
-	    fo.gridwidth = 3;
-	    fo.gridheight = 1;
-		fo.anchor = GridBagConstraints.PAGE_END;
-		
+
 		//add components to container
-		pane.add(storeHeader, h);
-		pane.add(addItem, a);
-		pane.add(removeItem, r);
-		pane.add(finishAndPay, f);
-		pane.add(mainScreen, m);
-		pane.add(storeFooter, fo);
+		pane.add(storeHeader, BorderLayout.PAGE_START);
+		pane.add(orderDetails,BorderLayout.CENTER);
+		pane.add(buttonPanel,BorderLayout.LINE_END);
+		pane.add(storeFooter,BorderLayout.PAGE_END);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
@@ -866,6 +839,11 @@ public class CheckoutScreen {
 		}
 	}
 	
+	/**
+	 * @return
+	 * 
+	 * build the order info column for the order table
+	 */
 	private String buildOrderInfo(){
 		String toReturn = "";
 		//for each object print out the necessary info
@@ -878,4 +856,32 @@ public class CheckoutScreen {
 		return toReturn;
 	}
 	
+	/**
+	 * create the necessary info for the text area
+	 */
+	private String populateTextArea(){
+		String toReturn = "";
+		if (orderHelperList.isEmpty()){
+			toReturn = "NO CURRENT ORDER";
+		}
+		else {
+			toReturn += "Current Order Status:\n\n";
+			toReturn += String.format("%-20s %-15s %-15s\n", "Product:" , "Cost:", "Quantity:");
+			for(OrderHelper item : this.orderHelperList){
+				int spacing = 20 - item.getProductName().length() + (8 -item.getProductName().length());
+				toReturn += String.format("%-20s %-15.2f %-15s\n", item.getProductName(), item.getProductPrice(), Integer.toString(item.getQuantity()));
+			}
+			toReturn += String.format("\nTotal Cost: %.2f\n", getTotalOrderCost());
+		}
+		System.out.println(toReturn);
+		return toReturn;
+	}
+	
+	private String dummySpacing(int spacing){
+		String toReturn = "";
+		for (int i = 0; i < spacing; ++i){
+			toReturn += " ";
+		}
+		return toReturn;
+	}
 }
