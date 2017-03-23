@@ -152,46 +152,5 @@ public class Order {
 	public String getOrderInfo(){
 		return this.orderInfo;
 	}
-	/**
-	 * adds an order to the database
-	 */
-	public void addToDatabase(){
-		Connection con = null;
-		Statement statement = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//get the query from the database
-		String query = "insert into orders (orderID, customerID, paymentType, totalCost, deliveryMethod, orderInfo) values (" +
-		getOrderID() + "," + getCustomerID() + ',' + '"' + getPaymentType() + '"'
-		+ ',' + getTotalCost() + ',' + '"' + getDeliveryMethod() + '"' + ',' + '"' + getOrderInfo() + '"' + ");";
-		System.out.println(query);
-		
-		try {
-			statement = con.createStatement();
-			statement.executeUpdate(query);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			con.close();
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
+
 }

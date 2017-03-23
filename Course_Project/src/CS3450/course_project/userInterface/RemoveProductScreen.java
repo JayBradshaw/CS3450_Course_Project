@@ -28,6 +28,7 @@ import CS3450.course_project.businessLogic.OrderHelper;
 import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
+import CS3450.course_project.dataAccess.databaseAccess;
 
 public class RemoveProductScreen {
 	/**
@@ -81,15 +82,7 @@ public class RemoveProductScreen {
 	/**
 	 * list of customers
 	 */
-	private ArrayList<Customer> customerList;
-	/**
-	 * list for order helper
-	 */
 	private ArrayList<OrderHelper> orderHelperList;
-	/**
-	 * order list
-	 */
-	private ArrayList<Order> orderList;
 	/**
 	 * spinner object for getting quantity of product 
 	 */
@@ -120,11 +113,9 @@ public class RemoveProductScreen {
 	 * 
 	 * non-default constructor
 	 */
-	public RemoveProductScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<OrderHelper> orderHelperList, ArrayList<Order> orderList){
-		this.productList = productList;
-		this.customerList = customerList;
+	public RemoveProductScreen(databaseAccess databaseConnection, ArrayList<OrderHelper> orderHelperList){
+		productList = databaseConnection.getProductList();
 		this.orderHelperList = orderHelperList;
-		this.orderList = orderList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -223,7 +214,7 @@ public class RemoveProductScreen {
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
 						//if we cancel we just use the old original orderList and 
-						checkoutscreen = new CheckoutScreen(productList,customerList, orderHelperList, orderList);
+						checkoutscreen = new CheckoutScreen(databaseConnection, orderHelperList);
 					}
 					
 		});
@@ -250,7 +241,7 @@ public class RemoveProductScreen {
 					public void actionPerformed(ActionEvent e) {
 						//cancel order 
 						System.out.println("Remove Item Button Pressed!!!!");
-						System.out.println("removing " + spinner.getValue() + " " + temporary.getName());
+						
 						//JBradshaw right here is where we will update the orderHelper list to 
 						//include the new product
 						System.out.println(temporary.getPrice());
@@ -274,34 +265,26 @@ public class RemoveProductScreen {
 							return;
 						}
 						
-						//create temp OrderHelper so that we can use it later
-						OrderHelper tempHelper = null;
 						for (int i = 0; i < orderHelperList.size(); ++i){
 							if (orderHelperList.get(i).getProductName() == temporary.getName()){
 								orderHelperIndex = i;
-								tempHelper = orderHelperList.get(i);
 							}
 						}
 						//check to make sure we aren't removing more than we have
-						if (tempHelper.getQuantity() < (int)spinner.getValue()){
+						if (orderHelperList.get(orderHelperIndex).getQuantity() < (int)spinner.getValue()){
 							JOptionPane.showMessageDialog(null, "Error! Cannot remove a quantity greater than\n what is a part of the current order!");
 							return;
 						} 
 						
 						//ok now that we have made the checks we can remove the quantity from the orderHelperList
 						orderHelperList.get(orderHelperIndex).setQuantity(orderHelperList.get(orderHelperIndex).getQuantity()-(int)spinner.getValue());
-						//need to change the availability of the product
-						for (int i = 0; i < productList.size(); ++i){
-							if (temporary.getName() == productList.get(i).getName()){
-								System.out.println("Increasing availability of product");
-								System.out.println(productList.get(i).getName());
-								productList.get(i).setOrderAvailability(productList.get(i).getOrderAvailability() + (int)spinner.getValue());
-							}
-						}
+						
+						System.out.println("removing " + spinner.getValue() + " " + temporary.getName());
 						System.out.println("Back to checkout screen...");
+						
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						checkoutscreen = new CheckoutScreen(productList,customerList,orderHelperList,orderList);
+						checkoutscreen = new CheckoutScreen(databaseConnection,orderHelperList);
 					}	
 		});
 		//make the footer look pretty

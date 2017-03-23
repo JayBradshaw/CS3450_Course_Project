@@ -20,13 +20,13 @@ public class Product {
 	 */
 	private String name;
 	/**
+	 * total units of a product
+	 */
+	private int availableUnits;
+	/**
 	 * product barcode number
 	 */
 	private int barcodeNumber;
-	/**
-	 * how many units are available
-	 */
-	private int availableUnits;
 	/**
 	 * cost of one unit of the product
 	 */
@@ -39,10 +39,7 @@ public class Product {
 	 * information for provider including address and phone number
 	 */
 	private String providerInfo;
-	/**
-	 * sets the availability of each product
-	 */
-	private int orderAvailability;
+
 	
 	
 	/**
@@ -69,7 +66,6 @@ public class Product {
 		this.barcodeNumber = barcodeNumber;
 		this.providerInfo = providerInfo;
 		this.providerName = providerName;
-		this.orderAvailability = availableUnits;
 	}
 	/**
 	 * @return
@@ -109,14 +105,6 @@ public class Product {
 	 * returns the number of available units left while creating an order
 	 */
 	public int getAvailableUnits() {
-		return orderAvailability;
-	}
-	/**
-	 * @return
-	 * 
-	 * returns the total number of units
-	 */
-	public int getTotalUnits(){
 		return availableUnits;
 	}
 	/**
@@ -180,144 +168,4 @@ public class Product {
 	public void setProviderInfo(String providerInfo) {
 		this.providerInfo = providerInfo;
 	}
-	/**
-	 * @return
-	 * 
-	 * returns the current availability of a product based on what is a part of the current order
-	 */
-	public int getOrderAvailability(){
-		return orderAvailability;
-	}
-	/**
-	 * @param value
-	 * 
-	 * sets the availability of a product based on what is a part of the current order
-	 */
-	public void setOrderAvailability(int value){
-		this.orderAvailability = value;
-	}
-	
-	/**
-	 * adds a new product to the database
-	 */
-	public void addToDatabase(){
-		Connection con = null;
-		Statement statement = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//get the query from the database
-		String query = "insert into products (name, availableUnits, price, barcode, providerInfo, providerName) values (" +
-		'"' + getName() + '"' + "," + getAvailableUnits() + ',' + getPrice() + ','
-		+ getBarcodeNumber() + ',' + '"' + getProviderInfo() + '"' + ',' + '"' + getProviderName() + '"' + ");";
-		System.out.println(query);
-		
-		try {
-			statement = con.createStatement();
-			statement.executeUpdate(query);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			con.close();
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
-	/**
-	 * this will update the database when a product is modified in some way
-	 */
-	public void updateDatabase(){
-		Connection con = null;
-		Statement statement = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		String query = "update products set name = " + '"' + getName() + '"' + ", availableUnits = " + getTotalUnits() + 
-				", barcode = " + getBarcodeNumber() + ", providerInfo = " + '"' + getProviderInfo() + '"' + ", providerName = " +
-				'"' + getProviderName() + '"' + "\nwhere name = " + '"' + getName() + '"' + ";";
-		System.out.println(query);
-		try {
-			statement = con.createStatement();
-			statement.executeUpdate(query);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			con.close();
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * updates the total quantity of a product in the database
-	 */ 
-	public void updateQuantity(){
-		Connection con = null;
-		Statement statement = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		String query = "update products set availableUnits = " + getAvailableUnits() + " where name = " + '"' + getName() + '"' + ";";
-		System.out.println(query);
-		try {
-			statement = con.createStatement();
-			statement.executeUpdate(query);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			con.close();
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 }

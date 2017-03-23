@@ -26,6 +26,7 @@ import javax.swing.SwingConstants;
 import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
+import CS3450.course_project.dataAccess.databaseAccess;
 
 public class AddNewProductScreen {
 	/**
@@ -112,8 +113,8 @@ i	 * frame where the system will be produced
 	 * 
 	 * non-default constructor
 	 */
-	public AddNewProductScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){
-		this.productList = productList;
+	public AddNewProductScreen(databaseAccess databaseConnection){
+		productList = databaseConnection.getProductList();
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
@@ -259,12 +260,13 @@ i	 * frame where the system will be produced
 	    cancel.setFont(buttonFont);
 	    cancel.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
 	    cancel.addActionListener(
+	    		//if they cancel just return to the main screen
 					new ActionListener(){
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							
 							frame.dispose();
-							screen = new InventoryScreen(productList, customerList, orderList);
+							screen = new InventoryScreen(databaseConnection);
 						}
 						
 			});
@@ -321,15 +323,14 @@ i	 * frame where the system will be produced
 									return;
 								}
 
-								productList.add(new Product((String)iName.getText(), (int)spinner.getValue(),
+								//add new product to the database
+								databaseConnection.addProductToDatabase(new Product((String)iName.getText(), (int)spinner.getValue(),
 										price, Integer.parseInt(iBarcode.getText()),
 										iProviderInfo.getText(), iProviderName.getText()));
-								
-								//add new product to the database
-								productList.get(productList.size()-1).addToDatabase();
+
 								
 								frame.dispose();
-								screen = new InventoryScreen(productList, customerList, orderList);
+								screen = new InventoryScreen(databaseConnection);
 								
 							}
 							

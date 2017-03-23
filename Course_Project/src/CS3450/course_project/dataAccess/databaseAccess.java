@@ -294,9 +294,49 @@ public class databaseAccess {
 			e.printStackTrace();
 		}
 		
-		String query = "update products set name = " + '"' + product.getName() + '"' + ", availableUnits = " + product.getTotalUnits() + 
+		String query = "update products set name = " + '"' + product.getName() + '"' + ", availableUnits = " + product.getAvailableUnits() + 
 				", barcode = " + product.getBarcodeNumber() + ", providerInfo = " + '"' + product.getProviderInfo() + '"' + ", providerName = " +
 				'"' + product.getProviderName() + '"' + "\nwhere name = " + '"' + product.getName() + '"' + ";";
+		System.out.println(query);
+		try {
+			statement = con.createStatement();
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			con.close();
+			statement.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//must delete and reload the product list because it has changed
+		productList.clear();
+		createProductList();
+    }
+    
+    public void updateProductQuantity(Product product){
+		Connection con = null;
+		Statement statement = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String query = "update products set availableUnits = " + product.getAvailableUnits() + "\nwhere name = " + '"' + product.getName() + '"' + ";";
 		System.out.println(query);
 		try {
 			statement = con.createStatement();
@@ -424,7 +464,6 @@ public class databaseAccess {
 		}
 		
 		customerList.add(customer);
-
     }
     
     /**

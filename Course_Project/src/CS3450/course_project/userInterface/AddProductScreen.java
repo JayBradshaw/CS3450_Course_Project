@@ -26,6 +26,7 @@ import CS3450.course_project.businessLogic.OrderHelper;
 import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
+import CS3450.course_project.dataAccess.databaseAccess;
 
 public class AddProductScreen {
 	/**
@@ -77,18 +78,9 @@ public class AddProductScreen {
 	 */
 	private ArrayList<Product> productList;
 	/**
-	 * array list to store the customers
-	 */
-	private ArrayList<Customer> customerList;
-	/**
 	 * array list to store the items in the current order
 	 */
 	private ArrayList<OrderHelper> orderHelperList;
-	/**
-	 * array list to store all of the previous orders
-	 */
-	private ArrayList<Order> orderList;
-	
 	/**
 	 * spinner object for getting quantity of product 
 	 */
@@ -101,7 +93,6 @@ public class AddProductScreen {
 	 * Drop down menu for selecting items.
 	 */
 	private JComboBox dropDownMenu = new JComboBox();
-	
 	/**
 	 * temporary product that is set to whatever product the drop down menu is on
 	 */
@@ -120,11 +111,11 @@ public class AddProductScreen {
 	 * 
 	 * non-default constructor
 	 */
-	public AddProductScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<OrderHelper> orderHelperList, ArrayList<Order> orderList){
-		this.productList = productList;
-		this.customerList = customerList;
+	public AddProductScreen(databaseAccess databaseConnection, ArrayList<OrderHelper> orderHelperList){
+		//just need the product list and the orderHelperList
+		productList = databaseConnection.getProductList();
 		this.orderHelperList = orderHelperList;
-		this.orderList = orderList;
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -198,7 +189,7 @@ public class AddProductScreen {
 		h.anchor = GridBagConstraints.PAGE_START;
 		
 		
-		//cancel aka return to checkoutscreen and do nothing
+		//cancel aka return to checkout screen and do nothing
 		checkoutScreen.setBackground(baseColor);
 		checkoutScreen.setForeground(secondaryColor);
 		checkoutScreen.setFont(buttonFont);
@@ -223,7 +214,7 @@ public class AddProductScreen {
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
 						//use the previous old list if we cancel the changes we made
-						checkoutscreen = new CheckoutScreen(productList, customerList, orderHelperList,orderList);
+						checkoutscreen = new CheckoutScreen(databaseConnection,orderHelperList);
 					}
 					
 		});
@@ -260,7 +251,7 @@ public class AddProductScreen {
 						for (int i = 0; i < productList.size(); ++i){
 							if (productList.get(i).getName() == temporary.getName()){
 								productIndex = i;
-								if ((int)spinner.getValue() > productList.get(i).getOrderAvailability()){
+								if ((int)spinner.getValue() > getTotalAvailable(temporary)){
 									//print out an error message
 									invalidEntry = true;
 									JOptionPane.showMessageDialog(null, "Error! Quantity to add is greater than inventory!");
@@ -273,19 +264,17 @@ public class AddProductScreen {
 									//if the correct object increment the quantity
 									if (orderHelperList.get(i).getProductName() == temporary.getName()){
 										orderHelperList.get(i).setQuantity(orderHelperList.get(i).getQuantity() + (int)spinner.getValue());
-										productList.get(productIndex).setOrderAvailability(productList.get(productIndex).getOrderAvailability() - (int)spinner.getValue());
 									}
 								}
 							}
 							else { //create a new order helper item
 								System.out.println("Adding new item to order helper");
 								orderHelperList.add(new OrderHelper(productList.get(productIndex).getName(),productList.get(productIndex).getPrice(),(int)spinner.getValue()));
-								productList.get(productIndex).setOrderAvailability(productList.get(productIndex).getOrderAvailability() - (int)spinner.getValue());
 							}
 							System.out.println("Back to main screen...");
 							//JBradshaw: add ability to return back to the main screen
 							frame.dispose();
-							checkoutscreen = new CheckoutScreen(productList,customerList,orderHelperList,orderList);
+							checkoutscreen = new CheckoutScreen(databaseConnection,orderHelperList);
 						}
 						else if (!invalidEntry){
 							if ((int) spinner.getValue() == 0){
@@ -338,6 +327,23 @@ public class AddProductScreen {
 			}
 		}
 		return false;
+	}
+	/**
+	 * @param product
+	 * @return
+	 * 
+	 * figure out the total availability for a product
+	 * should be the total units minus what is already a part of the order
+	 * or if the product is not yet part of an order it should just be the total units
+	 */
+	private int getTotalAvailable(Product product){
+		for (int i = 0; i < orderHelperList.size(); ++i){
+			if (orderHelperList.get(i).getProductName().equals(product.getName())){
+				return product.getAvailableUnits() - orderHelperList.get(i).getQuantity();
+			}
+		}
+		//just return the total units if the product was not a part of the order
+		return product.getAvailableUnits();
 	}
 	
 }

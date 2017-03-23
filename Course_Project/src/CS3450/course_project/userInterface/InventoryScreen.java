@@ -22,6 +22,7 @@ import javax.swing.SwingConstants;
 import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
+import CS3450.course_project.dataAccess.databaseAccess;
 
 /**
  * @author Melanie Pena
@@ -84,7 +85,6 @@ public class InventoryScreen {
 	 * JBradshaw: Allow ability to return to the main screen
 	 */
 	private MainScreen screen;
-	
 	/**
 	 * ability to return to AddInventoryScreen
 	 */
@@ -98,19 +98,10 @@ public class InventoryScreen {
 	 */
 	private ManageProductScreen manageProductScreen;
 	/**
-	 * array list to store all of the products
-	 */
-	private ArrayList<Product> productList;
-	/**
-	 * array list to store all of the customers
-	 */
-	private ArrayList<Customer> customerList;
-	/**
 	 * non-default constructor
 	 */ 
-	public InventoryScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){ //JBradshaw added parameter productList so that when we jump from screen to screen we don't lose the products
-		this.productList = productList;
-		this.customerList = customerList;
+	public InventoryScreen(databaseAccess databaseConnection){ 
+		//nothing to initialize as this screen merely opens other screens
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -156,7 +147,7 @@ public class InventoryScreen {
 						System.out.println("Add Product Button Pressed!!!!");
 						//adds product and info to database
 						frame.dispose();
-						addNewProductScreen = new AddNewProductScreen(productList, customerList, orderList);
+						addNewProductScreen = new AddNewProductScreen(databaseConnection);
 						System.out.println("Adding product to inventory");
 					}
 		});
@@ -183,7 +174,7 @@ public class InventoryScreen {
   						System.out.println("Manage Existing Products Button Pressed!!!!");
   						//allows user to change product info
   						frame.dispose();
-  						manageProductScreen = new ManageProductScreen(productList, customerList, orderList);
+  						manageProductScreen = new ManageProductScreen(databaseConnection);
   						System.out.println("Edit products here");
   					}
   		});
@@ -209,7 +200,7 @@ public class InventoryScreen {
   						//opens window to view current inventory
   						System.out.println("Show Availability Button Pressed!!!!");
   						frame.dispose();
-  						prodListScreen = new ProductListScreen(productList, customerList, orderList);
+  						prodListScreen = new ProductListScreen(databaseConnection);
   						System.out.println("Creating new window to show availability of products");
   					}
   		});
@@ -237,7 +228,7 @@ public class InventoryScreen {
   						//close inventory window 
   						System.out.println("Return to main screen...");
   						frame.dispose();
-  						screen = new MainScreen(productList, customerList, orderList);
+  						screen = new MainScreen(databaseConnection);
   					}
   		});
   	    

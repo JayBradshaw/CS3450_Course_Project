@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
+import CS3450.course_project.dataAccess.databaseAccess;
 
 public class ProductListScreen {
 	/**
@@ -83,8 +84,8 @@ public class ProductListScreen {
 	 * 
 	 * non-default constructor
 	 */
-	public ProductListScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){
-		this.productList = productList;
+	public ProductListScreen(databaseAccess databaseConnection){
+		productList = databaseConnection.getProductList();
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
@@ -114,7 +115,7 @@ public class ProductListScreen {
 		textArea.setBackground(baseColor);
 		textArea.setForeground(secondaryColor);
 		for(Product v : this.productList){
-			textArea.append(String.format("%-15s %10d %n",v.getName() + ":", v.getTotalUnits()));
+			textArea.append(String.format("%-15s %10d %n",v.getName() + ":", v.getAvailableUnits()));
 		}
 		textArea.setEditable(false); //JBradshaw need this or the user can edit the text
 		GridBagConstraints ta = new GridBagConstraints();
@@ -135,7 +136,7 @@ public class ProductListScreen {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						frame.dispose();
-						screen = new InventoryScreen(productList, customerList, orderList);
+						screen = new InventoryScreen(databaseConnection);
 					}
 					
 		});

@@ -32,8 +32,10 @@ import javax.swing.SwingConstants;
 import CS3450.course_project.businessLogic.CreditCard;
 import CS3450.course_project.businessLogic.OrderHelper;
 import CS3450.course_project.dataAccess.Customer;
+import CS3450.course_project.dataAccess.Employee;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
+import CS3450.course_project.dataAccess.databaseAccess;
 
 /**
  * 
@@ -98,10 +100,6 @@ public class CheckoutScreen {
 	 */
 	private Font buttonFont = new Font("Verdana", Font.PLAIN, 16);
 	/**
-	 * JBradshaw: Array list to store the products
-	 */
-	private ArrayList<Product> productList;
-	/**
 	 * JBradshaw: Allow ability to return to the main screen
 	 */
 	private MainScreen screen;
@@ -117,14 +115,10 @@ public class CheckoutScreen {
 	 * order helper list to be able to process an order and create it
 	 */
 	private ArrayList<OrderHelper> orderHelperList = new ArrayList<OrderHelper>();
-	/**
-	 * list of customers
-	 */
+	private ArrayList<Product> productList = new ArrayList<Product>();
 	private ArrayList<Customer> customerList = new ArrayList<Customer>();
-	/**
-	 * include the order list
-	 */
 	private ArrayList<Order> orderList = new ArrayList<Order>();
+	private ArrayList<Employee> employeeList = new ArrayList<Employee>();
 	/**
 	 * know if cash is selected
 	 */
@@ -171,10 +165,6 @@ public class CheckoutScreen {
 	 */
 	private boolean isPickUp = true;
 	/**
-	 * know whether the delivery method is home delivery
-	 */
-	private boolean isDelivery = false;
-	/**
 	 * radio button to know whether or not the delivery method is pick up
 	 */
 	private JRadioButton pickUp;
@@ -188,10 +178,11 @@ public class CheckoutScreen {
 	 * 
 	 * non-default constructor
 	 */
-	public CheckoutScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){
-		this.productList = productList;
-		this.customerList = customerList;
-		this.orderList = orderList;
+	public CheckoutScreen(databaseAccess databaseConnection){
+		productList = databaseConnection.getProductList();
+		customerList = databaseConnection.getCustomerList();
+		orderList = databaseConnection.getOrderList();
+		employeeList = databaseConnection.getEmployeeList();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -238,11 +229,10 @@ public class CheckoutScreen {
 						//creates pop up button to input item barcode
 						System.out.println("Add Item Button Pressed!!!!");
 						frame.dispose();
-						AddProductScreen = new AddProductScreen(productList, customerList, orderHelperList,orderList);
+						AddProductScreen = new AddProductScreen(databaseConnection, orderHelperList);
 						//adds item to checkout list
 						System.out.println("Adding item to checkout list page");
 					}
-					
 		});
 		
 		//make remove item button look pretty
@@ -269,7 +259,7 @@ public class CheckoutScreen {
 						//removes item from checkout list
 						System.out.println("Removing item to checkout list page");
 						frame.dispose();
-						removeProductScreen = new RemoveProductScreen(productList,customerList, orderHelperList,orderList);
+						removeProductScreen = new RemoveProductScreen(databaseConnection,orderHelperList);
 					}
 					
 		});
@@ -295,13 +285,11 @@ public class CheckoutScreen {
 						JOptionPane.showMessageDialog(null, "Error! No order to process!");
 						//display payment screen 
 						System.out.println("Finish and Pay Button Pressed!!!!");
-						//print receipt
-						System.out.println("Printing Receipt");
 					}
 					
 		});
 
-		//make back to mainscreen button look pretty
+		//make back to main screen button look pretty
 		mainScreen.setBackground(baseColor);
 		mainScreen.setForeground(secondaryColor);
 		mainScreen.setFont(buttonFont);
@@ -325,7 +313,7 @@ public class CheckoutScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						screen = new MainScreen(productList,customerList, orderList);
+						screen = new MainScreen(databaseConnection);
 					}
 					
 		});
@@ -365,11 +353,12 @@ public class CheckoutScreen {
 	 * 
 	 * non-default constructor
 	 */
-	public CheckoutScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<OrderHelper> orderHelperList, ArrayList<Order> orderList){
-		this.productList = productList;
-		this.customerList = customerList;
+	public CheckoutScreen(databaseAccess databaseConnection, ArrayList<OrderHelper> orderHelperList){
+		productList = databaseConnection.getProductList();
+		customerList = databaseConnection.getCustomerList();
+		orderList = databaseConnection.getOrderList();
+		employeeList = databaseConnection.getEmployeeList();
 		this.orderHelperList = orderHelperList;
-		this.orderList = orderList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -416,7 +405,7 @@ public class CheckoutScreen {
 						//creates pop up button to input item barcode
 						System.out.println("Add Item Button Pressed!!!!");
 						frame.dispose();
-						AddProductScreen = new AddProductScreen(productList, customerList, orderHelperList, orderList);
+						AddProductScreen = new AddProductScreen(databaseConnection, orderHelperList);
 						//adds item to checkout list
 						System.out.println("Adding item to checkout list page");
 					}
@@ -446,12 +435,12 @@ public class CheckoutScreen {
 						System.out.println("Remove Item Button Pressed!!!!");
 						//removes item from checkout list
 						System.out.println("Removing item to checkout list page");
-						if (orderHelperList.size() ==0){
+						if (orderHelperList.size() == 0){
 							JOptionPane.showMessageDialog(null, "Error! No products to remove!");
 							return;
 						}
 						frame.dispose();
-						removeProductScreen = new RemoveProductScreen(productList,customerList, orderHelperList,orderList);
+						removeProductScreen = new RemoveProductScreen(databaseConnection, orderHelperList);
 					}
 					
 		});
@@ -494,7 +483,7 @@ public class CheckoutScreen {
 								String custAddress = JOptionPane.showInputDialog("Enter your address");
 								customerList.add(new Customer(custID,custName,custAddress));
 								//add customer to database
-								customerList.get(customerList.size()-1).addToDatabase();
+								databaseConnection.addNewCustomer(customerList.get(customerList.size()-1));
 							}
 							else {
 								while (!checkValidCustID(custID = Integer.parseInt(JOptionPane.showInputDialog("Enter your customer ID")))){
@@ -511,10 +500,10 @@ public class CheckoutScreen {
 								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Cash", getTotalOrderCost(),deliveryMethod,buildOrderInfo()));
 								printReceipt("cash",custID,false,deliveryMethod);
 								//update the product list to reflect the changes
-								updateProductList();
-								updateProductListDatabase();
+								updateProductListDatabase(databaseConnection);
+								productList = databaseConnection.getProductList();
 								//add order to database
-								orderList.get(orderList.size()-1).addToDatabase();
+								databaseConnection.addOrderToDatabase(orderList.get(orderList.size()-1));
 								orderHelperList.clear();
 							}
 							else if (cardSelected){
@@ -553,10 +542,10 @@ public class CheckoutScreen {
 								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Card", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
 								printReceipt("card",custID,cardSelected,deliveryMethod);
 								//update the product list to reflect the changes
-								updateProductList();
-								updateProductListDatabase();
+								updateProductListDatabase(databaseConnection);
+								productList = databaseConnection.getProductList(); //update the product list
 								//add order to database
-								orderList.get(orderList.size()-1).addToDatabase();
+								databaseConnection.addOrderToDatabase(orderList.get(orderList.size()-1));
 								orderHelperList.clear();
 							}
 							else if (checkSelected){
@@ -569,17 +558,17 @@ public class CheckoutScreen {
 								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
 								printReceipt("check",custID,false,deliveryMethod);
 								//update the product list to reflect the changes
-								updateProductList();
-								updateProductListDatabase();
+								updateProductListDatabase(databaseConnection); //this is not ideal as it should be a part of the database connection class and should just update the quantities
+								productList = databaseConnection.getProductList(); //get the newly updated product list
 								//add order to database
-								orderList.get(orderList.size()-1).addToDatabase();
+								databaseConnection.addOrderToDatabase(orderList.get(orderList.size()-1));
 								orderHelperList.clear();
 							}
 						}
 					}	
 		});
 
-		//make back to mainscreen button look pretty
+		//make back to main screen button look pretty
 		mainScreen.setBackground(baseColor);
 		mainScreen.setForeground(secondaryColor);
 		mainScreen.setFont(buttonFont);
@@ -603,7 +592,7 @@ public class CheckoutScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						screen = new MainScreen(productList,customerList,orderList);
+						screen = new MainScreen(databaseConnection);
 					}
 					
 		});
@@ -766,10 +755,8 @@ public class CheckoutScreen {
 					}
 					else if (tempRadio == pickUp){
 						isPickUp = true;
-						isDelivery = false;
 					}
 					else if (tempRadio == delivery){
-						isDelivery = true;
 						isPickUp = false;
 					}
 				}
@@ -862,24 +849,18 @@ public class CheckoutScreen {
 		}
 		return false;
 	}
-	
-	/**
-	 * product list must be updated if an order is actually placed
-	 */
-	private void updateProductList(){
-			for (int j = 0; j < productList.size(); ++j){
-				productList.get(j).setAvailableUnits(productList.get(j).getOrderAvailability());
-			}
-	}
-	
+
 	/**
 	 * updates the availability of items, or available units, based on the order
 	 */
-	private void updateProductListDatabase(){
+	private void updateProductListDatabase(databaseAccess databaseConnection){
 		for (int i = 0; i < productList.size(); ++i){
 			for (int j =0; j < orderHelperList.size(); ++j){
 				if (productList.get(i).getName() == orderHelperList.get(j).getProductName()){
-					productList.get(i).updateQuantity(); //update the quantity so that it reflects the subtraction from the order
+					//change the number of available units
+					productList.get(i).setAvailableUnits(productList.get(i).getAvailableUnits()-orderHelperList.get(i).getQuantity());
+					//update the quantity so that it reflects the subtraction from the order
+					databaseConnection.updateProductQuantity(productList.get(i));
 				}
 			}
 		}

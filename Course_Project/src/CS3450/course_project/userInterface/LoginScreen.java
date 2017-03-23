@@ -41,11 +41,12 @@ public class LoginScreen {
 	    private ArrayList<Order> orderList = new ArrayList<Order>();
 	    private ArrayList<Customer> customerList = new ArrayList<Customer>();
 	    private ArrayList<Employee> employeeList = new ArrayList<Employee>();
-	    private databaseAccess databaseConnection = new databaseAccess();
+	    private databaseAccess databaseConnection;
 	    private MainScreen screen;
 
 	    public LoginScreen() {
 	    	//get the needed info from the database
+	    	databaseConnection = new databaseAccess();
 	    	//if not using the database get the dummy info
 	    	//loadInfoNoDatabase();
 	        frame.setSize(300,150);
@@ -87,11 +88,11 @@ public class LoginScreen {
 	                    if (isMasterUser(username,password)){
 	                    	System.out.println("Hello Master");
 	                    	frame.dispose();
-	                    	screen = new MainScreen(productList,customerList,orderList);
+	                    	screen = new MainScreen(databaseConnection);
 	                    }
 	                    else if (isValidUser(username,password)){
 	                    	frame.dispose();
-	                    	screen = new MainScreen(productList,customerList,orderList);
+	                    	screen = new MainScreen(databaseConnection);
 	                    }
 	                    else {
 	                    	JOptionPane.showMessageDialog(null, "Invalid credentials entered!");

@@ -25,6 +25,7 @@ import javax.swing.SwingConstants;
 import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
+import CS3450.course_project.dataAccess.databaseAccess;
 
 public class ManageProductScreen {
 	/**
@@ -54,7 +55,7 @@ public class ManageProductScreen {
 	/**
 	 * array list to store the products
 	 */
-	private ArrayList<Product> ProductList;
+	private ArrayList<Product> productList;
 	/**
 	 * primary color for the GUI
 	 */
@@ -115,8 +116,8 @@ public class ManageProductScreen {
 	 * 
 	 * non-default constructor
 	 */
-	public ManageProductScreen(ArrayList<Product> productList, ArrayList<Customer> customerList, ArrayList<Order> orderList){
-		this.ProductList = productList;
+	public ManageProductScreen(databaseAccess databaseConnection){
+		productList = databaseConnection.getProductList();
 		
 		iPrice 			= new TextField("");
 		priceLabel = new JLabel("Price");
@@ -197,10 +198,6 @@ public class ManageProductScreen {
 		    r.gridy = 1;
 		    r.gridwidth = 2;
 		    r.fill = GridBagConstraints.BOTH;
-		    
-
-			
-			
 
 		    //quantity spinner
 			GridBagConstraints q = new GridBagConstraints();
@@ -299,7 +296,7 @@ public class ManageProductScreen {
 						public void actionPerformed(ActionEvent e) {
 							
 							frame.dispose();
-							screen = new InventoryScreen(productList, customerList, orderList);
+							screen = new InventoryScreen(databaseConnection);
 						}
 						
 			});
@@ -326,12 +323,7 @@ public class ManageProductScreen {
 									JOptionPane.showMessageDialog(null, "Error cannot have negative\nquantity for product!");
 									return;
 								}
-								temporary.setAvailableUnits((int)spinner.getValue());
-								temporary.setOrderAvailability((int)spinner.getValue());
 
-								//if(temporary.getAvailableUnits()==0){
-								//	productList.remove(temporary);
-								//}
 								int barcode;
 								double price;
 								try{
@@ -359,6 +351,7 @@ public class ManageProductScreen {
 									return;
 								}
 								
+								//make sure there are no empty fields
 								if(!iPrice.getText().isEmpty() && !iBarcode.getText().isEmpty()&& 
 										!iProviderInfo.getText().isEmpty()&& !iProviderName.getText().isEmpty()){
 									temporary.setAvailableUnits((int)spinner.getValue());
@@ -366,9 +359,6 @@ public class ManageProductScreen {
 									temporary.setPrice(price);
 									temporary.setProviderInfo(iProviderInfo.getText());
 									temporary.setProviderName(iProviderName.getText());
-									for(Product v : ProductList){
-										System.out.println(v.getName());
-									}
 
 								}
 								else {
@@ -376,10 +366,12 @@ public class ManageProductScreen {
 									JOptionPane.showMessageDialog(null,"Error! One or more\nfields was left empty!");
 									return;
 								}
+								
+							//update the product list to reflect the change	
+							databaseConnection.updateProductList(temporary);
 							
-							temporary.updateDatabase();
 							frame.dispose();
-							screen = new InventoryScreen(productList, customerList, orderList);
+							screen = new InventoryScreen(databaseConnection);
 							}
 						});
 	    GridBagConstraints u = new GridBagConstraints();
