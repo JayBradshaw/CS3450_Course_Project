@@ -1,0 +1,27 @@
+/**
+ * 
+ */
+package CS3450.course_project.dataAccess;
+
+import java.util.ArrayList;
+
+/**
+ * @author Justin Bradshaw
+ *
+ *contains all of the necessary methods and data members for accessing the database
+ *this includes products, customers, orders, and employees 
+ */
+public class databaseAccess {
+    private ArrayList<Product> productList = new ArrayList<Product>();
+    private ArrayList<Order> orderList = new ArrayList<Order>();
+    private ArrayList<Customer> customerList = new ArrayList<Customer>();
+    private ArrayList<Employee> employeeList = new ArrayList<Employee>();
+    
+    
+    /**
+     * default constructor that will initialize all of the lists from the database
+     */
+    public databaseAccess(){
+    	
+    }
+}

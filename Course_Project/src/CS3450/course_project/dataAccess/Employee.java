@@ -18,6 +18,10 @@ import javax.swing.ImageIcon;
  */
 public class Employee {
 	/**
+	 * stores the id for an employee
+	 */
+	private int id;
+	/**
 	 * stores the name of the employee in the form first name last initial
 	 * eg: James R
 	 */
@@ -30,6 +34,10 @@ public class Employee {
 	 * stores the access rights for an employee
 	 */
 	private short accessRights;
+	/**
+	 * image stored as a string
+	 */
+	private String imageInfo;
 	/**
 	 * image related to the employee
 	 */
@@ -46,13 +54,18 @@ public class Employee {
 	 * 
 	 * non-default constructor
 	 */
-	public Employee(String name, String password, short accessRights, String imageInfo){
+	public Employee(int id, String name, String password, short accessRights, String imageInfo){
+		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.accessRights = accessRights;
+		this.imageInfo = imageInfo;
 		image = new ImageIcon(imageInfo);
 	}
 	
+	public int getID(){
+		return id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -70,6 +83,9 @@ public class Employee {
 	}
 	public void setAccessRights(short accessRights) {
 		this.accessRights = accessRights;
+	}
+	public String getImageInfo(){
+		return this.imageInfo;
 	}
 	public ImageIcon getImage() {
 		return image;

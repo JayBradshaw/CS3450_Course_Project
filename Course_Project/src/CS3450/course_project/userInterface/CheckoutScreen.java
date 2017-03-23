@@ -477,7 +477,7 @@ public class CheckoutScreen {
 						//display payment screen 
 						System.out.println("Finish and Pay Button Pressed!!!!");
 						//print receipt
-						System.out.println("Printing Receipt");
+						//System.out.println("Printing Receipt");
 						if (orderHelperList.size() == 0){
 							JOptionPane.showMessageDialog(null, "Error! No order to process!");
 						}

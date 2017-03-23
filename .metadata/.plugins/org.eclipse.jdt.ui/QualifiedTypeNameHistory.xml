@@ -14,11 +14,11 @@
 <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
 <fullyQualifiedTypeName name="CS3450.course_project.businessLogic.OrderHelper"/>
 <fullyQualifiedTypeName name="CS3450.course_project.businessLogic.CreditCard"/>
-<fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
 <fullyQualifiedTypeName name="CS3450.course_project.dataAccess.Order"/>
 <fullyQualifiedTypeName name="com.mysql.jdbc.Statement"/>
 <fullyQualifiedTypeName name="java.text.DecimalFormat"/>
 <fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
 <fullyQualifiedTypeName name="CS3450.course_project.dataAccess.Employee"/>
 </qualifiedTypeNameHistroy>

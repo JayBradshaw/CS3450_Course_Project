@@ -202,7 +202,6 @@ public class MainScreen {
 		this.productList = productList;
 		this.customerList = customerList;
 		this.orderList = orderList;
-		//System.out.println(productList.get(3).getName());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
