@@ -75,14 +75,6 @@ public class Order {
 		return orderID;
 	}
 	/**
-	 * @param orderID
-	 * 
-	 * sets the order ID
-	 */
-	public void setOrderID(int orderID) {
-		this.orderID = orderID;
-	}
-	/**
 	 * @return
 	 * 
 	 * returns the customer ID of the order

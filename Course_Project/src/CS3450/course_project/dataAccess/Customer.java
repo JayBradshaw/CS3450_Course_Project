@@ -59,14 +59,6 @@ public class Customer {
 		return customerID;
 	}
 	/**
-	 * @param customerID
-	 * 
-	 * sets the ID of a customer
-	 */
-	public void setCustomerID(int customerID) {
-		this.customerID = customerID;
-	}
-	/**
 	 * @return
 	 * 
 	 * returns the name of a specific customer
@@ -98,47 +90,6 @@ public class Customer {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
-	/**
-	 * adds a new customer to the database
-	 */
-	public void addToDatabase(){
-		Connection con = null;
-		Statement statement = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//get the query from the database
-		String query = "insert into customers (customerID, name, address) values (" +
-		getCustomerID() + ',' + '"' + getName() + '"'
-		+ ',' + '"' + getAddress()  + '"' + ");";
-		System.out.println(query);
-		
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		try {
-			statement = con.createStatement();
-			statement.executeUpdate(query);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			statement.close();
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-	}
 	
 }

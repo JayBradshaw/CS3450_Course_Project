@@ -18,11 +18,23 @@ import java.util.ArrayList;
  *this includes products, customers, orders, and employees 
  */
 public class databaseAccess {
+    /**
+     * stores the list of products from the database
+     */
     private ArrayList<Product> productList = new ArrayList<Product>();
+    /**
+     * stores the list of orders from the database
+     */
     private ArrayList<Order> orderList = new ArrayList<Order>();
+    /**
+     * stores the list of customers from the database
+     */
     private ArrayList<Customer> customerList = new ArrayList<Customer>();
+    /**
+     * stores the list of employees from the database
+     */
     private ArrayList<Employee> employeeList = new ArrayList<Employee>();
-    
+    private Employee currentEmployee = null;    
     
     /**
      * default constructor that will initialize all of the lists from the database
@@ -707,6 +719,23 @@ public class databaseAccess {
     	//clear the employee list and reinitialize it
     	employeeList.clear();
     	getEmployeeInfo();
+    }
+    
+    /**
+     * @param accessRights
+     * 
+     * set the current employee based on the login
+     * int id, String name, String password, short accessRights, String imageInfo
+     * IF I CREATE A PROGRAM CLASS THEN THIS LOGIC SHOULD MOVE
+     */
+    public void setCurrentEmployee(String uname){
+    	if (uname.equals("master")){
+    		//give a fake password so the user can't know the real password for master access
+    		currentEmployee = new Employee(20,"Master","",(short)1,"data/businessman.jpg");
+    	}
+    	else { //iterate through the list 
+    		
+    	}
     }
 
 }

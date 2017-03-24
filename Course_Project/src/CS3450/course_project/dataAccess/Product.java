@@ -76,14 +76,6 @@ public class Product {
 		return name;
 	}
 	/**
-	 * @param name
-	 * 
-	 * sets the name of a product
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	/**
 	 * @return
 	 * 
 	 * returns the bar code number of a product
@@ -115,11 +107,6 @@ public class Product {
 	public void setAvailableUnits(int availableUnits) {
 		this.availableUnits = availableUnits;
 	}
-	/**
-	 * @return
-	 * 
-	 * returns the price of a product
-	 */
 	/**
 	 * @return
 	 * 
