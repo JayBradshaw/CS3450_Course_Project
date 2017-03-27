@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,7 +36,7 @@ import CS3450.course_project.dataAccess.databaseAccess;
  *
  */
 public class ReturnScreen {
-	private JFrame frame = new JFrame("Grocery Store Checkout System: Checkout");
+	private JFrame frame = new JFrame("Grocery Store Checkout System: Return");
 	/**
 	 * pane to be contained in the frame
 	 */
@@ -46,7 +48,7 @@ public class ReturnScreen {
 	/**
 	 * stores the header for the pane
 	 */
-	private JLabel storeHeader = new JLabel("Mr. Smith's Groceries" , cartImage , JLabel.CENTER);
+	private JLabel storeHeader = new JLabel();
 	/**
 	 * stores the footer for the pane
 	 */
@@ -116,12 +118,24 @@ public class ReturnScreen {
 		pane = frame.getContentPane();
 		pane.setLayout(new BorderLayout()); 
 		
+		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
+		JLabel icon1Label = new JLabel();
+		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setFont(baseFont);
+		JLabel icon2Label = new JLabel();
+		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
+		icon1Label.setIconTextGap(25);
+		icon2Label.setIcon(cartImage);
+		icon2Label.setIconTextGap(25);
+		storeHeader.add(icon1Label);
+		storeHeader.add(Box.createRigidArea(new Dimension(5,0)));
+		storeHeader.add(textLabel);
+		storeHeader.add(Box.createRigidArea(new Dimension(5,0)));
+		storeHeader.add(icon2Label);
 		//make the header look pretty
-		storeHeader.setIconTextGap(25);
 		storeHeader.setBackground(baseColor);
 		storeHeader.setForeground(secondaryColor);
 		storeHeader.setFont(baseFont);
-		storeHeader.setHorizontalTextPosition(SwingConstants.LEADING);
 		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
 		

@@ -2,6 +2,7 @@ package CS3450.course_project.userInterface;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -43,7 +46,7 @@ public class ManageProductScreen {
 	/**
 	 * stores the header for the pane
 	 */
-	private JLabel storeHeader = new JLabel("Mr. Smith's Groceries" , cartImage , JLabel.CENTER);
+	private JLabel storeHeader = new JLabel();
 	/**
 	 * stores the footer for the pane
 	 */
@@ -133,13 +136,25 @@ public class ManageProductScreen {
 		pane = frame.getContentPane();
 		pane.setLayout(new GridBagLayout());
 		
+		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
+		JLabel icon1Label = new JLabel();
+		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setFont(baseFont);
+		JLabel icon2Label = new JLabel();
+		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
+		icon1Label.setIconTextGap(25);
+		icon2Label.setIcon(cartImage);
+		icon2Label.setIconTextGap(25);
+		storeHeader.add(icon1Label);
+		storeHeader.add(Box.createRigidArea(new Dimension(5,0)));
+		storeHeader.add(textLabel);
+		storeHeader.add(Box.createRigidArea(new Dimension(5,0)));
+		storeHeader.add(icon2Label);
 		//copied exactly for UI consistency
 		//make the header look pretty
-		storeHeader.setIconTextGap(25);
 		storeHeader.setBackground(baseColor);
 		storeHeader.setForeground(secondaryColor);
 		storeHeader.setFont(baseFont);
-		storeHeader.setHorizontalTextPosition(SwingConstants.LEADING);
 		storeHeader.setOpaque(true);
 		//constraints for header
 		GridBagConstraints h = new GridBagConstraints();

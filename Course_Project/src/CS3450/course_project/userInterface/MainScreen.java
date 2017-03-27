@@ -14,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -63,7 +65,7 @@ public class MainScreen {
 	/**
 	 * stores the header for the pane
 	 */
-	private JLabel storeHeader = new JLabel("Mr. Smith's Groceries" , cartImage , JLabel.CENTER);
+	private JLabel storeHeader = new JLabel();
 	/**
 	 * stores the footer for the pane
 	 */
@@ -114,24 +116,40 @@ public class MainScreen {
 	private JPanel buttonPanel = new JPanel(new FlowLayout());
 
 
+
 	/**
 	 * @param databaseConnection
 	 * 
 	 * non-default constructor that has access to the database connection
 	 */
 	public MainScreen(databaseAccess databaseConnection){
-
+		System.out.println(databaseConnection.getEmployee().getImage().getIconWidth());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
 		pane.setLayout(new BorderLayout());
 		
+
+		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
+		JLabel icon1Label = new JLabel();
+		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setFont(baseFont);
+		JLabel icon2Label = new JLabel();
+		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
+		icon1Label.setIconTextGap(25);
+		icon2Label.setIcon(cartImage);
+		icon2Label.setIconTextGap(25);
+		storeHeader.add(icon1Label);
+		storeHeader.add(Box.createRigidArea(new Dimension(5,0)));
+		storeHeader.add(textLabel);
+		storeHeader.add(Box.createRigidArea(new Dimension(5,0)));
+		storeHeader.add(icon2Label);
+		
 		//make the header look pretty
-		storeHeader.setIconTextGap(25);
 		storeHeader.setBackground(baseColor);
 		storeHeader.setForeground(secondaryColor);
 		storeHeader.setFont(baseFont);
-		storeHeader.setHorizontalTextPosition(SwingConstants.LEADING);
+		//storeHeader.setHorizontalTextPosition(SwingConstants.LEADING);
 		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
 		

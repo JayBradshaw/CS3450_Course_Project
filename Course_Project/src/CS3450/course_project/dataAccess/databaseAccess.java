@@ -733,6 +733,7 @@ public class databaseAccess {
     	if (uname.equals("master")){
     		//give a fake password so the user can't know the real password for master access
     		currentEmployee = new Employee(20,"Master","",(short)1,"data/businessman.jpg");
+    		return;
     	}
     	else { //iterate through the list 
     		for (Employee x: employeeList){
@@ -744,6 +745,10 @@ public class databaseAccess {
     	}
     	//should never get to this point, but just in case
     	System.out.println("No employee exists with this username");
+    }
+    
+    public Employee getEmployee(){
+    	return this.currentEmployee;
     }
 
 }

@@ -92,10 +92,10 @@ public class OrderHelper {
 	 * @return
 	 * 
 	 * create the needed info for an order (this is for one item)
-	 * form: Apple,0.99,48
+	 * form: Apple^0.99^48
 	 */
 	public String createOrderInfo() {
-		String toReturn = getProductName() + ',' + Double.toString(getProductPrice()) + ',' + Integer.toString(getQuantity());
+		String toReturn = getProductName() + '^' + Double.toString(getProductPrice()) + '^' + Integer.toString(getQuantity());
 	return toReturn;
 	}
 	

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -69,7 +70,7 @@ public class CheckoutScreen {
 	/**
 	 * stores the header for the pane
 	 */
-	private JLabel storeHeader = new JLabel("Mr. Smith's Groceries" , cartImage , JLabel.CENTER);
+	private JLabel storeHeader = new JLabel();
 	/**
 	 * stores the footer for the pane
 	 */
@@ -203,12 +204,26 @@ public class CheckoutScreen {
 		pane = frame.getContentPane();
 		pane.setLayout(new BorderLayout()); 
 		
+		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
+		JLabel icon1Label = new JLabel();
+		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setFont(baseFont);
+		JLabel icon2Label = new JLabel();
+		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
+		icon1Label.setIconTextGap(25);
+		icon2Label.setIcon(cartImage);
+		icon2Label.setIconTextGap(25);
+		storeHeader.add(icon1Label);
+		storeHeader.add(Box.createRigidArea(new Dimension(5,0)));
+		storeHeader.add(textLabel);
+		storeHeader.add(Box.createRigidArea(new Dimension(5,0)));
+		storeHeader.add(icon2Label);
+		
 		//make the header look pretty
 		storeHeader.setIconTextGap(25);
 		storeHeader.setBackground(baseColor);
 		storeHeader.setForeground(secondaryColor);
 		storeHeader.setFont(baseFont);
-		storeHeader.setHorizontalTextPosition(SwingConstants.LEADING);
 		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
 		
@@ -358,12 +373,25 @@ public class CheckoutScreen {
 		pane = frame.getContentPane();
 		pane.setLayout(new BorderLayout()); 
 		
+		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
+		JLabel icon1Label = new JLabel();
+		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setFont(baseFont);
+		JLabel icon2Label = new JLabel();
+		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
+		icon1Label.setIconTextGap(25);
+		icon2Label.setIcon(cartImage);
+		icon2Label.setIconTextGap(25);
+		storeHeader.add(icon1Label);
+		storeHeader.add(Box.createRigidArea(new Dimension(5,0)));
+		storeHeader.add(textLabel);
+		storeHeader.add(Box.createRigidArea(new Dimension(5,0)));
+		storeHeader.add(icon2Label);
+		
 		//make the header look pretty
-		storeHeader.setIconTextGap(25);
 		storeHeader.setBackground(baseColor);
 		storeHeader.setForeground(secondaryColor);
 		storeHeader.setFont(baseFont);
-		storeHeader.setHorizontalTextPosition(SwingConstants.LEADING);
 		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
 
