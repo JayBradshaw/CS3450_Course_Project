@@ -876,12 +876,5 @@ public class CheckoutScreen {
 		System.out.println(toReturn);
 		return toReturn;
 	}
-	
-	private String dummySpacing(int spacing){
-		String toReturn = "";
-		for (int i = 0; i < spacing; ++i){
-			toReturn += " ";
-		}
-		return toReturn;
-	}
+
 }

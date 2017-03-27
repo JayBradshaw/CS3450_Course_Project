@@ -220,7 +220,8 @@ public class MainScreen {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						//deal with the new screen that should appear
-						JOptionPane.showMessageDialog(null,"This screen has yet to be implemented!");
+						frame.dispose();
+						ReturnScreen screen = new ReturnScreen(databaseConnection);
 					}
 					
 				});
