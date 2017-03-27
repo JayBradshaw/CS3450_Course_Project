@@ -219,7 +219,7 @@ public class CheckoutScreen {
 		orderDetails.setText(populateTextArea());
 		orderDetails.setForeground(secondaryColor);
 		orderDetails.setBackground(baseColor);
-		orderDetails.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+		orderDetails.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
 		
 		//set the preferred size for the button panel
 		buttonPanel.setPreferredSize(new Dimension(frame.getWidth()/2,150));

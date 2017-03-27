@@ -725,7 +725,8 @@ public class databaseAccess {
      * @param accessRights
      * 
      * set the current employee based on the login
-     * int id, String name, String password, short accessRights, String imageInfo
+     * don't need to check if invalid employee because that is already done earlier
+     * so we know the employee is valid
      * IF I CREATE A PROGRAM CLASS THEN THIS LOGIC SHOULD MOVE
      */
     public void setCurrentEmployee(String uname){
@@ -734,8 +735,15 @@ public class databaseAccess {
     		currentEmployee = new Employee(20,"Master","",(short)1,"data/businessman.jpg");
     	}
     	else { //iterate through the list 
-    		
+    		for (Employee x: employeeList){
+    			if (uname.equals(x.getName())){
+    				currentEmployee = x;
+    				return;
+    			}
+    		}
     	}
+    	//should never get to this point, but just in case
+    	System.out.println("No employee exists with this username");
     }
 
 }
