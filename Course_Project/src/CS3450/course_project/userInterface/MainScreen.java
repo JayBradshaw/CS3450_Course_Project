@@ -220,8 +220,10 @@ public class MainScreen {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						//deal with the new screen that should appear
+						int orderID = getOrderID(databaseConnection.getOrderList());
+						if (orderID == -1)return;
 						frame.dispose();
-						ReturnScreen screen = new ReturnScreen(databaseConnection);
+						ReturnScreen screen = new ReturnScreen(databaseConnection, orderID);
 					}
 					
 				});
@@ -244,6 +246,46 @@ public class MainScreen {
 		pane.add(storeFooter, BorderLayout.PAGE_END);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+	}
+	
+	/**
+	 * @param id
+	 * @param orderList
+	 * @return
+	 * 
+	 * ensure that the order id is valid
+	 */
+	private boolean validOrderID(int id, ArrayList<Order> orderList){
+		for (Order x : orderList){
+			if (x.getOrderID() == id) return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @return
+	 * 
+	 * get an order from the user, make sure that it is a valid order
+	 */
+	private int getOrderID(ArrayList<Order> orderList){
+		String temp;
+		int toReturn;
+		temp = JOptionPane.showInputDialog("Enter the order ID:",JOptionPane.OK_CANCEL_OPTION);
+		if (temp == null) return -1;
+		
+		try {
+			toReturn = Integer.parseInt(temp);
+		}
+		catch(NumberFormatException nfe){
+			System.out.println("Unable to parse value!");
+			JOptionPane.showMessageDialog(null,"Invalid entry!");
+			return -1;
+		}
+		if (!validOrderID(toReturn,orderList)){ 
+			JOptionPane.showMessageDialog(null,"Invalid entry!");
+			return -1;
+		}
+		return toReturn;
 	}
 
 }

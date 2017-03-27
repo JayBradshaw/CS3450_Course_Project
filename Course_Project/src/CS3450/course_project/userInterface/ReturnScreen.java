@@ -9,7 +9,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -109,7 +108,8 @@ public class ReturnScreen {
 	 * @param databaseConnection
 	 * non-default constructor
 	 */
-	public ReturnScreen(databaseAccess databaseConnection){
+	public ReturnScreen(databaseAccess databaseConnection, int orderID){
+		this.orderID = orderID;
 		orderList = databaseConnection.getOrderList();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
@@ -125,9 +125,7 @@ public class ReturnScreen {
 		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
 		
-		
-		//get the correct order
-		orderID = getOrder(orderList);
+		//get the order from the ID
 		order = databaseConnection.getOrderFromID(orderID);
 		//build the orderHelper from the order
 		//set the details for the text area
@@ -218,32 +216,6 @@ public class ReturnScreen {
 		frame.setVisible(true);
 	}
 	
-	/**
-	 * @param id
-	 * @param orderList
-	 * @return
-	 * 
-	 * ensure that the order id is valid
-	 */
-	private boolean validOrderID(int id, ArrayList<Order> orderList){
-		for (Order x : orderList){
-			if (x.getOrderID() == id) return true;
-		}
-		return false;
-	}
-
-	/**
-	 * @return
-	 * 
-	 * get an order from the user, make sure that it is a valid order
-	 */
-	private int getOrder(ArrayList<Order> orderList){
-		int temp;
-		while (!validOrderID(temp = Integer.parseInt(JOptionPane.showInputDialog("Enter the order ID:")),orderList)){
-			JOptionPane.showMessageDialog(null,"Invalid ID entered!");
-		}
-		return temp;
-	}
 	/**
 	 * @return
 	 * 
