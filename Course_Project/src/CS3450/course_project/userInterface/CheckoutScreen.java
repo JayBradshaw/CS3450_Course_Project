@@ -794,7 +794,7 @@ public class CheckoutScreen {
 			fileOutput.println("Card Info: ");
 			fileOutput.println("Card Holder: " + creditCard.getName());
 			fileOutput.println("Card Number: ************" + creditCard.lastFourDigits());
-			fileOutput.println("Expiration Date: " + creditCard.getExpirationDate() + "\n");
+			//fileOutput.println("Expiration Date: " + creditCard.getExpirationDate() + "\n");
 		}
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();

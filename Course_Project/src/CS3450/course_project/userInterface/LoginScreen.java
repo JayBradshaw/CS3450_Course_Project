@@ -37,10 +37,6 @@ public class LoginScreen {
 	    private JTextField name;
 	    private JPasswordField pword;
 	    private JButton login;
-	    private ArrayList<Product> productList = new ArrayList<Product>();
-	    private ArrayList<Order> orderList = new ArrayList<Order>();
-	    private ArrayList<Customer> customerList = new ArrayList<Customer>();
-	    private ArrayList<Employee> employeeList = new ArrayList<Employee>();
 	    private databaseAccess databaseConnection;
 	    private MainScreen screen;
 

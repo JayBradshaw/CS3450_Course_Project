@@ -87,6 +87,14 @@ public class MainScreen {
 	 */
 	private JButton employees = new JButton("Manage Employees");
 	/**
+	 * allows the current employee to log out
+	 */
+	private JButton logout = new JButton("Log out");
+	/**
+	 * edit the current employee's information
+	 */
+	private JButton editMyInfo = new JButton("Edit My Info"); 
+	/**
 	 * base color for the GUI
 	 */
 	private Color baseColor = new Color(180,242,110);
@@ -114,6 +122,7 @@ public class MainScreen {
 	 * panel that will hold manage inventory and manage employees
 	 */
 	private JPanel buttonPanel = new JPanel(new FlowLayout());
+	private JPanel buttonPanel2 = new JPanel(new FlowLayout());
 
 
 
@@ -180,7 +189,7 @@ public class MainScreen {
 		inventory.setBackground(baseColor);
 		inventory.setForeground(secondaryColor);
 		inventory.setFont(buttonFont);
-		inventory.setPreferredSize(new Dimension(frame.getWidth()/4,125));
+		inventory.setPreferredSize(new Dimension(frame.getWidth()/4,82));
 		inventory.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
 		//inventory.setMargin(new Insets(15,15,15,15));
 		//listener for the manage inventory button
@@ -203,7 +212,7 @@ public class MainScreen {
 		employees.setBackground(baseColor);
 		employees.setForeground(secondaryColor);
 		employees.setFont(buttonFont);
-		employees.setPreferredSize(new Dimension(frame.getWidth()/4,125));
+		employees.setPreferredSize(new Dimension(frame.getWidth()/4,82));
 		employees.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
 		//returns.setMargin(new Insets(15,15,15,15));
 		//listener for the manage inventory button
@@ -217,18 +226,41 @@ public class MainScreen {
 					}
 					
 				});
+		//functionality for the logout button
+		logout.setBackground(baseColor);
+		logout.setForeground(secondaryColor);
+		logout.setFont(buttonFont);
+		logout.setPreferredSize(new Dimension(frame.getWidth()/4,82));
+		logout.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
+		//inventory.setMargin(new Insets(15,15,15,15));
+		//listener for the manage inventory button
+		logout.addActionListener(
+				new ActionListener(){
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						//deal with the new screen that should appear
+						frame.dispose(); //close the frame
+						System.out.println("Logging out...");
+						LoginScreen screen = new LoginScreen();
+					}
+					
+				});
 
 		//specifications for button panel
 		buttonPanel.setBackground(baseColor);
 		buttonPanel.setForeground(secondaryColor);
 		buttonPanel.setFont(buttonFont);
 		buttonPanel.setPreferredSize(new Dimension(frame.getWidth()/4,250));
+		buttonPanel.add(inventory);
+		buttonPanel.add(employees);
+		buttonPanel.add(logout);
 		
 		//functionality for the returns button
 		returns.setBackground(baseColor);
 		returns.setForeground(secondaryColor);
 		returns.setFont(buttonFont);
-		returns.setPreferredSize(new Dimension(frame.getWidth()/4,150));
+		returns.setPreferredSize(new Dimension(frame.getWidth()/4,125));
 		returns.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
 		//returns.setMargin(new Insets(15,15,15,15));
 		//listener for the manage inventory button
@@ -245,10 +277,33 @@ public class MainScreen {
 					}
 					
 				});
-
 		
-		buttonPanel.add(inventory);
-		buttonPanel.add(employees);
+		//functionality for the editMyInfo button
+		editMyInfo.setBackground(baseColor);
+		editMyInfo.setForeground(secondaryColor);
+		editMyInfo.setFont(buttonFont);
+		editMyInfo.setPreferredSize(new Dimension(frame.getWidth()/4,125));
+		editMyInfo.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
+		//returns.setMargin(new Insets(15,15,15,15));
+		//listener for the manage inventory button
+		editMyInfo.addActionListener(
+				new ActionListener(){
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						//deal with the new screen that should appear
+						JOptionPane.showMessageDialog(null, "This screen has not yet been implemented");
+					}
+					
+				});
+		
+		//specifications for second button panel
+		buttonPanel2.setBackground(baseColor);
+		buttonPanel2.setForeground(secondaryColor);
+		buttonPanel2.setFont(buttonFont);
+		buttonPanel2.setPreferredSize(new Dimension(frame.getWidth()/4,250));
+		buttonPanel2.add(returns);
+		buttonPanel2.add(editMyInfo);
 
 		//make the footer look pretty
 		storeFooter.setBackground(baseColor);
@@ -260,7 +315,7 @@ public class MainScreen {
 		pane.add(storeHeader, BorderLayout.PAGE_START);
 		pane.add(checkout, BorderLayout.CENTER);
 		pane.add(buttonPanel, BorderLayout.LINE_START);
-		pane.add(returns,BorderLayout.LINE_END);
+		pane.add(buttonPanel2,BorderLayout.LINE_END);
 		pane.add(storeFooter, BorderLayout.PAGE_END);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
