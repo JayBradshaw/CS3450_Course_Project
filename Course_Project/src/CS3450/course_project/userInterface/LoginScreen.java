@@ -33,12 +33,34 @@ import java.util.ArrayList;
  *class that deals with the login screen
  */
 public class LoginScreen {
+	 	/**
+	 	 * frame for the GUI
+	 	 */
 	 	private JFrame frame = new JFrame("Login Screen");
+	    /**
+	     * field for the username
+	     */
 	    private JTextField name;
+	    /**
+	     * field for the password
+	     */
 	    private JPasswordField pword;
+	    /**
+	     * login button
+	     */
 	    private JButton login;
+	    /**
+	     * stores the connection to the database
+	     */
 	    private databaseAccess databaseConnection;
+	    /**
+	     * main screen object so that if the correct info is provided the user is taken to the main screen
+	     */
 	    private MainScreen screen;
+		/**
+		 * stores how many incorrect passwords the user has entered
+		 */
+		private int invalidPasswordCount = 0;
 
 	    public LoginScreen() {
 	    	//get the needed info from the database
@@ -95,6 +117,10 @@ public class LoginScreen {
 	                    }
 	                    else {
 	                    	JOptionPane.showMessageDialog(null, "Invalid credentials entered!");
+	                    	invalidPasswordCount++;
+	                    	if (invalidPasswordCount >=  3){
+	                    		System.exit(0);
+	                    	}
 	                    	return;
 	                    }
 	            }

@@ -119,12 +119,13 @@ public class MainScreen {
 	 */
 	private InventoryScreen inventoryscreen;
 	/**
-	 * panel that will hold manage inventory and manage employees
+	 * panel that will hold manage inventory, manage employees, and log out buttons
 	 */
 	private JPanel buttonPanel = new JPanel(new FlowLayout());
+	/**
+	 * panel that will hold the returns, and edit my info buttons
+	 */
 	private JPanel buttonPanel2 = new JPanel(new FlowLayout());
-
-
 
 	/**
 	 * @param databaseConnection
@@ -232,16 +233,16 @@ public class MainScreen {
 		logout.setFont(buttonFont);
 		logout.setPreferredSize(new Dimension(frame.getWidth()/4,82));
 		logout.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
-		//inventory.setMargin(new Insets(15,15,15,15));
+
 		//listener for the manage inventory button
 		logout.addActionListener(
 				new ActionListener(){
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						//deal with the new screen that should appear
+						//deal with logging out of the system
 						int confirmation = JOptionPane.showConfirmDialog(null,"Are you sure you want to log out?","Confirm Logout",JOptionPane.YES_NO_OPTION);
-						if (confirmation ==0){
+						if (confirmation == 0){
 							frame.dispose(); //close the frame
 							System.out.println("Logging out...");
 							LoginScreen screen = new LoginScreen();
