@@ -292,7 +292,10 @@ public class RemoveProductScreen {
 						
 						//ok now that we have made the checks we can remove the quantity from the orderHelperList
 						orderHelperList.get(orderHelperIndex).setQuantity(orderHelperList.get(orderHelperIndex).getQuantity()-(int)spinner.getValue());
-						
+						//if the quantity becomes 0, remove the item from the list
+						if (orderHelperList.get(orderHelperIndex).getQuantity() == 0){
+							orderHelperList.remove(orderHelperIndex);
+						}
 						System.out.println("removing " + spinner.getValue() + " " + temporary.getName());
 						System.out.println("Back to checkout screen...");
 						

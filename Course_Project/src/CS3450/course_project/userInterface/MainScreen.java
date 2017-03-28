@@ -240,9 +240,12 @@ public class MainScreen {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						//deal with the new screen that should appear
-						frame.dispose(); //close the frame
-						System.out.println("Logging out...");
-						LoginScreen screen = new LoginScreen();
+						int confirmation = JOptionPane.showConfirmDialog(null,"Are you sure you want to log out?","Confirm Logout",JOptionPane.YES_NO_OPTION);
+						if (confirmation ==0){
+							frame.dispose(); //close the frame
+							System.out.println("Logging out...");
+							LoginScreen screen = new LoginScreen();
+						}
 					}
 					
 				});
