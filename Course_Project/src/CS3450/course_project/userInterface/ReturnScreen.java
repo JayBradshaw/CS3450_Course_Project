@@ -78,10 +78,6 @@ public class ReturnScreen {
 	 */
 	private ArrayList<OrderHelper> orderHelperList = new ArrayList<OrderHelper>();
 	/**
-	 * list of all orders
-	 */
-	private ArrayList<Order> orderList = new ArrayList<Order>();
-	/**
 	 * create a panel to hold all of the buttons
 	 */
 	private JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -112,7 +108,8 @@ public class ReturnScreen {
 	 */
 	public ReturnScreen(databaseAccess databaseConnection, int orderID){
 		this.orderID = orderID;
-		orderList = databaseConnection.getOrderList();
+		order = databaseConnection.getOrderFromID(orderID);
+		createOrderHelperList(order);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -164,8 +161,27 @@ public class ReturnScreen {
 				new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showMessageDialog(null, "This has not yet been implemented!");
-					}
+						//get the name of the product and ensure that it is a valid product name
+						String productName = JOptionPane.showInputDialog("Enter a product name:");
+						//if the user cancels
+						if (productName == null) return;
+						if (!checkValidName(productName)){
+							JOptionPane.showMessageDialog(null,"Invalid product name entered!");
+							return;
+						}
+						//get the item to be edited
+						OrderHelper tempItem = getOrderHelperItemByName(productName);
+						//get the quantity to be changed ADD ERROR CHECKING HERE OF NOT INSERTING AN INTEGER OR CANCELLING
+						int quantity = Integer.parseInt(JOptionPane.showInputDialog("Enter a quantity to remove"));
+						if(!checkValidQuantity(tempItem,quantity))return;
+						//edit the quantity of the tempItem
+						tempItem.setQuantity(tempItem.getQuantity()-quantity);
+						//if the quantity becomes 0 remove the item
+						if (tempItem.getQuantity() == 0) orderHelperList.remove(tempItem);
+						//change the text in the text area and revalidate the frame
+						orderDetails.setText(populateTextArea());
+						frame.revalidate();
+				}
 					
 		});
 		
@@ -276,10 +292,91 @@ public class ReturnScreen {
 				int spacing = 20 - item.getProductName().length() + (8 -item.getProductName().length());
 				toReturn += String.format("%-20s %-15.2f %-15s\n", item.getProductName(), item.getProductPrice(), Integer.toString(item.getQuantity()));
 			}
-			toReturn += String.format("\nTotal Cost: %.2f\n", getTotalOrderCost());
+			toReturn += String.format("\nTotal Cost: $%.2f\n", getTotalOrderCost());
 		}
 		System.out.println(toReturn);
 		return toReturn;
+	}
+	
+    //these next two will be used to create an orderHelperList from an order if you want to return anything
+    /**
+     * @param toDivide
+     * @return
+     * 
+     * break up the individual order item into its three parts
+     */
+    private String [] createThreeParts(String toDivide){
+        String delims = "['^']+";
+        String [] toReturn = toDivide.split(delims);
+        return toReturn;
+    }
+
+    /**
+     * @param toDivide
+     * @return
+     * 
+     * get individual products from the orderInfo
+     */
+    private String [] getIndividualProducts(String toDivide){
+        String delims = "[|]+";
+        String [] toReturn = toDivide.split(delims);
+        return toReturn;
+    }
+	
+	private void createOrderHelperList(Order order){
+		//get the individual products
+		String [] productsOrdered = getIndividualProducts(order.getOrderInfo());
+		String [] individualItems;
+		//break the product by pieces and add it to the orderHelperList
+		for (int i = 0; i < productsOrdered.length; ++i){
+			individualItems = createThreeParts(productsOrdered[i]);
+			System.out.println(individualItems[0] + " " + individualItems[1] + " " + individualItems[2]);
+			orderHelperList.add(new OrderHelper(individualItems[0],Double.parseDouble(individualItems[1]),Integer.parseInt(individualItems[2])));
+		}
+	}
+	
+	/**
+	 * @param name
+	 * @return
+	 * 
+	 * ensure that the name of the item is valid
+	 */
+	private boolean checkValidName(String name){
+		//ignore issues with casing
+		for (OrderHelper item : this.orderHelperList){
+			if (item.getProductName().toUpperCase().equals(name.toUpperCase()))return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * @param item
+	 * @param quantity
+	 * @return
+	 * 
+	 * ensure that the employee enters a valid quantity to remove from the order
+	 */
+	private boolean checkValidQuantity(OrderHelper item, int quantity){
+		if (item.getQuantity() - quantity < 0 || quantity < 0) {
+			JOptionPane.showMessageDialog(null, "Invalid quantity entered!");
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * @param name
+	 * @return
+	 * 
+	 * gets an order helper item based on its name
+	 */
+	private OrderHelper getOrderHelperItemByName(String name){
+		//ignore issues with casing
+		for (OrderHelper item : this.orderHelperList){
+			if (item.getProductName().toUpperCase().equals(name.toUpperCase()))
+				return item;
+		}
+		return null;
 	}
 
 }

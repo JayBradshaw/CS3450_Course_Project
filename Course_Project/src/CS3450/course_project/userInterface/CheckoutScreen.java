@@ -899,7 +899,7 @@ public class CheckoutScreen {
 				int spacing = 20 - item.getProductName().length() + (8 -item.getProductName().length());
 				toReturn += String.format("%-20s %-15.2f %-15s\n", item.getProductName(), item.getProductPrice(), Integer.toString(item.getQuantity()));
 			}
-			toReturn += String.format("\nTotal Cost: %.2f\n", getTotalOrderCost());
+			toReturn += String.format("\nTotal Cost: $%.2f\n", getTotalOrderCost());
 		}
 		System.out.println(toReturn);
 		return toReturn;
