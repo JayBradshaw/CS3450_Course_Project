@@ -11,6 +11,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -101,6 +103,14 @@ public class ReturnScreen {
 	 * order to be processed
 	 */
 	private Order order;
+	/**
+	 * stores the original total of the order
+	 */
+	private double originalOrderCost;
+	/**
+	 * original order helper list to check against to be sure that nothing has changed
+	 */
+	private ArrayList<OrderHelper> originalList = new ArrayList<OrderHelper>();
 	
 	/**
 	 * @param databaseConnection
@@ -109,7 +119,9 @@ public class ReturnScreen {
 	public ReturnScreen(databaseAccess databaseConnection, int orderID){
 		this.orderID = orderID;
 		order = databaseConnection.getOrderFromID(orderID);
+		originalOrderCost = order.getTotalCost();
 		createOrderHelperList(order);
+		originalList = orderHelperList; //set the original list from the order
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -172,7 +184,24 @@ public class ReturnScreen {
 						//get the item to be edited
 						OrderHelper tempItem = getOrderHelperItemByName(productName);
 						//get the quantity to be changed ADD ERROR CHECKING HERE OF NOT INSERTING AN INTEGER OR CANCELLING
-						int quantity = Integer.parseInt(JOptionPane.showInputDialog("Enter a quantity to remove"));
+						String quantityString = ""; //get the value from the input box
+						int quantity = 0; //set the quantity
+						//worry about invalid entries for quantities
+						
+						try{
+							quantityString = JOptionPane.showInputDialog("Enter a quantity to remove");
+							//deal with cancel button
+							if (quantityString ==null){
+								System.out.println("Cancel button selected");
+								return;
+							}
+							//try to parse to integer
+							quantity = Integer.parseInt(quantityString);
+						}catch(NumberFormatException er){
+							System.out.println("Invalid entry");
+							JOptionPane.showMessageDialog(null, "Invalid entry!");
+							return;
+						}
 						if(!checkValidQuantity(tempItem,quantity))return;
 						//edit the quantity of the tempItem
 						tempItem.setQuantity(tempItem.getQuantity()-quantity);
@@ -197,9 +226,30 @@ public class ReturnScreen {
 				new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showMessageDialog(null, "This has not yet been implemented!");
+						//pass to the database connection the string that contains the new order info
+						//also pass the order itself
+						//editOrderInfoFromReturn(order,string)
+						//create a function in the databaseAccess to deal with this, if the string is
+						//empty just remove the order from the order table
+						//add a message that tells the user how much money they are getting back from
+						//the cashier in cash
+						if (Math.abs(originalOrderCost - getTotalOrderCost()) <= 0.05){
+							JOptionPane.showMessageDialog(null, "No changes have been made to the order!");
+							return;
+						}
+						if (orderHelperList.isEmpty()){
+							databaseConnection.deleteOrder(order);
+						}
+						else {
+							databaseConnection.updateOrderInfo(order,buildOrderInfo(),round(getTotalOrderCost(),2));
+						}
+						double totalReturn = originalOrderCost - getTotalOrderCost();
+						JOptionPane.showMessageDialog(null,"Thank you for your business.\n"
+								+ "Your total return comes to $" + String.format("%.2f", totalReturn) + ".");
+						frame.dispose();
+						MainScreen screen = new MainScreen(databaseConnection);
 					}
-					
+
 		});
 		
 		//cancel order button
@@ -215,12 +265,16 @@ public class ReturnScreen {
 				new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						//check to see whether or not the order has changed
+						if (getTotalOrderCost() == originalOrderCost){
+							JOptionPane.showMessageDialog(null, "The order has not changed!");
+							return;
+						}
 						frame.dispose();
 						MainScreen screen = new MainScreen(databaseConnection);
 					}
 					
 		});
-		
 		
 		//set the preferred size for the button panel
 		buttonPanel.setPreferredSize(new Dimension(frame.getWidth()/2,150));
@@ -378,5 +432,21 @@ public class ReturnScreen {
 		}
 		return null;
 	}
+	
+	/**
+	 * @param value
+	 * @param places
+	 * @return
+	 * 
+	 * round a double value to only two decimal places
+	 * taken from stack overflow: http://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places
+	 */
+	private double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
 
+	    BigDecimal bd = new BigDecimal(value);
+	    bd = bd.setScale(places, RoundingMode.HALF_UP);
+	    return bd.doubleValue();
+	}
+	
 }

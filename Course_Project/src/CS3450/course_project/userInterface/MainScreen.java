@@ -133,7 +133,8 @@ public class MainScreen {
 	 * non-default constructor that has access to the database connection
 	 */
 	public MainScreen(databaseAccess databaseConnection){
-		System.out.println(databaseConnection.getEmployee().getImage().getIconWidth());
+		//enable and disable buttons based on the employee type
+		enableDisableButtons(databaseConnection.getEmployee().getAccessRights());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -363,6 +364,19 @@ public class MainScreen {
 			return -1;
 		}
 		return toReturn;
+	}
+	//checkout, inventory,returns,employees,logout,editmyinfo
+	private void enableDisableButtons(int accessRights){
+		if (accessRights >= 2){
+			inventory.setEnabled(false);
+			employees.setEnabled(false);
+		}
+		if (accessRights == 3){
+			returns.setEnabled(false);
+		}
+		if (accessRights == 4){
+			checkout.setEnabled(false);
+		}
 	}
 
 }

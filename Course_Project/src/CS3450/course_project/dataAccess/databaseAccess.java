@@ -540,7 +540,7 @@ public class databaseAccess {
 			e.printStackTrace();
 		}
 		//orderID, customerID, paymentType, totalCost, deliveryMethod, orderInfo
-		String query = "update orders set orderID = " + order.getOrderID() + ", customerID = " + order.getCustomerID() + 
+		String query = "update orders set customerID = " + order.getCustomerID() + 
 				", paymentType = " + '"' + order.getPaymentType() + '"' + ", totalCost = " + order.getTotalCost() + ", deliveryMethod = " +
 				'"' + order.getDeliveryMethod() + '"' + " , orderInfo = " + '"' + order.getOrderInfo() + '"' + "\nwhere orderID = " + order.getOrderID() + ";";
 		System.out.println(query);
@@ -559,6 +559,95 @@ public class databaseAccess {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    	//clear the order list and reinitialize it
+    	orderList.clear();
+    	createOrderList();
+    }
+    
+    /**
+     * @param order
+     * @param info
+     * 
+     * update just the order info of an order
+     */
+    public void updateOrderInfo(Order order, String info, double totalCost){
+       	Connection con = null;
+    		Statement statement = null;
+    		try {
+    			Class.forName("com.mysql.jdbc.Driver");
+    		} catch (ClassNotFoundException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    		
+    		try {
+    			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    		//orderID, customerID, paymentType, totalCost, deliveryMethod, orderInfo
+    		String query = "update orders set orderInfo = " + '"' + info + '"' + ", totalCost = " + totalCost + "\nwhere orderID = " + order.getOrderID() + ";";
+    		System.out.println(query);
+    		try {
+    			statement = con.createStatement();
+    			statement.executeUpdate(query);
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    		
+    		try {
+    			con.close();
+    			statement.close();
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	//clear the order list and reinitialize it
+    	orderList.clear();
+    	createOrderList();
+    }
+    
+    /**
+     * @param order
+     * 
+     * delete an order entirely from the order table
+     */
+    public void deleteOrder(Order order){
+       	Connection con = null;
+    		Statement statement = null;
+    		try {
+    			Class.forName("com.mysql.jdbc.Driver");
+    		} catch (ClassNotFoundException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    		
+    		try {
+    			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    		//orderID, customerID, paymentType, totalCost, deliveryMethod, orderInfo
+    		String query = "delete from orders where orderID = " + order.getOrderID() + ";";
+    		System.out.println(query);
+    		try {
+    			statement = con.createStatement();
+    			statement.executeUpdate(query);
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    		
+    		try {
+    			con.close();
+    			statement.close();
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
     	//clear the order list and reinitialize it
     	orderList.clear();
     	createOrderList();
@@ -609,7 +698,6 @@ public class databaseAccess {
 		
 		//add the order to the orderList
 		orderList.add(order);
-	
     }
     
     //all of the needed methods for accessing an employee and adding a new employee to the database
