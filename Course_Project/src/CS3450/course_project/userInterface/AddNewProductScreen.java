@@ -33,7 +33,7 @@ import CS3450.course_project.dataAccess.databaseAccess;
 
 public class AddNewProductScreen {
 	/**
-i	 * frame where the system will be produced
+	 * frame where the system will be produced
 	 */
 	private JFrame frame = new JFrame("Grocery Store Checkout System: Add New Product");
 	/**
@@ -340,6 +340,10 @@ i	 * frame where the system will be produced
 								}
 
 								//add new product to the database
+								if (isExistingProduct((String)iName.getText())){
+									JOptionPane.showMessageDialog(null,"Error! Product already exists!");
+									return;
+								}
 								databaseConnection.addProductToDatabase(new Product((String)iName.getText(), (int)spinner.getValue(),
 										price, Integer.parseInt(iBarcode.getText()),
 										iProviderInfo.getText(), iProviderName.getText()));
@@ -395,4 +399,14 @@ i	 * frame where the system will be produced
 			frame.setVisible(true);
 			
 	}
+	
+	private boolean isExistingProduct(String name){
+		for (Product x : productList){
+			if (name.toUpperCase().equals(x.getName().toUpperCase())){
+				return true;
+			}
+		}
+		return true;
+	}
+	
 }

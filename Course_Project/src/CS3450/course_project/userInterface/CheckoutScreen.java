@@ -489,7 +489,12 @@ public class CheckoutScreen {
 							int custID;
 							getCustomerType();
 							if (isNewCustomer){
+								if (customerList.isEmpty()){
+									custID = 0;
+								}
+								else {
 								custID = customerList.get(customerList.size()-1).getCustomerID() + 1;
+								}
 								String custName = JOptionPane.showInputDialog("Enter your full name");
 								String custAddress = JOptionPane.showInputDialog("Enter your address");
 								customerList.add(new Customer(custID,custName,custAddress));
@@ -509,8 +514,12 @@ public class CheckoutScreen {
 								//if cash just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
 								System.out.println(buildOrderInfo());
-								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Cash", getTotalOrderCost(),deliveryMethod,buildOrderInfo()));
-								printReceipt("cash",custID,false,deliveryMethod);
+								if (orderList.isEmpty()){
+									orderList.add(new Order(0,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
+								}
+								else {
+									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
+								}								printReceipt("cash",custID,false,deliveryMethod);
 								//update the product list to reflect the changes
 								updateProductListDatabase(databaseConnection);
 								productList = databaseConnection.getProductList();
@@ -551,7 +560,12 @@ public class CheckoutScreen {
 										getTotalOrderCost() +  "\nPlease come again soon!");
 								int orderListIndex = orderList.size()-1;
 								System.out.println(buildOrderInfo());
-								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Card", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
+								if (orderList.isEmpty()){
+									orderList.add(new Order(0,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
+								}
+								else {
+									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
+								}
 								printReceipt("card",custID,cardSelected,deliveryMethod);
 								//update the product list to reflect the changes
 								updateProductListDatabase(databaseConnection);
@@ -567,6 +581,12 @@ public class CheckoutScreen {
 								//if check just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
 								System.out.println(buildOrderInfo());
+								if (orderList.isEmpty()){
+									orderList.add(new Order(0,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
+								}
+								else {
+									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
+								}
 								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
 								printReceipt("check",custID,false,deliveryMethod);
 								//update the product list to reflect the changes

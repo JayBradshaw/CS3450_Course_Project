@@ -116,16 +116,19 @@ public class LoginScreen {
 	                    	screen = new MainScreen(databaseConnection);
 	                    }
 	                    else {
-	                    	JOptionPane.showMessageDialog(null, "Invalid credentials entered!");
 	                    	invalidPasswordCount++;
 	                    	if (invalidPasswordCount >=  3){
+	                    		JOptionPane.showMessageDialog(null, "Invalid credentials entered three\n times! Exiting program...");
 	                    		System.exit(0);
+	                    	}
+	                    	else {
+	                    		JOptionPane.showMessageDialog(null, "Invalid credentials entered!");
 	                    	}
 	                    	return;
 	                    }
 	            }
 	        });
-
+	        frame.getRootPane().setDefaultButton(login);
 	        frame.setVisible(true);
 	    }
 
@@ -139,7 +142,7 @@ public class LoginScreen {
 	     */
 	    private boolean isValidUser(String uname, String pword){
 	    	for(Employee x:databaseConnection.getEmployeeList()){
-	    		System.out.println("Employee: " + x.getName() + " " + x.getPassword());
+	    		//System.out.println("Employee: " + x.getName() + " " + x.getPassword());
 	    		if (x.getName().equals(uname) && x.getPassword().equals(pword)){
 	    			return true;
 	    		}
