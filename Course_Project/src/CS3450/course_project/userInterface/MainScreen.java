@@ -247,7 +247,7 @@ public class MainScreen {
 						if (confirmation == 0){
 							frame.dispose(); //close the frame
 							System.out.println("Logging out...");
-							LoginScreen screen = new LoginScreen(databaseConnection);
+							startUpScreen screen = new startUpScreen();
 						}
 					}
 					
@@ -299,7 +299,12 @@ public class MainScreen {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						//deal with the new screen that should appear
+						if(databaseConnection.getEmployee().getName().equals("master")){
+							JOptionPane.showMessageDialog(null, "Unable to change admin information!");
+						}
+						else {
 						JOptionPane.showMessageDialog(null, "This screen has not yet been implemented");
+						}
 					}
 					
 				});

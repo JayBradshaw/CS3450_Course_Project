@@ -61,10 +61,6 @@ public class LoginScreen {
 		 * returns the user to the home screen
 		 */
 		private JButton cancel = new JButton("Cancel");
-		/**
-		 * administrator login 
-		 */
-		private JButton admin = new JButton("Admin");
 
 	    public LoginScreen(databaseAccess databaseConnection) {
 	        frame.setSize(310,150);
@@ -105,16 +101,6 @@ public class LoginScreen {
 	        });
 	        panel.add(cancel);
 	        
-	        admin.setBounds(105,80,80,25);
-	        admin.addActionListener(new ActionListener(){
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					name.setEditable(true);
-				}    	
-	        });
-	        panel.add(admin);
-	        
 	        login = new JButton("Login");
 	        login.setBounds(195,80,80,25);
 	        panel.add(login);
@@ -128,7 +114,7 @@ public class LoginScreen {
 	                    //easter egg for a master user that has access to everything
 	                    if (isMasterUser(username,password)){
 	                    	System.out.println("Hello Master");
-	                    	databaseConnection.setCurrentEmployee(new Employee(23,"master","hello123",(short)1,"data/businessman.jpg"));
+	                    	//databaseConnection.setCurrentEmployee(new Employee(23,"master","hello123",(short)1,"data/businessman.jpg"));
 	                    	frame.dispose();
 	                    	screen = new MainScreen(databaseConnection);
 	                    }

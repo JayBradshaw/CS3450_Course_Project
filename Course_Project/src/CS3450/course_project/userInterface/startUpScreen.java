@@ -82,6 +82,9 @@ public class startUpScreen {
 	 */
 	private databaseAccess databaseConnection;
 	
+	/**
+	 * default constructor
+	 */
 	public startUpScreen(){
 		databaseConnection = new databaseAccess();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -117,9 +120,7 @@ public class startUpScreen {
 		description.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
 		
 		//loop through the employee list and make each employee icon a button 
-		//add each of these buttons to the JPanel employeePanel
 		for (Employee x:databaseConnection.getEmployeeList()){
-			//ImageIcon icon = new ImageIcon(x.getImageInfo());
 		
 			JButton tempButton = new JButton(x.getImage());
 			tempButton.setBackground(baseColor);
@@ -136,6 +137,24 @@ public class startUpScreen {
 			});
 			employeePanel.add(tempButton);
 		}
+		
+		//administrator button for all emcompasing access rights
+		JButton adminButton = new JButton("Admin");
+		adminButton.setFont(buttonFont);
+		adminButton.setBackground(baseColor);
+		adminButton.setPreferredSize(new Dimension(100,75));
+		adminButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				databaseConnection.setCurrentEmployee(new Employee(50,"master","hello123",(short)1,"data/businessman.jpg"));
+				frame.dispose();
+				LoginScreen screen = new LoginScreen(databaseConnection); 
+			}
+		});
+		
+		employeePanel.add(adminButton);
+		
 		
 		//make the footer look pretty
 		storeFooter.setBackground(baseColor);
