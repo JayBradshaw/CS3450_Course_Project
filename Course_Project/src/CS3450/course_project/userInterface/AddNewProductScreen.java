@@ -347,7 +347,6 @@ public class AddNewProductScreen {
 								databaseConnection.addProductToDatabase(new Product((String)iName.getText(), (int)spinner.getValue(),
 										price, Integer.parseInt(iBarcode.getText()),
 										iProviderInfo.getText(), iProviderName.getText()));
-
 								
 								frame.dispose();
 								screen = new InventoryScreen(databaseConnection);

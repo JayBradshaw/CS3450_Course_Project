@@ -224,7 +224,8 @@ public class MainScreen {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						//deal with the new screen that should appear
-						JOptionPane.showMessageDialog(null,"This screen has yet to be implemented!");
+						frame.dispose();
+						manageEmployeeAccessRights rights = new manageEmployeeAccessRights(databaseConnection);
 					}
 					
 				});
@@ -256,6 +257,7 @@ public class MainScreen {
 		buttonPanel.setBackground(baseColor);
 		buttonPanel.setForeground(secondaryColor);
 		buttonPanel.setFont(buttonFont);
+		//buttonPanel.setBorder(BorderFactory.createEmptyBorder());
 		buttonPanel.setPreferredSize(new Dimension(frame.getWidth()/4,250));
 		buttonPanel.add(inventory);
 		buttonPanel.add(employees);

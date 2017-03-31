@@ -835,6 +835,44 @@ public class databaseAccess {
     	System.out.println("No employee exists with this username");
     }
     
+    public void setEmployeeAccessRights(Employee employee){
+    	//add database connection here
+    	Connection con = null;
+		Statement statement = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//get the query from the database
+		String query = "update employees set accessRights = " + employee.getAccessRights() + "\nwhere id = " + employee.getID() + ";";		
+		System.out.println(query);
+		
+		try {
+			statement = con.createStatement();
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			con.close();
+			statement.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
     public Employee getEmployee(){
     	return this.currentEmployee;
     }
