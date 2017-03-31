@@ -817,22 +817,8 @@ public class databaseAccess {
      * so we know the employee is valid
      * IF I CREATE A PROGRAM CLASS THEN THIS LOGIC SHOULD MOVE
      */
-    public void setCurrentEmployee(String uname){
-    	if (uname.equals("master")){
-    		//give a fake password so the user can't know the real password for master access
-    		currentEmployee = new Employee(20,"Master","",(short)1,"data/businessman.jpg");
-    		return;
-    	}
-    	else { //iterate through the list 
-    		for (Employee x: employeeList){
-    			if (uname.equals(x.getName())){
-    				currentEmployee = x;
-    				return;
-    			}
-    		}
-    	}
-    	//should never get to this point, but just in case
-    	System.out.println("No employee exists with this username");
+    public void setCurrentEmployee(Employee employee){
+    	currentEmployee = employee;
     }
     
     public void setEmployeeAccessRights(Employee employee){

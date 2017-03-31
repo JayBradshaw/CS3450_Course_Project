@@ -11,7 +11,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -23,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 import CS3450.course_project.dataAccess.Employee;
 import CS3450.course_project.dataAccess.databaseAccess;
@@ -31,7 +31,7 @@ import CS3450.course_project.dataAccess.databaseAccess;
  * @author Justin Bradshaw
  *
  */
-public class manageEmployeeAccessRights {
+public class startUpScreen {
 	/**
 	 * frame for the GUI
 	 */
@@ -75,11 +75,15 @@ public class manageEmployeeAccessRights {
 	/**
 	 * text area that helps the user understand how to use the page
 	 */
-	private JTextArea description = new JTextArea("Select an image to change\nthe employee access rights.\n"
-			+ "Or select Return to return\nto the home screen.");
-	private JButton homeScreen =  new JButton("Return");
+	private JTextArea description = new JTextArea("Select an image to login\nto the system\n");
+
+	/**
+	 * connection to the database
+	 */
+	private databaseAccess databaseConnection;
 	
-	public manageEmployeeAccessRights(databaseAccess databaseConnection){
+	public startUpScreen(){
+		databaseConnection = new databaseAccess();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -87,15 +91,11 @@ public class manageEmployeeAccessRights {
 		
 
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
-		JLabel icon1Label = new JLabel();
 		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
 		textLabel.setFont(baseFont);
 		JLabel icon2Label = new JLabel();
-		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
-		icon1Label.setIconTextGap(25);
 		icon2Label.setIcon(cartImage);
 		icon2Label.setIconTextGap(25);
-		storeHeader.add(icon1Label);
 		storeHeader.add(Box.createRigidArea(new Dimension(5,0)));
 		storeHeader.add(textLabel);
 		storeHeader.add(Box.createRigidArea(new Dimension(5,0)));
@@ -128,26 +128,9 @@ public class manageEmployeeAccessRights {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					int newRights = 0;
-					// TODO Auto-generated method stub
-					String rights = JOptionPane.showInputDialog(null,"Previous Access Rights: " + x.getAccessRights() + 
-							"\nPlease enter the new access\n rights for this employee (1-4)");
-					if (rights == null){
-						return; //cancel button hit
-					}
-					try{
-						newRights = Integer.parseInt(rights);
-					}catch(NumberFormatException er){
-						JOptionPane.showMessageDialog(null,"Error! Invalid value entered!");
-						return;
-					}
-					if (newRights < 1 || newRights > 4){
-						JOptionPane.showMessageDialog(null,"Error! Invalid value entered!");
-						return;
-					}
-					//change the access rights of this employee
-					x.setAccessRights((short)newRights);
-					databaseConnection.setEmployeeAccessRights(x);
+					databaseConnection.setCurrentEmployee(x);
+					frame.dispose();
+					LoginScreen screen = new LoginScreen(databaseConnection);
 				}
 				
 			});
@@ -160,23 +143,7 @@ public class manageEmployeeAccessRights {
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);
-		
-		homeScreen.setBackground(baseColor);
-		homeScreen.setPreferredSize(new Dimension(100,75));
-		homeScreen.setForeground(secondaryColor);
-		homeScreen.setFont(baseFont);
-		homeScreen.addActionListener(new ActionListener(){
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.dispose();
-				MainScreen screen = new MainScreen(databaseConnection);
-			}
-			
-		});
-		
-		employeePanel.add(homeScreen);
 		employeePanel.setBackground(secondaryColor);
 		
 		pane.add(storeHeader, BorderLayout.PAGE_START);
@@ -186,4 +153,20 @@ public class manageEmployeeAccessRights {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
+	
+
+	/**
+	 * @param args
+	 * 
+	 * main method where the program will run
+	 */
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable(){
+			@Override
+			public void run() {
+				new startUpScreen();
+			}});
+	}
+	
 }
+

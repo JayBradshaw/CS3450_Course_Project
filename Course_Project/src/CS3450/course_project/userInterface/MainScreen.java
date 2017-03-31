@@ -247,7 +247,7 @@ public class MainScreen {
 						if (confirmation == 0){
 							frame.dispose(); //close the frame
 							System.out.println("Logging out...");
-							LoginScreen screen = new LoginScreen();
+							LoginScreen screen = new LoginScreen(databaseConnection);
 						}
 					}
 					
