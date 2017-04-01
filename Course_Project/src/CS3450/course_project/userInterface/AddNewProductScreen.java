@@ -16,18 +16,14 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
-import javax.swing.JTextArea;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
-import CS3450.course_project.dataAccess.Customer;
-import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
 import CS3450.course_project.dataAccess.databaseAccess;
 
@@ -80,10 +76,6 @@ public class AddNewProductScreen {
 	 * label for the spinner
 	 */
 	private JLabel spinnerLabel = new JLabel("Quantity");
-	/**
-	 * Item being added to array list
-	 */
-	private String itemName;
 	/**
 	 * temporarily holds the object of selected item.
 	 */

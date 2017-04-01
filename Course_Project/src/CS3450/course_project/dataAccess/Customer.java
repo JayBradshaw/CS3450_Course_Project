@@ -3,10 +3,6 @@
  */
 package CS3450.course_project.dataAccess;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 
 /**
