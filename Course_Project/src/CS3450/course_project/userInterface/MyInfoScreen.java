@@ -9,30 +9,23 @@ import java.awt.GridBagLayout;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
 
-import CS3450.course_project.dataAccess.Product;
 import CS3450.course_project.dataAccess.databaseAccess;
 import CS3450.course_project.userInterface.MainScreen;
 import CS3450.course_project.dataAccess.Employee;
 
 public class MyInfoScreen {
+	private ConfirmPwordScreen confirmPwordScreen;
 	private Employee employee;
 	/**
 	 * frame where the system will be produced
@@ -287,21 +280,8 @@ public class MyInfoScreen {
 								}
 								
 								//confirm password
-								char[] temp = pwordScreen();
-								if(pword != temp){
-									if(temp==null) return;
-									JOptionPane.showMessageDialog(null, "Error, passwords do not match.");
-									return;
-								}
 								
-								System.out.println("here");
-								
-								employee.setName(name);
-								employee.setPassword(String.valueOf(pword));
-								employee.setImage(icon);
-								
-								frame.dispose();
-								screen = new MainScreen(databaseConnection);
+								confirmPwordScreen = new ConfirmPwordScreen(String.valueOf(pword), name, icon, databaseConnection);
 							}
 						});
 	    GridBagConstraints u = new GridBagConstraints();
@@ -344,27 +324,4 @@ public class MyInfoScreen {
 		frame.setVisible(true);
 		
 	}
-	
-	/**
-	 * 
-	 * @param args
-	 */
-	  public char[] pwordScreen(){
-		  JPanel panel = new JPanel();
-		  JLabel label = new JLabel("Please confirm password:");
-		  JPasswordField pass = new JPasswordField(30);
-		  panel.add(label);
-		  panel.add(pass);
-		  String[] options = new String[]{"OK", "Cancel"};
-		  int option = JOptionPane.showOptionDialog(null, panel, "New Password",
-		                           JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
-		                           null, options, options[1]);
-		  if(option == 0) // pressing OK button
-		  {
-		      char[] password = pass.getPassword();
-		      System.out.println("Your password is: " + new String(password));
-		      return pass.getPassword();
-		  }
-		  return null; 
-	  }
 }
