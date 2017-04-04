@@ -20,6 +20,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -82,7 +83,21 @@ public class MyInfoScreen {
 	/**
 	 * input fields
 	 */
-	private TextField uName, uPassword, uIcon;
+	private TextField uName, uIcon;
+	/**
+	 * current user password
+	 */
+	private JPasswordField uPassword;
+	//maybe instead of showing their password which isn't secure, we should allow them to enter a 
+	//new password and make sure they have to confirm that password (the two passwords should match)
+	//going to need checks to make sure both password and username are no more than 30 characters due to 
+	//database restrictions. This should be easy as I'm pretty sure there is a length() method for strings.
+	//after they hit apply update you should update the current employee from this screen and then you can
+	//just pass that employee to the database access method updateEmployeeList
+	//If you can't figure out how to get a string from a JPasswordField look at the LoginScreen
+	private JPasswordField newPassword; //new password
+	private JPasswordField newPasswordReEntry; //reentry of new password
+	
 	/**
 	 * labels for info
 	 */
@@ -93,11 +108,12 @@ public class MyInfoScreen {
 	 * 
 	 * non-default constructor
 	 */
-	public MyInfoScreen(databaseAccess databaseConnection){		
+	public MyInfoScreen(databaseAccess databaseConnection){	
+		employee = databaseConnection.getEmployee(); //JBradshaw get the current employee from the database
 		uName 			= new TextField("");
-		nameLabel = new JLabel("Username");
-		uPassword 		= new TextField("");
-		passwordLabel = new JLabel("Password");
+		nameLabel = new JLabel("Username (max 30 characters)");
+		uPassword 		= new JPasswordField("");
+		passwordLabel = new JLabel("Password (max 30 characters)");
 		uIcon	= new TextField("");
 		iconLabel = new JLabel("Icon Url");
 		
