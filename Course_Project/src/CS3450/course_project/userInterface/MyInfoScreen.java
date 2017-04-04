@@ -238,7 +238,12 @@ public class MyInfoScreen {
 						public void actionPerformed(ActionEvent e) {
 							
 							frame.dispose();
-							screen = new MainScreen(databaseConnection);
+							if(databaseConnection.getEmployee().getAccessRights() > 1){
+								EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
+							}
+							else {
+							MainScreen screen = new MainScreen(databaseConnection);
+							}
 						}
 						
 			});
@@ -285,8 +290,13 @@ public class MyInfoScreen {
 								}
 								*/
 														
-							frame.dispose();
-							screen = new MainScreen(databaseConnection);
+								frame.dispose();
+								if(databaseConnection.getEmployee().getAccessRights() > 1){
+									EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
+								}
+								else {
+								MainScreen screen = new MainScreen(databaseConnection);
+								}
 							}
 						});
 	    GridBagConstraints u = new GridBagConstraints();

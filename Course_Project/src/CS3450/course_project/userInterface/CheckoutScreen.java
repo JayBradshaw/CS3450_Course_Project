@@ -278,6 +278,10 @@ public class CheckoutScreen {
 					public void actionPerformed(ActionEvent e) {
 						//creates pop up button to input item barcode
 						System.out.println("Remove Item Button Pressed!!!!");
+						if (orderHelperList.size() == 0){
+							JOptionPane.showMessageDialog(null, "Error! No products to remove!");
+							return;
+						}
 						//removes item from checkout list
 						System.out.println("Removing item to checkout list page");
 						frame.dispose();
@@ -323,7 +327,12 @@ public class CheckoutScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						screen = new MainScreen(databaseConnection);
+						if(databaseConnection.getEmployee().getAccessRights() > 1){
+							EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
+						}
+						else {
+						MainScreen screen = new MainScreen(databaseConnection);
+						}
 					}
 					
 		});
@@ -619,7 +628,12 @@ public class CheckoutScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						screen = new MainScreen(databaseConnection);
+						if(databaseConnection.getEmployee().getAccessRights() > 1){
+							EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
+						}
+						else {
+						MainScreen screen = new MainScreen(databaseConnection);
+						}
 					}
 					
 		});

@@ -239,7 +239,12 @@ public class ReturnScreen {
 						JOptionPane.showMessageDialog(null,"Thank you for your business.\n"
 								+ "Your total return comes to $" + String.format("%.2f", totalReturn) + ".");
 						frame.dispose();
+						if(databaseConnection.getEmployee().getAccessRights() > 1){
+							EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
+						}
+						else {
 						MainScreen screen = new MainScreen(databaseConnection);
+						}
 					}
 
 		});
@@ -263,7 +268,12 @@ public class ReturnScreen {
 							return;
 						}
 						frame.dispose();
+						if(databaseConnection.getEmployee().getAccessRights() > 1){
+							EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
+						}
+						else {
 						MainScreen screen = new MainScreen(databaseConnection);
+						}
 					}
 					
 		});
