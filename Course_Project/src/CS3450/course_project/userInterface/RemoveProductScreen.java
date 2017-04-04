@@ -102,7 +102,7 @@ public class RemoveProductScreen {
 	/**
 	 * temporary product that will be set based on the drop down menu
 	 */
-	private Product temporary;
+	private OrderHelper temporary;
 	/**
 	 * JBradshaw: Allow ability to return to the main screen
 	 */
@@ -126,10 +126,10 @@ public class RemoveProductScreen {
 		pane.setLayout(new GridBagLayout());
 		
 		//string for holding object names.
-		String[] productNames = new String[productList.size()];
+		String[] productNames = new String[orderHelperList.size()];
 		int i=0;
-				for(Product v : productList){
-					productNames[i++] = v.getName();
+				for(OrderHelper v : orderHelperList){
+					productNames[i++] = v.getProductName();
 				}
 				
 				
@@ -140,7 +140,9 @@ public class RemoveProductScreen {
 		dropDownMenu.setSelectedIndex(productNames.length - 1);
 		//JBradshaw added this to make sure that if the user doesn't change
 		//the drop down it will still add the item that first appears
-		temporary = productList.get(productNames.length-1); 
+		
+		//should now only show the items in the current checkout list
+		temporary = orderHelperList.get(productNames.length-1); 
 		dropDownMenu.setBackground(baseColor);
 		dropDownMenu.setForeground(secondaryColor);
 		dropDownMenu.setFont(baseFont);
@@ -149,7 +151,7 @@ public class RemoveProductScreen {
 			public void actionPerformed(ActionEvent e) {
 				
 				JComboBox cb = (JComboBox) e.getSource();
-				temporary = productList.get(cb.getSelectedIndex());
+				temporary = orderHelperList.get(cb.getSelectedIndex());
 				System.out.println("selected: " + (String)cb.getSelectedItem());
 				
 			}
@@ -159,11 +161,15 @@ public class RemoveProductScreen {
 				spinner.addChangeListener(new ChangeListener(){
 					@Override
 					public void stateChanged(ChangeEvent e){
-						if((int)spinner.getValue() > temporary.getAvailableUnits()){
+						if((int)spinner.getValue() > orderHelperList.get(dropDownMenu.getSelectedIndex()).getQuantity()){
+							System.out.println(dropDownMenu.getSelectedIndex());
+							System.out.println((int)spinner.getValue() > orderHelperList.get(dropDownMenu.getSelectedIndex()).getQuantity());
 							spinner.setValue(0);
+							
+							
 						}
 						if((int)spinner.getValue() < 0){
-							spinner.setValue(temporary.getAvailableUnits());
+							spinner.setValue(orderHelperList.get(dropDownMenu.getSelectedIndex()).getQuantity());
 						}
 					}
 				});
@@ -272,11 +278,10 @@ public class RemoveProductScreen {
 						
 						//JBradshaw right here is where we will update the orderHelper list to 
 						//include the new product
-						System.out.println(temporary.getPrice());
 						int orderHelperIndex = 0;
 						
 						//make sure that the item you want to remove is a part of the current order
-						if (!isInOrderList(temporary.getName())){
+						if (!isInOrderList(temporary.getProductName())){
 							JOptionPane.showMessageDialog(null, "Error! Item is not a part of the current order!");
 							return;
 						}
@@ -294,10 +299,11 @@ public class RemoveProductScreen {
 						}
 						
 						for (int i = 0; i < orderHelperList.size(); ++i){
-							if (orderHelperList.get(i).getProductName() == temporary.getName()){
+							if (orderHelperList.get(i).getProductName() == temporary.getProductName()){
 								orderHelperIndex = i;
 							}
 						}
+						//this should be redundant now.
 						//check to make sure we aren't removing more than we have
 						if (orderHelperList.get(orderHelperIndex).getQuantity() < (int)spinner.getValue()){
 							JOptionPane.showMessageDialog(null, "Error! Cannot remove a quantity greater than\n what is a part of the current order!");
@@ -310,7 +316,7 @@ public class RemoveProductScreen {
 						if (orderHelperList.get(orderHelperIndex).getQuantity() == 0){
 							orderHelperList.remove(orderHelperIndex);
 						}
-						System.out.println("removing " + spinner.getValue() + " " + temporary.getName());
+						System.out.println("removing " + spinner.getValue() + " " + temporary.getProductName());
 						System.out.println("Back to checkout screen...");
 						
 						//JBradshaw: add ability to return back to the main screen

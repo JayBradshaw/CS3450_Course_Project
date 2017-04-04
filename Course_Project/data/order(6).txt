@@ -5,16 +5,18 @@ Here is your final receipt
 
 Customer Info:
 
-Mason Jones
-584 Center St. San Francisco, CA 65860
+Harry Plopper
+888 Wizard Way, Narsaq, Greenland
 
-Date: 2017/04/04 01:59:04
+Date: 2017/04/04 02:35:25
 
 Product:                            Cost: Quantity:
 
-Bread                                2.50         11
+Apple                                0.99         46
+Bread                                2.50         12
+Banana                               0.58          2
 
 
-Total Cost: 29.15
+Total Cost: 81.30
 Payment Method: Cash
 Delivery Method: Pick Up
