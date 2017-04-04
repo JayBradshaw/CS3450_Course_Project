@@ -106,6 +106,10 @@ public class AddProductScreen {
 	 * JBradshaw: Allow ability to return to the main screen
 	 */
 	private CheckoutScreen checkoutscreen;
+	/**
+	 * general instructions for adding items.
+	 */
+	private JLabel instruction;
 
 	
 	/**
@@ -122,7 +126,7 @@ public class AddProductScreen {
 		this.orderHelperList = orderHelperList;
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(700, 400);
+		frame.setSize(800, 400);
 		pane = frame.getContentPane();
 		pane.setLayout(new GridBagLayout());
 		
@@ -173,7 +177,7 @@ public class AddProductScreen {
 		r.weightx = .16;
 	    r.weighty = .08;
 	    r.gridx = 1;
-	    r.gridy = 1;
+	    r.gridy = 3;
 	    r.gridwidth = 1;
 	    r.fill = GridBagConstraints.BOTH;
 	    
@@ -182,13 +186,17 @@ public class AddProductScreen {
 		f.weightx = .04;
 	    f.weighty = .08;
 	    f.gridx = 2;
-	    f.gridy = 1;
+	    f.gridy = 3;
 	    f.gridwidth = 1;
 	    f.fill = GridBagConstraints.BOTH;
 	   
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
 		JLabel icon1Label = new JLabel();
 		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		instruction = new JLabel("After clicking on drop down menu, select by typing or clicking on item name.");
+		instruction.setForeground(secondaryColor);
+		instruction.setBackground(baseColor);
+		instruction.setFont(baseFont);
 		textLabel.setFont(baseFont);
 		JLabel icon2Label = new JLabel();
 		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
@@ -218,6 +226,14 @@ public class AddProductScreen {
 	    h.gridheight = 1;
 		h.anchor = GridBagConstraints.PAGE_START;
 		
+		GridBagConstraints I = new GridBagConstraints();
+		I.fill=GridBagConstraints.BOTH;
+		I.weightx = .04;
+		I.weighty = .16;
+		I.gridx = 1;
+		I.gridy = 2;
+		
+		
 		
 		//cancel aka return to checkout screen and do nothing
 		checkoutScreen.setBackground(baseColor);
@@ -228,7 +244,7 @@ public class AddProductScreen {
 		m.weightx = .16;
 	    m.weighty = .16;
 	    m.gridx = 1;
-	    m.gridy = 3;
+	    m.gridy = 5;
 	    m.gridwidth = 1;
 	    m.fill = GridBagConstraints.BOTH;
 	    //returns to previous checkout screen.
@@ -260,7 +276,7 @@ public class AddProductScreen {
 		a.weightx = .16;
 	    a.weighty = .16;
 	    a.gridx = 2;
-	    a.gridy = 3;
+	    a.gridy = 5;
 	    a.gridwidth = 1;
 	    a.fill = GridBagConstraints.BOTH;
 	    
@@ -328,7 +344,7 @@ public class AddProductScreen {
 		fo.weightx = 1;
 	    fo.weighty = .16;
 	    fo.gridx = 0;
-	    fo.gridy = 5;
+	    fo.gridy = 6;
 	    fo.gridwidth = 3;
 	    fo.gridheight = 1;
 		fo.anchor = GridBagConstraints.PAGE_END;
@@ -338,6 +354,7 @@ public class AddProductScreen {
 		pane.add(addItem, a);
 		pane.add(dropDownMenu, r);
 		pane.add(spinner, f);
+		pane.add(instruction, I);
 		pane.add(checkoutScreen, m);
 		pane.add(storeFooter, fo);
 		frame.setLocationRelativeTo(null);
