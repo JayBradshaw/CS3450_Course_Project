@@ -121,7 +121,12 @@ public class LoginScreen {
 	                    else if (isValidUser(username,password, databaseConnection.getEmployeeList())){
 	                    	System.out.println(databaseConnection.getEmployee().getName());
 	                    	frame.dispose();
+	                    	if (databaseConnection.getEmployee().getAccessRights() > 1){
+	                    		EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
+	                    	}
+	                    	else {
 	                    	screen = new MainScreen(databaseConnection);
+	                    	}
 	                    }
 	                    else {
 	                    	invalidPasswordCount++;
@@ -139,7 +144,6 @@ public class LoginScreen {
 	        frame.getRootPane().setDefaultButton(login);
 	        frame.setVisible(true);
 	    }
-
 	    
 	    /**
 	     * @param uname

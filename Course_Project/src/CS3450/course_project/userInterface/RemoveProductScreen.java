@@ -25,13 +25,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+<<<<<<< HEAD
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+=======
+>>>>>>> origin/master
 
 import CS3450.course_project.businessLogic.OrderHelper;
-import CS3450.course_project.dataAccess.Customer;
-import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
 import CS3450.course_project.dataAccess.databaseAccess;
 

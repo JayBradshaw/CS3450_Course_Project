@@ -25,7 +25,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
 
 import CS3450.course_project.businessLogic.OrderHelper;
 import CS3450.course_project.dataAccess.Order;
@@ -96,10 +95,6 @@ public class ReturnScreen {
 	 */
 	private JButton editOrder = new JButton("Edit Order Item");
 	/**
-	 * id of the order to be manipulated
-	 */
-	private int orderID;
-	/**
 	 * order to be processed
 	 */
 	private Order order;
@@ -117,7 +112,6 @@ public class ReturnScreen {
 	 * non-default constructor
 	 */
 	public ReturnScreen(databaseAccess databaseConnection, int orderID){
-		this.orderID = orderID;
 		order = databaseConnection.getOrderFromID(orderID);
 		originalOrderCost = order.getTotalCost();
 		createOrderHelperList(order);
@@ -147,9 +141,7 @@ public class ReturnScreen {
 		storeHeader.setFont(baseFont);
 		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
-		
-		//get the order from the ID
-		order = databaseConnection.getOrderFromID(orderID);
+
 		//build the orderHelper from the order
 		//set the details for the text area
 		orderDetails.setPreferredSize(new Dimension(frame.getWidth()/2,150));
@@ -247,7 +239,12 @@ public class ReturnScreen {
 						JOptionPane.showMessageDialog(null,"Thank you for your business.\n"
 								+ "Your total return comes to $" + String.format("%.2f", totalReturn) + ".");
 						frame.dispose();
+						if(databaseConnection.getEmployee().getAccessRights() > 1){
+							EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
+						}
+						else {
 						MainScreen screen = new MainScreen(databaseConnection);
+						}
 					}
 
 		});
@@ -271,7 +268,12 @@ public class ReturnScreen {
 							return;
 						}
 						frame.dispose();
+						if(databaseConnection.getEmployee().getAccessRights() > 1){
+							EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
+						}
+						else {
 						MainScreen screen = new MainScreen(databaseConnection);
+						}
 					}
 					
 		});
@@ -388,7 +390,6 @@ public class ReturnScreen {
 			orderHelperList.add(new OrderHelper(individualItems[0],Double.parseDouble(individualItems[1]),Integer.parseInt(individualItems[2])));
 		}
 	}
-	
 	/**
 	 * @param name
 	 * @return
@@ -401,8 +402,7 @@ public class ReturnScreen {
 			if (item.getProductName().toUpperCase().equals(name.toUpperCase()))return true;
 		}
 		return false;
-	}
-	
+	}	
 	/**
 	 * @param item
 	 * @param quantity
@@ -417,7 +417,6 @@ public class ReturnScreen {
 		}
 		return true;
 	}
-	
 	/**
 	 * @param name
 	 * @return
@@ -432,7 +431,6 @@ public class ReturnScreen {
 		}
 		return null;
 	}
-	
 	/**
 	 * @param value
 	 * @param places

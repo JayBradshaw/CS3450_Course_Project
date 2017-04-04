@@ -3,13 +3,17 @@
  */
 package CS3450.course_project.userInterface;
 
+/**
+ * @author Justin Bradshaw
+ *
+ */
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -49,11 +53,11 @@ import java.util.ArrayList;
  * that is the first thing displayed when the 
  * program runs
  */
-public class MainScreen {
+public class EmployeeMainScreen {
 	/**
 	 * frame where the system will be produced
 	 */
-	private JFrame frame = new JFrame("Grocery Store Checkout System: Main");
+	private JFrame frame = new JFrame("Grocery Store Checkout System: Employee Main");
 	/**
 	 * pane to be contained in the frame
 	 */
@@ -75,21 +79,13 @@ public class MainScreen {
 	 */
 	private JButton checkout = new JButton("Checkout");
 	/**
-	 * button for managing inventory
-	 */
-	private JButton inventory = new JButton("Manage Inventory");
-	/**
 	 * button to allow for returns
 	 */
 	private JButton returns = new JButton("Returns");
 	/**
-	 * button to manage the employees
-	 */
-	private JButton employees = new JButton("Manage Employees");
-	/**
 	 * allows the current employee to log out
 	 */
-	private JButton logout = new JButton("Log out");
+	private JButton logout = new JButton("Log Out");
 	/**
 	 * edit the current employee's information
 	 */
@@ -135,7 +131,7 @@ public class MainScreen {
 	 * 
 	 * non-default constructor that has access to the database connection
 	 */
-	public MainScreen(databaseAccess databaseConnection){
+	public EmployeeMainScreen(databaseAccess databaseConnection){
 		//enable and disable buttons based on the employee type
 		enableDisableButtons(databaseConnection.getEmployee().getAccessRights());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -171,7 +167,7 @@ public class MainScreen {
 		checkout.setBackground(baseColor);
 		checkout.setForeground(secondaryColor);
 		checkout.setFont(buttonFont);
-		checkout.setPreferredSize(new Dimension(frame.getWidth()/2,150));
+		checkout.setPreferredSize(new Dimension(frame.getWidth()/2,125));
 		checkout.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
 		//checkout.setMargin(new Insets(15,15,15,15));
 		//listener for the checkout button
@@ -190,53 +186,11 @@ public class MainScreen {
 					
 				});
 		
-		//make the inventory button look pretty
-		inventory.setBackground(baseColor);
-		inventory.setForeground(secondaryColor);
-		inventory.setFont(buttonFont);
-		inventory.setPreferredSize(new Dimension(frame.getWidth()/4,82));
-		inventory.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
-		//inventory.setMargin(new Insets(15,15,15,15));
-		//listener for the manage inventory button
-		inventory.addActionListener(
-				new ActionListener(){
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						//deal with the new screen that should appear
-						System.out.println("Inventory Button Pressed!!!!");
-						frame.dispose(); //close the frame
-						//create a new frame here for the manage inventory screen
-						System.out.println("Creating new page for Managing Inventory");
-						inventoryscreen = new InventoryScreen(databaseConnection);
-					}
-					
-				});
-		
-		//functionality for the employees button
-		employees.setBackground(baseColor);
-		employees.setForeground(secondaryColor);
-		employees.setFont(buttonFont);
-		employees.setPreferredSize(new Dimension(frame.getWidth()/4,82));
-		employees.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		//returns.setMargin(new Insets(15,15,15,15));
-		//listener for the manage inventory button
-		employees.addActionListener(
-				new ActionListener(){
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						//deal with the new screen that should appear
-						frame.dispose();
-						manageEmployeeAccessRights rights = new manageEmployeeAccessRights(databaseConnection);
-					}
-					
-				});
 		//functionality for the logout button
 		logout.setBackground(baseColor);
 		logout.setForeground(secondaryColor);
 		logout.setFont(buttonFont);
-		logout.setPreferredSize(new Dimension(frame.getWidth()/4,82));
+		logout.setPreferredSize(new Dimension(frame.getWidth()/4,200));
 		logout.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
 
 		//listener for the manage inventory button
@@ -255,22 +209,12 @@ public class MainScreen {
 					}
 					
 				});
-
-		//specifications for button panel
-		buttonPanel.setBackground(baseColor);
-		buttonPanel.setForeground(secondaryColor);
-		buttonPanel.setFont(buttonFont);
-		//buttonPanel.setBorder(BorderFactory.createEmptyBorder());
-		buttonPanel.setPreferredSize(new Dimension(frame.getWidth()/4,250));
-		buttonPanel.add(inventory);
-		buttonPanel.add(employees);
-		buttonPanel.add(logout);
 		
 		//functionality for the returns button
 		returns.setBackground(baseColor);
 		returns.setForeground(secondaryColor);
 		returns.setFont(buttonFont);
-		returns.setPreferredSize(new Dimension(frame.getWidth()/4,125));
+		returns.setPreferredSize(new Dimension(frame.getWidth()/2,125));
 		returns.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
 		//returns.setMargin(new Insets(15,15,15,15));
 		//listener for the manage inventory button
@@ -292,7 +236,7 @@ public class MainScreen {
 		editMyInfo.setBackground(baseColor);
 		editMyInfo.setForeground(secondaryColor);
 		editMyInfo.setFont(buttonFont);
-		editMyInfo.setPreferredSize(new Dimension(frame.getWidth()/4,125));
+		editMyInfo.setPreferredSize(new Dimension(frame.getWidth()/4,200));
 		editMyInfo.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
 		//returns.setMargin(new Insets(15,15,15,15));
 		//listener for the manage inventory button
@@ -317,13 +261,14 @@ public class MainScreen {
 					
 				});
 		
-		//specifications for second button panel
-		buttonPanel2.setBackground(baseColor);
-		buttonPanel2.setForeground(secondaryColor);
-		buttonPanel2.setFont(buttonFont);
-		buttonPanel2.setPreferredSize(new Dimension(frame.getWidth()/4,250));
-		buttonPanel2.add(returns);
-		buttonPanel2.add(editMyInfo);
+		//specifications for button panel
+		buttonPanel.setBackground(baseColor);
+		buttonPanel.setForeground(secondaryColor);
+		buttonPanel.setFont(buttonFont);
+		buttonPanel.setBorder(BorderFactory.createEmptyBorder());
+		buttonPanel.setPreferredSize(new Dimension(frame.getWidth()/2,250));
+		buttonPanel.add(checkout);
+		buttonPanel.add(returns);
 
 		//make the footer look pretty
 		storeFooter.setBackground(baseColor);
@@ -333,9 +278,9 @@ public class MainScreen {
 		storeFooter.setOpaque(true);
 
 		pane.add(storeHeader, BorderLayout.PAGE_START);
-		pane.add(checkout, BorderLayout.CENTER);
-		pane.add(buttonPanel, BorderLayout.LINE_START);
-		pane.add(buttonPanel2,BorderLayout.LINE_END);
+		pane.add(buttonPanel, BorderLayout.CENTER);
+		pane.add(logout, BorderLayout.LINE_START);
+		pane.add(editMyInfo,BorderLayout.LINE_END);
 		pane.add(storeFooter, BorderLayout.PAGE_END);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
@@ -382,16 +327,13 @@ public class MainScreen {
 	}
 	//checkout, inventory,returns,employees,logout,editmyinfo
 	private void enableDisableButtons(int accessRights){
-		if (accessRights >= 2){
-			inventory.setEnabled(false);
-			employees.setEnabled(false);
-		}
 		if (accessRights == 3){
 			returns.setEnabled(false);
-		}
+		}	
 		if (accessRights == 4){
 			checkout.setEnabled(false);
 		}
 	}
 
 }
+

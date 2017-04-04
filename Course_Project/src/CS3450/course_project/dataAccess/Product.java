@@ -3,10 +3,6 @@
  */
 package CS3450.course_project.dataAccess;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * @author Justin Bradshaw
@@ -39,8 +35,6 @@ public class Product {
 	 * information for provider including address and phone number
 	 */
 	private String providerInfo;
-
-	
 	
 	/**
 	 * default constructor

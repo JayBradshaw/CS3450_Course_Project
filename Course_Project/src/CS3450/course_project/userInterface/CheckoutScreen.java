@@ -278,6 +278,10 @@ public class CheckoutScreen {
 					public void actionPerformed(ActionEvent e) {
 						//creates pop up button to input item barcode
 						System.out.println("Remove Item Button Pressed!!!!");
+						if (orderHelperList.size() == 0){
+							JOptionPane.showMessageDialog(null, "Error! No products to remove!");
+							return;
+						}
 						//removes item from checkout list
 						System.out.println("Removing item to checkout list page");
 						frame.dispose();
@@ -323,7 +327,12 @@ public class CheckoutScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						screen = new MainScreen(databaseConnection);
+						if(databaseConnection.getEmployee().getAccessRights() > 1){
+							EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
+						}
+						else {
+						MainScreen screen = new MainScreen(databaseConnection);
+						}
 					}
 					
 		});
@@ -619,7 +628,12 @@ public class CheckoutScreen {
 						System.out.println("Back to main screen...");
 						//JBradshaw: add ability to return back to the main screen
 						frame.dispose();
-						screen = new MainScreen(databaseConnection);
+						if(databaseConnection.getEmployee().getAccessRights() > 1){
+							EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
+						}
+						else {
+						MainScreen screen = new MainScreen(databaseConnection);
+						}
 					}
 					
 		});
@@ -916,7 +930,6 @@ public class CheckoutScreen {
 			toReturn += "Current Order Status:\n\n";
 			toReturn += String.format("%-20s %-15s %-15s\n", "Product:" , "Cost:", "Quantity:");
 			for(OrderHelper item : this.orderHelperList){
-				int spacing = 20 - item.getProductName().length() + (8 -item.getProductName().length());
 				toReturn += String.format("%-20s %-15.2f %-15s\n", item.getProductName(), item.getProductPrice(), Integer.toString(item.getQuantity()));
 			}
 			toReturn += String.format("\nTotal Cost: $%.2f\n", getTotalOrderCost());

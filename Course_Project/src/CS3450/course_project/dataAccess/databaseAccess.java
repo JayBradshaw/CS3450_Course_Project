@@ -34,6 +34,9 @@ public class databaseAccess {
      * stores the list of employees from the database
      */
     private ArrayList<Employee> employeeList = new ArrayList<Employee>();
+    /**
+     * know which employee is currently logged in
+     */
     private Employee currentEmployee = null;    
     
     /**
@@ -46,7 +49,7 @@ public class databaseAccess {
     /**
 	 * creates the product list from the database connection
 	 */
-	public void createProductList(){
+	private void createProductList(){
 		Connection con = null;
 		PreparedStatement statement = null;
 		ResultSet result = null;
@@ -103,7 +106,7 @@ public class databaseAccess {
 	/**
 	 * create a list of orders from the database
 	 */
-	public void createOrderList(){
+	private void createOrderList(){
 		Connection con = null;
 		PreparedStatement statement = null;
 		ResultSet result = null;
@@ -163,7 +166,7 @@ public class databaseAccess {
 	/**
 	 * create a list of customers from the database
 	 */
-	public void createCustomerList(){
+	private void createCustomerList(){
 		Connection con = null;
 		PreparedStatement statement = null;
 		ResultSet result = null;
