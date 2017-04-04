@@ -95,7 +95,15 @@ public class MyInfoScreen {
 	//after they hit apply update you should update the current employee from this screen and then you can
 	//just pass that employee to the database access method updateEmployeeList
 	//If you can't figure out how to get a string from a JPasswordField look at the LoginScreen
+	/**
+	 * new user password this should just be set initially to the current password for the user
+	 * or this could be empty and there could be a check to see that if it is empty just ignore it
+	 */
 	private JPasswordField newPassword; //new password
+	/**
+	 * reentry of new user password. This should also just be set initially to the current user password
+	 * or this could be empty and there could be a check to see that if it is empty just ignore it
+	 */
 	private JPasswordField newPasswordReEntry; //reentry of new password
 	
 	/**
