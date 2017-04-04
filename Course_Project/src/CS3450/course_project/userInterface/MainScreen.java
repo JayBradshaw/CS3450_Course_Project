@@ -119,6 +119,10 @@ public class MainScreen {
 	 */
 	private InventoryScreen inventoryscreen;
 	/**
+	 * object for the edit my info screen
+	 */
+	private MyInfoScreen myInfoScreen;
+	/**
 	 * panel that will hold manage inventory, manage employees, and log out buttons
 	 */
 	private JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -302,7 +306,12 @@ public class MainScreen {
 							JOptionPane.showMessageDialog(null, "Unable to change admin information!");
 						}
 						else {
-						JOptionPane.showMessageDialog(null, "This screen has not yet been implemented");
+							//opens window to edit employee info
+	  						System.out.println("Edit My Info Button Pressed!!!!");
+	  						//allows user to change personal info
+	  						frame.dispose();
+	  						myInfoScreen = new MyInfoScreen(databaseConnection);
+	  						System.out.println("Edit personal info here");
 						}
 					}
 					
