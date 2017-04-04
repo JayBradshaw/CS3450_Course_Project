@@ -10,6 +10,7 @@ import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -20,6 +21,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
@@ -164,6 +166,7 @@ public class MyInfoScreen {
 		uName.setText(employee.getName());
 		uPassword.setText(employee.getPassword());
 		uIcon.setText(employee.getImageInfo());
+		char[] iPassword = uPassword.getPassword();
 		
 		System.out.println("here");
 		
@@ -235,15 +238,9 @@ public class MyInfoScreen {
 	    cancel.addActionListener(
 					new ActionListener(){
 						@Override
-						public void actionPerformed(ActionEvent e) {
-							
+						public void actionPerformed(ActionEvent e) {							
 							frame.dispose();
-							if(databaseConnection.getEmployee().getAccessRights() > 1){
-								EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
-							}
-							else {
-							MainScreen screen = new MainScreen(databaseConnection);
-							}
+							screen = new MainScreen(databaseConnection);
 						}
 						
 			});
@@ -266,37 +263,45 @@ public class MyInfoScreen {
 						new ActionListener(){
 							@Override
 							public void actionPerformed(ActionEvent e) {
-								String name, password, icon;
-			
+								String name, icon;
+								char[] pword;
 								name = uName.getText();
-								
-								password = uPassword.getText();
-								
+								pword = uPassword.getPassword();
 								icon = uIcon.getText();
 								
-								//make sure there are no empty fields
-								/*if(!uName.getText().isEmpty() && !uPassword.getText().isEmpty()&& 
-										!uIcon.getText().isEmpty()){
-									this.name = iName;
-									temporary.setPassword(password);
-									temporary.setImage(icon);
-									
-
-								}
-								else {
-									System.out.println("Adding Failed, Incorrect or invalid input entered.");
-									JOptionPane.showMessageDialog(null,"Error! One or more\nfields was left empty!");
+								//fulfill database restrictions
+								if(name.length()>30){
+									JOptionPane.showMessageDialog(null, "Error, username cannot be longer than 30 characters.");
+									return;
+								}if(pword.length>30){
+									JOptionPane.showMessageDialog(null, "Error, password cannot be longer than 30 characters.");
+									return;
+								}if(icon.length()>200){
+									JOptionPane.showMessageDialog(null, "Error, image url cannot be longer than 200 characters.");
 									return;
 								}
-								*/
-														
+								//no empty fields
+								if(name.length()==0 || pword.length==0 || icon.length()==0){
+									JOptionPane.showMessageDialog(null, "Error, please fill out all textfields to continue.");
+									return;
+								}
+								
+								//confirm password
+								char[] temp = pwordScreen();
+								if(pword != temp){
+									if(temp==null) return;
+									JOptionPane.showMessageDialog(null, "Error, passwords do not match.");
+									return;
+								}
+								
+								System.out.println("here");
+								
+								employee.setName(name);
+								employee.setPassword(String.valueOf(pword));
+								employee.setImage(icon);
+								
 								frame.dispose();
-								if(databaseConnection.getEmployee().getAccessRights() > 1){
-									EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
-								}
-								else {
-								MainScreen screen = new MainScreen(databaseConnection);
-								}
+								screen = new MainScreen(databaseConnection);
 							}
 						});
 	    GridBagConstraints u = new GridBagConstraints();
@@ -339,4 +344,27 @@ public class MyInfoScreen {
 		frame.setVisible(true);
 		
 	}
+	
+	/**
+	 * 
+	 * @param args
+	 */
+	  public char[] pwordScreen(){
+		  JPanel panel = new JPanel();
+		  JLabel label = new JLabel("Please confirm password:");
+		  JPasswordField pass = new JPasswordField(30);
+		  panel.add(label);
+		  panel.add(pass);
+		  String[] options = new String[]{"OK", "Cancel"};
+		  int option = JOptionPane.showOptionDialog(null, panel, "New Password",
+		                           JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+		                           null, options, options[1]);
+		  if(option == 0) // pressing OK button
+		  {
+		      char[] password = pass.getPassword();
+		      System.out.println("Your password is: " + new String(password));
+		      return pass.getPassword();
+		  }
+		  return null; 
+	  }
 }
