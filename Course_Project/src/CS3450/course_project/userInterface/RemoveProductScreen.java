@@ -26,6 +26,8 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import CS3450.course_project.businessLogic.OrderHelper;
 import CS3450.course_project.dataAccess.Customer;
@@ -153,6 +155,19 @@ public class RemoveProductScreen {
 				
 			}
 		});
+		
+		//loops the spinner from 0 to max and vice versa.
+				spinner.addChangeListener(new ChangeListener(){
+					@Override
+					public void stateChanged(ChangeEvent e){
+						if((int)spinner.getValue() > temporary.getAvailableUnits()){
+							spinner.setValue(0);
+						}
+						if((int)spinner.getValue() < 0){
+							spinner.setValue(temporary.getAvailableUnits());
+						}
+					}
+				});
 		
 		GridBagConstraints r = new GridBagConstraints();
 		r.weightx = .16;

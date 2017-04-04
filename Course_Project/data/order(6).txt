@@ -5,23 +5,16 @@ Here is your final receipt
 
 Customer Info:
 
-Tyler Lawson
-574 Main St. Denver, Colorado 87896
+Mason Jones
+584 Center St. San Francisco, CA 65860
 
-Card Info: 
-Card Holder: Tyler J. Lawson
-Card Number: ************5894
-Expiration Date: 05/19
-
-Date: 2017/03/21 16:20:30
+Date: 2017/04/04 01:59:04
 
 Product:                            Cost: Quantity:
 
-Coca-Cola                            0.75          4
-Carrots                              1.25          3
-Bread                                2.50          1
+Bread                                2.50         11
 
 
-Total Cost: 9.81
-Payment Method: Card
+Total Cost: 29.15
+Payment Method: Cash
 Delivery Method: Pick Up
