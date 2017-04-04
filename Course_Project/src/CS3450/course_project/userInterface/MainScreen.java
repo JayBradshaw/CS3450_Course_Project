@@ -126,7 +126,6 @@ public class MainScreen {
 	 * panel that will hold the returns, and edit my info buttons
 	 */
 	private JPanel buttonPanel2 = new JPanel(new FlowLayout());
-
 	/**
 	 * @param databaseConnection
 	 * 

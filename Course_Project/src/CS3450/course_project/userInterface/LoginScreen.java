@@ -139,7 +139,6 @@ public class LoginScreen {
 	        frame.getRootPane().setDefaultButton(login);
 	        frame.setVisible(true);
 	    }
-
 	    
 	    /**
 	     * @param uname

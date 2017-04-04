@@ -130,7 +130,7 @@ public class manageEmployeeAccessRights {
 					int newRights = 0;
 					// TODO Auto-generated method stub
 					String rights = JOptionPane.showInputDialog(null,"Previous Access Rights: " + x.getAccessRights() + 
-							"\nPlease enter the new access\n rights for this employee (1-4)");
+							"\nPlease enter the new access\nrights for this employee (1-4)");
 					if (rights == null){
 						return; //cancel button hit
 					}
