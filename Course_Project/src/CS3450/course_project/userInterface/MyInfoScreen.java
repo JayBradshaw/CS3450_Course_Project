@@ -25,7 +25,7 @@ import CS3450.course_project.userInterface.MainScreen;
 import CS3450.course_project.dataAccess.Employee;
 
 public class MyInfoScreen {
-	private ConfirmPwordScreen confirmPwordScreen;
+	//private ConfirmPwordScreen confirmPwordScreen;
 	private Employee employee;
 	/**
 	 * frame where the system will be produced
@@ -79,10 +79,7 @@ public class MyInfoScreen {
 	 * input fields
 	 */
 	private TextField uName, uIcon;
-	/**
-	 * current user password
-	 */
-	private JPasswordField uPassword;
+	
 	//maybe instead of showing their password which isn't secure, we should allow them to enter a 
 	//new password and make sure they have to confirm that password (the two passwords should match)
 	//going to need checks to make sure both password and username are no more than 30 characters due to 
@@ -96,15 +93,9 @@ public class MyInfoScreen {
 	 */
 	private JPasswordField newPassword; //new password
 	/**
-	 * reentry of new user password. This should also just be set initially to the current user password
-	 * or this could be empty and there could be a check to see that if it is empty just ignore it
-	 */
-	private JPasswordField newPasswordReEntry; //reentry of new password
-	
-	/**
 	 * labels for info
 	 */
-	private JLabel  nameLabel, passwordLabel, iconLabel;
+	private JLabel  nameLabel, newPasswordLabel, iconLabel;
 	
 	/**
 	 * @param employeeList
@@ -115,8 +106,8 @@ public class MyInfoScreen {
 		employee = databaseConnection.getEmployee(); //JBradshaw get the current employee from the database
 		uName 			= new TextField("");
 		nameLabel = new JLabel("Username (max 30 characters)");
-		uPassword 		= new JPasswordField("");
-		passwordLabel = new JLabel("Password (max 30 characters)");
+		newPassword 		= new JPasswordField("");
+		newPasswordLabel = new JLabel("New Password (max 30 characters, leave empty to retain password)");
 		uIcon	= new TextField("");
 		iconLabel = new JLabel("Icon Url");
 		
@@ -157,11 +148,10 @@ public class MyInfoScreen {
 			h.anchor = GridBagConstraints.PAGE_START;
 				
 		uName.setText(employee.getName());
-		uPassword.setText(employee.getPassword());
 		uIcon.setText(employee.getImageInfo());
-		char[] iPassword = uPassword.getPassword();
+		//char[] iPassword = uPassword.getPassword();
 		
-		System.out.println("here");
+		//System.out.println("here");
 		
 		GridBagConstraints r = new GridBagConstraints();
 			r.weightx = .16;
@@ -188,7 +178,7 @@ public class MyInfoScreen {
 		    nl.gridwidth = 2;
 		    nl.fill = GridBagConstraints.BOTH;
 		    
-	    //password textfield
+	    //new password textfield
 		GridBagConstraints p = new GridBagConstraints();
 			p.weightx = 1;
 		    p.weighty = .08;
@@ -210,7 +200,7 @@ public class MyInfoScreen {
 			i.weightx = .16;
 		    i.weighty = .08;
 		    i.gridx = 2;
-		    i.gridy = 5;
+		    i.gridy = 6;
 		    i.gridwidth = 2;
 		    i.fill = GridBagConstraints.BOTH;
 	    //image Icon label
@@ -218,7 +208,7 @@ public class MyInfoScreen {
 			il.weightx = .16;
 		    il.weighty = .08;
 		    il.gridx = 1;
-		    il.gridy = 5;
+		    il.gridy = 6;
 		    il.gridwidth = 2;
 		    il.fill = GridBagConstraints.BOTH;
 			    
@@ -233,7 +223,12 @@ public class MyInfoScreen {
 						@Override
 						public void actionPerformed(ActionEvent e) {							
 							frame.dispose();
+							if (employee.getAccessRights() >  1){
+								EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
+							}
+							else {
 							screen = new MainScreen(databaseConnection);
+							}
 						}
 						
 			});
@@ -256,32 +251,75 @@ public class MyInfoScreen {
 						new ActionListener(){
 							@Override
 							public void actionPerformed(ActionEvent e) {
-								String name, icon;
-								char[] pword;
+								String name, icon,newPword,newPwordReentry;
+								
 								name = uName.getText();
-								pword = uPassword.getPassword();
+								newPword = new String(newPassword.getPassword());
 								icon = uIcon.getText();
 								
 								//fulfill database restrictions
 								if(name.length()>30){
 									JOptionPane.showMessageDialog(null, "Error, username cannot be longer than 30 characters.");
 									return;
-								}if(pword.length>30){
+								}if(newPword.length()>30){
 									JOptionPane.showMessageDialog(null, "Error, password cannot be longer than 30 characters.");
 									return;
 								}if(icon.length()>200){
 									JOptionPane.showMessageDialog(null, "Error, image url cannot be longer than 200 characters.");
 									return;
 								}
-								//no empty fields
-								if(name.length()==0 || pword.length==0 || icon.length()==0){
-									JOptionPane.showMessageDialog(null, "Error, please fill out all textfields to continue.");
+								//allow new password to be empty, just means the password won't be changed
+								if (name.isEmpty() || icon.isEmpty()){
+									JOptionPane.showMessageDialog(null, "Error, please fill out proper textfields to continue.");
 									return;
+								}
+								
+								//check to confirm new password
+								if (!newPword.isEmpty()){
+									JPasswordField pf = new JPasswordField();
+									int entry = JOptionPane.showConfirmDialog(null, pf, "Confirm new password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+									if (entry == JOptionPane.OK_OPTION) { //if they hit ok make sure they confirm the new password
+									  String confirm = new String(pf.getPassword());
+									  if (!confirm.equals(newPword)){
+											JOptionPane.showMessageDialog(null,"Error! Passwords do not match!");
+											return;
+										}
+									}
+									if (entry == JOptionPane.CANCEL_OPTION){ //if they cancel just return
+										return;
+									}
+								}
+								
+								//after all of the checks are done we can save the employee updates and return to the proper screen
+								
+								//if new password is empty update the database without changing the password
+								//int id, String name, String password, short accessRights, String imageInfo
+								if (newPword.isEmpty()){
+									//create temp employee and update database. Set current employee equal to changes made.
+									Employee tempEmp = new Employee(employee.getID(),name,employee.getPassword(),employee.getAccessRights(),icon);
+									databaseConnection.updateEmployeeList(tempEmp);
+									databaseConnection.setCurrentEmployee(tempEmp);
+								}
+								else {
+									//create temp employee and update database. Set current employee equal to changes made.
+									Employee tempEmp = new Employee(employee.getID(),name,newPword,employee.getAccessRights(),icon);
+									databaseConnection.updateEmployeeList(tempEmp);
+									databaseConnection.setCurrentEmployee(tempEmp);
+								}
+								//return to the proper screen
+								if (employee.getAccessRights() > 1){
+									frame.dispose();
+									EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
+								}
+								else {
+									frame.dispose();
+									MainScreen screen = new MainScreen(databaseConnection);
 								}
 								
 								//confirm password
 								
-								confirmPwordScreen = new ConfirmPwordScreen(String.valueOf(pword), name, icon, databaseConnection);
+								//confirmPwordScreen = new ConfirmPwordScreen(String.valueOf(pword), name, icon, databaseConnection);
 							}
 						});
 	    GridBagConstraints u = new GridBagConstraints();
@@ -313,8 +351,8 @@ public class MyInfoScreen {
 		pane.add(storeHeader, h);
 		pane.add(uName, n);
 		pane.add(nameLabel, nl);
-		pane.add(uPassword, p);
-		pane.add(passwordLabel, pl);
+		pane.add(newPassword, p);
+		pane.add(newPasswordLabel, pl);
 		pane.add(uIcon, i);
 		pane.add(iconLabel, il);
 		pane.add(cancel, c);
