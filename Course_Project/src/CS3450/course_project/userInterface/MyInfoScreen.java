@@ -25,7 +25,6 @@ import CS3450.course_project.userInterface.MainScreen;
 import CS3450.course_project.dataAccess.Employee;
 
 public class MyInfoScreen {
-	//private ConfirmPwordScreen confirmPwordScreen;
 	private Employee employee;
 	/**
 	 * frame where the system will be produced
@@ -316,10 +315,6 @@ public class MyInfoScreen {
 									frame.dispose();
 									MainScreen screen = new MainScreen(databaseConnection);
 								}
-								
-								//confirm password
-								
-								//confirmPwordScreen = new ConfirmPwordScreen(String.valueOf(pword), name, icon, databaseConnection);
 							}
 						});
 	    GridBagConstraints u = new GridBagConstraints();
