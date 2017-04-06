@@ -38,6 +38,10 @@ public class Order {
 	 */
 	private String orderInfo;
 	/**
+	 * stores the date of the order in date format SimpleDateFormat("yyyy/MM/dd")
+	 */
+	private String orderDate;
+	/**
 	 * default constructor
 	 */
 	public Order(){
@@ -52,13 +56,14 @@ public class Order {
 	 * 
 	 * constructor that initializes all of the important attributes
 	 */
-	public Order(int orderID, int customerID, String paymentType, double totalCost, String deliveryMethod, String orderInfo){
+	public Order(int orderID, int customerID, String paymentType, double totalCost, String deliveryMethod, String orderInfo, String orderDate){
 		this.orderID = orderID;
 		this.customerID =customerID;
 		this.paymentType = paymentType;
 		this.totalCost = totalCost;
 		this.deliveryMethod = deliveryMethod;
 		this.orderInfo = orderInfo;
+		this.orderDate = orderDate;
 	}
 	/**
 	 * @return
@@ -135,8 +140,28 @@ public class Order {
 		this.deliveryMethod = deliveryMethod;
 	}
 	
+	/**
+	 * @return
+	 * get the info for an order
+	 */
 	public String getOrderInfo(){
 		return this.orderInfo;
+	}
+	
+	/**
+	 * @param orderDate
+	 * sets the order date in the format yyyy/MM/dd
+	 */
+	public void setOrderDate(String orderDate){
+		this.orderDate = orderDate;
+	}
+	
+	/**
+	 * @return
+	 * getter for the order date
+	 */
+	public String getOrderDate(){
+		return orderDate;
 	}
 
 }

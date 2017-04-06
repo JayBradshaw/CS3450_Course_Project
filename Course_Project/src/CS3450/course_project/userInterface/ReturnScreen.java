@@ -343,6 +343,7 @@ public class ReturnScreen {
 		}
 		else {
 			toReturn += "Current Order Status:\n\n";
+			toReturn += "Date: " + order.getOrderDate() + "\n\n";
 			toReturn += String.format("%-20s %-15s %-15s\n", "Product:" , "Cost:", "Quantity:");
 			for(OrderHelper item : this.orderHelperList){
 				int spacing = 20 - item.getProductName().length() + (8 -item.getProductName().length());

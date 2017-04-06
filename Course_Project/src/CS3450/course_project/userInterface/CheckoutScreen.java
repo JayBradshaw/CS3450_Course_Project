@@ -15,6 +15,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -506,7 +508,7 @@ public class CheckoutScreen {
 								}
 								String custName = JOptionPane.showInputDialog("Enter your full name");
 								String custAddress = JOptionPane.showInputDialog("Enter your address");
-								customerList.add(new Customer(custID,custName,custAddress));
+								customerList.add(new Customer(custID,custName,custAddress,0,0));
 								//add customer to database
 								databaseConnection.addNewCustomer(customerList.get(customerList.size()-1));
 							}
@@ -524,17 +526,20 @@ public class CheckoutScreen {
 								int orderListIndex = orderList.size()-1;
 								System.out.println(buildOrderInfo());
 								if (orderList.isEmpty()){
-									orderList.add(new Order(0,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
+									orderList.add(new Order(0,custID, "Cash", getTotalOrderCost(),deliveryMethod, buildOrderInfo(),getCurrentDate()));
 								}
 								else {
-									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
-								}								printReceipt("cash",custID,false,deliveryMethod);
+									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Cash", getTotalOrderCost(),deliveryMethod, buildOrderInfo(),getCurrentDate()));
+								}								
+								printReceipt("cash",custID,false,deliveryMethod);
 								//update the product list to reflect the changes
 								updateProductListDatabase(databaseConnection);
 								productList = databaseConnection.getProductList();
 								//add order to database
 								databaseConnection.addOrderToDatabase(orderList.get(orderList.size()-1));
 								orderHelperList.clear();
+								orderDetails.setText("NO CURRENT ORDER");
+								frame.revalidate();
 							}
 							else if (cardSelected){
 								//get card info
@@ -561,7 +566,7 @@ public class CheckoutScreen {
 								while (expirationDate.isEmpty()){
 									expirationDate = JOptionPane.showInputDialog("Enter the expiration date(mm/yy)");
 									if (expirationDate == null) return;
-									if (expirationDate.isEmpty()) JOptionPane.showMessageDialog(null, "Error! Invalid card name entered!");
+									if (expirationDate.isEmpty()) JOptionPane.showMessageDialog(null, "Error! Invalid expiration date entered!");
 								}
 								creditCard = new CreditCard(cardNumber,expirationDate,cardName);
 								
@@ -570,10 +575,10 @@ public class CheckoutScreen {
 								int orderListIndex = orderList.size()-1;
 								System.out.println(buildOrderInfo());
 								if (orderList.isEmpty()){
-									orderList.add(new Order(0,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
+									orderList.add(new Order(0,custID, "Card", getTotalOrderCost(),deliveryMethod, buildOrderInfo(),getCurrentDate()));
 								}
 								else {
-									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
+									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Card", getTotalOrderCost(),deliveryMethod, buildOrderInfo(),getCurrentDate()));
 								}
 								printReceipt("card",custID,cardSelected,deliveryMethod);
 								//update the product list to reflect the changes
@@ -582,6 +587,8 @@ public class CheckoutScreen {
 								//add order to database
 								databaseConnection.addOrderToDatabase(orderList.get(orderList.size()-1));
 								orderHelperList.clear();
+								orderDetails.setText("NO CURRENT ORDER");
+								frame.revalidate();
 							}
 							else if (checkSelected){
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\nTotal Cost: $" + 
@@ -591,12 +598,12 @@ public class CheckoutScreen {
 								int orderListIndex = orderList.size()-1;
 								System.out.println(buildOrderInfo());
 								if (orderList.isEmpty()){
-									orderList.add(new Order(0,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
+									orderList.add(new Order(0,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo(),getCurrentDate()));
 								}
 								else {
-									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
+									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo(),getCurrentDate()));
 								}
-								orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
+								//orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
 								printReceipt("check",custID,false,deliveryMethod);
 								//update the product list to reflect the changes
 								updateProductListDatabase(databaseConnection); //this is not ideal as it should be a part of the database connection class and should just update the quantities
@@ -604,6 +611,8 @@ public class CheckoutScreen {
 								//add order to database
 								databaseConnection.addOrderToDatabase(orderList.get(orderList.size()-1));
 								orderHelperList.clear();
+								orderDetails.setText("NO CURRENT ORDER");
+								frame.revalidate();
 							}
 						}
 					}	
@@ -858,7 +867,7 @@ public class CheckoutScreen {
 		}
 		//add in tax of .06 (6%)
 		totalCost += totalCost * 0.06;
-		return totalCost;
+		return round(totalCost,2);
 	}
 	
 	/**
@@ -893,7 +902,7 @@ public class CheckoutScreen {
 			for (int j =0; j < orderHelperList.size(); ++j){
 				if (productList.get(i).getName() == orderHelperList.get(j).getProductName()){
 					//change the number of available units
-					productList.get(i).setAvailableUnits(productList.get(i).getAvailableUnits()-orderHelperList.get(i).getQuantity());
+					productList.get(i).setAvailableUnits(productList.get(i).getAvailableUnits()-orderHelperList.get(j).getQuantity());
 					//update the quantity so that it reflects the subtraction from the order
 					databaseConnection.updateProductQuantity(productList.get(i));
 				}
@@ -936,6 +945,33 @@ public class CheckoutScreen {
 		}
 		System.out.println(toReturn);
 		return toReturn;
+	}
+	
+	/**
+	 * @return
+	 * returns the current date in the format yyyy/MM/dd
+	 */
+	private String getCurrentDate(){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = new Date();
+		System.out.println(dateFormat.format(date));
+		return (String)dateFormat.format(date);
+	}
+	
+	/**
+	 * @param value
+	 * @param places
+	 * @return
+	 * 
+	 * round a double value to only two decimal places
+	 * taken from stack overflow: http://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places
+	 */
+	private double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
+
+	    BigDecimal bd = new BigDecimal(value);
+	    bd = bd.setScale(places, RoundingMode.HALF_UP);
+	    return bd.doubleValue();
 	}
 
 }

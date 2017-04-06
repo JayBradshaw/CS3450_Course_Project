@@ -29,6 +29,14 @@ public class Customer {
 	 */
 	private String address;
 	/**
+	 * stores the reward card number of the customer
+	 */
+	private int rewardCard;
+	/**
+	 * total reward points of a customer, if the customer doesn't have a reward card this will be 0
+	 */
+	private int rewardPoints;
+	/**
 	 * default constructor
 	 */
 	public Customer(){
@@ -41,10 +49,12 @@ public class Customer {
 	 * 
 	 * non-default constructor
 	 */
-	public Customer(int customerID, String name, String address){
+	public Customer(int customerID, String name, String address, int rewardCard, int rewardPoints){
 		this.customerID = customerID;
 		this.name = name;
 		this.address = address;
+		this.rewardCard = rewardCard;
+		this.rewardPoints = rewardPoints;
 	}
 	/**
 	 * @return
@@ -85,6 +95,51 @@ public class Customer {
 	 */
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	
+	/**
+	 * @param rewardCard
+	 * 
+	 * set the reward card number of the customer
+	 */
+	public void setRewardCard(int rewardCard){
+		this.rewardCard = rewardCard;
+	}
+	
+	/**
+	 * @return
+	 * 
+	 * get the reward card number of the customer
+	 */
+	public int getRewardCard(){
+		return rewardCard;
+	}
+	
+	/**
+	 * @return
+	 * 
+	 * get the number of reward points of the customer
+	 */
+	public int getRewardPoints(){
+		return rewardPoints;
+	}
+	
+	/**
+	 * @param points
+	 * 
+	 * set the number of reward points for a customer
+	 */
+	public void setRewardPoints(int points){
+		rewardPoints = points;
+	}
+	
+	/**
+	 * @return
+	 * 
+	 * know if a customer has a rewards card
+	 */
+	public boolean isRewardsCustomer(){
+		return rewardCard > 0;
 	}
 
 	

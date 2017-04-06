@@ -37,7 +37,11 @@ public class databaseAccess {
     /**
      * know which employee is currently logged in
      */
-    private Employee currentEmployee = null;    
+    private Employee currentEmployee = null;   
+    /**
+     * store the current list of sale items
+     */
+    private ArrayList<SaleItem> saleList = new ArrayList<SaleItem>();
     
     /**
      * default constructor that will initialize all of the lists from the database
@@ -56,27 +60,24 @@ public class databaseAccess {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		//deal with product list
 		try {
 			statement = con.prepareStatement("select * from products");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			result = statement.executeQuery();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -86,19 +87,16 @@ public class databaseAccess {
 				System.out.println(result.getString(1) + " "  + result.getInt(2) + " "  + result.getDouble(3) + " "  + result.getInt(4) + " "  + result.getString(5) + " "  + result.getString(6));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			statement.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -113,14 +111,12 @@ public class databaseAccess {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//deal with product list
@@ -128,37 +124,31 @@ public class databaseAccess {
 		try {
 			statement = con.prepareStatement("select * from orders");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			result = statement.executeQuery();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			while(result.next()){
-				orderList.add(new Order(result.getInt(1),result.getInt(2),result.getString(3),result.getDouble(4),result.getString(5),result.getString(6)));
-				System.out.println(result.getInt(1)+ " " + result.getInt(2) + " " + result.getString(3) + " " + result.getDouble(4) + " " + result.getString(5) + " " + result.getString(6));
-				//System.out.println(orderList.get(orderList.size()-1).getOrderInfo());
+				orderList.add(new Order(result.getInt(1),result.getInt(2),result.getString(3),result.getDouble(4),result.getString(5),result.getString(6),result.getString(7)));
+				System.out.println(result.getInt(1)+ " " + result.getInt(2) + " " + result.getString(3) + " " + result.getDouble(4) + " " + result.getString(5) + " " + result.getString(6) + " " + result.getString(7));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			statement.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -173,14 +163,12 @@ public class databaseAccess {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//deal with product list
@@ -188,36 +176,31 @@ public class databaseAccess {
 		try {
 			statement = con.prepareStatement("select * from customers");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			result = statement.executeQuery();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			while(result.next()){
-				customerList.add(new Customer(result.getInt(1),result.getString(2),result.getString(3)));
-				System.out.println(result.getInt(1)+ " " + result.getString(2) + " " + result.getString(3));
+				customerList.add(new Customer(result.getInt(1),result.getString(2),result.getString(3),result.getInt(4),result.getInt(5)));
+				System.out.println(result.getInt(1)+ " " + result.getString(2) + " " + result.getString(3) + " " + result.getInt(4) + " " + result.getInt(5));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			statement.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -232,29 +215,23 @@ public class databaseAccess {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		//deal with product list
-		
+		}		
 		try {
 			statement = con.prepareStatement("select * from employees");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			result = statement.executeQuery();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -264,26 +241,25 @@ public class databaseAccess {
 				System.out.println(result.getInt(1)+ " " + result.getString(2) + " " + result.getString(3) + " " + result.getShort(4) + " " + result.getString(5));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			statement.close();
 			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
     
     /**
-     * this method will simply call the load functions for each table
+     * this method will simply call the create functions for each table
      */
     private void loadInfoFromDatabase(){
     	createProductList();
     	createCustomerList();
     	createOrderList();
     	getEmployeeInfo();
+    	createSaleList();
     }
     
     //all of the needed methods for accessing a product and adding a new product to the database
@@ -298,14 +274,12 @@ public class databaseAccess {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -317,7 +291,6 @@ public class databaseAccess {
 			statement = con.createStatement();
 			statement.executeUpdate(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -325,7 +298,6 @@ public class databaseAccess {
 			con.close();
 			statement.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -340,14 +312,12 @@ public class databaseAccess {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -357,7 +327,6 @@ public class databaseAccess {
 			statement = con.createStatement();
 			statement.executeUpdate(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -365,7 +334,6 @@ public class databaseAccess {
 			con.close();
 			statement.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -380,14 +348,12 @@ public class databaseAccess {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//get the query from the database
@@ -400,7 +366,6 @@ public class databaseAccess {
 			statement = con.createStatement();
 			statement.executeUpdate(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -408,7 +373,6 @@ public class databaseAccess {
 			con.close();
 			statement.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -447,19 +411,17 @@ public class databaseAccess {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//get the query from the database
-		String query = "insert into customers (customerID, name, address) values (" +
+		String query = "insert into customers (customerID, name, address, rewardCard, rewardPoints) values (" +
 		customer.getCustomerID() + ',' + '"' + customer.getName() + '"'
-		+ ',' + '"' + customer.getAddress()  + '"' + ");";
+		+ ',' + '"' + customer.getAddress()  + '"' + "," + customer.getRewardCard() + ',' + customer.getRewardPoints() + ");";
 		System.out.println(query);
 		
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -467,18 +429,58 @@ public class databaseAccess {
 			statement = con.createStatement();
 			statement.executeUpdate(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			statement.close();
 			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		customerList.add(customer);
+    }
+    
+    /**
+     * @param customer
+     * @return
+     * 
+     * update the total reward points for a customer
+     */
+    public void updateRewardPoints(Customer customer){
+    	Connection con = null;
+		Statement statement = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//orderID, customerID, paymentType, totalCost, deliveryMethod, orderInfo
+		String query = "update customers set rewardPoints = " + customer.getRewardPoints() + 
+				"\nwhere customerID = " + customer.getCustomerID() + ";";
+		System.out.println(query);
+		try {
+			statement = con.createStatement();
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			con.close();
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	//clear the order list and reinitialize it
+    	customerList.clear();
+    	createCustomerList();
     }
     
     /**
@@ -532,26 +534,23 @@ public class databaseAccess {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//orderID, customerID, paymentType, totalCost, deliveryMethod, orderInfo
 		String query = "update orders set customerID = " + order.getCustomerID() + 
 				", paymentType = " + '"' + order.getPaymentType() + '"' + ", totalCost = " + order.getTotalCost() + ", deliveryMethod = " +
-				'"' + order.getDeliveryMethod() + '"' + " , orderInfo = " + '"' + order.getOrderInfo() + '"' + "\nwhere orderID = " + order.getOrderID() + ";";
+				'"' + order.getDeliveryMethod() + '"' + " , orderInfo = " + '"' + order.getOrderInfo() + '"' + " , orderDate = " + '"' + order.getOrderDate() + '"' + "\nwhere orderID = " + order.getOrderID() + ";";
 		System.out.println(query);
 		try {
 			statement = con.createStatement();
 			statement.executeUpdate(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -559,7 +558,6 @@ public class databaseAccess {
 			con.close();
 			statement.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	//clear the order list and reinitialize it
@@ -579,14 +577,12 @@ public class databaseAccess {
     		try {
     			Class.forName("com.mysql.jdbc.Driver");
     		} catch (ClassNotFoundException e) {
-    			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
     		
     		try {
     			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
     		} catch (SQLException e) {
-    			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
     		//orderID, customerID, paymentType, totalCost, deliveryMethod, orderInfo
@@ -596,7 +592,6 @@ public class databaseAccess {
     			statement = con.createStatement();
     			statement.executeUpdate(query);
     		} catch (SQLException e) {
-    			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
     		
@@ -604,7 +599,6 @@ public class databaseAccess {
     			con.close();
     			statement.close();
     		} catch (SQLException e) {
-    			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
     	//clear the order list and reinitialize it
@@ -623,14 +617,12 @@ public class databaseAccess {
     		try {
     			Class.forName("com.mysql.jdbc.Driver");
     		} catch (ClassNotFoundException e) {
-    			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
     		
     		try {
     			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
     		} catch (SQLException e) {
-    			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
     		//orderID, customerID, paymentType, totalCost, deliveryMethod, orderInfo
@@ -640,7 +632,6 @@ public class databaseAccess {
     			statement = con.createStatement();
     			statement.executeUpdate(query);
     		} catch (SQLException e) {
-    			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
     		
@@ -648,7 +639,6 @@ public class databaseAccess {
     			con.close();
     			statement.close();
     		} catch (SQLException e) {
-    			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
     	//clear the order list and reinitialize it
@@ -667,27 +657,24 @@ public class databaseAccess {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//get the query from the database
-		String query = "insert into orders (orderID, customerID, paymentType, totalCost, deliveryMethod, orderInfo) values (" +
+		String query = "insert into orders (orderID, customerID, paymentType, totalCost, deliveryMethod, orderInfo, orderDate) values (" +
 		order.getOrderID() + "," + order.getCustomerID() + ',' + '"' + order.getPaymentType() + '"'
-		+ ',' + order.getTotalCost() + ',' + '"' + order.getDeliveryMethod() + '"' + ',' + '"' + order.getOrderInfo() + '"' + ");";
+		+ ',' + order.getTotalCost() + ',' + '"' + order.getDeliveryMethod() + '"' + ',' + '"' + order.getOrderInfo() + '"' + ',' + '"' + order.getOrderDate() + '"' + ");";
 		System.out.println(query);
 		
 		try {
 			statement = con.createStatement();
 			statement.executeUpdate(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -695,7 +682,6 @@ public class databaseAccess {
 			con.close();
 			statement.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -728,14 +714,12 @@ public class databaseAccess {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//get the query from the database
@@ -748,7 +732,6 @@ public class databaseAccess {
 			statement = con.createStatement();
 			statement.executeUpdate(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -756,7 +739,6 @@ public class databaseAccess {
 			con.close();
 			statement.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
@@ -775,14 +757,12 @@ public class databaseAccess {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//get the query from the database
@@ -795,7 +775,6 @@ public class databaseAccess {
 			statement = con.createStatement();
 			statement.executeUpdate(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -803,7 +782,6 @@ public class databaseAccess {
 			con.close();
 			statement.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
@@ -831,14 +809,12 @@ public class databaseAccess {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//get the query from the database
@@ -849,7 +825,6 @@ public class databaseAccess {
 			statement = con.createStatement();
 			statement.executeUpdate(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -857,13 +832,150 @@ public class databaseAccess {
 			con.close();
 			statement.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
     
+    /**
+     * @return
+     * 
+     * returns the employee that is currently logged in
+     */
     public Employee getEmployee(){
     	return this.currentEmployee;
     }
 
+    /**
+     * @return
+     * 
+     * get the list of sale items
+     */
+    public ArrayList<SaleItem> getSaleList(){
+    	return saleList;
+    }
+    
+    /**
+     * @param product
+     * @return
+     * 
+     * get the sale price of a particular product. Returns 0 if that product is not on sale
+     */
+    public double getSalePrice(String product){
+    	for (SaleItem x : saleList){
+    		if (x.getName().equals(product)) return x.getSalePrice();
+    	}
+    	return 0.0;
+    }
+    
+    /**
+     * @param product
+     * @return
+     * 
+     * returns true if an item is on sale, false otherwise
+     */
+    public boolean isSaleItem(String product){
+    	for (SaleItem x : saleList){
+    		if (x.getName().equals(product)) return true;
+    	}
+    	return false;
+    }
+    
+    /**
+     * create the sale list from the database
+     */
+    public void createSaleList(){
+    	//create the connection to the database to get all items that are on sale
+    	Connection con = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		//deal with product list
+		try {
+			statement = con.prepareStatement("select * from saleitems");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			result = statement.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			while(result.next()){
+				saleList.add(new SaleItem(result.getInt(1),result.getString(2),result.getDouble(3),result.getString(4),result.getString(5)));
+				System.out.println(result.getInt(1) + " "  + result.getString(2) + " "  + result.getDouble(3) + " "  + result.getString(4) + " "  + result.getString(5));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			statement.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    /**
+     * @param item
+     * 
+     * update the sale list based on a specific item
+     */
+    public void updateSaleList(SaleItem item){
+    	//update the sale list based on a given item
+    	Connection con = null;
+		Statement statement = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String query = "update saleitems set name = " + '"' + item.getName() + '"' + ", salePrice = " + item.getSalePrice() + 
+				", startDate = " + '"' + item.getStartDate() + '"' +  ", endDate = " + '"' + item.getEndDate() + '"' 
+				+ "\nwhere id = " + item.getID() + ";";
+		System.out.println(query);
+		try {
+			statement = con.createStatement();
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			con.close();
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	saleList.clear();
+    	createSaleList();
+    }
+    
+    /**
+     * @param item
+     * 
+     * add a new item to the sale list
+     */
+    public void addNewSaleItem(SaleItem item){
+    	saleList.add(item);
+    }
 }

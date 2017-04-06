@@ -1,0 +1,23 @@
+Thank you for choosing Mr. Smith's Groceries!
+
+Here is your final receipt
+
+
+Customer Info:
+
+Harry Plopper
+888 Wizard Way, Narsaq, Greenland 
+
+Card Info: 
+Card Holder: Harry Plopper
+Card Number: ************5896
+Date: 2017/04/05 22:28:15
+
+Product:                            Cost: Quantity:
+
+Pizza                                7.99          2
+
+
+Total Cost: 16.94
+Payment Method: Card
+Delivery Method: Pick Up
