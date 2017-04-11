@@ -42,6 +42,7 @@ public class databaseAccess {
      * store the current list of sale items
      */
     private ArrayList<SaleItem> saleList = new ArrayList<SaleItem>();
+    private Customer currentCustomer = null;
     
     /**
      * default constructor that will initialize all of the lists from the database
@@ -389,6 +390,10 @@ public class databaseAccess {
     	return this.productList;
     }
     
+    public void setCurrentCustomer(Customer customer){
+    	currentCustomer = customer;
+    }
+    
     //all of the needed methods for accessing a customer and adding a new customer to the database
     
     /**
@@ -496,6 +501,10 @@ public class databaseAccess {
     		}
     	}
     	return null;
+    }
+    
+    public Customer getCurrentCustomer(){
+    	return currentCustomer;
     }
 
     //all of the needed methods for accessing an an order and adding a new order to the database

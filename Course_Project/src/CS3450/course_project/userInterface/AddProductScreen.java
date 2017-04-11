@@ -8,7 +8,13 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+
+import static java.util.Comparator.comparing;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -30,6 +36,7 @@ import CS3450.course_project.businessLogic.OrderHelper;
 import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
+import CS3450.course_project.dataAccess.SaleItem;
 import CS3450.course_project.dataAccess.databaseAccess;
 
 public class AddProductScreen {
@@ -109,6 +116,11 @@ public class AddProductScreen {
 	 * general instructions for adding items.
 	 */
 	private JLabel instruction;
+	/**
+	 * list of items that are on sale
+	 */
+	private ArrayList<SaleItem> saleList = new ArrayList<SaleItem>();
+	private Customer currentCustomer;
 
 	
 	/**
@@ -119,11 +131,21 @@ public class AddProductScreen {
 	 * 
 	 * non-default constructor
 	 */
+	@SuppressWarnings("unchecked")
 	public AddProductScreen(databaseAccess databaseConnection, ArrayList<OrderHelper> orderHelperList){
 		//just need the product list and the orderHelperList
 		productList = databaseConnection.getProductList();
 		this.orderHelperList = orderHelperList;
-		
+		System.out.println("Getting sale items");
+		setCurrentSaleItems(databaseConnection);
+		//saleList = databaseConnection.getSaleList();
+		currentCustomer = databaseConnection.getCurrentCustomer();
+		System.out.println(currentCustomer.getName());
+		//figure out how to sort the list of sale items manager will be able to edit this. Also need to check for valid date
+		Collections.sort(saleList);
+		for(SaleItem I:saleList){
+			System.out.println(I.getStartDate());
+		}
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(800, 400);
 		pane = frame.getContentPane();
@@ -314,7 +336,12 @@ public class AddProductScreen {
 							}
 							else { //create a new order helper item
 								System.out.println("Adding new item to order helper");
+								if (onSale(temporary,databaseConnection)){ //if the item is on sale get the sale price
+									orderHelperList.add(new OrderHelper(productList.get(productIndex).getName(),getSalePrice(temporary),(int)spinner.getValue()));
+								}
+								else {
 								orderHelperList.add(new OrderHelper(productList.get(productIndex).getName(),productList.get(productIndex).getPrice(),(int)spinner.getValue()));
+								}
 							}
 							System.out.println("Back to main screen...");
 							//JBradshaw: add ability to return back to the main screen
@@ -390,6 +417,68 @@ public class AddProductScreen {
 		}
 		//just return the total units if the product was not a part of the order
 		return product.getAvailableUnits();
+	}
+
+	/**
+	 * @param product
+	 * @return
+	 * 
+	 * know whether or not a given product is on sale
+	 */
+	private boolean onSale(Product product,databaseAccess databaseConnection){
+		//if a guest just return false because they are not eligible for rewards
+		if (databaseConnection.getCurrentCustomer().getRewardCard() == 0) return false;
+		//run through the list of items currently on sale
+		for (SaleItem x : saleList){
+			if (x.getName().equals(product.getName())) return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * @param product
+	 * @return
+	 * 
+	 * get the sale price of a product
+	 */
+	private double getSalePrice(Product product){
+		for (SaleItem x : saleList){
+			if (x.getName().equals(product.getName())) return x.getSalePrice();
+		}
+		return 0.0d;
+	}
+	
+	/**
+	 * @param saleItems
+	 * 
+	 * know which items are currently on sale based on time restrictions
+	 */
+	private void setCurrentSaleItems(databaseAccess databaseConnection){
+		String date = getCurrentDate(); //get the date
+		for (SaleItem x : databaseConnection.getSaleList()){
+			//System.out.println(x.getName());
+			//System.out.println(date);
+			//System.out.println(x.getStartDate() + " | " + x.getEndDate());
+			//System.out.println(x.getStartDate().compareTo(date) + " | " + x.getEndDate().compareTo(date));
+			//if the item falls in the range then it is on sale
+			if (x.getStartDate().compareTo(date) <=0 && x.getEndDate().compareTo(date) >=0){
+				//System.out.println(date);
+				//System.out.println(x.getStartDate() + " | " + x.getEndDate());
+				//System.out.println(x.getStartDate().compareTo(date) + " | " + x.getEndDate().compareTo(date));
+				saleList.add(x); //add the item to the sale list
+			}
+		}
+	}
+	
+	/**
+	 * @return
+	 * returns the current date in the format yyyy/MM/dd
+	 */
+	private String getCurrentDate(){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = new Date();
+		System.out.println(dateFormat.format(date));
+		return (String)dateFormat.format(date);
 	}
 	
 }

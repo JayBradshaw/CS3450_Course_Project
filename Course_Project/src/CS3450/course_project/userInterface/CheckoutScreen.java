@@ -22,6 +22,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -45,6 +46,7 @@ import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Employee;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
+import CS3450.course_project.dataAccess.SaleItem;
 import CS3450.course_project.dataAccess.databaseAccess;
 
 /**
@@ -201,6 +203,40 @@ public class CheckoutScreen {
 		customerList = databaseConnection.getCustomerList();
 		orderList = databaseConnection.getOrderList();
 		employeeList = databaseConnection.getEmployeeList();
+		int custID;
+		//get a random value for the card number
+		getCustomerType();
+		if (isNewCustomer){
+			//ask them if they want to become a rewards customer
+			int dialogButton = JOptionPane.showConfirmDialog (null, "Would you like to\nbecome a rewards customer?","Rewards Customer",JOptionPane.YES_NO_OPTION);
+			if (dialogButton == JOptionPane.YES_OPTION){
+				if (customerList.isEmpty()){
+					custID = 0;
+				}
+				else {
+				custID = customerList.get(customerList.size()-1).getCustomerID() + 1;
+				}
+				int randomNum = ThreadLocalRandom.current().nextInt(100000, 999999 + 1);
+				System.out.println(randomNum);
+				String custName = JOptionPane.showInputDialog("Enter your full name");
+				String custAddress = JOptionPane.showInputDialog("Enter your address");
+				customerList.add(new Customer(custID,custName,custAddress,randomNum,0));
+				databaseConnection.setCurrentCustomer(customerList.get(customerList.size()-1));
+				//add customer to database
+				databaseConnection.addNewCustomer(customerList.get(customerList.size()-1));
+			}
+			else { //add a guest customer with no reward points
+				databaseConnection.setCurrentCustomer(new Customer(50,"Guest","",0,0));
+			}
+			//if not create some guest customer
+			
+		}
+		else {
+			while (!checkValidCustID(custID = Integer.parseInt(JOptionPane.showInputDialog("Enter your customer ID")))){
+				JOptionPane.showMessageDialog(null, "Please enter a valid customer ID");
+		    }
+			databaseConnection.setCurrentCustomer(databaseConnection.getCustomerFromID(custID));
+		}
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -375,6 +411,7 @@ public class CheckoutScreen {
 		customerList = databaseConnection.getCustomerList();
 		orderList = databaseConnection.getOrderList();
 		employeeList = databaseConnection.getEmployeeList();
+		int custID = databaseConnection.getCurrentCustomer().getCustomerID();
 		this.orderHelperList = orderHelperList;
 		for (OrderHelper x: orderHelperList){
 			System.out.println(x.getProductName() + " " + x.getQuantity());
@@ -497,26 +534,7 @@ public class CheckoutScreen {
 							//add a get delivery method here
 							String deliveryMethod = getDeliveryMethod();
 							//figure out if existing or new customer
-							int custID;
-							getCustomerType();
-							if (isNewCustomer){
-								if (customerList.isEmpty()){
-									custID = 0;
-								}
-								else {
-								custID = customerList.get(customerList.size()-1).getCustomerID() + 1;
-								}
-								String custName = JOptionPane.showInputDialog("Enter your full name");
-								String custAddress = JOptionPane.showInputDialog("Enter your address");
-								customerList.add(new Customer(custID,custName,custAddress,0,0));
-								//add customer to database
-								databaseConnection.addNewCustomer(customerList.get(customerList.size()-1));
-							}
-							else {
-								while (!checkValidCustID(custID = Integer.parseInt(JOptionPane.showInputDialog("Enter your customer ID")))){
-									JOptionPane.showMessageDialog(null, "Please enter a valid customer ID");
-								}
-							}
+						
 							if (cashSelected){
 								
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\nTotal Cost: $" + 

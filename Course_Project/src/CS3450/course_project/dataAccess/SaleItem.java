@@ -9,7 +9,7 @@ package CS3450.course_project.dataAccess;
  *This class will deal with all items that are currently on sale
  *stores id product name and sale price
  */
-public class SaleItem {
+public class SaleItem implements Comparable{
 	/**
 	 * id of the sale item. This cannot be altered
 	 */
@@ -123,5 +123,23 @@ public class SaleItem {
 	 */
 	public void setEndDate(String endDate){
 		this.endDate = endDate;
+	}
+	
+	@Override
+	public int compareTo(Object o) {
+		int compare = startDate.compareTo(((SaleItem)o).getStartDate());
+		 return compare;
+	}
+	
+	/**
+	 * @param start
+	 * @param end
+	 * @return
+	 * 
+	 * know whether or not a sale item is currently on sale
+	 */
+	public boolean fallsInRange(String start, String end){
+		if (startDate.compareTo(start) <=0 && endDate.compareTo(end) >= 0) return true;
+		return false;
 	}
 }
