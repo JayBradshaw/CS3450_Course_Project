@@ -128,7 +128,6 @@ public class manageEmployeeAccessRights {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					int newRights = 0;
-					// TODO Auto-generated method stub
 					String rights = JOptionPane.showInputDialog(null,"Previous Access Rights: " + x.getAccessRights() + 
 							"\nPlease enter the new access\nrights for this employee (1-4)");
 					if (rights == null){
@@ -168,7 +167,6 @@ public class manageEmployeeAccessRights {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				frame.dispose();
 				MainScreen screen = new MainScreen(databaseConnection);
 			}

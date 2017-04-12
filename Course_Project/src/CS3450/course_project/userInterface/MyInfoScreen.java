@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -302,7 +304,7 @@ public class MyInfoScreen {
 								}
 								else {
 									//create temp employee and update database. Set current employee equal to changes made.
-									Employee tempEmp = new Employee(employee.getID(),name,newPword,employee.getAccessRights(),icon);
+									Employee tempEmp = new Employee(employee.getID(),name,cryptWithMD5(newPword),employee.getAccessRights(),icon);
 									databaseConnection.updateEmployeeList(tempEmp);
 									databaseConnection.setCurrentEmployee(tempEmp);
 								}
@@ -357,4 +359,27 @@ public class MyInfoScreen {
 		frame.setVisible(true);
 		
 	}
+	
+    /**
+     * @param pass
+     * @return
+     * 
+     * password encryption
+     */
+    private String cryptWithMD5(String pass){
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] passBytes = pass.getBytes();
+            md.reset();
+            byte[] digested = md.digest(passBytes);
+            StringBuffer sb = new StringBuffer();
+            for(int i=0;i<digested.length;i++){
+                sb.append(Integer.toHexString(0xff & digested[i]));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println("Error parsing password!");
+        }
+            return null;
+    }
 }

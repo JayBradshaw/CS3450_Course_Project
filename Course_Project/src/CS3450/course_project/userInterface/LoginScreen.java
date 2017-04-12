@@ -20,12 +20,15 @@ import javax.swing.JPasswordField;
 import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
  * @author Justin Bradshaw
@@ -63,6 +66,12 @@ public class LoginScreen {
 		private JButton cancel = new JButton("Cancel");
 
 	    public LoginScreen(databaseAccess databaseConnection) {
+	    	System.out.println(cryptWithMD5("spicyTortillas"));
+	    	System.out.println(cryptWithMD5("purpleCobra24"));
+	    	System.out.println(cryptWithMD5("scaryOctopus67"));
+	    	System.out.println(cryptWithMD5("wildWombat245"));
+	    	System.out.println(cryptWithMD5("whiteHouse08"));
+
 	        frame.setSize(310,150);
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        frame.setLocationRelativeTo(null);
@@ -111,6 +120,7 @@ public class LoginScreen {
 	                    //System.out.println(pword.getPassword());
 	                    String username = name.getText();
 	                    String password = new String(pword.getPassword());
+	                    
 	                    //easter egg for a master user that has access to everything
 	                    if (isMasterUser(username,password)){
 	                    	System.out.println("Hello Master");
@@ -155,7 +165,7 @@ public class LoginScreen {
 	    private boolean isValidUser(String uname, String pword, ArrayList<Employee> employeeList){
 	    	for(Employee x: employeeList){
 	    		//System.out.println("Employee: " + x.getName() + " " + x.getPassword());
-	    		if (x.getName().equals(uname) && x.getPassword().equals(pword)){
+	    		if (x.getName().equals(uname) && x.getPassword().equals(cryptWithMD5(pword))){
 	    			return true;
 	    		}
 	    	}
@@ -173,5 +183,27 @@ public class LoginScreen {
 	    	return (uname.equals("master") && pword.equals("hello123")); 
 	    }
 
+	    /**
+	     * @param pass
+	     * @return
+	     * 
+	     * password encryption
+	     */
+	    private String cryptWithMD5(String pass){
+	        try {
+	            MessageDigest md = MessageDigest.getInstance("MD5");
+	            byte[] passBytes = pass.getBytes();
+	            md.reset();
+	            byte[] digested = md.digest(passBytes);
+	            StringBuffer sb = new StringBuffer();
+	            for(int i=0;i<digested.length;i++){
+	                sb.append(Integer.toHexString(0xff & digested[i]));
+	            }
+	            return sb.toString();
+	        } catch (NoSuchAlgorithmException ex) {
+	            System.out.println("Error parsing password!");
+	        }
+	            return null;
+	    }
 
 }
