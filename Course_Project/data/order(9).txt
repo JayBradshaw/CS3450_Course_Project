@@ -1,0 +1,21 @@
+Thank you for choosing Mr. Smith's Groceries!
+
+Here is your final receipt
+
+
+Customer Info:
+
+Harry Plopper
+888 Wizard Way, Narsaq, Greenland 
+
+Date: 2017/04/12 20:01:42
+
+Product:                            Cost: Quantity:
+
+Pizza                                7.99          3
+Coca-Cola                            0.75          2
+
+
+Total Cost: 27.00
+Payment Method: Cash
+Delivery Method: Pick Up

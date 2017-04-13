@@ -530,26 +530,35 @@ public class CheckoutScreen {
 							JOptionPane.showMessageDialog(null, "Error! No order to process!");
 						}
 						else{ //print out the receipt based on the orderHelperList
-							getPaymentMethod();
+							//figure out how many points the user wants to use
+							int usedPoints = 0;
+							if (databaseConnection.getCurrentCustomer().getRewardPoints() >=100){
+								usedPoints = getRewardPoints(databaseConnection.getCurrentCustomer().getRewardPoints());
+								if (usedPoints == -1) return;
+							}
+							if (getTotalOrderCost() - usedPoints/100 < 0){
+								JOptionPane.showMessageDialog(null, "Error Points Applied Exceed Total Order Cost!");
+								return;
+							}
 							//add a get delivery method here
+							getPaymentMethod();
 							String deliveryMethod = getDeliveryMethod();
 							//figure out if existing or new customer
-						
+							double value = getTotalOrderCost() - usedPoints/100;
 							if (cashSelected){
-								
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\nTotal Cost: $" + 
-								getTotalOrderCost() +  "\nPlease come again soon!");
+								String.format("%.2f", value) +  "\nPlease come again soon!");
 								//deal with adding a new order based on the order info 
 								//if cash just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
 								System.out.println(buildOrderInfo());
 								if (orderList.isEmpty()){
-									orderList.add(new Order(0,custID, "Cash", getTotalOrderCost(),deliveryMethod, buildOrderInfo(),getCurrentDate()));
+									orderList.add(new Order(0,custID, "Cash", value,deliveryMethod, buildOrderInfo(),getCurrentDate()));
 								}
 								else {
-									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Cash", getTotalOrderCost(),deliveryMethod, buildOrderInfo(),getCurrentDate()));
+									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Cash", value,deliveryMethod, buildOrderInfo(),getCurrentDate()));
 								}								
-								printReceipt("cash",custID,false,deliveryMethod);
+								printReceipt("cash",custID,false,deliveryMethod, getTotalOrderCost() - usedPoints/100);
 								//update the product list to reflect the changes
 								updateProductListDatabase(databaseConnection);
 								productList = databaseConnection.getProductList();
@@ -589,16 +598,16 @@ public class CheckoutScreen {
 								creditCard = new CreditCard(cardNumber,expirationDate,cardName);
 								
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\nTotal Cost: $" + 
-										getTotalOrderCost() +  "\nPlease come again soon!");
+										String.format("%.2f", value) +  "\nPlease come again soon!");
 								int orderListIndex = orderList.size()-1;
 								System.out.println(buildOrderInfo());
 								if (orderList.isEmpty()){
-									orderList.add(new Order(0,custID, "Card", getTotalOrderCost(),deliveryMethod, buildOrderInfo(),getCurrentDate()));
+									orderList.add(new Order(0,custID, "Card", value,deliveryMethod, buildOrderInfo(),getCurrentDate()));
 								}
 								else {
-									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Card", getTotalOrderCost(),deliveryMethod, buildOrderInfo(),getCurrentDate()));
+									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Card", value,deliveryMethod, buildOrderInfo(),getCurrentDate()));
 								}
-								printReceipt("card",custID,cardSelected,deliveryMethod);
+								printReceipt("card",custID,cardSelected,deliveryMethod,getTotalOrderCost() - usedPoints/100);
 								//update the product list to reflect the changes
 								updateProductListDatabase(databaseConnection);
 								productList = databaseConnection.getProductList(); //update the product list
@@ -610,19 +619,19 @@ public class CheckoutScreen {
 							}
 							else if (checkSelected){
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\nTotal Cost: $" + 
-										getTotalOrderCost() +  "\nPlease come again soon!");
+										String.format("%.2f", value) +  "\nPlease come again soon!");
 								//deal with adding a new order based on the order info
 								//if check just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
 								System.out.println(buildOrderInfo());
 								if (orderList.isEmpty()){
-									orderList.add(new Order(0,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo(),getCurrentDate()));
+									orderList.add(new Order(0,custID, "Check", value,deliveryMethod, buildOrderInfo(),getCurrentDate()));
 								}
 								else {
-									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo(),getCurrentDate()));
+									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", value,deliveryMethod, buildOrderInfo(),getCurrentDate()));
 								}
 								//orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
-								printReceipt("check",custID,false,deliveryMethod);
+								printReceipt("check",custID,false,deliveryMethod,getTotalOrderCost() - usedPoints/100);
 								//update the product list to reflect the changes
 								updateProductListDatabase(databaseConnection); //this is not ideal as it should be a part of the database connection class and should just update the quantities
 								productList = databaseConnection.getProductList(); //get the newly updated product list
@@ -632,6 +641,13 @@ public class CheckoutScreen {
 								orderDetails.setText("NO CURRENT ORDER");
 								frame.revalidate();
 							}
+							//update the reward points of the current customer if the customer used rewards points
+							if (usedPoints > 0){
+								databaseConnection.getCurrentCustomer().setRewardPoints(databaseConnection.getCurrentCustomer().getRewardPoints() - usedPoints);	
+								//update the customer list in the database
+								databaseConnection.updateRewardPoints(databaseConnection.getCurrentCustomer());
+							}
+						
 						}
 					}	
 		});
@@ -835,7 +851,7 @@ public class CheckoutScreen {
 	 * 
 	 * prints out a receipt based on an order
 	 */
-	private void printReceipt(String paymentMethod, int custID, boolean card, String deliveryMethod){
+	private void printReceipt(String paymentMethod, int custID, boolean card, String deliveryMethod, double cost){
 		PrintWriter fileOutput = null;
 		int orderID = orderList.get(orderList.size()-1).getOrderID(); //get the correct id for the order
 		String fileName = "data/order(" + orderID + ").txt"; //string to store the order 
@@ -866,7 +882,7 @@ public class CheckoutScreen {
 			//System.out.println("PRICE: " + price);
 			fileOutput.println(String.format("%-30s %10s %10s", item.getProductName(), price, Integer.toString(item.getQuantity())));
 		}
-		fileOutput.println(String.format("\n\nTotal Cost: %.2f", getTotalOrderCost()));
+		fileOutput.println(String.format("\n\nTotal Cost: %.2f", cost));
 		fileOutput.println("Payment Method: " + printPaymentMethod());
 		fileOutput.println("Delivery Method: " + deliveryMethod);
 		
@@ -992,4 +1008,27 @@ public class CheckoutScreen {
 	    return bd.doubleValue();
 	}
 
+	private int getRewardPoints(int currentPoints){
+		String rewardPoints = "";
+		rewardPoints = JOptionPane.showInputDialog(null,"How many reward points would\nyou like to use for this order?\n"
+				+ "Input value should be an evenly divisible by 100\n"
+				+ "Current Points: " + currentPoints);
+		int pointsUsed =0;
+		try{
+			pointsUsed = Integer.parseInt(rewardPoints);
+		}catch(NumberFormatException er ){
+			JOptionPane.showMessageDialog(null, "Invalid value entered!");
+			return -1;
+		}
+		//checks to make sure they input a proper value
+		if (pointsUsed <  0 || pointsUsed%100 != 0){
+			JOptionPane.showMessageDialog(null, "Invalid value entered!");
+			return -1;
+		}
+		if (pointsUsed > currentPoints){
+			JOptionPane.showMessageDialog(null, "Cannot use more points than you have!");
+			return -1; 
+		}
+		return pointsUsed;
+	}
 }
