@@ -9,9 +9,13 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -120,7 +124,6 @@ public class startUpScreen {
 		
 		//loop through the employee list and make each employee icon a button 
 		for (Employee x:databaseConnection.getEmployeeList()){
-		
 			JButton tempButton = new JButton(x.getImage());
 			tempButton.setBackground(baseColor);
 			tempButton.setPreferredSize(new Dimension(100,75));

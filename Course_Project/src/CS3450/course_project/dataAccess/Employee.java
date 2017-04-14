@@ -3,6 +3,12 @@
  */
 package CS3450.course_project.dataAccess;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /**
@@ -88,7 +94,16 @@ public class Employee {
 		return this.imageInfo;
 	}
 	public ImageIcon getImage() {
-		return image;
+		Image img = null;
+		try {
+			img = ImageIO.read(new File(getImageInfo()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		img = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		ImageIcon icon =  new ImageIcon(img);
+		return icon;
 	}
 	public void setImage(String imageInfo) {
 		image = new ImageIcon(imageInfo);

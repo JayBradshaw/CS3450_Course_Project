@@ -205,7 +205,17 @@ public class CheckoutScreen {
 		employeeList = databaseConnection.getEmployeeList();
 		int custID;
 		//get a random value for the card number
-		getCustomerType();
+		//if get customer type is a cancel, jump back to the previous screen
+		if (getCustomerType()== JOptionPane.CANCEL_OPTION) {
+			if(databaseConnection.getEmployee().getAccessRights() > 1){
+				EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
+				frame.dispose();
+			}
+			else {
+			MainScreen screen = new MainScreen(databaseConnection);
+			frame.dispose();
+			}
+		}
 		if (isNewCustomer){
 			//ask them if they want to become a rewards customer
 			int dialogButton = JOptionPane.showConfirmDialog (null, "Would you like to\nbecome a rewards customer?","Rewards Customer",JOptionPane.YES_NO_OPTION);
@@ -747,7 +757,7 @@ public class CheckoutScreen {
 	/**
 	 * get the type of customer for the order
 	 */
-	public void getCustomerType() {
+	public int getCustomerType() {
 		BoxListener boxLis = new BoxListener();
 		
 		existing = new JRadioButton("Existing Customer",true);
@@ -764,7 +774,8 @@ public class CheckoutScreen {
 		selectionPanel.add(newCustomer);
 		selectionPanel.setLayout(new BoxLayout(selectionPanel, BoxLayout.Y_AXIS));
 		
-		JOptionPane.showConfirmDialog(null, selectionPanel, "Customer Type", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+		int x = JOptionPane.showConfirmDialog(null, selectionPanel, "Customer Type", JOptionPane.OK_CANCEL_OPTION ,JOptionPane.QUESTION_MESSAGE);
+		return x;
 	}
 	
 	/**
