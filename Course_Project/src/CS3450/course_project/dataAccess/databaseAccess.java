@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import CS3450.course_project.businessLogic.OrderHelper;
+
 /**
  * @author Justin Bradshaw
  *
@@ -394,6 +396,58 @@ public class databaseAccess {
     	currentCustomer = customer;
     }
     
+    /**
+     * @return
+     * 
+     * gets the sales info for a given product in a given range
+     */
+    public ArrayList<OrderHelper> getProductInfo(Product product,String startDate, String endDate){
+    	//get all of the orders in a given time period
+    	//from those orders extract the ones with the correct product name and add them to the list
+    	ArrayList<OrderHelper> returnList =  new ArrayList<OrderHelper>();
+    	for (Order o : getOrdersInRange(startDate,endDate)){
+    		//need to create an order helper list from each order
+    		//from this list if the order helper list has the right product, add this to the new order helper list
+    		String [] productsOrdered = getIndividualProducts(o.getOrderInfo());
+			String [] individualItems;
+			//break the product by pieces and add it to the orderHelperList
+			for (int i = 0; i < productsOrdered.length; ++i){
+				individualItems = createThreeParts(productsOrdered[i]);
+				System.out.println(individualItems[0] + " " + individualItems[1] + " " + individualItems[2]);
+				if (individualItems[0].equals(product.getName())){ //add it to the list to be returned if the correct product
+					returnList.add(new OrderHelper(individualItems[0],Double.parseDouble(individualItems[1]),Integer.parseInt(individualItems[2])));
+				}
+				
+			}
+    	}
+    	return returnList;
+    }
+    
+    /**
+     * get the total quantity sold of a product in a given range
+     */
+    public int getTotalProductQuantity(Product product,String startDate, String endDate){
+    	int totalQuantity = 0;
+    	ArrayList<OrderHelper> helpList = getProductInfo(product,startDate,endDate);
+    	//once we have the helper list, we need to just get the total cost to deal with
+    	for (OrderHelper o : helpList){
+    		totalQuantity += o.getQuantity();
+    	}
+    	return totalQuantity;
+    }
+    
+    /**
+     * get the total product revenue for a given product in a given time period
+     */
+    public double getTotalProductSales(Product product, String startDate, String endDate){
+    	double totalSales = 0.0d;
+    	ArrayList<OrderHelper> helpList = getProductInfo(product,startDate,endDate);
+    	//once we have the helper list, we need to just get the total cost to deal with
+    	for (OrderHelper o : helpList){
+    		totalSales += o.getQuantity();
+    	}
+    	return totalSales;
+    }
     //all of the needed methods for accessing a customer and adding a new customer to the database
     
     /**
@@ -506,6 +560,9 @@ public class databaseAccess {
     public Customer getCurrentCustomer(){
     	return currentCustomer;
     }
+    
+    
+    
 
     //all of the needed methods for accessing an an order and adding a new order to the database
     /**
@@ -696,6 +753,103 @@ public class databaseAccess {
 		
 		//add the order to the orderList
 		orderList.add(order);
+    }
+    
+    /**
+     * @param startDate
+     * @param endDate
+     * @return
+     * 
+     * get all the orders within a certain range
+     * will be used to get the needed info for a customer in a given range
+     * can also be used to get info for products in a given range
+     */
+    public ArrayList<Order> getOrdersInRange(String startDate, String endDate){
+    	if (endDate.compareTo(startDate) < 0) return null; //error if end date is earlier than start date
+    	ArrayList<Order> oList = new ArrayList<Order>();
+    	for(Order x: orderList){
+    		if (x.getOrderDate().compareTo(startDate) >=0 && x.getOrderDate().compareTo(endDate) <=0){
+    			oList.add(x);
+    		}
+    	}
+    	return oList;
+    }
+    
+    /**
+     * @param cust
+     * @param startDate
+     * @param endDate
+     * @return
+     * 
+     * get all of the orders by a specific customer in a given range
+     */
+    public ArrayList<Order> getOrdersByCustomer(Customer cust, String startDate, String endDate){
+    	if (endDate.compareTo(startDate) < 0) return null; //error if end date is earlier than start date
+    	ArrayList<Order> oList = new ArrayList<Order>();
+    	for (Order x: getOrdersInRange(startDate,endDate)){
+    		if (x.getCustomerID() == cust.getCustomerID()){
+    			oList.add(x);
+    		}
+    	}
+    	return oList;
+    }
+    
+    /**
+     * @param cust
+     * @param startDate
+     * @param endDate
+     * @return
+     * 
+     * this list will be used to display an overview of the total item purchases of a customer in a given period
+     * This is only used to get the total quantity of each item that is purchased. A separate method gets the total cost
+     */
+    public ArrayList<OrderHelper> getHelperListByCustomer(Customer cust, String startDate, String endDate){
+    	if (endDate.compareTo(startDate) < 0) return null; //error if end date is earlier than start date
+    	//from all of the orders, add them to the helper list. see the returns screen for functions to help with this
+    	ArrayList<Order> oList = getOrdersByCustomer(cust,startDate,endDate);
+    	ArrayList<OrderHelper> helpList = new ArrayList<OrderHelper>();
+    	//iterate through the order list getting the order info and adding it to the order helper list
+		//get the individual products
+    	for (Order x: oList){
+			String [] productsOrdered = getIndividualProducts(x.getOrderInfo());
+			String [] individualItems;
+			//break the product by pieces and add it to the orderHelperList
+			for (int i = 0; i < productsOrdered.length; ++i){
+				individualItems = createThreeParts(productsOrdered[i]);
+				System.out.println(individualItems[0] + " " + individualItems[1] + " " + individualItems[2]);
+				//check if the help list already has this product, if so just increment the total
+				//otherwise just increment the quantity in the helper list
+				if (contains(individualItems[0],helpList)){ //item already there
+					for (OrderHelper o : helpList){
+						if (o.getProductName().equals(individualItems[0])){ //increment the quantity of the item
+								o.setQuantity(o.getQuantity() + Integer.parseInt(individualItems[2]));
+						}
+					}
+				}
+				else { //item not already there add a new item to the list
+				helpList.add(new OrderHelper(individualItems[0],Double.parseDouble(individualItems[1]),Integer.parseInt(individualItems[2])));
+				}
+			}
+    	}
+    	return helpList;
+    }
+    
+    /**
+     * @param startDate
+     * @param endDate
+     * @return
+     * 
+     * get the total cost of the orders for a specific customer based on a range 
+     * this will be used with the get helper list by customer so that you can know the total cost of the orders placed by that customer in a time period
+     */
+    public double getTotalCost(Customer cust, String startDate, String endDate){
+    	ArrayList<Order> oList = getOrdersByCustomer(cust,startDate,endDate); //get all customers within a specific date
+    	//loop through the entire list and get the total cost. Return it.
+    	double totalCost = 0.0d;
+    	for (Order o: oList){
+    		totalCost += o.getTotalCost();
+    	}
+    	return totalCost;
     }
     
     //all of the needed methods for accessing an employee and adding a new employee to the database
@@ -986,5 +1140,37 @@ public class databaseAccess {
      */
     public void addNewSaleItem(SaleItem item){
     	saleList.add(item);
+    }
+    
+    //these next two will be used to create an orderHelperList from an order if you want to return anything
+    /**
+     * @param toDivide
+     * @return
+     * 
+     * break up the individual order item into its three parts
+     */
+    private String [] createThreeParts(String toDivide){
+        String delims = "['^']+";
+        String [] toReturn = toDivide.split(delims);
+        return toReturn;
+    }
+
+    /**
+     * @param toDivide
+     * @return
+     * 
+     * get individual products from the orderInfo
+     */
+    private String [] getIndividualProducts(String toDivide){
+        String delims = "[|]+";
+        String [] toReturn = toDivide.split(delims);
+        return toReturn;
+    }
+	
+    private boolean contains(String item, ArrayList<OrderHelper> list){
+    	for (OrderHelper x : list){
+    		if (x.getProductName().equals(item))return true;
+    	}
+    	return false;
     }
 }
