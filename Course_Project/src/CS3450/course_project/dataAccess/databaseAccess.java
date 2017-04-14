@@ -444,7 +444,7 @@ public class databaseAccess {
     	ArrayList<OrderHelper> helpList = getProductInfo(product,startDate,endDate);
     	//once we have the helper list, we need to just get the total cost to deal with
     	for (OrderHelper o : helpList){
-    		totalSales += o.getQuantity();
+    		totalSales += o.getProductPrice() * o.getQuantity();
     	}
     	return totalSales;
     }
