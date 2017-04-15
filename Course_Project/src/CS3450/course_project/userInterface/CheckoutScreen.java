@@ -192,6 +192,7 @@ public class CheckoutScreen {
 	 * create a panel to hold all of the buttons
 	 */
 	private JPanel buttonPanel = new JPanel(new FlowLayout());
+	EmployeeMainScreen empMain;
 	
 	/**
 	 * @param productList
@@ -206,14 +207,14 @@ public class CheckoutScreen {
 		int custID;
 		//get a random value for the card number
 		//if get customer type is a cancel, jump back to the previous screen
-		if (getCustomerType()== JOptionPane.CANCEL_OPTION) {
+		if (getCustomerType() == JOptionPane.CANCEL_OPTION) {
 			if(databaseConnection.getEmployee().getAccessRights() > 1){
-				EmployeeMainScreen screen = new EmployeeMainScreen(databaseConnection);
 				frame.dispose();
+				empMain = new EmployeeMainScreen(databaseConnection);
 			}
 			else {
-			MainScreen screen = new MainScreen(databaseConnection);
-			frame.dispose();
+				frame.dispose();
+			    screen = new MainScreen(databaseConnection);
 			}
 		}
 		if (isNewCustomer){
@@ -242,7 +243,7 @@ public class CheckoutScreen {
 			
 		}
 		else {
-			while (!checkValidCustID(custID = Integer.parseInt(JOptionPane.showInputDialog("Enter your customer ID")))){
+			while (!checkValidCustID(custID = Integer.parseInt(JOptionPane.showInputDialog(null,"Enter your customer ID",JOptionPane.DEFAULT_OPTION)))){
 				JOptionPane.showMessageDialog(null, "Please enter a valid customer ID");
 		    }
 			databaseConnection.setCurrentCustomer(databaseConnection.getCustomerFromID(custID));
@@ -774,7 +775,7 @@ public class CheckoutScreen {
 		selectionPanel.add(newCustomer);
 		selectionPanel.setLayout(new BoxLayout(selectionPanel, BoxLayout.Y_AXIS));
 		
-		int x = JOptionPane.showConfirmDialog(null, selectionPanel, "Customer Type", JOptionPane.OK_CANCEL_OPTION ,JOptionPane.QUESTION_MESSAGE);
+		int x = JOptionPane.showConfirmDialog(null, selectionPanel, "Customer Type", JOptionPane.DEFAULT_OPTION ,JOptionPane.QUESTION_MESSAGE);
 		return x;
 	}
 	

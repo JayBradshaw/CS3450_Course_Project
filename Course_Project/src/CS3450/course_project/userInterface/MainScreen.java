@@ -9,6 +9,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -95,6 +96,14 @@ public class MainScreen {
 	 */
 	private JButton editMyInfo = new JButton("Edit My Info"); 
 	/**
+	 * button for seeing revenue reports
+	 */
+	private JButton revenueReports = new JButton("Revenue Reports");
+	/**
+	 * button for managing sale items
+	 */
+	private JButton saleItems = new JButton("Sale Items");
+	/**
 	 * base color for the GUI
 	 */
 	private Color baseColor = new Color(180,242,110);
@@ -130,6 +139,10 @@ public class MainScreen {
 	 * panel that will hold the returns, and edit my info buttons
 	 */
 	private JPanel buttonPanel2 = new JPanel(new FlowLayout());
+	/**
+	 * middle panel of buttons that contains the checkout button and the revenue button
+	 */
+	private JPanel middlePanel = new JPanel(new GridLayout(1,2));
 	/**
 	 * @param databaseConnection
 	 * 
@@ -171,7 +184,7 @@ public class MainScreen {
 		checkout.setBackground(baseColor);
 		checkout.setForeground(secondaryColor);
 		checkout.setFont(buttonFont);
-		checkout.setPreferredSize(new Dimension(frame.getWidth()/2,150));
+		checkout.setPreferredSize(new Dimension(frame.getWidth()/4,150));
 		checkout.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
 		//checkout.setMargin(new Insets(15,15,15,15));
 		//listener for the checkout button
@@ -189,6 +202,27 @@ public class MainScreen {
 					}
 					
 				});
+		
+		//revenue reports button layout
+		revenueReports.setBackground(baseColor);
+		revenueReports.setForeground(secondaryColor);
+		revenueReports.setFont(buttonFont);
+		revenueReports.setPreferredSize(new Dimension(frame.getWidth()/4,150));
+		revenueReports.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
+		//checkout.setMargin(new Insets(15,15,15,15));
+		//listener for the checkout button
+		revenueReports.addActionListener(
+				new ActionListener(){
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						JOptionPane.showMessageDialog(null,"This screen has not yet been implemented!");
+					}
+					
+				});
+		
+		middlePanel.add(checkout);
+		middlePanel.add(revenueReports);
 		
 		//make the inventory button look pretty
 		inventory.setBackground(baseColor);
@@ -270,7 +304,7 @@ public class MainScreen {
 		returns.setBackground(baseColor);
 		returns.setForeground(secondaryColor);
 		returns.setFont(buttonFont);
-		returns.setPreferredSize(new Dimension(frame.getWidth()/4,125));
+		returns.setPreferredSize(new Dimension(frame.getWidth()/4,82));
 		returns.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
 		//returns.setMargin(new Insets(15,15,15,15));
 		//listener for the manage inventory button
@@ -292,7 +326,7 @@ public class MainScreen {
 		editMyInfo.setBackground(baseColor);
 		editMyInfo.setForeground(secondaryColor);
 		editMyInfo.setFont(buttonFont);
-		editMyInfo.setPreferredSize(new Dimension(frame.getWidth()/4,125));
+		editMyInfo.setPreferredSize(new Dimension(frame.getWidth()/4,82));
 		editMyInfo.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
 		//returns.setMargin(new Insets(15,15,15,15));
 		//listener for the manage inventory button
@@ -317,6 +351,25 @@ public class MainScreen {
 					
 				});
 		
+		//functionality for the sale items button
+				saleItems.setBackground(baseColor);
+				saleItems.setForeground(secondaryColor);
+				saleItems.setFont(buttonFont);
+				saleItems.setPreferredSize(new Dimension(frame.getWidth()/4,82));
+				saleItems.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
+				//returns.setMargin(new Insets(15,15,15,15));
+				//listener for the manage inventory button
+				saleItems.addActionListener(
+						new ActionListener(){
+
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								//deal with the new screen that should appear
+								JOptionPane.showMessageDialog(null,"This screen has not yet been implemented!");
+							}
+							
+						});
+		
 		//specifications for second button panel
 		buttonPanel2.setBackground(baseColor);
 		buttonPanel2.setForeground(secondaryColor);
@@ -324,6 +377,7 @@ public class MainScreen {
 		buttonPanel2.setPreferredSize(new Dimension(frame.getWidth()/4,250));
 		buttonPanel2.add(returns);
 		buttonPanel2.add(editMyInfo);
+		buttonPanel2.add(saleItems);
 
 		//make the footer look pretty
 		storeFooter.setBackground(baseColor);
@@ -333,7 +387,7 @@ public class MainScreen {
 		storeFooter.setOpaque(true);
 
 		pane.add(storeHeader, BorderLayout.PAGE_START);
-		pane.add(checkout, BorderLayout.CENTER);
+		pane.add(middlePanel, BorderLayout.CENTER);
 		pane.add(buttonPanel, BorderLayout.LINE_START);
 		pane.add(buttonPanel2,BorderLayout.LINE_END);
 		pane.add(storeFooter, BorderLayout.PAGE_END);
