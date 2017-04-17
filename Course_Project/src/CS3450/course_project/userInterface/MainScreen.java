@@ -150,12 +150,11 @@ public class MainScreen {
 	 */
 	public MainScreen(databaseAccess databaseConnection){
 		//enable and disable buttons based on the employee type
-		enableDisableButtons(databaseConnection.getEmployee().getAccessRights());
+		//enableDisableButtons(databaseConnection.getEmployee().getAccessRights());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
 		pane.setLayout(new BorderLayout());
-		
 
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
 		JLabel icon1Label = new JLabel();
@@ -365,7 +364,8 @@ public class MainScreen {
 							@Override
 							public void actionPerformed(ActionEvent e) {
 								//deal with the new screen that should appear
-								JOptionPane.showMessageDialog(null,"This screen has not yet been implemented!");
+								frame.dispose();
+								ManageSaleItems items = new ManageSaleItems(databaseConnection);
 							}
 							
 						});

@@ -569,7 +569,7 @@ public class CheckoutScreen {
 								else {
 									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Cash", value,deliveryMethod, buildOrderInfo(),getCurrentDate()));
 								}								
-								printReceipt("cash",custID,false,deliveryMethod, getTotalOrderCost() - usedPoints/100);
+								printReceipt("cash",custID,false,deliveryMethod, getTotalOrderCost() - usedPoints/100,databaseConnection.getEmployee().getName());
 								//update the product list to reflect the changes
 								updateProductListDatabase(databaseConnection);
 								productList = databaseConnection.getProductList();
@@ -618,7 +618,7 @@ public class CheckoutScreen {
 								else {
 									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Card", value,deliveryMethod, buildOrderInfo(),getCurrentDate()));
 								}
-								printReceipt("card",custID,cardSelected,deliveryMethod,getTotalOrderCost() - usedPoints/100);
+								printReceipt("card",custID,cardSelected,deliveryMethod,getTotalOrderCost() - usedPoints/100,databaseConnection.getEmployee().getName());
 								//update the product list to reflect the changes
 								updateProductListDatabase(databaseConnection);
 								productList = databaseConnection.getProductList(); //update the product list
@@ -642,7 +642,7 @@ public class CheckoutScreen {
 									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", value,deliveryMethod, buildOrderInfo(),getCurrentDate()));
 								}
 								//orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
-								printReceipt("check",custID,false,deliveryMethod,getTotalOrderCost() - usedPoints/100);
+								printReceipt("check",custID,false,deliveryMethod,getTotalOrderCost() - usedPoints/100,databaseConnection.getEmployee().getName());
 								//update the product list to reflect the changes
 								updateProductListDatabase(databaseConnection); //this is not ideal as it should be a part of the database connection class and should just update the quantities
 								productList = databaseConnection.getProductList(); //get the newly updated product list
@@ -863,7 +863,7 @@ public class CheckoutScreen {
 	 * 
 	 * prints out a receipt based on an order
 	 */
-	private void printReceipt(String paymentMethod, int custID, boolean card, String deliveryMethod, double cost){
+	private void printReceipt(String paymentMethod, int custID, boolean card, String deliveryMethod, double cost, String employeeName){
 		PrintWriter fileOutput = null;
 		int orderID = orderList.get(orderList.size()-1).getOrderID(); //get the correct id for the order
 		String fileName = "data/order(" + orderID + ").txt"; //string to store the order 
@@ -897,7 +897,7 @@ public class CheckoutScreen {
 		fileOutput.println(String.format("\n\nTotal Cost: %.2f", cost));
 		fileOutput.println("Payment Method: " + printPaymentMethod());
 		fileOutput.println("Delivery Method: " + deliveryMethod);
-		
+		fileOutput.println("Order Processed By: " + employeeName);
 		fileOutput.close();
 	}
 	

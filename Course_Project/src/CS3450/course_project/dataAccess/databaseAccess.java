@@ -1139,7 +1139,73 @@ public class databaseAccess {
      * add a new item to the sale list
      */
     public void addNewSaleItem(SaleItem item){
+    	//update the sale list based on a given item
+    	Connection con = null;
+		Statement statement = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String query = "insert into saleitems (id, name, salePrice, startDate, endDate) values (" + item.getID() + ',' + '"' + 
+				item.getName() + '"' + ',' + item.getSalePrice() + ',' + '"' + item.getStartDate() + '"' + ',' + '"' + item.getEndDate() +
+				'"' + ';';
+		System.out.println(query);
+		try {
+			statement = con.createStatement();
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			con.close();
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     	saleList.add(item);
+    }
+    
+    public void removeSaleItem(SaleItem item){
+    	//update the sale list based on a given item
+    	Connection con = null;
+		Statement statement = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String query = "delete from saleitems where id = " + item.getID() + ";";
+		System.out.println(query);
+		try {
+			statement = con.createStatement();
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			con.close();
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	saleList.remove(item);
     }
     
     //these next two will be used to create an orderHelperList from an order if you want to return anything
