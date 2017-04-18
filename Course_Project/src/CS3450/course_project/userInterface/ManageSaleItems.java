@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -211,7 +212,7 @@ public class ManageSaleItems implements ActionListener{
 		
 		middlePanel.add(middleBottom, BorderLayout.PAGE_END);
 		
-		scrollPane = new JScrollPane(createDefaultTable(databaseConnection));
+		scrollPane = new JScrollPane(createDefaultTable());
 		
 		middlePanel.add(scrollPane, BorderLayout.CENTER);
 
@@ -238,9 +239,32 @@ public class ManageSaleItems implements ActionListener{
 	 * 
 	 * create a table based on all items within a start and end date
 	 */
-	private JTable createTable(String startDate, String endDate, databaseAccess databaseConnection){
-		String[] columns = {"Product" , "Sale Price" , "Start Date","End Date"};
-		return null;
+	private JTable createTable(String startDate, String endDate){
+		Vector<String> columns = new Vector<String>();
+		columns.addElement("Product");
+		columns.addElement("Sale Price");
+		columns.addElement("Start Date");
+		columns.addElement("End Date");
+		Vector<Vector> data = new Vector<Vector>();
+		
+		ArrayList<SaleItem> saleList = databaseConnection.getSaleList();
+		for (int i = 0; i < saleList.size(); ++i){
+			System.out.println(saleList.get(i).getName());
+			System.out.println(saleList.get(i).getStartDate() + " | " + saleList.get(i).getEndDate());
+			System.out.println(saleList.get(i).getStartDate().compareTo(startDate) + " | " + saleList.get(i).getEndDate().compareTo(endDate));
+			if (saleList.get(i).getStartDate().compareTo(startDate) >=0 && saleList.get(i).getEndDate().compareTo(endDate) <=0){
+				Vector<Object> vect = new Vector<Object>();
+				vect.addElement(saleList.get(i).getName());
+				vect.addElement(String.format("$ %.2f", saleList.get(i).getSalePrice()));
+				vect.addElement(saleList.get(i).getStartDate());
+				vect.addElement(saleList.get(i).getEndDate());
+				data.addElement(vect);
+			}
+		}
+		JTable table = new JTable(data,columns);
+		table.setDefaultEditor(Object.class,null);
+		return table;
+
 	}
 	
 	/**
@@ -249,7 +273,7 @@ public class ManageSaleItems implements ActionListener{
 	 * 
 	 * create default table that contains all of the items
 	 */
-	private JTable createDefaultTable(databaseAccess databaseConnection){
+	private JTable createDefaultTable(){
 		Vector<String> columns = new Vector<String>();
 		columns.addElement("Product");
 		columns.addElement("Sale Price");
@@ -262,7 +286,7 @@ public class ManageSaleItems implements ActionListener{
 		for (int i = 0; i < saleList.size(); ++i){
 			Vector<Object> vect = new Vector<Object>();
 			vect.addElement(saleList.get(i).getName());
-			vect.addElement(saleList.get(i).getSalePrice());
+			vect.addElement(String.format("$ %.2f", saleList.get(i).getSalePrice()));
 			vect.addElement(saleList.get(i).getStartDate());
 			vect.addElement(saleList.get(i).getEndDate());
 			data.addElement(vect);
@@ -316,12 +340,37 @@ public class ManageSaleItems implements ActionListener{
 		System.out.println(e.getSource());
 		if (e.getSource() == showAll){
 			//just call the create default table
-			scrollPane = new JScrollPane(createDefaultTable(databaseConnection));
+			scrollPane = new JScrollPane(createDefaultTable());
+			middlePanel.add(scrollPane,BorderLayout.CENTER);
 			frame.revalidate();
 		}
 		else if (e.getSource() == returnHome){
 			frame.dispose();
 			MainScreen screen = new MainScreen(databaseConnection);
+		}
+		else if (e.getSource() == add){
+			
+		}
+		else if (e.getSource() == remove){
+			String toRemove = JOptionPane.showInputDialog(null,"Enter a product name:");
+			databaseConnection.removeSaleItem(getItemFromName(toRemove));
+			saleList.remove(getItemFromName(toRemove));
+			scrollPane = new JScrollPane(createDefaultTable());
+			middlePanel.add(scrollPane, BorderLayout.CENTER);
+			frame.revalidate();
+		}
+		else if (e.getSource() == removeExpired){
+			//remove all of the items that have an end date that is later than the current date
+			removeExpired();
+			scrollPane = new JScrollPane(createDefaultTable());
+			middlePanel.add(scrollPane, BorderLayout.CENTER);
+			frame.revalidate();
+		}
+		else if (e.getSource() == showInRange){
+			System.out.println("Show in Range button pressed");
+			scrollPane = new JScrollPane(createTable(startField.getText(),endField.getText()));
+			middlePanel.add(scrollPane,BorderLayout.CENTER);
+			frame.revalidate();
 		}
 		
 	}
