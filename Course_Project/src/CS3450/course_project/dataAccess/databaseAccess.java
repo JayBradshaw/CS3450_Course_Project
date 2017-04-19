@@ -1156,7 +1156,7 @@ public class databaseAccess {
 		
 		String query = "insert into saleitems (id, name, salePrice, startDate, endDate) values (" + item.getID() + ',' + '"' + 
 				item.getName() + '"' + ',' + item.getSalePrice() + ',' + '"' + item.getStartDate() + '"' + ',' + '"' + item.getEndDate() +
-				'"' + ';';
+				'"' + ");";
 		System.out.println(query);
 		try {
 			statement = con.createStatement();

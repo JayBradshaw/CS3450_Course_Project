@@ -9,6 +9,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -45,7 +46,7 @@ public class ManageSaleItems implements ActionListener{
 	/**
 	 * frame where the system will be produced
 	 */
-	private JFrame frame = new JFrame("Grocery Store Checkout System: Main");
+	private JFrame frame = new JFrame("Grocery Store Checkout System: Manage Sale Items");
 	/**
 	 * pane to be contained in the frame
 	 */
@@ -74,10 +75,6 @@ public class ManageSaleItems implements ActionListener{
 	 * base font for the header
 	 */
 	private Font baseFont = new Font("Verdana", Font.BOLD,16);
-	/**
-	 * font specifications for the buttons
-	 */
-	private Font buttonFont = new Font("Verdana", Font.PLAIN, 16);
 	/**
 	 * button to add a new sale item
 	 */
@@ -119,6 +116,14 @@ public class ManageSaleItems implements ActionListener{
 	 */
 	private JTextField endField = new JTextField(15);
 	/**
+	 * name text field
+	 */
+	private JTextField nameField = new JTextField(15);
+	/**
+	 * price text field
+	 */
+	private JTextField priceField = new JTextField(15);
+	/**
 	 * panel for the middle of the screen
 	 */
 	private JPanel middlePanel = new JPanel(new BorderLayout());
@@ -142,6 +147,30 @@ public class ManageSaleItems implements ActionListener{
 	 * return to the home screen
 	 */
 	private JButton returnHome = new JButton("Return");
+	/**
+	 * edit an existing sale item
+	 */
+	private JButton editItem = new JButton("Edit Existing");
+	/**
+	 * cancel an edit or an add
+	 */
+	private JButton cancel = new JButton("Cancel");
+	/**
+	 * save any changes to a particular item
+	 */
+	private JButton saveEdit = new JButton("Save Edit");
+	/**
+	 * add a new item
+	 */
+	private JButton addNew = new JButton("Add New");
+	/**
+	 * panel for middle header than contains start and end date
+	 */
+	private JPanel midHeader = new JPanel(new FlowLayout());
+	/**
+	 * panel for edit portion
+	 */
+	private JPanel editPanel = new JPanel(new GridLayout(5,2));
 	/**
 	 * @param databaseConnection
 	 * non-default constructor
@@ -177,44 +206,19 @@ public class ManageSaleItems implements ActionListener{
 		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
 		
-		//create a flow layout for the PAGE_START area of the middle panel
-		JPanel midHeader = new JPanel(new FlowLayout());
-		midHeader.add(dateFormatting);
-		midHeader.add(startLabel);
-		midHeader.add(startField);
-		midHeader.add(endLabel);
-		midHeader.add(endField);
-		showInRange.setBackground(secondaryColor);
-		showInRange.setForeground(baseColor);
-		showInRange.addActionListener(this);
-		midHeader.add(showInRange);
-		middlePanel.add(midHeader,BorderLayout.PAGE_START);
-		add.setBackground(secondaryColor);
-		add.setForeground(baseColor);
-		add.addActionListener(this);
-		middleBottom.add(add);
-		remove.setBackground(secondaryColor);
-		remove.setForeground(baseColor);
-		remove.addActionListener(this);
-		middleBottom.add(remove);
-		removeExpired.setBackground(secondaryColor);
-		removeExpired.setForeground(baseColor);
-		removeExpired.addActionListener(this);
-		middleBottom.add(removeExpired);
-		showAll.setBackground(secondaryColor);
-		showAll.setForeground(baseColor);
-		showAll.addActionListener(this);
-		middleBottom.add(showAll);
-		returnHome.setBackground(secondaryColor);
-		returnHome.setForeground(baseColor);
-		returnHome.addActionListener(this);
-		middleBottom.add(returnHome);
+		initializeMiddlePanel();
+
 		
-		middlePanel.add(middleBottom, BorderLayout.PAGE_END);
-		
-		scrollPane = new JScrollPane(createDefaultTable());
-		
-		middlePanel.add(scrollPane, BorderLayout.CENTER);
+		//configurations for buttons used in specific cases
+		addNew.setBackground(secondaryColor);
+		addNew.setForeground(baseColor);
+		addNew.addActionListener(this);
+		saveEdit.setBackground(secondaryColor);
+		saveEdit.setForeground(baseColor);
+		saveEdit.addActionListener(this);
+		cancel.setBackground(secondaryColor);
+		cancel.setForeground(baseColor);
+		cancel.addActionListener(this);
 
 		
 		//make the footer look pretty
@@ -312,12 +316,18 @@ public class ManageSaleItems implements ActionListener{
 	 */
 	private void removeExpired(){
 		String date = getCurrentDate();
-		for (SaleItem x: databaseConnection.getSaleList()){
+		//create a copy of the list and remove from the copy
+		ArrayList<SaleItem> copyList = new ArrayList<SaleItem>();
+		ArrayList<SaleItem> tempSaleList = new ArrayList<SaleItem>(databaseConnection.getSaleList());
+		for (SaleItem x: tempSaleList){
 			if (x.getEndDate().compareTo(date) < 0) { //remove the sale item
-				saleList.remove(x);
 				databaseConnection.removeSaleItem(x);
 			}
+			else {
+				copyList.add(x);
+			}
 		}
+		saleList = copyList;
 	}
 
 	/**
@@ -332,6 +342,51 @@ public class ManageSaleItems implements ActionListener{
 			if (x.getName().equals(prodName)) return x;
 		}
 		return null;
+	}
+
+	private void initializeMiddlePanel(){
+		
+		midHeader.add(dateFormatting);
+		midHeader.add(startLabel);
+		midHeader.add(startField);
+		midHeader.add(endLabel);
+		midHeader.add(endField);
+		showInRange.setBackground(secondaryColor);
+		showInRange.setForeground(baseColor);
+		showInRange.addActionListener(this);
+		midHeader.add(showInRange);
+		
+		middlePanel.add(midHeader,BorderLayout.PAGE_START);
+		add.setBackground(secondaryColor);
+		add.setForeground(baseColor);
+		add.addActionListener(this);
+		middleBottom.add(add);
+		remove.setBackground(secondaryColor);
+		remove.setForeground(baseColor);
+		remove.addActionListener(this);
+		middleBottom.add(remove);
+		removeExpired.setBackground(secondaryColor);
+		removeExpired.setForeground(baseColor);
+		removeExpired.addActionListener(this);
+		middleBottom.add(removeExpired);
+		showAll.setBackground(secondaryColor);
+		showAll.setForeground(baseColor);
+		showAll.addActionListener(this);
+		middleBottom.add(showAll);
+		editItem.setBackground(secondaryColor);
+		editItem.setForeground(baseColor);
+		editItem.addActionListener(this);
+		middleBottom.add(editItem);
+		returnHome.setBackground(secondaryColor);
+		returnHome.setForeground(baseColor);
+		returnHome.addActionListener(this);
+		middleBottom.add(returnHome);
+		
+		middlePanel.add(middleBottom, BorderLayout.PAGE_END);
+		
+		scrollPane = new JScrollPane(createDefaultTable());
+		
+		middlePanel.add(scrollPane, BorderLayout.CENTER);
 	}
 
 	//deal with all of the buttons
@@ -349,29 +404,48 @@ public class ManageSaleItems implements ActionListener{
 			MainScreen screen = new MainScreen(databaseConnection);
 		}
 		else if (e.getSource() == add){
-			
+			//go to add item screen
+			AddNewItem screen = new AddNewItem(databaseConnection);
+			frame.dispose();
 		}
 		else if (e.getSource() == remove){
 			String toRemove = JOptionPane.showInputDialog(null,"Enter a product name:");
+			if (toRemove == null){ 
+				//if the user cancels just return
+				return;
+			}
+			//NEED TO ADD ERROR CHECKING HERE!!!!!!!!!!
 			databaseConnection.removeSaleItem(getItemFromName(toRemove));
 			saleList.remove(getItemFromName(toRemove));
 			scrollPane = new JScrollPane(createDefaultTable());
 			middlePanel.add(scrollPane, BorderLayout.CENTER);
 			frame.revalidate();
 		}
-		else if (e.getSource() == removeExpired){
+		else if (e.getSource() == removeExpired){ //remove expired items
 			//remove all of the items that have an end date that is later than the current date
 			removeExpired();
 			scrollPane = new JScrollPane(createDefaultTable());
 			middlePanel.add(scrollPane, BorderLayout.CENTER);
 			frame.revalidate();
 		}
-		else if (e.getSource() == showInRange){
+		else if (e.getSource() == showInRange){ //show items in a given range
 			System.out.println("Show in Range button pressed");
 			scrollPane = new JScrollPane(createTable(startField.getText(),endField.getText()));
 			middlePanel.add(scrollPane,BorderLayout.CENTER);
 			frame.revalidate();
 		}
-		
+		else if (e.getSource() == editItem){ //edit an existing item\
+			String item = JOptionPane.showInputDialog(null,"Enter the item name");
+			if (item == null){
+				return;
+			}
+			if (getItemFromName(item) == null){
+				JOptionPane.showMessageDialog(null, "Error! Invalid sale item entered!");
+				return;
+			}
+			frame.dispose();
+			EditItem screen = new EditItem(databaseConnection,getItemFromName(item));
+		}
+
 	}
 }

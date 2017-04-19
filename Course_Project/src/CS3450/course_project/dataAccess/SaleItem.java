@@ -45,7 +45,7 @@ public class SaleItem implements Comparable{
 	 * 
 	 * non-default constructor to initialize objects
 	 */
-	SaleItem(int id, String name, double salePrice, String startDate, String endDate){
+	public SaleItem(int id, String name, double salePrice, String startDate, String endDate){
 		this.id = id;
 		this.name = name;
 		this.salePrice = salePrice;
