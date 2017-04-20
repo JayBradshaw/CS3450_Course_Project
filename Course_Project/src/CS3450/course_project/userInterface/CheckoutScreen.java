@@ -41,7 +41,7 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import CS3450.course_project.businessLogic.CreditCard;
-import CS3450.course_project.businessLogic.OrderHelper;
+import CS3450.course_project.dataAccess.OrderHelper;
 import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Employee;
 import CS3450.course_project.dataAccess.Order;

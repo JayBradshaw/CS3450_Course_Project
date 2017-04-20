@@ -26,7 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import CS3450.course_project.businessLogic.OrderHelper;
+import CS3450.course_project.dataAccess.OrderHelper;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
 import CS3450.course_project.dataAccess.DatabaseAccess;

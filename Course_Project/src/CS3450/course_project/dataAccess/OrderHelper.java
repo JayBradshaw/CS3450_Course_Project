@@ -1,8 +1,7 @@
 /**
  * 
  */
-package CS3450.course_project.businessLogic;
-
+package CS3450.course_project.dataAccess;
 /**
  * @author Justin Bradshaw
  *
@@ -42,6 +41,7 @@ public class OrderHelper {
 		this.productID = productID;
 		this.productPrice = productPrice;
 		this.quantity = quantity;
+		this.orderDate = orderDate;
 	}
 	/**
 	 * @param id

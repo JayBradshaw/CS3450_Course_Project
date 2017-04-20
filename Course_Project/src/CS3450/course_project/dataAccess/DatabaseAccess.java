@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import CS3450.course_project.businessLogic.OrderHelper;
+import CS3450.course_project.dataAccess.OrderHelper;
 
 /**
  * @author Justin Bradshaw
@@ -1327,5 +1327,27 @@ public class DatabaseAccess {
 		}
     	helperList.clear();
     	createOrderHelperList();
+    }
+    
+    /**
+     * @param startDate
+     * @param endDate
+     * @return
+     * 
+     * get all the order helper items within a certain range
+     * used to get info for products in a given range
+     */
+    public ArrayList<OrderHelper> getHelperItemsInRange(String startDate, String endDate){
+    	if (endDate.compareTo(startDate) < 0) return null; //error if end date is earlier than start date
+    	ArrayList<OrderHelper> oList = new ArrayList<OrderHelper>();
+    	//System.out.println("Checking for items in range");
+    	//System.out.println("Helper List Size: " + helperList.size());
+    	for(OrderHelper x: helperList){
+    		//System.out.println(x.getDate());
+    		if (x.getDate().compareTo(startDate) >=0 && x.getDate().compareTo(endDate) <=0){
+    			oList.add(x);
+    		}
+    	}
+    	return oList;
     }
 }

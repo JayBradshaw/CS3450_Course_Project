@@ -28,7 +28,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import CS3450.course_project.businessLogic.OrderHelper;
+import CS3450.course_project.dataAccess.OrderHelper;
 import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Employee;
 import CS3450.course_project.dataAccess.Order;
@@ -216,7 +216,8 @@ public class MainScreen {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showMessageDialog(null,"This screen has not yet been implemented!");
+						frame.dispose();
+						RevenueReports screen = new RevenueReports(databaseConnection);
 					}
 					
 				});
@@ -434,19 +435,6 @@ public class MainScreen {
 			return -1;
 		}
 		return toReturn;
-	}
-	//checkout, inventory,returns,employees,logout,editmyinfo
-	private void enableDisableButtons(int accessRights){
-		if (accessRights >= 2){
-			inventory.setEnabled(false);
-			employees.setEnabled(false);
-		}
-		if (accessRights == 3){
-			returns.setEnabled(false);
-		}
-		if (accessRights == 4){
-			checkout.setEnabled(false);
-		}
 	}
 
 }
