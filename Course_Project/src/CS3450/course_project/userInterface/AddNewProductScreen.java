@@ -110,7 +110,6 @@ public class AddNewProductScreen {
 	 */
 	public AddNewProductScreen(DatabaseAccess databaseConnection){
 		productList = databaseConnection.getProductList();
-		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();

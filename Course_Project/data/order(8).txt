@@ -8,10 +8,7 @@ Customer Info:
 Harry Plopper
 888 Wizard Way, Narsaq, Greenland 
 
-Card Info: 
-Card Holder: Harry Plopper
-Card Number: ************5896
-Date: 2017/04/05 22:28:15
+Date: 2017/04/20 15:11:49
 
 Product:                            Cost: Quantity:
 
@@ -19,5 +16,6 @@ Pizza                                7.99          2
 
 
 Total Cost: 16.94
-Payment Method: Card
+Payment Method: Cash
 Delivery Method: Pick Up
+Order Processed By: Ignacio S

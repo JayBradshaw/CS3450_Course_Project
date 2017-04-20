@@ -426,6 +426,7 @@ public class CheckoutScreen {
 	 * non-default constructor
 	 */
 	public CheckoutScreen(DatabaseAccess databaseConnection, ArrayList<OrderHelper> orderHelperList){
+		this.databaseConnection = databaseConnection;
 		productList = databaseConnection.getProductList();
 		customerList = databaseConnection.getCustomerList();
 		orderList = databaseConnection.getOrderList();

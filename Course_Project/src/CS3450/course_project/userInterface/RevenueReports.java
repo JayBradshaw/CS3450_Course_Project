@@ -279,6 +279,8 @@ public class RevenueReports implements ActionListener {
 			//get all order helper lists in the range
 			//add up the quantity for the product and the total cost
 			//print out the info
+			//add in tax to the total revenue
+			totalRevenue += totalRevenue *.06;
 			String report = "";
 
 			report = "\nSales report for " + getProdNameFromID(Integer.parseInt(prodID)) + 
@@ -299,6 +301,10 @@ public class RevenueReports implements ActionListener {
 			//create a class in the business logic to deal with this
 			//has ID, quantity, totalRevenue
 			//call the class ProductsInRange?
+			//figure out all of the products in the range, the cost, total it up
+			//get all the order helper objects in the range
+			//if not separate product (same id), just add to the quantity and total cost
+			//print out the info in a table
 			
 		}
 		else if (e.getSource() == customerReport){

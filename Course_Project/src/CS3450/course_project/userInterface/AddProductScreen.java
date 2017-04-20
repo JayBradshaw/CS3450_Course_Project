@@ -141,6 +141,7 @@ public class AddProductScreen {
 	@SuppressWarnings("unchecked")
 	public AddProductScreen(DatabaseAccess databaseConnection, ArrayList<OrderHelper> orderHelperList){
 		//just need the product list and the orderHelperList
+		this.databaseConnection = databaseConnection;
 		productList = databaseConnection.getProductList();
 		this.orderHelperList = orderHelperList;
 		System.out.println("Getting sale items");
@@ -268,7 +269,7 @@ public class AddProductScreen {
 		//checkoutScreen.setBackground(secondaryColor);
 		//checkoutScreen.setForeground(baseColor);
 		checkoutScreen.setFont(buttonFont);
-		checkoutScreen.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+		//checkoutScreen.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
 		GridBagConstraints m = new GridBagConstraints();
 		m.weightx = .16;
 	    m.weighty = .16;
