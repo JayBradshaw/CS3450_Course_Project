@@ -24,13 +24,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import CS3450.course_project.dataAccess.Employee;
-import CS3450.course_project.dataAccess.databaseAccess;
+import CS3450.course_project.dataAccess.DatabaseAccess;
 
 /**
  * @author Justin Bradshaw
  *
  */
-public class manageEmployeeAccessRights {
+public class ManageEmployeeAccessRights {
 	/**
 	 * frame for the GUI
 	 */
@@ -78,7 +78,7 @@ public class manageEmployeeAccessRights {
 			+ "Or select Return to return\nto the home screen.");
 	private JButton homeScreen =  new JButton("Return");
 	
-	public manageEmployeeAccessRights(databaseAccess databaseConnection){
+	public ManageEmployeeAccessRights(DatabaseAccess databaseConnection){
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();

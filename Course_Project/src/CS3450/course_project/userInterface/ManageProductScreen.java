@@ -25,7 +25,7 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import CS3450.course_project.dataAccess.Product;
-import CS3450.course_project.dataAccess.databaseAccess;
+import CS3450.course_project.dataAccess.DatabaseAccess;
 
 public class ManageProductScreen {
 	/**
@@ -116,7 +116,7 @@ public class ManageProductScreen {
 	 * 
 	 * non-default constructor
 	 */
-	public ManageProductScreen(databaseAccess databaseConnection){
+	public ManageProductScreen(DatabaseAccess databaseConnection){
 		productList = databaseConnection.getProductList();
 		
 		iPrice 			= new TextField("");

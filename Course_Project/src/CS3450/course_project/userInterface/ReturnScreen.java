@@ -29,7 +29,7 @@ import javax.swing.JTextArea;
 import CS3450.course_project.businessLogic.OrderHelper;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
-import CS3450.course_project.dataAccess.databaseAccess;
+import CS3450.course_project.dataAccess.DatabaseAccess;
 
 /**
  * @author Justin Bradshaw
@@ -106,13 +106,13 @@ public class ReturnScreen {
 	/**
 	 * connection to the database
 	 */
-	databaseAccess databaseConnection;
+	DatabaseAccess databaseConnection;
 	
 	/**
 	 * @param databaseConnection
 	 * non-default constructor
 	 */
-	public ReturnScreen(databaseAccess databaseConnection, int orderID){
+	public ReturnScreen(DatabaseAccess databaseConnection, int orderID){
 		this.databaseConnection = databaseConnection;
 		order = databaseConnection.getOrderFromID(orderID);
 		originalOrderCost = order.getTotalCost();
@@ -235,7 +235,7 @@ public class ReturnScreen {
 						//pass to the database connection the string that contains the new order info
 						//also pass the order itself
 						//editOrderInfoFromReturn(order,string)
-						//create a function in the databaseAccess to deal with this, if the string is
+						//create a function in the DatabaseAccess to deal with this, if the string is
 						//empty just remove the order from the order table
 						//add a message that tells the user how much money they are getting back from
 						//the cashier in cash

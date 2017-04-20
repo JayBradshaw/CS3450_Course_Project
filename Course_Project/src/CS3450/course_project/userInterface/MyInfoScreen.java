@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import CS3450.course_project.dataAccess.databaseAccess;
+import CS3450.course_project.dataAccess.DatabaseAccess;
 import CS3450.course_project.userInterface.MainScreen;
 import CS3450.course_project.dataAccess.Employee;
 
@@ -112,7 +112,7 @@ public class MyInfoScreen {
 	 * 
 	 * non-default constructor
 	 */
-	public MyInfoScreen(databaseAccess databaseConnection){	
+	public MyInfoScreen(DatabaseAccess databaseConnection){	
 		employee = databaseConnection.getEmployee(); //JBradshaw get the current employee from the database
 		uName 			= new TextField("");
 		nameLabel = new JLabel("Username (max 30 characters)");

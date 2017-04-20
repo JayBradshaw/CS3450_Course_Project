@@ -24,7 +24,7 @@ import javax.swing.SwingConstants;
 import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
-import CS3450.course_project.dataAccess.databaseAccess;
+import CS3450.course_project.dataAccess.DatabaseAccess;
 
 public class ProductListScreen {
 	/**
@@ -87,7 +87,7 @@ public class ProductListScreen {
 	 * 
 	 * non-default constructor
 	 */
-	public ProductListScreen(databaseAccess databaseConnection){
+	public ProductListScreen(DatabaseAccess databaseConnection){
 		productList = databaseConnection.getProductList();
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

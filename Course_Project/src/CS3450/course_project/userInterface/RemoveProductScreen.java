@@ -32,7 +32,7 @@ import javax.swing.event.ChangeListener;
 
 import CS3450.course_project.businessLogic.OrderHelper;
 import CS3450.course_project.dataAccess.Product;
-import CS3450.course_project.dataAccess.databaseAccess;
+import CS3450.course_project.dataAccess.DatabaseAccess;
 
 public class RemoveProductScreen {
 	/**
@@ -110,7 +110,7 @@ public class RemoveProductScreen {
 	/**
 	 * connection to the database
 	 */
-	databaseAccess databaseConnection;
+	DatabaseAccess databaseConnection;
 
 	
 	/**
@@ -121,7 +121,7 @@ public class RemoveProductScreen {
 	 * 
 	 * non-default constructor
 	 */
-	public RemoveProductScreen(databaseAccess databaseConnection, ArrayList<OrderHelper> orderHelperList){
+	public RemoveProductScreen(DatabaseAccess databaseConnection, ArrayList<OrderHelper> orderHelperList){
 		this.databaseConnection = databaseConnection;
 		productList = databaseConnection.getProductList();
 		this.orderHelperList = orderHelperList;

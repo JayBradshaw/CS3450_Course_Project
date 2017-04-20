@@ -25,7 +25,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import CS3450.course_project.dataAccess.Product;
-import CS3450.course_project.dataAccess.databaseAccess;
+import CS3450.course_project.dataAccess.DatabaseAccess;
 
 public class AddNewProductScreen {
 	/**
@@ -108,7 +108,7 @@ public class AddNewProductScreen {
 	 * 
 	 * non-default constructor
 	 */
-	public AddNewProductScreen(databaseAccess databaseConnection){
+	public AddNewProductScreen(DatabaseAccess databaseConnection){
 		productList = databaseConnection.getProductList();
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

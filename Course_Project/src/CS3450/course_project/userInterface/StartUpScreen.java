@@ -28,13 +28,13 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 import CS3450.course_project.dataAccess.Employee;
-import CS3450.course_project.dataAccess.databaseAccess;
+import CS3450.course_project.dataAccess.DatabaseAccess;
 
 /**
  * @author Justin Bradshaw
  *
  */
-public class startUpScreen {
+public class StartUpScreen {
 	/**
 	 * frame for the GUI
 	 */
@@ -83,13 +83,13 @@ public class startUpScreen {
 	/**
 	 * connection to the database
 	 */
-	private databaseAccess databaseConnection;
+	private DatabaseAccess databaseConnection;
 	
 	/**
 	 * default constructor
 	 */
-	public startUpScreen(){
-		databaseConnection = new databaseAccess();
+	public StartUpScreen(){
+		databaseConnection = new DatabaseAccess();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -187,7 +187,7 @@ public class startUpScreen {
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override
 			public void run() {
-				new startUpScreen();
+				new StartUpScreen();
 			}});
 	}
 	

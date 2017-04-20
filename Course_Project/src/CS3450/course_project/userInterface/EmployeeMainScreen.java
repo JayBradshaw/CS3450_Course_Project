@@ -36,7 +36,7 @@ import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Employee;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
-import CS3450.course_project.dataAccess.databaseAccess;
+import CS3450.course_project.dataAccess.DatabaseAccess;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -131,7 +131,7 @@ public class EmployeeMainScreen {
 	 * 
 	 * non-default constructor that has access to the database connection
 	 */
-	public EmployeeMainScreen(databaseAccess databaseConnection){
+	public EmployeeMainScreen(DatabaseAccess databaseConnection){
 		//enable and disable buttons based on the employee type
 		enableDisableButtons(databaseConnection.getEmployee().getAccessRights());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -205,7 +205,7 @@ public class EmployeeMainScreen {
 						if (confirmation == 0){
 							frame.dispose(); //close the frame
 							System.out.println("Logging out...");
-							startUpScreen screen = new startUpScreen();
+							StartUpScreen screen = new StartUpScreen();
 						}
 					}
 					

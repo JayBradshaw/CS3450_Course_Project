@@ -25,7 +25,7 @@ import javax.swing.SwingConstants;
 import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
-import CS3450.course_project.dataAccess.databaseAccess;
+import CS3450.course_project.dataAccess.DatabaseAccess;
 
 /**
  * @author Melanie Pena
@@ -103,7 +103,7 @@ public class InventoryScreen {
 	/**
 	 * non-default constructor
 	 */ 
-	public InventoryScreen(databaseAccess databaseConnection){ 
+	public InventoryScreen(DatabaseAccess databaseConnection){ 
 		//nothing to initialize as this screen merely opens other screens
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);

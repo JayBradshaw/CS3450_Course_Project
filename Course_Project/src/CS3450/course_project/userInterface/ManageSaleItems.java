@@ -31,7 +31,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import CS3450.course_project.dataAccess.SaleItem;
-import CS3450.course_project.dataAccess.databaseAccess;
+import CS3450.course_project.dataAccess.DatabaseAccess;
 
 /**
  * @author Justin Bradshaw
@@ -134,7 +134,7 @@ public class ManageSaleItems implements ActionListener{
 	/**
 	 * connection to the database class
 	 */
-	private databaseAccess databaseConnection;
+	private DatabaseAccess databaseConnection;
 	/**
 	 * list of items on sale
 	 */
@@ -175,7 +175,7 @@ public class ManageSaleItems implements ActionListener{
 	 * @param databaseConnection
 	 * non-default constructor
 	 */
-	public ManageSaleItems(databaseAccess databaseConnection){
+	public ManageSaleItems(DatabaseAccess databaseConnection){
 		this.databaseConnection = databaseConnection;
 		saleList = databaseConnection.getSaleList();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -47,7 +47,7 @@ import CS3450.course_project.dataAccess.Employee;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
 import CS3450.course_project.dataAccess.SaleItem;
-import CS3450.course_project.dataAccess.databaseAccess;
+import CS3450.course_project.dataAccess.DatabaseAccess;
 
 /**
  * 
@@ -196,14 +196,14 @@ public class CheckoutScreen {
 	/**
 	 * connection to the database
 	 */
-	private databaseAccess databaseConnection;
+	private DatabaseAccess databaseConnection;
 	
 	/**
 	 * @param productList
 	 * 
 	 * non-default constructor
 	 */
-	public CheckoutScreen(databaseAccess databaseConnection){
+	public CheckoutScreen(DatabaseAccess databaseConnection){
 		this.databaseConnection = databaseConnection;
 		productList = databaseConnection.getProductList();
 		customerList = databaseConnection.getCustomerList();
@@ -425,7 +425,7 @@ public class CheckoutScreen {
 	 * 
 	 * non-default constructor
 	 */
-	public CheckoutScreen(databaseAccess databaseConnection, ArrayList<OrderHelper> orderHelperList){
+	public CheckoutScreen(DatabaseAccess databaseConnection, ArrayList<OrderHelper> orderHelperList){
 		productList = databaseConnection.getProductList();
 		customerList = databaseConnection.getCustomerList();
 		orderList = databaseConnection.getOrderList();
@@ -959,7 +959,7 @@ public class CheckoutScreen {
 	/**
 	 * updates the availability of items, or available units, based on the order
 	 */
-	private void updateProductListDatabase(databaseAccess databaseConnection){
+	private void updateProductListDatabase(DatabaseAccess databaseConnection){
 		for (int i = 0; i < productList.size(); ++i){
 			for (int j =0; j < orderHelperList.size(); ++j){
 				if (productList.get(i).getID() == orderHelperList.get(j).getProductID()){

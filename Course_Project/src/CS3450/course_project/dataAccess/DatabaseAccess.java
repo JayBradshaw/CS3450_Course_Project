@@ -19,7 +19,7 @@ import CS3450.course_project.businessLogic.OrderHelper;
  *contains all of the necessary methods and data members for accessing the database
  *this includes products, customers, orders, and employees 
  */
-public class databaseAccess {
+public class DatabaseAccess {
     /**
      * stores the list of products from the database
      */
@@ -56,7 +56,7 @@ public class databaseAccess {
     /**
      * default constructor that will initialize all of the lists from the database
      */
-    public databaseAccess(){
+    public DatabaseAccess(){
     	loadInfoFromDatabase(); //load the info from the database and initialize the array lists
     }
     

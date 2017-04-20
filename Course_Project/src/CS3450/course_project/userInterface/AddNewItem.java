@@ -24,7 +24,7 @@ import javax.swing.JTextField;
 
 import CS3450.course_project.dataAccess.Product;
 import CS3450.course_project.dataAccess.SaleItem;
-import CS3450.course_project.dataAccess.databaseAccess;
+import CS3450.course_project.dataAccess.DatabaseAccess;
 
 /**
  * @author Justin Bradshaw
@@ -112,12 +112,12 @@ public class AddNewItem implements ActionListener{
 	/**
 	 * connection to the database
 	 */
-	private databaseAccess databaseConnection;
+	private DatabaseAccess databaseConnection;
 	/**
 	 * @param databaseConnection
 	 * constructor
 	 */
-	public AddNewItem(databaseAccess databaseConnection){
+	public AddNewItem(DatabaseAccess databaseConnection){
 		this.databaseConnection = databaseConnection;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);

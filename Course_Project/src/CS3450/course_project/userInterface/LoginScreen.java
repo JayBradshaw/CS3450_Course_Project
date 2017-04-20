@@ -11,7 +11,7 @@ import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Employee;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
-import CS3450.course_project.dataAccess.databaseAccess;
+import CS3450.course_project.dataAccess.DatabaseAccess;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -65,7 +65,7 @@ public class LoginScreen {
 		 */
 		private JButton cancel = new JButton("Cancel");
 
-	    public LoginScreen(databaseAccess databaseConnection) {
+	    public LoginScreen(DatabaseAccess databaseConnection) {
 	    	System.out.println(cryptWithMD5("spicyTortillas"));
 	    	System.out.println(cryptWithMD5("purpleCobra24"));
 	    	System.out.println(cryptWithMD5("scaryOctopus67"));
@@ -104,7 +104,7 @@ public class LoginScreen {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					frame.dispose();
-					startUpScreen screen = new startUpScreen();
+					StartUpScreen screen = new StartUpScreen();
 				};
 	        
 	        });

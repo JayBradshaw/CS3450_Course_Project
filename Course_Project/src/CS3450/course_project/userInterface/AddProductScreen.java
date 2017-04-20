@@ -37,7 +37,7 @@ import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.Order;
 import CS3450.course_project.dataAccess.Product;
 import CS3450.course_project.dataAccess.SaleItem;
-import CS3450.course_project.dataAccess.databaseAccess;
+import CS3450.course_project.dataAccess.DatabaseAccess;
 
 public class AddProductScreen {
 	/**
@@ -127,7 +127,7 @@ public class AddProductScreen {
 	/**
 	 * access to the database
 	 */
-	private databaseAccess databaseConnection;
+	private DatabaseAccess databaseConnection;
 
 	
 	/**
@@ -139,7 +139,7 @@ public class AddProductScreen {
 	 * non-default constructor
 	 */
 	@SuppressWarnings("unchecked")
-	public AddProductScreen(databaseAccess databaseConnection, ArrayList<OrderHelper> orderHelperList){
+	public AddProductScreen(DatabaseAccess databaseConnection, ArrayList<OrderHelper> orderHelperList){
 		//just need the product list and the orderHelperList
 		productList = databaseConnection.getProductList();
 		this.orderHelperList = orderHelperList;
@@ -433,7 +433,7 @@ public class AddProductScreen {
 	 * 
 	 * know whether or not a given product is on sale
 	 */
-	private boolean onSale(Product product,databaseAccess databaseConnection){
+	private boolean onSale(Product product,DatabaseAccess databaseConnection){
 		//if a guest just return false because they are not eligible for rewards
 		if (databaseConnection.getCurrentCustomer().getRewardCard() == 0) return false;
 		//run through the list of items currently on sale
@@ -461,7 +461,7 @@ public class AddProductScreen {
 	 * 
 	 * know which items are currently on sale based on time restrictions
 	 */
-	private void setCurrentSaleItems(databaseAccess databaseConnection){
+	private void setCurrentSaleItems(DatabaseAccess databaseConnection){
 		String date = getCurrentDate(); //get the date
 		for (SaleItem x : databaseConnection.getSaleList()){
 			//System.out.println(x.getName());
