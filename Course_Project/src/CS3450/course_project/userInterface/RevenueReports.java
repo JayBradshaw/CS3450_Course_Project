@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -22,10 +23,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import CS3450.course_project.dataAccess.OrderHelper;
+import CS3450.course_project.businessLogic.ProductsInRange;
 import CS3450.course_project.dataAccess.Customer;
 import CS3450.course_project.dataAccess.DatabaseAccess;
 import CS3450.course_project.dataAccess.Order;
@@ -122,6 +126,14 @@ public class RevenueReports implements ActionListener {
 	 * get a report of all sales in a given time period
 	 */
 	private JButton allSales = new JButton("All Sales");
+	/**
+	 * table to store the revenue from products in range
+	 */
+	private JTable table;
+	/**
+	 * scroll pane to hold the table
+	 */
+	private JScrollPane scrollPane;
 	/**
 	 * @param databaseConnection
 	 * constructor
@@ -243,6 +255,79 @@ public class RevenueReports implements ActionListener {
 		}
 		return false;
 	}
+	
+	/**
+	 * @param id
+	 * @param prodList
+	 * @return
+	 * 
+	 * know whether or not a product is already in the helper list
+	 */
+	private int inProdHelper(int id, ArrayList<ProductsInRange> prodList){
+		int index = 0;
+		for (ProductsInRange p : prodList){
+			if (p.getProductID() == id){
+				return index;
+			}
+			else {
+				++index;
+			}
+		}
+		return -1;
+	}
+	
+	/**
+	 * @param prodList
+	 * @return
+	 * 
+	 * get the total revenue for all products in a given range
+	 */
+	private double getTotalRevenue(ArrayList<ProductsInRange> prodList){
+		double totalRevenue = 0.0d;
+		for (ProductsInRange p : prodList){
+			totalRevenue += p.getTotalCost();
+		}
+		totalRevenue += totalRevenue*.06; //add in tax
+		return totalRevenue;
+	}
+	
+	/**
+	 * @param databaseConnection
+	 * @return
+	 * 
+	 * create default table that contains all of the items
+	 */
+	private void createRevenueTable(ArrayList<ProductsInRange> prodList, double totalRevenue){
+		Vector<String> columns = new Vector<String>();
+		columns.addElement("Product");
+		columns.addElement("Quantity");
+		columns.addElement("Revenue");
+		
+		Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+		
+		for (ProductsInRange p : prodList){
+			Vector<Object> vect = new Vector<Object>();
+			vect.addElement(getProdNameFromID(p.getProductID()));
+			vect.addElement(p.getQuantity());
+			vect.addElement(String.format("$ %.2f", p.getTotalCost()));
+			data.addElement(vect);
+		}
+		//empty row
+		Vector<Object> vect = new Vector<Object>();
+		vect.addElement("");
+		vect.addElement("");
+		vect.addElement("");
+		data.addElement(vect);
+		//add one more row to show total revenue
+		Vector<Object> vect1 = new Vector<Object>();
+		vect1.addElement("");
+		vect1.addElement("");
+		vect1.addElement(String.format("Total Revenue: $ %.2f", totalRevenue));
+		data.addElement(vect1);
+		
+		table = new JTable(data,columns);
+		table.setDefaultEditor(Object.class,null);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -289,6 +374,9 @@ public class RevenueReports implements ActionListener {
 			
 			JTextArea area = new JTextArea(report);
 			area.setFont(baseFont);
+			middlePanel.removeAll();
+			middlePanel.add(midHeader, BorderLayout.PAGE_START);
+			middlePanel.add(middleBottom, BorderLayout.PAGE_END);
 			middlePanel.add(area,BorderLayout.CENTER);
 			frame.revalidate();
 		}
@@ -302,10 +390,31 @@ public class RevenueReports implements ActionListener {
 			//has ID, quantity, totalRevenue
 			//call the class ProductsInRange?
 			//figure out all of the products in the range, the cost, total it up
+			ArrayList<OrderHelper> orderHelper = databaseConnection.getHelperItemsInRange(dates.get(0), dates.get(1));
+			ArrayList<ProductsInRange> prodList = new ArrayList<ProductsInRange>();
 			//get all the order helper objects in the range
+			double totalCost = 0.0d;
+			for (OrderHelper x : orderHelper){
+				totalCost = x.getQuantity() * x.getProductPrice();
+				int index = inProdHelper(x.getProductID(),prodList);
+				if (index == -1){ //not already in list
+					prodList.add(new ProductsInRange(x.getProductID(),x.getQuantity(),totalCost));
+				}
+				else { //update list
+					prodList.get(index).setQuantity(prodList.get(index).getQuantity() + x.getQuantity());
+					prodList.get(index).setTotalCost(prodList.get(index).getTotalCost() + totalCost);
+				}
+			}
 			//if not separate product (same id), just add to the quantity and total cost
 			//print out the info in a table
-			
+			//product, quantity, totalrevenue
+			createRevenueTable(prodList,getTotalRevenue(prodList));
+			scrollPane = new JScrollPane(table);
+			middlePanel.removeAll();
+			middlePanel.add(midHeader, BorderLayout.PAGE_START);
+			middlePanel.add(middleBottom, BorderLayout.PAGE_END);
+			middlePanel.add(scrollPane, BorderLayout.CENTER);
+			frame.revalidate();
 		}
 		else if (e.getSource() == customerReport){
 			if (startField.getText().isEmpty() || endField.getText().isEmpty()){
@@ -339,6 +448,9 @@ public class RevenueReports implements ActionListener {
 			}
 			JTextArea area = new JTextArea(report);
 			area.setFont(baseFont);
+			middlePanel.removeAll();
+			middlePanel.add(midHeader, BorderLayout.PAGE_START);
+			middlePanel.add(middleBottom,BorderLayout.PAGE_END);
 			middlePanel.add(area,BorderLayout.CENTER);
 			frame.revalidate();
 		}
