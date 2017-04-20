@@ -88,6 +88,7 @@ public class manageEmployeeAccessRights {
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
 		JLabel icon1Label = new JLabel();
 		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setForeground(baseColor);
 		textLabel.setFont(baseFont);
 		JLabel icon2Label = new JLabel();
 		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
@@ -101,19 +102,20 @@ public class manageEmployeeAccessRights {
 		storeHeader.add(icon2Label);
 		
 		//make the header look pretty
-		storeHeader.setBackground(baseColor);
-		storeHeader.setForeground(secondaryColor);
+		storeHeader.setBackground(secondaryColor);
+		storeHeader.setForeground(baseColor);
 		storeHeader.setFont(baseFont);
 		//storeHeader.setHorizontalTextPosition(SwingConstants.LEADING);
 		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
 		
-		description.setForeground(secondaryColor);
-		description.setBackground(baseColor);
+		//description.setForeground(baseColor);
+		//description.setBackground(secondaryColor);
 		description.setFont(baseFont);
 		description.setEditable(false);
 		description.setPreferredSize(new Dimension(260,200));
-		description.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+		description.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, secondaryColor));
+		//description.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
 		
 		//loop through the employee list and make each employee icon a button 
 		//add each of these buttons to the JPanel employeePanel
@@ -121,7 +123,7 @@ public class manageEmployeeAccessRights {
 			//ImageIcon icon = new ImageIcon(x.getImageInfo());
 		
 			JButton tempButton = new JButton(x.getImage());
-			tempButton.setBackground(baseColor);
+			//tempButton.setBackground(baseColor);
 			tempButton.setPreferredSize(new Dimension(100,75));
 			tempButton.addActionListener(new ActionListener(){
 
@@ -153,15 +155,15 @@ public class manageEmployeeAccessRights {
 		}
 		
 		//make the footer look pretty
-		storeFooter.setBackground(baseColor);
-		storeFooter.setForeground(secondaryColor);
+		storeFooter.setBackground(secondaryColor);
+		storeFooter.setForeground(baseColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);
 		
-		homeScreen.setBackground(baseColor);
+		//homeScreen.setBackground(secondaryColor);
 		homeScreen.setPreferredSize(new Dimension(100,75));
-		homeScreen.setForeground(secondaryColor);
+		//homeScreen.setForeground(baseColor);
 		homeScreen.setFont(baseFont);
 		homeScreen.addActionListener(new ActionListener(){
 
@@ -174,7 +176,7 @@ public class manageEmployeeAccessRights {
 		});
 		
 		employeePanel.add(homeScreen);
-		employeePanel.setBackground(secondaryColor);
+		//employeePanel.setBackground(secondaryColor);
 		
 		pane.add(storeHeader, BorderLayout.PAGE_START);
 		pane.add(description, BorderLayout.LINE_START);

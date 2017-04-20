@@ -193,6 +193,10 @@ public class CheckoutScreen {
 	 */
 	private JPanel buttonPanel = new JPanel(new FlowLayout());
 	EmployeeMainScreen empMain;
+	/**
+	 * connection to the database
+	 */
+	private databaseAccess databaseConnection;
 	
 	/**
 	 * @param productList
@@ -200,6 +204,7 @@ public class CheckoutScreen {
 	 * non-default constructor
 	 */
 	public CheckoutScreen(databaseAccess databaseConnection){
+		this.databaseConnection = databaseConnection;
 		productList = databaseConnection.getProductList();
 		customerList = databaseConnection.getCustomerList();
 		orderList = databaseConnection.getOrderList();
@@ -256,6 +261,7 @@ public class CheckoutScreen {
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
 		JLabel icon1Label = new JLabel();
 		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setForeground(baseColor);
 		textLabel.setFont(baseFont);
 		JLabel icon2Label = new JLabel();
 		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
@@ -270,8 +276,8 @@ public class CheckoutScreen {
 		
 		//make the header look pretty
 		storeHeader.setIconTextGap(25);
-		storeHeader.setBackground(baseColor);
-		storeHeader.setForeground(secondaryColor);
+		storeHeader.setBackground(secondaryColor);
+		storeHeader.setForeground(baseColor);
 		storeHeader.setFont(baseFont);
 		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
@@ -281,22 +287,24 @@ public class CheckoutScreen {
 		orderDetails.setPreferredSize(new Dimension(frame.getWidth()/2,150));
 		orderDetails.setEditable(false);
 		orderDetails.setText(populateTextArea());
-		orderDetails.setForeground(secondaryColor);
-		orderDetails.setBackground(baseColor);
-		orderDetails.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
+		//orderDetails.setForeground(secondaryColor);
+		//orderDetails.setBackground(baseColor);
+		orderDetails.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 3, secondaryColor));
+
+		//orderDetails.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
 		
 		//set the preferred size for the button panel
 		buttonPanel.setPreferredSize(new Dimension(frame.getWidth()/2,150));
-		buttonPanel.setBackground(baseColor);
-		//buttonPanel.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+		//buttonPanel.setBackground(secondaryColor);
+		//buttonPanel.setBorder(BorderFactory.createLineBorder(baseColor,5));
 		
 		//make add item button look pretty
-		addItem.setBackground(baseColor);
-		addItem.setForeground(secondaryColor);
+		//addItem.setBackground(secondaryColor);
+		//addItem.setForeground(baseColor);
 		addItem.setFont(buttonFont);
 		addItem.setPreferredSize(new Dimension(frame.getWidth()/2,60));
-		addItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		addItem.setMargin(new Insets(0,0,0,0));
+		//addItem.setBorder(BorderFactory.createLineBorder(baseColor,5));
+		//addItem.setMargin(new Insets(0,0,0,0));
 		//listener for the add item button
 		addItem.addActionListener(
 				new ActionListener(){
@@ -313,12 +321,12 @@ public class CheckoutScreen {
 		});
 		
 		//make remove item button look pretty
-		removeItem.setBackground(baseColor);
-		removeItem.setForeground(secondaryColor);
+		//removeItem.setBackground(secondaryColor);
+		//removeItem.setForeground(baseColor);
 		removeItem.setFont(buttonFont);
 		removeItem.setPreferredSize(new Dimension(frame.getWidth()/2,60));
-		removeItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		removeItem.setMargin(new Insets(0,0,0,0));
+		//removeItem.setBorder(BorderFactory.createLineBorder(baseColor,5));
+		//removeItem.setMargin(new Insets(0,0,0,0));
 		//listener for the remove item button
 		removeItem.addActionListener(
 				new ActionListener(){
@@ -340,12 +348,12 @@ public class CheckoutScreen {
 		});
 
 		//make finishAndPay button look pretty
-		finishAndPay.setBackground(baseColor);
-		finishAndPay.setForeground(secondaryColor);
+		//finishAndPay.setBackground(secondaryColor);
+		//finishAndPay.setForeground(baseColor);
 		finishAndPay.setFont(buttonFont);
 		finishAndPay.setPreferredSize(new Dimension(frame.getWidth()/2,60));
-		finishAndPay.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		finishAndPay.setMargin(new Insets(0,0,0,0));
+		//finishAndPay.setBorder(BorderFactory.createLineBorder(baseColor,5));
+		//finishAndPay.setMargin(new Insets(0,0,0,0));
 		//listener for the finishAndPay button
 	    finishAndPay.addActionListener(
 				new ActionListener(){
@@ -359,12 +367,12 @@ public class CheckoutScreen {
 		});
 
 		//make back to main screen button look pretty
-		mainScreen.setBackground(baseColor);
-		mainScreen.setForeground(secondaryColor);
+		//mainScreen.setBackground(secondaryColor);
+		//mainScreen.setForeground(baseColor);
 		mainScreen.setFont(buttonFont);
 		mainScreen.setPreferredSize(new Dimension(frame.getWidth()/2,60));
-		mainScreen.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		mainScreen.setMargin(new Insets(0,0,0,0));
+		//mainScreen.setBorder(BorderFactory.createLineBorder(baseColor,5));
+		//mainScreen.setMargin(new Insets(0,0,0,0));
 		//listener for the main screen button
 	    mainScreen.addActionListener(
 				new ActionListener(){
@@ -391,11 +399,11 @@ public class CheckoutScreen {
 	    buttonPanel.add(removeItem);
 	    buttonPanel.add(finishAndPay);
 	    buttonPanel.add(mainScreen);
-	    //buttonPanel.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+	    //buttonPanel.setBorder(BorderFactory.createLineBorder(baseColor,5));
 
 		//make the footer look pretty
-		storeFooter.setBackground(baseColor);
-		storeFooter.setForeground(secondaryColor);
+		storeFooter.setBackground(secondaryColor);
+		storeFooter.setForeground(baseColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);
@@ -424,9 +432,7 @@ public class CheckoutScreen {
 		employeeList = databaseConnection.getEmployeeList();
 		int custID = databaseConnection.getCurrentCustomer().getCustomerID();
 		this.orderHelperList = orderHelperList;
-		for (OrderHelper x: orderHelperList){
-			System.out.println(x.getProductName() + " " + x.getQuantity());
-		}
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -435,6 +441,7 @@ public class CheckoutScreen {
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
 		JLabel icon1Label = new JLabel();
 		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setForeground(baseColor);
 		textLabel.setFont(baseFont);
 		JLabel icon2Label = new JLabel();
 		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
@@ -448,8 +455,8 @@ public class CheckoutScreen {
 		storeHeader.add(icon2Label);
 		
 		//make the header look pretty
-		storeHeader.setBackground(baseColor);
-		storeHeader.setForeground(secondaryColor);
+		storeHeader.setBackground(secondaryColor);
+		storeHeader.setForeground(baseColor);
 		storeHeader.setFont(baseFont);
 		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
@@ -458,21 +465,23 @@ public class CheckoutScreen {
 		orderDetails.setPreferredSize(new Dimension(frame.getWidth()/2,150));
 		orderDetails.setEditable(false);
 		orderDetails.setText(populateTextArea());
-		orderDetails.setForeground(secondaryColor);
-		orderDetails.setBackground(baseColor);
-		orderDetails.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+		//orderDetails.setForeground(secondaryColor);
+		//orderDetails.setBackground(baseColor);
+		orderDetails.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 3, secondaryColor));
+
+		//orderDetails.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
 		
 		//set the preferred size for the button panel
 		buttonPanel.setPreferredSize(new Dimension(frame.getWidth()/2,150));
-		buttonPanel.setBackground(baseColor);
+		//buttonPanel.setBackground(secondaryColor);
 		
 		//make add item button look pretty
-		addItem.setBackground(baseColor);
-		addItem.setForeground(secondaryColor);
+		//addItem.setBackground(secondaryColor);
+		//addItem.setForeground(baseColor);
 		addItem.setFont(buttonFont);
 		addItem.setPreferredSize(new Dimension(frame.getWidth()/2,60));
-		addItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		addItem.setMargin(new Insets(15,15,15,15));
+		//addItem.setBorder(BorderFactory.createLineBorder(baseColor,5));
+		//addItem.setMargin(new Insets(15,15,15,15));
 
 		//listener for the add item button
 		addItem.addActionListener(
@@ -491,13 +500,12 @@ public class CheckoutScreen {
 		});
 		
 		//make remove item button look pretty
-		removeItem.setBackground(baseColor);
-		removeItem.setForeground(secondaryColor);
+		//removeItem.setBackground(secondaryColor);
+		//removeItem.setForeground(baseColor);
 		removeItem.setFont(buttonFont);
 		removeItem.setPreferredSize(new Dimension(frame.getWidth()/2,60));
-		removeItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		removeItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		removeItem.setMargin(new Insets(15,15,15,15));
+		//removeItem.setBorder(BorderFactory.createLineBorder(baseColor,5));
+		//removeItem.setMargin(new Insets(15,15,15,15));
 
 		//listener for the remove item button
 		removeItem.addActionListener(
@@ -520,13 +528,12 @@ public class CheckoutScreen {
 		});
 
 		//make finishAndPay button look pretty
-		finishAndPay.setBackground(baseColor);
-		finishAndPay.setForeground(secondaryColor);
+		//finishAndPay.setBackground(secondaryColor);
+		//finishAndPay.setForeground(baseColor);
 		finishAndPay.setFont(buttonFont);
 		finishAndPay.setPreferredSize(new Dimension(frame.getWidth()/2,60));
-		finishAndPay.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		finishAndPay.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		finishAndPay.setMargin(new Insets(15,15,15,15));
+		//finishAndPay.setBorder(BorderFactory.createLineBorder(baseColor,5));
+		//finishAndPay.setMargin(new Insets(15,15,15,15));
 
 		//listener for the finishAndPay button
 	    finishAndPay.addActionListener(
@@ -562,12 +569,11 @@ public class CheckoutScreen {
 								//deal with adding a new order based on the order info 
 								//if cash just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
-								System.out.println(buildOrderInfo());
 								if (orderList.isEmpty()){
-									orderList.add(new Order(0,custID, "Cash", value,deliveryMethod, buildOrderInfo(),getCurrentDate()));
+									orderList.add(new Order(0,custID, "Cash", value,deliveryMethod,getCurrentDate()));
 								}
 								else {
-									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Cash", value,deliveryMethod, buildOrderInfo(),getCurrentDate()));
+									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Cash", value,deliveryMethod,getCurrentDate()));
 								}								
 								printReceipt("cash",custID,false,deliveryMethod, getTotalOrderCost() - usedPoints/100,databaseConnection.getEmployee().getName());
 								//update the product list to reflect the changes
@@ -575,6 +581,10 @@ public class CheckoutScreen {
 								productList = databaseConnection.getProductList();
 								//add order to database
 								databaseConnection.addOrderToDatabase(orderList.get(orderList.size()-1));
+								//add order helper items to database
+								for (OrderHelper h : orderHelperList){
+									databaseConnection.addHelperItem(h);
+								}
 								orderHelperList.clear();
 								orderDetails.setText("NO CURRENT ORDER");
 								frame.revalidate();
@@ -611,12 +621,11 @@ public class CheckoutScreen {
 								JOptionPane.showMessageDialog(null, "Thank you for your purchase!\nTotal Cost: $" + 
 										String.format("%.2f", value) +  "\nPlease come again soon!");
 								int orderListIndex = orderList.size()-1;
-								System.out.println(buildOrderInfo());
 								if (orderList.isEmpty()){
-									orderList.add(new Order(0,custID, "Card", value,deliveryMethod, buildOrderInfo(),getCurrentDate()));
+									orderList.add(new Order(0,custID, "Card", value,deliveryMethod,getCurrentDate()));
 								}
 								else {
-									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Card", value,deliveryMethod, buildOrderInfo(),getCurrentDate()));
+									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Card", value,deliveryMethod,getCurrentDate()));
 								}
 								printReceipt("card",custID,cardSelected,deliveryMethod,getTotalOrderCost() - usedPoints/100,databaseConnection.getEmployee().getName());
 								//update the product list to reflect the changes
@@ -624,6 +633,10 @@ public class CheckoutScreen {
 								productList = databaseConnection.getProductList(); //update the product list
 								//add order to database
 								databaseConnection.addOrderToDatabase(orderList.get(orderList.size()-1));
+								//add order helper items to database
+								for (OrderHelper h : orderHelperList){
+									databaseConnection.addHelperItem(h);
+								}
 								orderHelperList.clear();
 								orderDetails.setText("NO CURRENT ORDER");
 								frame.revalidate();
@@ -634,12 +647,11 @@ public class CheckoutScreen {
 								//deal with adding a new order based on the order info
 								//if check just add to order list and print receipt
 								int orderListIndex = orderList.size()-1;
-								System.out.println(buildOrderInfo());
 								if (orderList.isEmpty()){
-									orderList.add(new Order(0,custID, "Check", value,deliveryMethod, buildOrderInfo(),getCurrentDate()));
+									orderList.add(new Order(0,custID, "Check", value,deliveryMethod,getCurrentDate()));
 								}
 								else {
-									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", value,deliveryMethod, buildOrderInfo(),getCurrentDate()));
+									orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", value,deliveryMethod,getCurrentDate()));
 								}
 								//orderList.add(new Order(orderList.get(orderListIndex).getOrderID()+ 1,custID, "Check", getTotalOrderCost(),deliveryMethod, buildOrderInfo()));
 								printReceipt("check",custID,false,deliveryMethod,getTotalOrderCost() - usedPoints/100,databaseConnection.getEmployee().getName());
@@ -648,6 +660,10 @@ public class CheckoutScreen {
 								productList = databaseConnection.getProductList(); //get the newly updated product list
 								//add order to database
 								databaseConnection.addOrderToDatabase(orderList.get(orderList.size()-1));
+								//ADD order helper items to database
+								for (OrderHelper h : orderHelperList){
+									databaseConnection.addHelperItem(h);
+								}
 								orderHelperList.clear();
 								orderDetails.setText("NO CURRENT ORDER");
 								frame.revalidate();
@@ -664,12 +680,12 @@ public class CheckoutScreen {
 		});
 
 		//make back to main screen button look pretty
-		mainScreen.setBackground(baseColor);
-		mainScreen.setForeground(secondaryColor);
+		//mainScreen.setBackground(secondaryColor);
+		//mainScreen.setForeground(baseColor);
 		mainScreen.setFont(buttonFont);
 		mainScreen.setPreferredSize(new Dimension(frame.getWidth()/2,60));
-		mainScreen.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
-		mainScreen.setMargin(new Insets(15,15,15,15));
+		//mainScreen.setBorder(BorderFactory.createLineBorder(baseColor,5));
+		//mainScreen.setMargin(new Insets(15,15,15,15));
 
 		//listener for the main screen button
 	    mainScreen.addActionListener(
@@ -698,8 +714,8 @@ public class CheckoutScreen {
 	    buttonPanel.add(mainScreen);
 
 		//make the footer look pretty
-		storeFooter.setBackground(baseColor);
-		storeFooter.setForeground(secondaryColor);
+		storeFooter.setBackground(secondaryColor);
+		storeFooter.setForeground(baseColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);
@@ -892,7 +908,7 @@ public class CheckoutScreen {
 		for(OrderHelper item : this.orderHelperList){
 			String price = new DecimalFormat("0.00").format(item.getProductPrice());
 			//System.out.println("PRICE: " + price);
-			fileOutput.println(String.format("%-30s %10s %10s", item.getProductName(), price, Integer.toString(item.getQuantity())));
+			fileOutput.println(String.format("%-30s %10s %10s", getProdFromID(item.getProductID()).getName(), price, Integer.toString(item.getQuantity())));
 		}
 		fileOutput.println(String.format("\n\nTotal Cost: %.2f", cost));
 		fileOutput.println("Payment Method: " + printPaymentMethod());
@@ -946,7 +962,7 @@ public class CheckoutScreen {
 	private void updateProductListDatabase(databaseAccess databaseConnection){
 		for (int i = 0; i < productList.size(); ++i){
 			for (int j =0; j < orderHelperList.size(); ++j){
-				if (productList.get(i).getName() == orderHelperList.get(j).getProductName()){
+				if (productList.get(i).getID() == orderHelperList.get(j).getProductID()){
 					//change the number of available units
 					productList.get(i).setAvailableUnits(productList.get(i).getAvailableUnits()-orderHelperList.get(j).getQuantity());
 					//update the quantity so that it reflects the subtraction from the order
@@ -955,24 +971,7 @@ public class CheckoutScreen {
 			}
 		}
 	}
-	
-	/**
-	 * @return
-	 * 
-	 * build the order info column for the order table
-	 */
-	private String buildOrderInfo(){
-		String toReturn = "";
-		//for each object print out the necessary info
-		for (int i = 0; i < orderHelperList.size(); ++i){
-			toReturn += orderHelperList.get(i).createOrderInfo();
-			if (i < orderHelperList.size()-1){
-				toReturn += '|';
-			}
-		}
-		return toReturn;
-	}
-	
+
 	/**
 	 * create the necessary info for the text area
 	 */
@@ -985,7 +984,7 @@ public class CheckoutScreen {
 			toReturn += "Current Order Status:\n\n";
 			toReturn += String.format("%-20s %-15s %-15s\n", "Product:" , "Cost:", "Quantity:");
 			for(OrderHelper item : this.orderHelperList){
-				toReturn += String.format("%-20s %-15.2f %-15s\n", item.getProductName(), item.getProductPrice(), Integer.toString(item.getQuantity()));
+				toReturn += String.format("%-20s %-15.2f %-15s\n", getProdFromID(item.getProductID()).getName(), item.getProductPrice(), Integer.toString(item.getQuantity()));
 			}
 			toReturn += String.format("\nTotal Cost: $%.2f\n", getTotalOrderCost());
 		}
@@ -1042,5 +1041,20 @@ public class CheckoutScreen {
 			return -1; 
 		}
 		return pointsUsed;
+	}
+	
+	private Product getProdFromID(int id){
+		for (Product p : databaseConnection.getProductList()){
+			if (p.getID() == id) return p;
+		}
+		return null;
+	}
+	
+	private int getNextOrderID(){
+		int id = 0;
+		for (Order x : databaseConnection.getOrderList()){
+			if (x.getOrderID()  > id) id = x.getOrderID();
+		}
+		return id + 1;
 	}
 }

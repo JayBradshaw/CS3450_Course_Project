@@ -28,6 +28,7 @@ import javax.swing.JTextArea;
 
 import CS3450.course_project.businessLogic.OrderHelper;
 import CS3450.course_project.dataAccess.Order;
+import CS3450.course_project.dataAccess.Product;
 import CS3450.course_project.dataAccess.databaseAccess;
 
 /**
@@ -103,19 +104,19 @@ public class ReturnScreen {
 	 */
 	private double originalOrderCost;
 	/**
-	 * original order helper list to check against to be sure that nothing has changed
+	 * connection to the database
 	 */
-	private ArrayList<OrderHelper> originalList = new ArrayList<OrderHelper>();
+	databaseAccess databaseConnection;
 	
 	/**
 	 * @param databaseConnection
 	 * non-default constructor
 	 */
 	public ReturnScreen(databaseAccess databaseConnection, int orderID){
+		this.databaseConnection = databaseConnection;
 		order = databaseConnection.getOrderFromID(orderID);
 		originalOrderCost = order.getTotalCost();
-		createOrderHelperList(order);
-		originalList = orderHelperList; //set the original list from the order
+		orderHelperList = databaseConnection.getHelperListFromID(orderID);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 400);
 		pane = frame.getContentPane();
@@ -124,6 +125,7 @@ public class ReturnScreen {
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
 		JLabel icon1Label = new JLabel();
 		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setForeground(baseColor);
 		textLabel.setFont(baseFont);
 		JLabel icon2Label = new JLabel();
 		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
@@ -136,8 +138,8 @@ public class ReturnScreen {
 		storeHeader.add(Box.createRigidArea(new Dimension(5,0)));
 		storeHeader.add(icon2Label);
 		//make the header look pretty
-		storeHeader.setBackground(baseColor);
-		storeHeader.setForeground(secondaryColor);
+		storeHeader.setBackground(secondaryColor);
+		storeHeader.setForeground(baseColor);
 		storeHeader.setFont(baseFont);
 		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
@@ -147,18 +149,19 @@ public class ReturnScreen {
 		orderDetails.setPreferredSize(new Dimension(frame.getWidth()/2,150));
 		orderDetails.setEditable(false);
 		orderDetails.setText(populateTextArea());
-		orderDetails.setForeground(secondaryColor);
-		orderDetails.setBackground(baseColor);
-		orderDetails.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
-		
+		//orderDetails.setForeground(baseColor);
+		//orderDetails.setBackground(secondaryColor);
+		//orderDetails.setBorder(BorderFactory.createLineBorder(secondaryColor));
+		orderDetails.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 3, secondaryColor));
+
 		//add in the items for the buttons editOrder, finishOrder, cancel
 		
 		//edit order button
-		editOrder.setBackground(baseColor);
-		editOrder.setForeground(secondaryColor);
+		//editOrder.setBackground(secondaryColor);
+		//editOrder.setForeground(baseColor);
 		editOrder.setFont(buttonFont);
 		editOrder.setPreferredSize(new Dimension(frame.getWidth()/2,80));
-		editOrder.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
+		//editOrder.setBorder(BorderFactory.createLineBorder(baseColor,5,true));
 
 		//listener for the edit order button
 		editOrder.addActionListener(
@@ -194,11 +197,22 @@ public class ReturnScreen {
 							JOptionPane.showMessageDialog(null, "Invalid entry!");
 							return;
 						}
-						if(!checkValidQuantity(tempItem,quantity))return;
+						if(!checkValidQuantity(tempItem,quantity))
+						{
+							return;
+						}
 						//edit the quantity of the tempItem
 						tempItem.setQuantity(tempItem.getQuantity()-quantity);
+						
+						System.out.println("Changing quantity for item");
+						for (OrderHelper x : orderHelperList){
+							System.out.println(x.getQuantity() + " " + getProdFromID(x.getProductID()).getName());
+						}
 						//if the quantity becomes 0 remove the item
-						if (tempItem.getQuantity() == 0) orderHelperList.remove(tempItem);
+						if (tempItem.getQuantity() == 0) {orderHelperList.remove(tempItem);
+						//ALSO REMOVE FROM THE ORDER HELPER IN THE DATABASE RIGHT HERE
+						databaseConnection.deleteHelperItem(tempItem);
+						}
 						//change the text in the text area and revalidate the frame
 						orderDetails.setText(populateTextArea());
 						frame.revalidate();
@@ -207,11 +221,11 @@ public class ReturnScreen {
 		});
 		
 		//finish order button
-		finishOrder.setBackground(baseColor);
-		finishOrder.setForeground(secondaryColor);
+		//finishOrder.setBackground(secondaryColor);
+		//finishOrder.setForeground(baseColor);
 		finishOrder.setFont(buttonFont);
 		finishOrder.setPreferredSize(new Dimension(frame.getWidth()/2,80));
-		finishOrder.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
+		//finishOrder.setBorder(BorderFactory.createLineBorder(baseColor,5,true));
 
 		//listener for the finish order button
 		finishOrder.addActionListener(
@@ -233,7 +247,14 @@ public class ReturnScreen {
 							databaseConnection.deleteOrder(order);
 						}
 						else {
-							databaseConnection.updateOrderInfo(order,buildOrderInfo(),round(getTotalOrderCost(),2));
+							//update the order info based on the array list of order helper items
+							//loop through all the items in the helper list
+							System.out.println("updating helper list");
+							//also need to update the order list
+							databaseConnection.updateOrderList(orderHelperList.get(0).getOrderID(),round(getTotalOrderCost(),2));
+							for (OrderHelper h : orderHelperList){
+								databaseConnection.updateHelperList(h);
+							}
 						}
 						double totalReturn = originalOrderCost - getTotalOrderCost();
 						JOptionPane.showMessageDialog(null,"Thank you for your business.\n"
@@ -250,11 +271,11 @@ public class ReturnScreen {
 		});
 		
 		//cancel order button
-		cancel.setBackground(baseColor);
-		cancel.setForeground(secondaryColor);
+		//cancel.setBackground(secondaryColor);
+		//cancel.setForeground(baseColor);
 		cancel.setFont(buttonFont);
 		cancel.setPreferredSize(new Dimension(frame.getWidth()/2,80));
-		cancel.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
+		//cancel.setBorder(BorderFactory.createLineBorder(baseColor,5,true));
 
 
 		//listener for the cancel order button
@@ -280,15 +301,15 @@ public class ReturnScreen {
 		
 		//set the preferred size for the button panel
 		buttonPanel.setPreferredSize(new Dimension(frame.getWidth()/2,150));
-		buttonPanel.setBackground(baseColor);
+		//buttonPanel.setBackground(baseColor);
 		buttonPanel.add(editOrder);
 		buttonPanel.add(finishOrder);
 		buttonPanel.add(cancel);
 		
 		
 		//make the footer look pretty
-		storeFooter.setBackground(baseColor);
-		storeFooter.setForeground(secondaryColor);
+		storeFooter.setBackground(secondaryColor);
+		storeFooter.setForeground(baseColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);
@@ -309,30 +330,14 @@ public class ReturnScreen {
 	 */
 	private double getTotalOrderCost(){
 		double totalCost = 0.0;
-		for(OrderHelper item : this.orderHelperList){
+		for(OrderHelper item : orderHelperList){
 			totalCost += item.getProductPrice() * item.getQuantity();
 		}
 		//add in tax of .06 (6%)
 		totalCost += totalCost * 0.06;
 		return totalCost;
 	}
-	/**
-	 * @return
-	 * 
-	 * build the order info column for the order table
-	 */
-	private String buildOrderInfo(){
-		String toReturn = "";
-		//for each object print out the necessary info
-		for (int i = 0; i < orderHelperList.size(); ++i){
-			toReturn += orderHelperList.get(i).createOrderInfo();
-			if (i < orderHelperList.size()-1){
-				toReturn += '|';
-			}
-		}
-		return toReturn;
-	}
-	
+
 	/**
 	 * create the necessary info for the text area
 	 */
@@ -345,52 +350,16 @@ public class ReturnScreen {
 			toReturn += "Current Order Status:\n\n";
 			toReturn += "Date: " + order.getOrderDate() + "\n\n";
 			toReturn += String.format("%-20s %-15s %-15s\n", "Product:" , "Cost:", "Quantity:");
-			for(OrderHelper item : this.orderHelperList){
-				int spacing = 20 - item.getProductName().length() + (8 -item.getProductName().length());
-				toReturn += String.format("%-20s %-15.2f %-15s\n", item.getProductName(), item.getProductPrice(), Integer.toString(item.getQuantity()));
+			for(OrderHelper item : orderHelperList){
+				//int spacing = 20 - getProdFromID(item.getProductID()).getName().length() + (8 -item.getProductName().length());
+				toReturn += String.format("%-20s %-15.2f %-15s\n", getProdFromID(item.getProductID()).getName(), item.getProductPrice(), Integer.toString(item.getQuantity()));
 			}
 			toReturn += String.format("\nTotal Cost: $%.2f\n", getTotalOrderCost());
 		}
 		System.out.println(toReturn);
 		return toReturn;
 	}
-	
-    //these next two will be used to create an orderHelperList from an order if you want to return anything
-    /**
-     * @param toDivide
-     * @return
-     * 
-     * break up the individual order item into its three parts
-     */
-    private String [] createThreeParts(String toDivide){
-        String delims = "['^']+";
-        String [] toReturn = toDivide.split(delims);
-        return toReturn;
-    }
 
-    /**
-     * @param toDivide
-     * @return
-     * 
-     * get individual products from the orderInfo
-     */
-    private String [] getIndividualProducts(String toDivide){
-        String delims = "[|]+";
-        String [] toReturn = toDivide.split(delims);
-        return toReturn;
-    }
-	
-	private void createOrderHelperList(Order order){
-		//get the individual products
-		String [] productsOrdered = getIndividualProducts(order.getOrderInfo());
-		String [] individualItems;
-		//break the product by pieces and add it to the orderHelperList
-		for (int i = 0; i < productsOrdered.length; ++i){
-			individualItems = createThreeParts(productsOrdered[i]);
-			System.out.println(individualItems[0] + " " + individualItems[1] + " " + individualItems[2]);
-			orderHelperList.add(new OrderHelper(individualItems[0],Double.parseDouble(individualItems[1]),Integer.parseInt(individualItems[2])));
-		}
-	}
 	/**
 	 * @param name
 	 * @return
@@ -399,8 +368,8 @@ public class ReturnScreen {
 	 */
 	private boolean checkValidName(String name){
 		//ignore issues with casing
-		for (OrderHelper item : this.orderHelperList){
-			if (item.getProductName().toUpperCase().equals(name.toUpperCase()))return true;
+		for (OrderHelper item : orderHelperList){
+			if (getProdFromID(item.getProductID()).getName().toUpperCase().equals(name.toUpperCase()))return true;
 		}
 		return false;
 	}	
@@ -426,8 +395,8 @@ public class ReturnScreen {
 	 */
 	private OrderHelper getOrderHelperItemByName(String name){
 		//ignore issues with casing
-		for (OrderHelper item : this.orderHelperList){
-			if (item.getProductName().toUpperCase().equals(name.toUpperCase()))
+		for (OrderHelper item : orderHelperList){
+			if (getProdFromID(item.getProductID()).getName().toUpperCase().equals(name.toUpperCase()))
 				return item;
 		}
 		return null;
@@ -446,6 +415,19 @@ public class ReturnScreen {
 	    BigDecimal bd = new BigDecimal(value);
 	    bd = bd.setScale(places, RoundingMode.HALF_UP);
 	    return bd.doubleValue();
+	}
+	
+	/**
+	 * @param id
+	 * @return
+	 * 
+	 * get a product from the id
+	 */
+	private Product getProdFromID(int id){
+		for (Product p : databaseConnection.getProductList()){
+			if (p.getID() == id) return p;
+		}
+		return null;
 	}
 	
 }

@@ -38,7 +38,7 @@ public class startUpScreen {
 	/**
 	 * frame for the GUI
 	 */
-	private JFrame frame = new JFrame("Grocery Store Checkout System: Set Employee Access Rights");
+	private JFrame frame = new JFrame("Grocery Store Checkout System: Start Up Screen");
 	/**
 	 * pane to be contained in the frame
 	 */
@@ -95,9 +95,10 @@ public class startUpScreen {
 		pane = frame.getContentPane();
 		pane.setLayout(new BorderLayout());
 		
-
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
 		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setForeground(baseColor);
+		textLabel.setForeground(baseColor);
 		textLabel.setFont(baseFont);
 		JLabel icon2Label = new JLabel();
 		icon2Label.setIcon(cartImage);
@@ -108,24 +109,25 @@ public class startUpScreen {
 		storeHeader.add(icon2Label);
 		
 		//make the header look pretty
-		storeHeader.setBackground(baseColor);
-		storeHeader.setForeground(secondaryColor);
+		storeHeader.setBackground(secondaryColor);
+		storeHeader.setForeground(baseColor);
 		storeHeader.setFont(baseFont);
 		//storeHeader.setHorizontalTextPosition(SwingConstants.LEADING);
 		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
 		
-		description.setForeground(secondaryColor);
-		description.setBackground(baseColor);
+		//description.setForeground(secondaryColor);
+		//description.setBackground(baseColor);
 		description.setFont(baseFont);
 		description.setEditable(false);
 		description.setPreferredSize(new Dimension(260,200));
-		description.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+		description.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, secondaryColor));
+
 		
 		//loop through the employee list and make each employee icon a button 
 		for (Employee x:databaseConnection.getEmployeeList()){
 			JButton tempButton = new JButton(x.getImage());
-			tempButton.setBackground(baseColor);
+			//tempButton.setBackground(baseColor);
 			tempButton.setPreferredSize(new Dimension(100,75));
 			tempButton.addActionListener(new ActionListener(){
 
@@ -143,7 +145,7 @@ public class startUpScreen {
 		//administrator button for all emcompasing access rights
 		JButton adminButton = new JButton("Admin");
 		adminButton.setFont(buttonFont);
-		adminButton.setBackground(baseColor);
+		//adminButton.setBackground(baseColor);
 		adminButton.setPreferredSize(new Dimension(100,75));
 		adminButton.addActionListener(new ActionListener(){
 
@@ -159,13 +161,13 @@ public class startUpScreen {
 		
 		
 		//make the footer look pretty
-		storeFooter.setBackground(baseColor);
-		storeFooter.setForeground(secondaryColor);
+		storeFooter.setBackground(secondaryColor);
+		storeFooter.setForeground(baseColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);
 
-		employeePanel.setBackground(secondaryColor);
+		//employeePanel.setBackground(secondaryColor);
 		
 		pane.add(storeHeader, BorderLayout.PAGE_START);
 		pane.add(description, BorderLayout.LINE_START);

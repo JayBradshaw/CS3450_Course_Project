@@ -107,6 +107,10 @@ public class RemoveProductScreen {
 	 * JBradshaw: Allow ability to return to the main screen
 	 */
 	private CheckoutScreen checkoutscreen;
+	/**
+	 * connection to the database
+	 */
+	databaseAccess databaseConnection;
 
 	
 	/**
@@ -118,6 +122,7 @@ public class RemoveProductScreen {
 	 * non-default constructor
 	 */
 	public RemoveProductScreen(databaseAccess databaseConnection, ArrayList<OrderHelper> orderHelperList){
+		this.databaseConnection = databaseConnection;
 		productList = databaseConnection.getProductList();
 		this.orderHelperList = orderHelperList;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -129,7 +134,7 @@ public class RemoveProductScreen {
 		String[] productNames = new String[orderHelperList.size()];
 		int i=0;
 				for(OrderHelper v : orderHelperList){
-					productNames[i++] = v.getProductName();
+					productNames[i++] = getProdFromID(v.getProductID()).getName();
 				}
 				
 				
@@ -143,8 +148,8 @@ public class RemoveProductScreen {
 		
 		//should now only show the items in the current checkout list
 		temporary = orderHelperList.get(productNames.length-1); 
-		dropDownMenu.setBackground(baseColor);
-		dropDownMenu.setForeground(secondaryColor);
+		//dropDownMenu.setBackground(secondaryColor);
+		//dropDownMenu.setForeground(baseColor);
 		dropDownMenu.setFont(baseFont);
 		dropDownMenu.addActionListener(new ActionListener(){
 			@Override
@@ -194,6 +199,7 @@ public class RemoveProductScreen {
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
 		JLabel icon1Label = new JLabel();
 		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setForeground(baseColor);
 		textLabel.setFont(baseFont);
 		JLabel icon2Label = new JLabel();
 		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
@@ -207,8 +213,8 @@ public class RemoveProductScreen {
 		storeHeader.add(icon2Label);
 		//copied exactly for UI consistency
 		//make the header look pretty
-		storeHeader.setBackground(baseColor);
-		storeHeader.setForeground(secondaryColor);
+		storeHeader.setBackground(secondaryColor);
+		storeHeader.setForeground(baseColor);
 		storeHeader.setFont(baseFont);
 		storeHeader.setOpaque(true);
 		//constraints for header
@@ -224,10 +230,10 @@ public class RemoveProductScreen {
 		
 		
 		//cancel aka return to checkoutscreen and do nothing
-		checkoutScreen.setBackground(baseColor);
-		checkoutScreen.setForeground(secondaryColor);
+		//checkoutScreen.setBackground(secondaryColor);
+		//checkoutScreen.setForeground(baseColor);
 		checkoutScreen.setFont(buttonFont);
-		checkoutScreen.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+		//checkoutScreen.setBorder(BorderFactory.createLineBorder(baseColor,5));
 		GridBagConstraints m = new GridBagConstraints();
 		m.weightx = .16;
 	    m.weighty = .16;
@@ -255,10 +261,10 @@ public class RemoveProductScreen {
 	    
 	    
 	    //add the selected item and quantity
-	    removeItem.setBackground(baseColor);
-	    removeItem.setForeground(secondaryColor);
+	    //removeItem.setBackground(secondaryColor);
+	    //removeItem.setForeground(baseColor);
 	    removeItem.setFont(buttonFont);
-	    removeItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+	    //removeItem.setBorder(BorderFactory.createLineBorder(baseColor,5));
 		
 		GridBagConstraints a = new GridBagConstraints();
 		a.weightx = .16;
@@ -281,7 +287,7 @@ public class RemoveProductScreen {
 						int orderHelperIndex = 0;
 						
 						//make sure that the item you want to remove is a part of the current order
-						if (!isInOrderList(temporary.getProductName())){
+						if (!isInOrderList(temporary.getProductID())){
 							JOptionPane.showMessageDialog(null, "Error! Item is not a part of the current order!");
 							return;
 						}
@@ -299,7 +305,7 @@ public class RemoveProductScreen {
 						}
 						
 						for (int i = 0; i < orderHelperList.size(); ++i){
-							if (orderHelperList.get(i).getProductName() == temporary.getProductName()){
+							if (orderHelperList.get(i).getProductID() == temporary.getProductID()){
 								orderHelperIndex = i;
 							}
 						}
@@ -316,7 +322,7 @@ public class RemoveProductScreen {
 						if (orderHelperList.get(orderHelperIndex).getQuantity() == 0){
 							orderHelperList.remove(orderHelperIndex);
 						}
-						System.out.println("removing " + spinner.getValue() + " " + temporary.getProductName());
+						//System.out.println("removing " + spinner.getValue() + " " + temporary.getProductName());
 						System.out.println("Back to checkout screen...");
 						
 						//JBradshaw: add ability to return back to the main screen
@@ -325,8 +331,8 @@ public class RemoveProductScreen {
 					}	
 		});
 		//make the footer look pretty
-		storeFooter.setBackground(baseColor);
-		storeFooter.setForeground(secondaryColor);
+		storeFooter.setBackground(secondaryColor);
+		storeFooter.setForeground(baseColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setOpaque(true);
 		//constraints for footer
@@ -357,13 +363,26 @@ public class RemoveProductScreen {
 	 * 
 	 * determines whether or not a product is a part of the current order
 	 */
-	boolean isInOrderList(String name){
+	boolean isInOrderList(int id){
 		for (int i = 0; i < orderHelperList.size(); ++i){
-			if (orderHelperList.get(i).getProductName() == name){
+			if (orderHelperList.get(i).getProductID() == id){
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * @param id
+	 * @return
+	 * 
+	 * get a product from the id
+	 */
+	private Product getProdFromID(int id){
+		for (Product p : databaseConnection.getProductList()){
+			if (p.getID() == id) return p;
+		}
+		return null;
 	}
 	
 }

@@ -113,6 +113,7 @@ public class InventoryScreen {
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
 		JLabel icon1Label = new JLabel();
 		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setForeground(baseColor);
 		textLabel.setFont(baseFont);
 		JLabel icon2Label = new JLabel();
 		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
@@ -125,8 +126,8 @@ public class InventoryScreen {
 		storeHeader.add(Box.createRigidArea(new Dimension(5,0)));
 		storeHeader.add(icon2Label);
 		//make the header look pretty
-		storeHeader.setBackground(baseColor);
-		storeHeader.setForeground(secondaryColor);
+		storeHeader.setBackground(secondaryColor);
+		storeHeader.setForeground(baseColor);
 		storeHeader.setFont(baseFont);
 		storeHeader.setOpaque(true);
 		//constraints for header
@@ -141,10 +142,10 @@ public class InventoryScreen {
 		h.anchor = GridBagConstraints.PAGE_START;
 		
 		//make add item button look pretty
-		addProduct.setBackground(baseColor);
-		addProduct.setForeground(secondaryColor);
+		//addProduct.setBackground(secondaryColor);
+		//addProduct.setForeground(baseColor);
 		addProduct.setFont(buttonFont);
-		addProduct.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+		//addProduct.setBorder(BorderFactory.createLineBorder(baseColor,5));
 		//constraints for add product button 
 		GridBagConstraints a = new GridBagConstraints();
 		a.weightx = .5;
@@ -168,10 +169,10 @@ public class InventoryScreen {
 		});
 
 	    //make button look pretty
-  		manageExistingProducts.setBackground(baseColor);
-  		manageExistingProducts.setForeground(secondaryColor);
+  		//manageExistingProducts.setBackground(secondaryColor);
+  		//manageExistingProducts.setForeground(baseColor);
   		manageExistingProducts.setFont(buttonFont);
-  		manageExistingProducts.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+  		//manageExistingProducts.setBorder(BorderFactory.createLineBorder(baseColor,5));
   		//constraints for button 
   		GridBagConstraints m = new GridBagConstraints();
   		m.weightx = .5;
@@ -195,10 +196,10 @@ public class InventoryScreen {
   		});
 
   	    //make button look pretty
-  		availability.setBackground(baseColor);
-  		availability.setForeground(secondaryColor);
+  		//availability.setBackground(secondaryColor);
+  		//availability.setForeground(baseColor);
   		availability.setFont(buttonFont);
-  		availability.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+  		//availability.setBorder(BorderFactory.createLineBorder(baseColor,5));
   		//constraints for button 
   		GridBagConstraints av = new GridBagConstraints();
   		av.weightx = .5;
@@ -221,10 +222,10 @@ public class InventoryScreen {
   		});
 
   	  	//make mainScreen button look pretty
-  		mainScreen.setBackground(baseColor);
-  		mainScreen.setForeground(secondaryColor);
+  		//mainScreen.setBackground(secondaryColor);
+  		//mainScreen.setForeground(baseColor);
   		mainScreen.setFont(buttonFont);
-  		mainScreen.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+  		//mainScreen.setBorder(BorderFactory.createLineBorder(baseColor,5));
   		//constraints for button 
   		GridBagConstraints ms = new GridBagConstraints();
   		ms.weightx = .5;
@@ -248,8 +249,8 @@ public class InventoryScreen {
   		});
   	    
 		//make the footer look pretty
-		storeFooter.setBackground(baseColor);
-		storeFooter.setForeground(secondaryColor);
+		storeFooter.setBackground(secondaryColor);
+		storeFooter.setForeground(baseColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setOpaque(true);
 		//constraints for footer

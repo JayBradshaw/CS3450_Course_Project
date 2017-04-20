@@ -33,11 +33,6 @@ public class Order {
 	 */
 	private String deliveryMethod;
 	/**
-	 * stores the info for an order including product names, cost per item, and quantity
-	 * Example: "Apple,0.99,13|Peach,1.25,89|Coca-Cola,45" (item,cost,quantity)
-	 */
-	private String orderInfo;
-	/**
 	 * stores the date of the order in date format SimpleDateFormat("yyyy/MM/dd")
 	 */
 	private String orderDate;
@@ -56,13 +51,12 @@ public class Order {
 	 * 
 	 * constructor that initializes all of the important attributes
 	 */
-	public Order(int orderID, int customerID, String paymentType, double totalCost, String deliveryMethod, String orderInfo, String orderDate){
+	public Order(int orderID, int customerID, String paymentType, double totalCost, String deliveryMethod, String orderDate){
 		this.orderID = orderID;
 		this.customerID =customerID;
 		this.paymentType = paymentType;
 		this.totalCost = totalCost;
 		this.deliveryMethod = deliveryMethod;
-		this.orderInfo = orderInfo;
 		this.orderDate = orderDate;
 	}
 	/**
@@ -139,15 +133,6 @@ public class Order {
 	public void setDeliveryMethod(String deliveryMethod) {
 		this.deliveryMethod = deliveryMethod;
 	}
-	
-	/**
-	 * @return
-	 * get the info for an order
-	 */
-	public String getOrderInfo(){
-		return this.orderInfo;
-	}
-	
 	/**
 	 * @param orderDate
 	 * sets the order date in the format yyyy/MM/dd

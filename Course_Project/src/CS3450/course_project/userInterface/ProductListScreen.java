@@ -98,6 +98,7 @@ public class ProductListScreen {
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
 		JLabel icon1Label = new JLabel();
 		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setForeground(baseColor);
 		textLabel.setFont(baseFont);
 		JLabel icon2Label = new JLabel();
 		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
@@ -111,8 +112,8 @@ public class ProductListScreen {
 		storeHeader.add(icon2Label);
 		//copied exactly for UI consistency
 		//make the header look pretty
-		storeHeader.setBackground(baseColor);
-		storeHeader.setForeground(secondaryColor);
+		storeHeader.setBackground(secondaryColor);
+		storeHeader.setForeground(baseColor);
 		storeHeader.setFont(baseFont);
 		storeHeader.setOpaque(true);
 		//constraints for header
@@ -127,8 +128,8 @@ public class ProductListScreen {
 			h.anchor = GridBagConstraints.PAGE_START;
 			
 		textArea.setFont(baseFont);
-		textArea.setBackground(baseColor);
-		textArea.setForeground(secondaryColor);
+		//textArea.setBackground(secondaryColor);
+		//textArea.setForeground(baseColor);
 		for(Product v : this.productList){
 			textArea.append(String.format("%-15s %10d %n",v.getName() + ":", v.getAvailableUnits()));
 		}
@@ -142,10 +143,10 @@ public class ProductListScreen {
 	    	ta.gridwidth = 1;
 			
 		//returns to the inventory screen.
-		returnBtn.setBackground(baseColor);
-		returnBtn.setForeground(secondaryColor);
+		//returnBtn.setBackground(secondaryColor);
+		//returnBtn.setForeground(baseColor);
 	    returnBtn.setFont(buttonFont);
-	    returnBtn.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+	    //returnBtn.setBorder(BorderFactory.createLineBorder(baseColor,5));
 	    returnBtn.addActionListener(
 				new ActionListener(){
 					@Override
@@ -165,8 +166,8 @@ public class ProductListScreen {
 	    	rb.gridwidth = 1;
 			
 		//make the footer look pretty
-		storeFooter.setBackground(baseColor);
-		storeFooter.setForeground(secondaryColor);
+		storeFooter.setBackground(secondaryColor);
+		storeFooter.setForeground(baseColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setOpaque(true);
 		//constraints for footer

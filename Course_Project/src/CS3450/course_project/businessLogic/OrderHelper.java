@@ -17,9 +17,12 @@ package CS3450.course_project.businessLogic;
  *calculating the total cost for an order
  */
 public class OrderHelper {
-	private String productName;
+	private int orderID;
+	private int productID;
+	//private String productName;
 	private double productPrice;
 	private int quantity;
+	private String orderDate;
 	
 	/**
 	 * default constructor
@@ -34,26 +37,41 @@ public class OrderHelper {
 	 * 
 	 * constructor
 	 */
-	public OrderHelper(String productName, double productPrice, int quantity){
-		this.productName = productName;
+	public OrderHelper(int orderID,int productID, double productPrice, int quantity, String orderDate){
+		this.orderID = orderID;
+		this.productID = productID;
 		this.productPrice = productPrice;
 		this.quantity = quantity;
 	}
 	/**
-	 * @return
-	 * 
-	 * returns  the name of a given product
+	 * @param id
+	 * set the order id
 	 */
-	public String getProductName() {
-		return productName;
+	public void setOrderID(int id){
+		orderID = id;
 	}
 	/**
-	 * @param productName
-	 * 
-	 * sets the name of a given product
+	 * @return
+	 * get the order ID
 	 */
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public int getOrderID(){
+		return orderID;
+	}
+	/**
+	 * @param id
+	 * 
+	 * set the id for the helper item
+	 */
+	public void setProductID(int id){
+		productID = id;
+	}
+	/**
+	 * @return
+	 * 
+	 * get the product id
+	 */
+	public int getProductID(){
+		return productID;
 	}
 	/**
 	 * @return
@@ -87,16 +105,22 @@ public class OrderHelper {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
 	/**
 	 * @return
 	 * 
-	 * create the needed info for an order (this is for one item)
-	 * form: Apple^0.99^48
+	 * returns the date of the order
 	 */
-	public String createOrderInfo() {
-		String toReturn = getProductName() + '^' + Double.toString(getProductPrice()) + '^' + Integer.toString(getQuantity());
-	return toReturn;
+	public String getDate(){
+		return orderDate;
 	}
+	/**
+	 * @param date
+	 * 
+	 * set the date of the order
+	 */
+	public void setDate(String date){
+		orderDate = date;
+	}
+
 	
 }

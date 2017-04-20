@@ -143,6 +143,7 @@ public class EmployeeMainScreen {
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
 		JLabel icon1Label = new JLabel();
 		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setForeground(baseColor);
 		textLabel.setFont(baseFont);
 		JLabel icon2Label = new JLabel();
 		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
@@ -156,19 +157,19 @@ public class EmployeeMainScreen {
 		storeHeader.add(icon2Label);
 		
 		//make the header look pretty
-		storeHeader.setBackground(baseColor);
-		storeHeader.setForeground(secondaryColor);
+		storeHeader.setBackground(secondaryColor);
+		storeHeader.setForeground(baseColor);
 		storeHeader.setFont(baseFont);
 		//storeHeader.setHorizontalTextPosition(SwingConstants.LEADING);
 		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
 		
 		//make the checkout button look pretty
-		checkout.setBackground(baseColor);
-		checkout.setForeground(secondaryColor);
+		//checkout.setBackground(secondaryColor);
+		//checkout.setForeground(baseColor);
 		checkout.setFont(buttonFont);
 		checkout.setPreferredSize(new Dimension(frame.getWidth()/2,125));
-		checkout.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
+		//checkout.setBorder(BorderFactory.createLineBorder(baseColor,5,true));
 		//checkout.setMargin(new Insets(15,15,15,15));
 		//listener for the checkout button
 		checkout.addActionListener(
@@ -187,11 +188,11 @@ public class EmployeeMainScreen {
 				});
 		
 		//functionality for the logout button
-		logout.setBackground(baseColor);
-		logout.setForeground(secondaryColor);
+		//logout.setBackground(secondaryColor);
+		//logout.setForeground(baseColor);
 		logout.setFont(buttonFont);
 		logout.setPreferredSize(new Dimension(frame.getWidth()/4,200));
-		logout.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
+		//logout.setBorder(BorderFactory.createLineBorder(baseColor,5,true));
 
 		//listener for the manage inventory button
 		logout.addActionListener(
@@ -211,11 +212,11 @@ public class EmployeeMainScreen {
 				});
 		
 		//functionality for the returns button
-		returns.setBackground(baseColor);
-		returns.setForeground(secondaryColor);
+		//returns.setBackground(secondaryColor);
+		//returns.setForeground(baseColor);
 		returns.setFont(buttonFont);
 		returns.setPreferredSize(new Dimension(frame.getWidth()/2,125));
-		returns.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
+		//returns.setBorder(BorderFactory.createLineBorder(baseColor,5,true));
 		//returns.setMargin(new Insets(15,15,15,15));
 		//listener for the manage inventory button
 		returns.addActionListener(
@@ -233,11 +234,11 @@ public class EmployeeMainScreen {
 				});
 		
 		//functionality for the editMyInfo button
-		editMyInfo.setBackground(baseColor);
-		editMyInfo.setForeground(secondaryColor);
+		//editMyInfo.setBackground(secondaryColor);
+		//editMyInfo.setForeground(baseColor);
 		editMyInfo.setFont(buttonFont);
 		editMyInfo.setPreferredSize(new Dimension(frame.getWidth()/4,200));
-		editMyInfo.setBorder(BorderFactory.createLineBorder(secondaryColor,5,true));
+		//editMyInfo.setBorder(BorderFactory.createLineBorder(baseColor,5,true));
 		//returns.setMargin(new Insets(15,15,15,15));
 		//listener for the manage inventory button
 		editMyInfo.addActionListener(
@@ -262,8 +263,8 @@ public class EmployeeMainScreen {
 				});
 		
 		//specifications for button panel
-		buttonPanel.setBackground(baseColor);
-		buttonPanel.setForeground(secondaryColor);
+		//buttonPanel.setBackground(secondaryColor);
+		//buttonPanel.setForeground(baseColor);
 		buttonPanel.setFont(buttonFont);
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder());
 		buttonPanel.setPreferredSize(new Dimension(frame.getWidth()/2,250));
@@ -271,8 +272,8 @@ public class EmployeeMainScreen {
 		buttonPanel.add(returns);
 
 		//make the footer look pretty
-		storeFooter.setBackground(baseColor);
-		storeFooter.setForeground(secondaryColor);
+		storeFooter.setBackground(secondaryColor);
+		storeFooter.setForeground(baseColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);

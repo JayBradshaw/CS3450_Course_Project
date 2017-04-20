@@ -120,7 +120,14 @@ public class AddProductScreen {
 	 * list of items that are on sale
 	 */
 	private ArrayList<SaleItem> saleList = new ArrayList<SaleItem>();
+	/**
+	 * current customer that is involved with the order
+	 */
 	private Customer currentCustomer;
+	/**
+	 * access to the database
+	 */
+	private databaseAccess databaseConnection;
 
 	
 	/**
@@ -167,8 +174,8 @@ public class AddProductScreen {
 		//JBradshaw added this to make sure that if the user doesn't change
 		//the drop down it will still add the item that first appears
 		temporary = productList.get(productNames.length-1); 
-		dropDownMenu.setBackground(baseColor);
-		dropDownMenu.setForeground(secondaryColor);
+		//dropDownMenu.setBackground(secondaryColor);
+		//dropDownMenu.setForeground(baseColor);
 		dropDownMenu.setFont(baseFont);
 		dropDownMenu.addActionListener(new ActionListener(){
 			@Override
@@ -214,9 +221,10 @@ public class AddProductScreen {
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
 		JLabel icon1Label = new JLabel();
 		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setForeground(baseColor);
 		instruction = new JLabel("After clicking on drop down menu, select by typing or clicking on item name.");
-		instruction.setForeground(secondaryColor);
-		instruction.setBackground(baseColor);
+		//instruction.setForeground(secondaryColor);
+		//instruction.setBackground(baseColor);
 		instruction.setFont(baseFont);
 		textLabel.setFont(baseFont);
 		JLabel icon2Label = new JLabel();
@@ -231,8 +239,8 @@ public class AddProductScreen {
 		storeHeader.add(icon2Label);
 		//copied exactly for UI consistency
 		//make the header look pretty
-		storeHeader.setBackground(baseColor);
-		storeHeader.setForeground(secondaryColor);
+		storeHeader.setBackground(secondaryColor);
+		storeHeader.setForeground(baseColor);
 		storeHeader.setFont(baseFont);
 		storeHeader.setHorizontalTextPosition(SwingConstants.LEADING);
 		storeHeader.setOpaque(true);
@@ -257,8 +265,8 @@ public class AddProductScreen {
 		
 		
 		//cancel aka return to checkout screen and do nothing
-		checkoutScreen.setBackground(baseColor);
-		checkoutScreen.setForeground(secondaryColor);
+		//checkoutScreen.setBackground(secondaryColor);
+		//checkoutScreen.setForeground(baseColor);
 		checkoutScreen.setFont(buttonFont);
 		checkoutScreen.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
 		GridBagConstraints m = new GridBagConstraints();
@@ -288,10 +296,10 @@ public class AddProductScreen {
 	    
 	    
 	    //add the selected item and quantity
-	    addItem.setBackground(baseColor);
-	    addItem.setForeground(secondaryColor);
+	    //addItem.setBackground(secondaryColor);
+	    //addItem.setForeground(baseColor);
 	    addItem.setFont(buttonFont);
-	    addItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+	    //addItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
 		
 		GridBagConstraints a = new GridBagConstraints();
 		a.weightx = .16;
@@ -329,7 +337,7 @@ public class AddProductScreen {
 							if (contains(temporary.getName())){ //if the item is already in the list, just increment the quantity
 								for (int i = 0; i < orderHelperList.size(); ++i){
 									//if the correct object increment the quantity
-									if (orderHelperList.get(i).getProductName() == temporary.getName()){
+									if (contains(temporary.getName())){
 										orderHelperList.get(i).setQuantity(orderHelperList.get(i).getQuantity() + (int)spinner.getValue());
 									}
 								}
@@ -337,10 +345,10 @@ public class AddProductScreen {
 							else { //create a new order helper item
 								System.out.println("Adding new item to order helper");
 								if (onSale(temporary,databaseConnection)){ //if the item is on sale get the sale price
-									orderHelperList.add(new OrderHelper(productList.get(productIndex).getName(),getSalePrice(temporary),(int)spinner.getValue()));
+									orderHelperList.add(new OrderHelper(getNextOrderID(),productList.get(productIndex).getID(),getSalePrice(temporary),(int)spinner.getValue(),getCurrentDate()));
 								}
 								else {
-								orderHelperList.add(new OrderHelper(productList.get(productIndex).getName(),productList.get(productIndex).getPrice(),(int)spinner.getValue()));
+								orderHelperList.add(new OrderHelper(getNextOrderID(),productList.get(productIndex).getID(),productList.get(productIndex).getPrice(),(int)spinner.getValue(),getCurrentDate()));
 								}
 							}
 							System.out.println("Back to main screen...");
@@ -360,8 +368,8 @@ public class AddProductScreen {
 					
 		});
 		//make the footer look pretty
-		storeFooter.setBackground(baseColor);
-		storeFooter.setForeground(secondaryColor);
+		storeFooter.setBackground(secondaryColor);
+		storeFooter.setForeground(baseColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setOpaque(true);
 		//constraints for footer
@@ -395,7 +403,7 @@ public class AddProductScreen {
 	 */
 	public boolean contains(String name){
 		for (int i = 0; i < orderHelperList.size(); ++i){
-			if (orderHelperList.get(i).getProductName() == name){
+			if (getProdFromID(orderHelperList.get(i).getProductID()).getName().equals(name)){
 				return true;
 			}
 		}
@@ -411,7 +419,7 @@ public class AddProductScreen {
 	 */
 	private int getTotalAvailable(Product product){
 		for (int i = 0; i < orderHelperList.size(); ++i){
-			if (orderHelperList.get(i).getProductName().equals(product.getName())){
+			if (getProdFromID(orderHelperList.get(i).getProductID()).getName().equals(product.getName())){
 				return product.getAvailableUnits() - orderHelperList.get(i).getQuantity();
 			}
 		}
@@ -479,6 +487,32 @@ public class AddProductScreen {
 		Date date = new Date();
 		System.out.println(dateFormat.format(date));
 		return (String)dateFormat.format(date);
+	}
+	
+	/**
+	 * @return
+	 * 
+	 * get the next order id
+	 */
+	private int getNextOrderID(){
+		int id = 0;
+		for (Order x : databaseConnection.getOrderList()){
+			if (x.getOrderID() > id) id = x.getOrderID();
+		}
+		return id + 1;
+	}
+	
+	/**
+	 * @param id
+	 * @return
+	 * 
+	 * get a product from the id
+	 */
+	private Product getProdFromID(int id){
+		for (Product p : databaseConnection.getProductList()){
+			if (p.getID() == id) return p;
+		}
+		return null;
 	}
 	
 }

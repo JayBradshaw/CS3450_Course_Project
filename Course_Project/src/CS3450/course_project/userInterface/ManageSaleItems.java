@@ -186,6 +186,7 @@ public class ManageSaleItems implements ActionListener{
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
 		JLabel icon1Label = new JLabel();
 		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setForeground(baseColor);
 		textLabel.setFont(baseFont);
 		JLabel icon2Label = new JLabel();
 		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
@@ -200,8 +201,8 @@ public class ManageSaleItems implements ActionListener{
 		
 		//make the header look pretty
 		storeHeader.setIconTextGap(25);
-		storeHeader.setBackground(baseColor);
-		storeHeader.setForeground(secondaryColor);
+		storeHeader.setBackground(secondaryColor);
+		storeHeader.setForeground(baseColor);
 		storeHeader.setFont(baseFont);
 		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
@@ -210,20 +211,20 @@ public class ManageSaleItems implements ActionListener{
 
 		
 		//configurations for buttons used in specific cases
-		addNew.setBackground(secondaryColor);
-		addNew.setForeground(baseColor);
+		//addNew.setBackground(secondaryColor);
+		//addNew.setForeground(baseColor);
 		addNew.addActionListener(this);
-		saveEdit.setBackground(secondaryColor);
-		saveEdit.setForeground(baseColor);
+		//saveEdit.setBackground(secondaryColor);
+		//saveEdit.setForeground(baseColor);
 		saveEdit.addActionListener(this);
-		cancel.setBackground(secondaryColor);
-		cancel.setForeground(baseColor);
+		//cancel.setBackground(secondaryColor);
+		//cancel.setForeground(baseColor);
 		cancel.addActionListener(this);
 
 		
 		//make the footer look pretty
-		storeFooter.setBackground(baseColor);
-		storeFooter.setForeground(secondaryColor);
+		storeFooter.setBackground(secondaryColor);
+		storeFooter.setForeground(baseColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);
@@ -351,34 +352,34 @@ public class ManageSaleItems implements ActionListener{
 		midHeader.add(startField);
 		midHeader.add(endLabel);
 		midHeader.add(endField);
-		showInRange.setBackground(secondaryColor);
-		showInRange.setForeground(baseColor);
+		//showInRange.setBackground(secondaryColor);
+		//showInRange.setForeground(baseColor);
 		showInRange.addActionListener(this);
 		midHeader.add(showInRange);
 		
 		middlePanel.add(midHeader,BorderLayout.PAGE_START);
-		add.setBackground(secondaryColor);
-		add.setForeground(baseColor);
+		//add.setBackground(secondaryColor);
+		//add.setForeground(baseColor);
 		add.addActionListener(this);
 		middleBottom.add(add);
-		remove.setBackground(secondaryColor);
-		remove.setForeground(baseColor);
+		//remove.setBackground(secondaryColor);
+		//remove.setForeground(baseColor);
 		remove.addActionListener(this);
 		middleBottom.add(remove);
-		removeExpired.setBackground(secondaryColor);
-		removeExpired.setForeground(baseColor);
+		//removeExpired.setBackground(secondaryColor);
+		//removeExpired.setForeground(baseColor);
 		removeExpired.addActionListener(this);
 		middleBottom.add(removeExpired);
-		showAll.setBackground(secondaryColor);
-		showAll.setForeground(baseColor);
+		//showAll.setBackground(secondaryColor);
+		//showAll.setForeground(baseColor);
 		showAll.addActionListener(this);
 		middleBottom.add(showAll);
-		editItem.setBackground(secondaryColor);
-		editItem.setForeground(baseColor);
+		//editItem.setBackground(secondaryColor);
+		//editItem.setForeground(baseColor);
 		editItem.addActionListener(this);
 		middleBottom.add(editItem);
-		returnHome.setBackground(secondaryColor);
-		returnHome.setForeground(baseColor);
+		//returnHome.setBackground(secondaryColor);
+		//returnHome.setForeground(baseColor);
 		returnHome.addActionListener(this);
 		middleBottom.add(returnHome);
 		

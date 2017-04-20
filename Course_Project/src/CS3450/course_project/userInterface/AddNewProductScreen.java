@@ -119,6 +119,7 @@ public class AddNewProductScreen {
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
 		JLabel icon1Label = new JLabel();
 		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setForeground(baseColor);
 		textLabel.setFont(baseFont);
 		JLabel icon2Label = new JLabel();
 		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
@@ -132,8 +133,8 @@ public class AddNewProductScreen {
 		storeHeader.add(icon2Label);
 		//copied exactly for UI consistency
 		//make the header look pretty
-		storeHeader.setBackground(baseColor);
-		storeHeader.setForeground(secondaryColor);
+		storeHeader.setBackground(secondaryColor);
+		storeHeader.setForeground(baseColor);
 		storeHeader.setFont(baseFont);
 		storeHeader.setHorizontalTextPosition(SwingConstants.LEADING);
 		storeHeader.setOpaque(true);
@@ -263,10 +264,10 @@ public class AddNewProductScreen {
 			    pnl.fill = GridBagConstraints.BOTH;
 			 
 			//returns to the inventory screen.
-		cancel.setBackground(baseColor);
-		cancel.setForeground(secondaryColor);
+		//cancel.setBackground(secondaryColor);
+		//cancel.setForeground(baseColor);
 	    cancel.setFont(buttonFont);
-	    cancel.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+	    //cancel.setBorder(BorderFactory.createLineBorder(baseColor,5));
 	    cancel.addActionListener(
 	    		//if they cancel just return to the main screen
 					new ActionListener(){
@@ -289,10 +290,10 @@ public class AddNewProductScreen {
 		    	
 		    	
 		    	
-    	addItem.setBackground(baseColor);
-    	addItem.setForeground(secondaryColor);
+    	//addItem.setBackground(secondaryColor);
+    	//addItem.setForeground(baseColor);
     	addItem.setFont(buttonFont);
-    	addItem.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+    	//addItem.setBorder(BorderFactory.createLineBorder(baseColor,5));
     	addItem.addActionListener(
 						new ActionListener(){
 							//JBradshaw return statements added so that user does not have to put in all of the information again
@@ -336,7 +337,7 @@ public class AddNewProductScreen {
 									JOptionPane.showMessageDialog(null,"Error! Product already exists!");
 									return;
 								}
-								databaseConnection.addProductToDatabase(new Product((String)iName.getText(), (int)spinner.getValue(),
+								databaseConnection.addProductToDatabase(new Product(getNextProdID(),(String)iName.getText(), (int)spinner.getValue(),
 										price, Integer.parseInt(iBarcode.getText()),
 										iProviderInfo.getText(), iProviderName.getText()));
 								
@@ -354,8 +355,8 @@ public class AddNewProductScreen {
 		    	ai.gridy = 7;
 		    	ai.gridwidth = 1;
 			//make the footer look pretty
-			storeFooter.setBackground(baseColor);
-			storeFooter.setForeground(secondaryColor);
+			storeFooter.setBackground(secondaryColor);
+			storeFooter.setForeground(baseColor);
 			storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 			storeFooter.setOpaque(true);
 			//constraints for footer
@@ -398,6 +399,14 @@ public class AddNewProductScreen {
 			}
 		}
 		return true;
+	}
+	
+	private int getNextProdID(){
+		int id = 0;
+		for (Product p : productList){
+			if (p.getID() > id) id = p.getID();
+		}
+		return id + 1;
 	}
 	
 }

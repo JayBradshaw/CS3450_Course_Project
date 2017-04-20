@@ -12,6 +12,10 @@ package CS3450.course_project.dataAccess;
  */
 public class Product {
 	/**
+	 * id of the product
+	 */
+	private int id;
+	/**
 	 * name of the product
 	 */
 	private String name;
@@ -53,13 +57,17 @@ public class Product {
 	 * 
 	 * non-default constructor to read from the database and initialize the variables
 	 */
-	public Product(String name, int availableUnits, double price, int barcodeNumber, String providerInfo, String providerName) {
+	public Product(int id, String name, int availableUnits, double price, int barcodeNumber, String providerInfo, String providerName) {
+		this.id = id;
 		this.name = name;
 		this.availableUnits = availableUnits;
 		this.price = price;
 		this.barcodeNumber = barcodeNumber;
 		this.providerInfo = providerInfo;
 		this.providerName = providerName;
+	}
+	public int getID() {
+		return id;
 	}
 	/**
 	 * @return

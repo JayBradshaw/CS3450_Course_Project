@@ -129,6 +129,7 @@ public class MyInfoScreen {
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
 		JLabel icon1Label = new JLabel();
 		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setForeground(baseColor);
 		textLabel.setFont(baseFont);
 		JLabel icon2Label = new JLabel();
 		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
@@ -142,8 +143,8 @@ public class MyInfoScreen {
 		storeHeader.add(icon2Label);
 		//copied exactly for UI consistency
 		//make the header look pretty
-		storeHeader.setBackground(baseColor);
-		storeHeader.setForeground(secondaryColor);
+		storeHeader.setBackground(secondaryColor);
+		storeHeader.setForeground(baseColor);
 		storeHeader.setFont(baseFont);
 		storeHeader.setOpaque(true);
 		//constraints for header
@@ -224,10 +225,10 @@ public class MyInfoScreen {
 			    
 		    
 		//returns to the inventory screen.
-		cancel.setBackground(baseColor);
-		cancel.setForeground(secondaryColor);
+		//cancel.setBackground(secondaryColor);
+		//cancel.setForeground(baseColor);
 	    cancel.setFont(buttonFont);
-	    cancel.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+	    //cancel.setBorder(BorderFactory.createLineBorder(baseColor,5));
 	    cancel.addActionListener(
 					new ActionListener(){
 						@Override
@@ -253,10 +254,10 @@ public class MyInfoScreen {
 		    	
 		    	
 		    	
-    	updateBtn.setBackground(baseColor);
-    	updateBtn.setForeground(secondaryColor);
+    	//updateBtn.setBackground(secondaryColor);
+    	//updateBtn.setForeground(baseColor);
     	updateBtn.setFont(buttonFont);
-    	updateBtn.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+    	//updateBtn.setBorder(BorderFactory.createLineBorder(baseColor,5));
     	updateBtn.addActionListener(
 						new ActionListener(){
 							@Override
@@ -346,10 +347,10 @@ public class MyInfoScreen {
     	u.gridwidth = 1;
     	
     	//choose file button
-    	chooseFile.setBackground(baseColor);
-		chooseFile.setForeground(secondaryColor);
+    	//chooseFile.setBackground(secondaryColor);
+		//chooseFile.setForeground(baseColor);
 	    chooseFile.setFont(buttonFont);
-	    chooseFile.setBorder(BorderFactory.createLineBorder(secondaryColor,5));
+	    //chooseFile.setBorder(BorderFactory.createLineBorder(baseColor,5));
     	//chooseFile button
 		GridBagConstraints button = new GridBagConstraints();
 		button.weightx = 1;
@@ -382,8 +383,8 @@ public class MyInfoScreen {
 	    });
     	
 		//make the footer look pretty
-		storeFooter.setBackground(baseColor);
-		storeFooter.setForeground(secondaryColor);
+		storeFooter.setBackground(secondaryColor);
+		storeFooter.setForeground(baseColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setOpaque(true);
 		//constraints for footer

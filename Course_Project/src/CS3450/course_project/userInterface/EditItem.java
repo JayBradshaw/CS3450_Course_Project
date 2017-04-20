@@ -134,6 +134,7 @@ public class EditItem implements ActionListener {
 		storeHeader.setLayout(new BoxLayout(storeHeader, BoxLayout.X_AXIS));
 		JLabel icon1Label = new JLabel();
 		JLabel textLabel = new JLabel("Mr. Smith's Groceries");
+		textLabel.setForeground(baseColor);
 		textLabel.setFont(baseFont);
 		JLabel icon2Label = new JLabel();
 		icon1Label.setIcon(databaseConnection.getEmployee().getImage());
@@ -148,25 +149,25 @@ public class EditItem implements ActionListener {
 		
 		//make the header look pretty
 		storeHeader.setIconTextGap(25);
-		storeHeader.setBackground(baseColor);
-		storeHeader.setForeground(secondaryColor);
+		storeHeader.setBackground(secondaryColor);
+		storeHeader.setForeground(baseColor);
 		storeHeader.setFont(baseFont);
 		storeHeader.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeHeader.setOpaque(true);
 		
 		//configurations for buttons used in specific cases
-		update.setBackground(secondaryColor);
-		update.setForeground(baseColor);
+		//update.setBackground(secondaryColor);
+		//update.setForeground(baseColor);
 		update.addActionListener(this);
-		cancel.setBackground(secondaryColor);
-		cancel.setForeground(baseColor);
+		//cancel.setBackground(secondaryColor);
+		//cancel.setForeground(baseColor);
 		cancel.addActionListener(this);
 		
 		initializeEdit(item);
 		
 		//make the footer look pretty
-		storeFooter.setBackground(baseColor);
-		storeFooter.setForeground(secondaryColor);
+		storeFooter.setBackground(secondaryColor);
+		storeFooter.setForeground(baseColor);
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);

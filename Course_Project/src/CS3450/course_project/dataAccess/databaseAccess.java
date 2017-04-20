@@ -44,7 +44,14 @@ public class databaseAccess {
      * store the current list of sale items
      */
     private ArrayList<SaleItem> saleList = new ArrayList<SaleItem>();
+    /**
+     * current customer
+     */
     private Customer currentCustomer = null;
+    /**
+     * store the order helper list
+     */
+    private ArrayList<OrderHelper> helperList = new ArrayList<OrderHelper>();
     
     /**
      * default constructor that will initialize all of the lists from the database
@@ -86,8 +93,8 @@ public class databaseAccess {
 		
 		try {
 			while(result.next()){
-				productList.add(new Product(result.getString(1),result.getInt(2),result.getDouble(3),result.getInt(4),result.getString(5),result.getString(6)));
-				System.out.println(result.getString(1) + " "  + result.getInt(2) + " "  + result.getDouble(3) + " "  + result.getInt(4) + " "  + result.getString(5) + " "  + result.getString(6));
+				productList.add(new Product(result.getInt(1),result.getString(2),result.getInt(3),result.getDouble(4),result.getInt(5),result.getString(6),result.getString(7)));
+				System.out.println(result.getInt(1) + " " + result.getString(2) + " "  + result.getInt(3) + " "  + result.getDouble(4) + " "  + result.getInt(5) + " "  + result.getString(6) + " "  + result.getString(7));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -138,8 +145,8 @@ public class databaseAccess {
 		
 		try {
 			while(result.next()){
-				orderList.add(new Order(result.getInt(1),result.getInt(2),result.getString(3),result.getDouble(4),result.getString(5),result.getString(6),result.getString(7)));
-				System.out.println(result.getInt(1)+ " " + result.getInt(2) + " " + result.getString(3) + " " + result.getDouble(4) + " " + result.getString(5) + " " + result.getString(6) + " " + result.getString(7));
+				orderList.add(new Order(result.getInt(1),result.getInt(2),result.getString(3),result.getDouble(4),result.getString(5),result.getString(6)));
+				System.out.println(result.getInt(1)+ " " + result.getInt(2) + " " + result.getString(3) + " " + result.getDouble(4) + " " + result.getString(5) + " " + result.getString(6));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -263,6 +270,7 @@ public class databaseAccess {
     	createOrderList();
     	getEmployeeInfo();
     	createSaleList();
+    	createOrderHelperList();
     }
     
     //all of the needed methods for accessing a product and adding a new product to the database
@@ -360,8 +368,8 @@ public class databaseAccess {
 			e.printStackTrace();
 		}
 		//get the query from the database
-		String query = "insert into products (name, availableUnits, price, barcode, providerInfo, providerName) values (" +
-		'"' + product.getName() + '"' + "," + product.getAvailableUnits() + ',' + product.getPrice() + ','
+		String query = "insert into products (id , name, availableUnits, price, barcode, providerInfo, providerName) values (" +
+		product.getID() + ',' + '"' + product.getName() + '"' + "," + product.getAvailableUnits() + ',' + product.getPrice() + ','
 		+ product.getBarcodeNumber() + ',' + '"' + product.getProviderInfo() + '"' + ',' + '"' + product.getProviderName() + '"' + ");";
 		System.out.println(query);
 		
@@ -395,61 +403,8 @@ public class databaseAccess {
     public void setCurrentCustomer(Customer customer){
     	currentCustomer = customer;
     }
-    
-    /**
-     * @return
-     * 
-     * gets the sales info for a given product in a given range
-     */
-    public ArrayList<OrderHelper> getProductInfo(Product product,String startDate, String endDate){
-    	//get all of the orders in a given time period
-    	//from those orders extract the ones with the correct product name and add them to the list
-    	ArrayList<OrderHelper> returnList =  new ArrayList<OrderHelper>();
-    	for (Order o : getOrdersInRange(startDate,endDate)){
-    		//need to create an order helper list from each order
-    		//from this list if the order helper list has the right product, add this to the new order helper list
-    		String [] productsOrdered = getIndividualProducts(o.getOrderInfo());
-			String [] individualItems;
-			//break the product by pieces and add it to the orderHelperList
-			for (int i = 0; i < productsOrdered.length; ++i){
-				individualItems = createThreeParts(productsOrdered[i]);
-				System.out.println(individualItems[0] + " " + individualItems[1] + " " + individualItems[2]);
-				if (individualItems[0].equals(product.getName())){ //add it to the list to be returned if the correct product
-					returnList.add(new OrderHelper(individualItems[0],Double.parseDouble(individualItems[1]),Integer.parseInt(individualItems[2])));
-				}
-				
-			}
-    	}
-    	return returnList;
-    }
-    
-    /**
-     * get the total quantity sold of a product in a given range
-     */
-    public int getTotalProductQuantity(Product product,String startDate, String endDate){
-    	int totalQuantity = 0;
-    	ArrayList<OrderHelper> helpList = getProductInfo(product,startDate,endDate);
-    	//once we have the helper list, we need to just get the total cost to deal with
-    	for (OrderHelper o : helpList){
-    		totalQuantity += o.getQuantity();
-    	}
-    	return totalQuantity;
-    }
-    
-    /**
-     * get the total product revenue for a given product in a given time period
-     */
-    public double getTotalProductSales(Product product, String startDate, String endDate){
-    	double totalSales = 0.0d;
-    	ArrayList<OrderHelper> helpList = getProductInfo(product,startDate,endDate);
-    	//once we have the helper list, we need to just get the total cost to deal with
-    	for (OrderHelper o : helpList){
-    		totalSales += o.getProductPrice() * o.getQuantity();
-    	}
-    	return totalSales;
-    }
-    //all of the needed methods for accessing a customer and adding a new customer to the database
-    
+
+    //all of the needed methods for accessing a customer and adding a new customer to the database    
     /**
      * @return
      * 
@@ -594,7 +549,7 @@ public class databaseAccess {
      * 
      * update the orderList if an order is changed
      */
-    public void updateOrderList (Order order){
+    public void updateOrderList (int orderID, double totalCost){
     	Connection con = null;
 		Statement statement = null;
 		try {
@@ -609,9 +564,7 @@ public class databaseAccess {
 			e.printStackTrace();
 		}
 		//orderID, customerID, paymentType, totalCost, deliveryMethod, orderInfo
-		String query = "update orders set customerID = " + order.getCustomerID() + 
-				", paymentType = " + '"' + order.getPaymentType() + '"' + ", totalCost = " + order.getTotalCost() + ", deliveryMethod = " +
-				'"' + order.getDeliveryMethod() + '"' + " , orderInfo = " + '"' + order.getOrderInfo() + '"' + " , orderDate = " + '"' + order.getOrderDate() + '"' + "\nwhere orderID = " + order.getOrderID() + ";";
+		String query = "update orders set totalCost = " + totalCost + " where orderID = " + orderID +  ";";
 		System.out.println(query);
 		try {
 			statement = con.createStatement();
@@ -626,47 +579,6 @@ public class databaseAccess {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    	//clear the order list and reinitialize it
-    	orderList.clear();
-    	createOrderList();
-    }
-    
-    /**
-     * @param order
-     * @param info
-     * 
-     * update just the order info of an order
-     */
-    public void updateOrderInfo(Order order, String info, double totalCost){
-       	Connection con = null;
-    		Statement statement = null;
-    		try {
-    			Class.forName("com.mysql.jdbc.Driver");
-    		} catch (ClassNotFoundException e) {
-    			e.printStackTrace();
-    		}
-    		
-    		try {
-    			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
-    		} catch (SQLException e) {
-    			e.printStackTrace();
-    		}
-    		//orderID, customerID, paymentType, totalCost, deliveryMethod, orderInfo
-    		String query = "update orders set orderInfo = " + '"' + info + '"' + ", totalCost = " + totalCost + "\nwhere orderID = " + order.getOrderID() + ";";
-    		System.out.println(query);
-    		try {
-    			statement = con.createStatement();
-    			statement.executeUpdate(query);
-    		} catch (SQLException e) {
-    			e.printStackTrace();
-    		}
-    		
-    		try {
-    			con.close();
-    			statement.close();
-    		} catch (SQLException e) {
-    			e.printStackTrace();
-    		}
     	//clear the order list and reinitialize it
     	orderList.clear();
     	createOrderList();
@@ -732,9 +644,9 @@ public class databaseAccess {
 			e.printStackTrace();
 		}
 		//get the query from the database
-		String query = "insert into orders (orderID, customerID, paymentType, totalCost, deliveryMethod, orderInfo, orderDate) values (" +
+		String query = "insert into orders (orderID, customerID, paymentType, totalCost, deliveryMethod, orderDate) values (" +
 		order.getOrderID() + "," + order.getCustomerID() + ',' + '"' + order.getPaymentType() + '"'
-		+ ',' + order.getTotalCost() + ',' + '"' + order.getDeliveryMethod() + '"' + ',' + '"' + order.getOrderInfo() + '"' + ',' + '"' + order.getOrderDate() + '"' + ");";
+		+ ',' + order.getTotalCost() + ',' + '"' + order.getDeliveryMethod() + '"' + ',' + '"' + order.getOrderDate() + '"' + ");";
 		System.out.println(query);
 		
 		try {
@@ -792,46 +704,6 @@ public class databaseAccess {
     		}
     	}
     	return oList;
-    }
-    
-    /**
-     * @param cust
-     * @param startDate
-     * @param endDate
-     * @return
-     * 
-     * this list will be used to display an overview of the total item purchases of a customer in a given period
-     * This is only used to get the total quantity of each item that is purchased. A separate method gets the total cost
-     */
-    public ArrayList<OrderHelper> getHelperListByCustomer(Customer cust, String startDate, String endDate){
-    	if (endDate.compareTo(startDate) < 0) return null; //error if end date is earlier than start date
-    	//from all of the orders, add them to the helper list. see the returns screen for functions to help with this
-    	ArrayList<Order> oList = getOrdersByCustomer(cust,startDate,endDate);
-    	ArrayList<OrderHelper> helpList = new ArrayList<OrderHelper>();
-    	//iterate through the order list getting the order info and adding it to the order helper list
-		//get the individual products
-    	for (Order x: oList){
-			String [] productsOrdered = getIndividualProducts(x.getOrderInfo());
-			String [] individualItems;
-			//break the product by pieces and add it to the orderHelperList
-			for (int i = 0; i < productsOrdered.length; ++i){
-				individualItems = createThreeParts(productsOrdered[i]);
-				System.out.println(individualItems[0] + " " + individualItems[1] + " " + individualItems[2]);
-				//check if the help list already has this product, if so just increment the total
-				//otherwise just increment the quantity in the helper list
-				if (contains(individualItems[0],helpList)){ //item already there
-					for (OrderHelper o : helpList){
-						if (o.getProductName().equals(individualItems[0])){ //increment the quantity of the item
-								o.setQuantity(o.getQuantity() + Integer.parseInt(individualItems[2]));
-						}
-					}
-				}
-				else { //item not already there add a new item to the list
-				helpList.add(new OrderHelper(individualItems[0],Double.parseDouble(individualItems[1]),Integer.parseInt(individualItems[2])));
-				}
-			}
-    	}
-    	return helpList;
     }
     
     /**
@@ -1208,35 +1080,252 @@ public class databaseAccess {
     	saleList.remove(item);
     }
     
-    //these next two will be used to create an orderHelperList from an order if you want to return anything
     /**
-     * @param toDivide
-     * @return
-     * 
-     * break up the individual order item into its three parts
+     * load in the order helper list
      */
-    private String [] createThreeParts(String toDivide){
-        String delims = "['^']+";
-        String [] toReturn = toDivide.split(delims);
-        return toReturn;
-    }
+    public void createOrderHelperList(){
+    	Connection con = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
+		} catch (SQLException e) {
 
+			e.printStackTrace();
+		}
+		//deal with product list
+		try {
+			statement = con.prepareStatement("select * from orderhelper");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			result = statement.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			while(result.next()){
+				helperList.add(new OrderHelper(result.getInt(1),result.getInt(2),result.getDouble(3),result.getInt(4),result.getString(5)));
+				System.out.println(result.getInt(1) + " " + result.getInt(2) + " "  + result.getDouble(3) + " "  + result.getInt(4) + " "  + result.getString(5));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    }
+    
     /**
-     * @param toDivide
      * @return
      * 
-     * get individual products from the orderInfo
+     * get helper list 
      */
-    private String [] getIndividualProducts(String toDivide){
-        String delims = "[|]+";
-        String [] toReturn = toDivide.split(delims);
-        return toReturn;
+    public ArrayList<OrderHelper> getHelperList(){
+    	return helperList;
     }
-	
-    private boolean contains(String item, ArrayList<OrderHelper> list){
-    	for (OrderHelper x : list){
-    		if (x.getProductName().equals(item))return true;
-    	}
-    	return false;
+    
+    /**
+     * @param orderID
+     * @return
+     * 
+     * get the helper items based on an id
+     */
+    /**
+     * @param orderID
+     * @return
+     * 
+     * get a helper list based on order id
+     */
+    public ArrayList<OrderHelper> getHelperListFromID(int orderID){
+    	ArrayList<OrderHelper> tempList = new ArrayList<OrderHelper>();
+    	Connection con = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		//deal with product list
+		try {
+			statement = con.prepareStatement("select * from orderhelper where orderID = " + orderID);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			result = statement.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			while(result.next()){
+				tempList.add(new OrderHelper(result.getInt(1),result.getInt(2),result.getDouble(3),result.getInt(4),result.getString(5)));
+				System.out.println(result.getInt(1) + " " + result.getInt(2) + " "  + result.getDouble(3) + " "  + result.getInt(4) + " "  + result.getString(5));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return tempList;
+    }
+    /**
+     * @param helper
+     * 
+     * delete an order helper item
+     */
+    public void deleteHelperItem(OrderHelper helper){
+    	Connection con = null;
+		PreparedStatement statement = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		//deal with product list
+		try {
+			statement = con.prepareStatement("delete from orderhelper where orderID = " + helper.getOrderID() + " and productID = " + helper.getProductID() + ";");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			statement.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		helperList.remove(helper);
+    }
+    /**
+     * @param helper
+     * 
+     * add a new order helper item
+     */
+    public void addHelperItem(OrderHelper helper){
+    	Connection con = null;
+		Statement statement = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//get the query from the database
+		String query = "insert into orderHelper (orderId , productID, productPrice, quantity, orderDate) values (" +
+		helper.getOrderID() + ',' + helper.getProductID()  + "," + helper.getProductPrice() + ',' + helper.getQuantity()+ ','
+		+ '"' +  helper.getDate() + '"' + ");";
+		System.out.println(query);
+		
+		try {
+			statement = con.createStatement();
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			con.close();
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		//add the new product to the array list
+		helperList.add(helper);
+    }
+    
+    /**
+     * @param helper
+     * 
+     * update an item in the helper list
+     */
+    public void updateHelperList(OrderHelper helper){
+       	//update the sale list based on a given item
+    	Connection con = null;
+		Statement statement = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String query = "update orderhelper set quantity = " + helper.getQuantity() + " where orderID = " + helper.getOrderID() + 
+				" and " + "productID = " + helper.getProductID() + ";";
+		System.out.println(query);
+		try {
+			statement = con.createStatement();
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			con.close();
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	helperList.clear();
+    	createOrderHelperList();
     }
 }
