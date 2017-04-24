@@ -76,7 +76,14 @@ public class ManageEmployeeAccessRights {
 	 */
 	private JTextArea description = new JTextArea("Select an image to change\nthe employee access rights.\n"
 			+ "Or select Return to return\nto the home screen.");
+	/**
+	 * button to return to the home screen
+	 */
 	private JButton homeScreen =  new JButton("Return");
+	/**
+	 * add a new employee
+	 */
+	private JButton addEmployee = new JButton();
 	
 	public ManageEmployeeAccessRights(DatabaseAccess databaseConnection){
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -160,6 +167,21 @@ public class ManageEmployeeAccessRights {
 		storeFooter.setFont(new Font("Verdana",Font.PLAIN,10));
 		storeFooter.setPreferredSize(new Dimension(frame.getWidth(),50));
 		storeFooter.setOpaque(true);
+		
+		//button for adding a new user
+		ImageIcon tempImage =  new ImageIcon("data/plus.png");
+		addEmployee.setIcon(tempImage);
+		addEmployee.setPreferredSize(new Dimension(100,75));
+		addEmployee.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "This has not yet been implemented!");
+			}
+			
+		});
+		
+		employeePanel.add(addEmployee);
 		
 		//homeScreen.setBackground(secondaryColor);
 		homeScreen.setPreferredSize(new Dimension(100,75));
