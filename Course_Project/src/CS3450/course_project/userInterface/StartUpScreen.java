@@ -33,6 +33,8 @@ import CS3450.course_project.dataAccess.DatabaseAccess;
 /**
  * @author Justin Bradshaw
  *
+ *
+ *this class deals with the main startup screen before login
  */
 public class StartUpScreen {
 	/**
@@ -143,8 +145,8 @@ public class StartUpScreen {
 		}
 		
 		//administrator button for all emcompasing access rights
-		JButton adminButton = new JButton("Admin");
-		adminButton.setFont(buttonFont);
+		ImageIcon icon = new ImageIcon("data/rsz_user_admin.png");
+		JButton adminButton = new JButton(icon);
 		//adminButton.setBackground(baseColor);
 		adminButton.setPreferredSize(new Dimension(100,75));
 		adminButton.addActionListener(new ActionListener(){

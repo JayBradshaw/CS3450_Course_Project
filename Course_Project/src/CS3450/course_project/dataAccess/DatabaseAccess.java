@@ -3,6 +3,10 @@
  */
 package CS3450.course_project.dataAccess;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -52,12 +56,52 @@ public class DatabaseAccess {
      * store the order helper list
      */
     private ArrayList<OrderHelper> helperList = new ArrayList<OrderHelper>();
+    /**
+     * location of the database
+     */
+    private String database;
+    /**
+     * host name for the database
+     */
+    private String hostName;
+    /**
+     * database password
+     */
+    private String password = "";
     
     /**
      * default constructor that will initialize all of the lists from the database
      */
     public DatabaseAccess(){
+    	initializeInfo();
     	loadInfoFromDatabase(); //load the info from the database and initialize the array lists
+    
+    }
+    
+    /**
+     * read from config.txt and get the necessary info
+     */
+    private void initializeInfo(){
+    	try {
+			FileReader file = new FileReader("data/config.txt");
+			BufferedReader bf = new BufferedReader(file);
+			try {
+				database = bf.readLine();
+				hostName = bf.readLine();
+				password = bf.readLine();
+				if (password == null){
+					password = "";
+				}
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+    	System.out.println(database);
+    	System.out.println(hostName);
+    	System.out.println(password);
     }
     
     /**
@@ -73,7 +117,7 @@ public class DatabaseAccess {
 			e.printStackTrace();
 		}
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -125,8 +169,8 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
-		} catch (SQLException e) {
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
+			} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		//deal with product list
@@ -177,7 +221,7 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -229,7 +273,7 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
@@ -289,7 +333,7 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -327,7 +371,7 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -363,7 +407,7 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -434,7 +478,7 @@ public class DatabaseAccess {
 		System.out.println(query);
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
@@ -471,7 +515,7 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -559,7 +603,7 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -599,7 +643,7 @@ public class DatabaseAccess {
     		}
     		
     		try {
-    			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+    			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
     		} catch (SQLException e) {
     			e.printStackTrace();
     		}
@@ -639,7 +683,7 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -753,7 +797,7 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -796,7 +840,7 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -848,7 +892,7 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -929,7 +973,7 @@ public class DatabaseAccess {
 			e.printStackTrace();
 		}
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -979,7 +1023,7 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -1021,7 +1065,7 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -1057,7 +1101,7 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -1093,7 +1137,7 @@ public class DatabaseAccess {
 			e.printStackTrace();
 		}
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -1163,7 +1207,7 @@ public class DatabaseAccess {
 			e.printStackTrace();
 		}
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -1215,7 +1259,7 @@ public class DatabaseAccess {
 			e.printStackTrace();
 		}
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryStore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -1260,7 +1304,7 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -1304,7 +1348,7 @@ public class DatabaseAccess {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/grocerystore","root","");
+			con = DriverManager.getConnection("jdbc:mysql://" + database,hostName,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
