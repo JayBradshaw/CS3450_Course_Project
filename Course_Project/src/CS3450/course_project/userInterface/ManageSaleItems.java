@@ -9,7 +9,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -116,14 +115,6 @@ public class ManageSaleItems implements ActionListener{
 	 */
 	private JTextField endField = new JTextField(15);
 	/**
-	 * name text field
-	 */
-	private JTextField nameField = new JTextField(15);
-	/**
-	 * price text field
-	 */
-	private JTextField priceField = new JTextField(15);
-	/**
 	 * panel for the middle of the screen
 	 */
 	private JPanel middlePanel = new JPanel(new BorderLayout());
@@ -167,10 +158,6 @@ public class ManageSaleItems implements ActionListener{
 	 * panel for middle header than contains start and end date
 	 */
 	private JPanel midHeader = new JPanel(new FlowLayout());
-	/**
-	 * panel for edit portion
-	 */
-	private JPanel editPanel = new JPanel(new GridLayout(5,2));
 	/**
 	 * @param databaseConnection
 	 * non-default constructor

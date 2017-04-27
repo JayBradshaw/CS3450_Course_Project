@@ -83,7 +83,7 @@ public class DatabaseAccess {
      */
     private void initializeInfo(){
     	try {
-			FileReader file = new FileReader("data/config.txt");
+			FileReader file = new FileReader("config.txt");
 			BufferedReader bf = new BufferedReader(file);
 			try {
 				database = bf.readLine();
