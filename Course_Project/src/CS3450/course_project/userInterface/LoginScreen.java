@@ -66,6 +66,7 @@ public class LoginScreen {
 		private JButton cancel = new JButton("Cancel");
 
 	    public LoginScreen(DatabaseAccess databaseConnection) {
+	    	System.out.println(cryptWithMD5("p"));
 	    	System.out.println(cryptWithMD5("spicyTortillas"));
 	    	System.out.println(cryptWithMD5("purpleCobra24"));
 	    	System.out.println(cryptWithMD5("scaryOctopus67"));

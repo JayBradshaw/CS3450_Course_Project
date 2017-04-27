@@ -176,7 +176,11 @@ public class ManageEmployeeAccessRights {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "This has not yet been implemented!");
+				//is now implemented. 
+				//JOptionPane.showMessageDialog(null, "This has not yet been implemented!");
+				frame.dispose();
+				AddNewEmployee newEmployee = new AddNewEmployee(databaseConnection);
+				
 			}
 			
 		});
