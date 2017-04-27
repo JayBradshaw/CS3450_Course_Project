@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/Course_Project/src/CS3450/course_project/Main.java"/>
+<listEntry value="/Course_Project/src/CS3450/course_project/userInterface/StartUpScreen.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="CS3450.course_project.Main"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="CS3450.course_project.userInterface.StartUpScreen"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Course_Project"/>
 </launchConfiguration>

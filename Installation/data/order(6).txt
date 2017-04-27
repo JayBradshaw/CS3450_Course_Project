@@ -1,0 +1,22 @@
+Thank you for choosing Mr. Smith's Groceries!
+
+Here is your final receipt
+
+
+Customer Info:
+
+Harry Plopper
+888 Wizard Way, Narsaq, Greenland
+
+Date: 2017/04/04 02:35:25
+
+Product:                            Cost: Quantity:
+
+Apple                                0.99         46
+Bread                                2.50         12
+Banana                               0.58          2
+
+
+Total Cost: 81.30
+Payment Method: Cash
+Delivery Method: Pick Up

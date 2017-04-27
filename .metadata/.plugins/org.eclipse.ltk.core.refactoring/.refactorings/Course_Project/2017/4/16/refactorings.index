@@ -1,0 +1,7 @@
+1492706767976	Rename type 'databaseAccess'
+1492706838024	Rename type 'manageEmployeeAccessRights'
+1492706858305	Rename type 'startUpScreen'
+1492723070615	Delete element
+1492724806579	Encapsulate field 'productID'
+1492724813910	Encapsulate field 'quantity'
+1492724818925	Encapsulate field 'totalCost'

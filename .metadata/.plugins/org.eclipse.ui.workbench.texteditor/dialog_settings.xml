@@ -2,29 +2,32 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="System.out" key="selection"/>
+		<item value="employee" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="System.out"/>
-			<item value="System"/>
-			<item value="orderHelperList"/>
-			<item value="new Order"/>
-			<item value="list"/>
-			<item value="try"/>
-			<item value="InventoryScreen"/>
-			<item value="setAvai"/>
+			<item value="employee"/>
+			<item value="totalRevenue"/>
+			<item value="checkoutScreen"/>
+			<item value="cancel"/>
+			<item value="databaseConnection"/>
+			<item value="revenue"/>
+			<item value="updateOrderList"/>
+			<item value="loadInfo"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
+			<item value="baseColor"/>
+			<item value="secondaryColor"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="381" key="DIALOG_HEIGHT"/>
-		<item value="8" key="DIALOG_X_ORIGIN"/>
-		<item value="168" key="DIALOG_Y_ORIGIN"/>
+		<item value="820" key="DIALOG_X_ORIGIN"/>
+		<item value="316" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
