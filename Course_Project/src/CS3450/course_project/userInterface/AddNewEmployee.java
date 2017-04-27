@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -14,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -22,10 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
@@ -38,7 +33,7 @@ public class AddNewEmployee {
 	/**
 	 * frame for the GUI
 	 */
-	private JFrame frame = new JFrame("Grocery Store Checkout System: Set Employee Access Rights");
+	private JFrame frame = new JFrame("Grocery Store Checkout System: Add New Employee");
 	/**
 	 * pane to be contained in the frame
 	 */
@@ -67,10 +62,6 @@ public class AddNewEmployee {
 	 * base font for the header
 	 */
 	private Font baseFont = new Font("Verdana", Font.BOLD,16);
-	/**
-	 * font specifications for the buttons
-	 */
-	private Font buttonFont = new Font("Verdana", Font.PLAIN, 16);
 	/**
 	 * button to return to the manage employee screen
 	 */

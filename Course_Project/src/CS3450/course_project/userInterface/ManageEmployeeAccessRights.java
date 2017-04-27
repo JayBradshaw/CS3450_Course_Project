@@ -74,7 +74,8 @@ public class ManageEmployeeAccessRights {
 	/**
 	 * text area that helps the user understand how to use the page
 	 */
-	private JTextArea description = new JTextArea("Select an image to change\nthe employee access rights.\n"
+	private JTextArea description = new JTextArea("Select an image to change\nthe employee access rights.\n" +
+			"Select the plus image to add\na new employee.\n" 
 			+ "Or select Return to return\nto the home screen.");
 	/**
 	 * button to return to the home screen

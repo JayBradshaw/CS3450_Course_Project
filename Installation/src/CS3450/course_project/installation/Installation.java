@@ -294,37 +294,33 @@ public class Installation implements ActionListener{
 			try {
 				copyDirectory(dataFolder, dataCopyTo);
 			} catch (IOException e1) {
+				JOptionPane.showMessageDialog(null, "Installation Unsuccessful! Could not copy data folder!");
 				e1.printStackTrace();
+				return;
 			}
 			//copy jar
-			File jarFile = new File("test2.jar");
-			File copyJar = new File(getInstallationDir() + "\\test2.jar");
+			File jarFile = new File("groceryStore.jar");
+			File copyJar = new File(getInstallationDir() + "\\groceryStore.jar");
 			try {
 				copyFile(jarFile,copyJar);
 			} catch (IOException e1) {
+				JOptionPane.showMessageDialog(null, "Installation Unsuccessful Could not copy executable!");
 				e1.printStackTrace();
+				return;
 			}
 			//copy the external library folder
-			File extLib = new File(Paths.get(".").toAbsolutePath().normalize().toString()+ "\\test2_lib");
+			File extLib = new File(Paths.get(".").toAbsolutePath().normalize().toString()+ "\\groceryStore_lib");
 			System.out.println(dataFolder.getAbsolutePath());
-			File copyLib = new File(getInstallationDir() + "\\test2_lib");
+			File copyLib = new File(getInstallationDir() + "\\groceryStore_lib");
 			try {
 				copyDirectory(extLib,copyLib);
 			} catch (IOException e1) {
+				JOptionPane.showMessageDialog(null, "Installation Unsuccessful Could not copy external files!");
 				e1.printStackTrace();
+				return;
 			}
 			//done!!!!!!!!!!
 			JOptionPane.showMessageDialog(null, "The installation process completed successfully.", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-			int x = JOptionPane.showConfirmDialog(null,"Would you like to execute the program?","Execute?",JOptionPane.YES_NO_OPTION);
-			if (x == JOptionPane.YES_OPTION){
-				try {
-					String execution = getInstallationDir() + "\\test2.jar";
-					Runtime.getRuntime().exec(" java -jar "  + execution);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
 			System.exit(0);
 		}
 		else if (e.getSource() == selectDir){ //set the installation directory

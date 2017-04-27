@@ -4,9 +4,12 @@
 package CS3450.course_project.dataAccess;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -83,6 +86,7 @@ public class DatabaseAccess {
      */
     private void initializeInfo(){
     	try {
+    		//System.out.println(Paths.get("").toAbsolutePath().normalize().toString());
 			FileReader file = new FileReader("config.txt");
 			BufferedReader bf = new BufferedReader(file);
 			try {
