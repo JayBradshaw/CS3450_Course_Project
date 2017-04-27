@@ -923,6 +923,16 @@ public class DatabaseAccess {
     public Employee getEmployee(){
     	return this.currentEmployee;
     }
+    
+    //needed  the max current employee ID in order to add another employee.
+    public int getMaxEmployeeID(){
+    	int temp = 0;
+    	for(Employee e : employeeList){
+    		if (e.getID()>temp)
+    			temp = e.getID();
+    	}
+    	return temp;
+    }
 
     /**
      * @return
