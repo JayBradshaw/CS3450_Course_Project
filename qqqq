@@ -1,0 +1,883 @@
+[33mcommit 0904f6ed01e8c960c73eb80d519190d308bf7275[m
+Merge: 49d48a4 4a68d47
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Apr 27 11:53:49 2017 -0600
+
+    Merge branch 'master' of https://github.com/JayBradshaw/CS3450_Course_Project
+
+[33mcommit 49d48a484a7cf25a105d46f2bbf193a248fb5914[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Apr 27 11:51:36 2017 -0600
+
+    Add zip for installation and update readme
+
+[33mcommit 4a68d4789eb0c0301b4ca190342bf789634aac07[m
+Author: JayBradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Apr 27 11:33:10 2017 -0600
+
+    Update README.md
+
+[33mcommit 2250b88c2131fa6c10b030cd8c4a37dfc69fffef[m
+Author: JayBradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Apr 27 03:41:55 2017 -0600
+
+    Update README.md
+
+[33mcommit b747d31119fdacb8453d04fdb98923a2c28ced55[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Apr 27 03:39:49 2017 -0600
+
+    Minor installation updates and bug fixes
+
+[33mcommit 5fe23e1329daa5c05ac625e59a41d88e43b124a2[m
+Author: JayBradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Apr 27 01:27:19 2017 -0600
+
+    Update README.md
+
+[33mcommit 5b8c030c72af1e016b324f5b54a04c475b8417fa[m
+Merge: e482329 0d849ed
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Apr 27 01:24:07 2017 -0600
+
+    Merge branch 'master' of https://github.com/JayBradshaw/CS3450_Course_Project
+
+[33mcommit e4823290cb4b87cc261317baefb6fa71ad53346d[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Apr 27 01:23:31 2017 -0600
+
+    Final implementation of Installation Package
+
+[33mcommit 261b1ad4a6fbc080fa368d600d862e797dbd21d6[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Apr 27 01:20:30 2017 -0600
+
+    Final implementation of installation package
+
+[33mcommit 0d849edfa260e80fda24d27017a81aeaee191956[m
+Author: anatin1 <anatin9@yahoo.com>
+Date:   Thu Apr 27 00:59:53 2017 -0600
+
+    updated architecture design
+
+[33mcommit ecf747e982436a7c8d485b0eddf4efa13a3c4f46[m
+Author: anatin1 <anatin9@yahoo.com>
+Date:   Thu Apr 27 00:33:33 2017 -0600
+
+    created the add employee class
+
+[33mcommit 666d21c3162ad7d42ab41be62a2847ae8025bd89[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Tue Apr 25 21:58:21 2017 -0600
+
+    Changes to iteration 3 documentation.
+
+[33mcommit c0734b94c469efa2f09681dc93f8f9c174f18931[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Tue Apr 25 12:20:54 2017 -0600
+
+    Iteration 2 review documentation
+
+[33mcommit 36676c26b76b698d06f6464e0b49f3ea779da33c[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Apr 24 20:28:04 2017 -0600
+
+    GUI for installation package
+
+[33mcommit 0151640e6777d259f305edc23bdb2efb127dabd7[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Apr 24 15:20:53 2017 -0600
+
+    Add skeleton for installation program
+
+[33mcommit 73a2fad0dd8589e7574365c4e226a198f6f0ca24[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Apr 20 16:39:20 2017 -0600
+
+    Final implementation of revenue report
+
+[33mcommit a381d7cbb83d463256115ca943d3e1457101cdb6[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Apr 20 15:50:16 2017 -0600
+
+    Add helper class for product info over a given period of time
+
+[33mcommit d56dd9bebe19ae50de57a5b5583d765026e9cdb2[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Apr 20 15:21:18 2017 -0600
+
+    Minor bug fixes
+
+[33mcommit e2dc0df3a3d6b932614f284c62a349ed0ca96c57[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Apr 20 13:20:10 2017 -0600
+
+    Revenue report for customer in a given range, revenue report for product in a given range
+
+[33mcommit 7cc15d83155c5c929c3518a041cd681c98b40d9d[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Apr 20 10:48:29 2017 -0600
+
+    Fix naming conventions
+
+[33mcommit bbc106d01713024caeb371f4bbabc3abb2e78ce9[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Apr 20 02:06:32 2017 -0600
+
+    Add new database table for order helper, major changes to code including removing most of the hated green color
+
+[33mcommit c54cb8629419e6a008bf9f9e3be7ef5996041847[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Tue Apr 18 19:25:13 2017 -0600
+
+    Final implementation of manage sale items that includes adding new items and editing existing items.
+
+[33mcommit 27ca9c6a807af7a414b7b0509bcc2f3502f95f5b[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Apr 17 23:14:30 2017 -0600
+
+    partial implementation of managing sale items
+
+[33mcommit 1d2016b2cd0b4b00e5d44fc2047fdc5e881670bd[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Apr 17 15:46:00 2017 -0600
+
+    Partial Implementation for managing sale items
+
+[33mcommit 505b984c0d3ad5e9b45548a4e0e3a78ef3c26d18[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Apr 14 19:24:23 2017 -0600
+
+    Minor bug fixes, add buttons for manager revenue report and edit sale items
+
+[33mcommit 4970dc97fcd1d55e05abca44360546ea24f3d3b7[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Apr 14 15:32:20 2017 -0600
+
+    Minor bug fix for product sales calculation
+
+[33mcommit edd820549987ac33d2a6a21152ee101f6b936102[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Apr 14 15:30:50 2017 -0600
+
+    Add methods for extracting customer or product information in a given time period
+
+[33mcommit 7f236db81ff62f8cd43b1472e83d552cb76e6a0c[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Apr 14 11:10:08 2017 -0600
+
+    Allow employee to change image by file on the system
+
+[33mcommit 24dcfd244d58e99d16e571aba3978909b8c1ce78[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Wed Apr 12 20:15:34 2017 -0600
+
+    Add ability to use reward points at checkout
+
+[33mcommit 77586bb455da2d50d09f730df4244e3f6b54c6cd[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Wed Apr 12 10:05:20 2017 -0600
+
+    Add encryption for passwords
+
+[33mcommit 91d2549610578661dd7448d07e2a66dbf6d1c947[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Tue Apr 11 12:11:36 2017 -0600
+
+    Allow sale items based on current date and whether or not customer is rewards customer
+
+[33mcommit 09a34970cbfbf776cbf6f509babaf8bfdf2b2a1d[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Wed Apr 5 22:30:35 2017 -0600
+
+    Minor bug fixes. Add iteration 3 database requirements
+
+[33mcommit a55db35eb7aac7727d053c84c31b56a3f1aedaf2[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Tue Apr 4 19:24:13 2017 -0600
+
+    Final documentation and implementation for iteration 2
+
+[33mcommit 0136feb319286a721f7a157747d5b5572cc3db03[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Tue Apr 4 17:11:17 2017 -0600
+
+    updated iter 2 requirements
+
+[33mcommit 0ac03735c4cb39579ff16e0e8fda0447870ff1aa[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Tue Apr 4 16:00:04 2017 -0600
+
+    Add UML diagram to iteration 2 documentation
+
+[33mcommit f800f35a354b1aacac92f63187d75fb6a722d9ca[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Tue Apr 4 11:44:41 2017 -0600
+
+    Final updates to edit my info screen
+
+[33mcommit f350b530306f33ca3d6ab719d779a71fd72be774[m
+Author: anatin1 <anatin9@yahoo.com>
+Date:   Tue Apr 4 03:51:37 2017 -0600
+
+    add item instructions
+    
+    added jlabel with dropdownmenu instructions
+
+[33mcommit 608878edd4495e59e6eecb656b692b4fc79ccc92[m
+Author: anatin1 <anatin9@yahoo.com>
+Date:   Tue Apr 4 02:36:59 2017 -0600
+
+    remove item
+    
+    remove item now only displays the items that are in the cart, and only
+    allows the quantity in the cart to be removed unless typed.
+
+[33mcommit d813af46e1e035b34182d829bdc3acb3638f14ff[m
+Author: anatin1 <anatin9@yahoo.com>
+Date:   Tue Apr 4 02:08:26 2017 -0600
+
+    github derped with merge conflict
+
+[33mcommit 0c5ed43d4025138cf1fc4152c3c8bb7848657056[m
+Merge: f384b03 42e1e04
+Author: anatin1 <anatin9@yahoo.com>
+Date:   Tue Apr 4 02:06:23 2017 -0600
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    
+    #       Course_Project/src/CS3450/course_project/userInterface/RemoveProductScreen.java
+
+[33mcommit f384b03414be2da45746c2670bc7f6f9b2fd29f2[m
+Author: anatin1 <anatin9@yahoo.com>
+Date:   Tue Apr 4 02:00:43 2017 -0600
+
+    jspinner
+    
+    set the spinner in add product and remove product to loop from 0 to max
+    and vice versa
+
+[33mcommit 42e1e04f49889e888a650c08c3d4a078d6a2f8ef[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Tue Apr 4 00:29:57 2017 -0600
+
+    added confirm password class
+
+[33mcommit 8d473755d25398a35b498758a6f5597afbdf6f9e[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Mon Apr 3 23:56:05 2017 -0600
+
+    added requirements doc for iteration 2
+
+[33mcommit bcbb7460c5c975b5822f3a161a9007a8a448eb17[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Mon Apr 3 23:39:54 2017 -0600
+
+    check for string length and added password confirmation
+
+[33mcommit e34a6dc641d1f09a5b67159f1d0bdbd2d9f690fb[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Apr 3 22:44:52 2017 -0600
+
+    Add different main screen for employees as opposed to the manager.
+
+[33mcommit 4dff34d92e7523ffdcb6bbef8497ee95c638637e[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Apr 3 19:49:10 2017 -0600
+
+    More thoughts
+
+[33mcommit ea1bdafd7831d19a8f397a9f5c016600ae617ff2[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Apr 3 19:47:09 2017 -0600
+
+    Make edit my info screen more secure and add comments
+
+[33mcommit fc41edb21778b7871b41b39815dc9f20229ab654[m
+Merge: 7eb852b 9edf719
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Apr 3 19:26:51 2017 -0600
+
+    Merge branch 'master' of https://github.com/JayBradshaw/CS3450_Course_Project
+
+[33mcommit 7eb852baf0959f8e823517172d73232bd715829e[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Apr 3 19:26:30 2017 -0600
+
+    Minor text changes
+
+[33mcommit 9edf719ac2494c8bd1cc2860a997026e27baf1ad[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Mon Apr 3 13:11:47 2017 -0600
+
+    created edit my info page
+
+[33mcommit 533a8c32e8b40311ece421aa8d186ab3cc8bebd4[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Mon Apr 3 13:10:57 2017 -0600
+
+    go to edit my info page on button click
+
+[33mcommit abed34e2e86a38506ea0c9a099f70802b8706c9f[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sat Apr 1 14:01:56 2017 -0600
+
+    Minor updates and optimization
+
+[33mcommit fe6702f4aea76134e115237f26654cb4ac430bd0[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Mar 31 15:28:00 2017 -0600
+
+    Minor changes to implementation of startup screen. Remove admin button from login screen
+
+[33mcommit 06fa3371c13ecd196b4a65bf7e0ace9f63d6bf83[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Mar 31 14:31:47 2017 -0600
+
+    Change implementation of login screen
+
+[33mcommit 61e7d6c51f4562653716dad94e1cba77dd998b3c[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Mar 31 01:26:38 2017 -0600
+
+    Add implementation for changing employee access rights
+
+[33mcommit f92cbdf36d8c4253cbb1761cdc453bfc2c1f3748[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Mar 30 11:26:48 2017 -0600
+
+    Fix bug where user could create new product with same name as existing product
+
+[33mcommit 2e50b912b84471bf1e72ca681f20fa69c19bcb29[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Tue Mar 28 18:19:14 2017 -0600
+
+    Final implementation of return screen. Allow for buttons to be disabled on main screen based on access rights.
+
+[33mcommit 946e961d2a461b82e76e4c0b3a1b797dc6c93dc9[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Tue Mar 28 13:11:28 2017 -0600
+
+    Add ability to change quantities in returns screen
+
+[33mcommit 965382d13871b3db2d7fcecd1e8e217dd8153450[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Mar 27 20:02:35 2017 -0600
+
+    Allow for 3 incorrect login attempts before closing program
+
+[33mcommit 71a4595b4706fa0a037ebe32b2041ad74d98debd[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Mar 27 19:32:12 2017 -0600
+
+    Add confirmation for log out
+
+[33mcommit b6f1664dedd20ef986d16bf0a245c2851aa4ea87[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Mar 27 19:04:33 2017 -0600
+
+    Add logout and edit my info buttons to main screen
+
+[33mcommit d1fea0a1bf207417c417dc080e4df50810536d8e[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Mar 27 15:52:22 2017 -0600
+
+    Change header for each GUI
+
+[33mcommit 6a9017b141b8168de10017b798885015145c7753[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Mar 27 00:00:45 2017 -0600
+
+    Add error checking for valid order id
+
+[33mcommit 36ae47c84a8b3ff7979d96ee09388aaa091ed96f[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 26 23:41:17 2017 -0600
+
+    Add GUI for returns screen
+
+[33mcommit 4e41a7b2345907d60fcd7f6983e9f6171b49649d[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 26 19:59:11 2017 -0600
+
+    Change main screen GUI to include returns and manage employees
+
+[33mcommit de052759f9489f88b547c84eb9298382cece55ba[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Mar 24 12:41:26 2017 -0600
+
+    Remove getters and setters that are not needed
+
+[33mcommit 033c2b7ec267aafdedf8e06f215d3e508f1c0ee4[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Mar 23 17:25:56 2017 -0600
+
+    Change checkout screen to allow user to see current order
+
+[33mcommit 1304f6d294c88d294b1a2c0f390b501020cb75ee[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Wed Mar 22 22:25:51 2017 -0600
+
+    Major overhaul of project to localize and encapsulate database access
+
+[33mcommit 7da9422b4ec2ef62fe2c949b26af64e6cdbc1825[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Wed Mar 22 20:34:41 2017 -0600
+
+    Create new class databaseAccess that will deal with everything that has to access the database
+
+[33mcommit ece71bcb6a1e5791ee8d75de3d3878e7e617c873[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Tue Mar 21 16:25:59 2017 -0600
+
+    Improve login screen and test functionality of new methods for orderInfo column
+
+[33mcommit 1a6a3443e0ba9b197eaeb76a1de88fd200bdd78e[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Tue Mar 21 00:09:24 2017 -0600
+
+    Changes to DataAccess classes to include all needed info for an order
+
+[33mcommit d952cfd970a6e0982ae905cd8a36ae4a3c1f4f35[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Mar 17 08:52:49 2017 -0600
+
+    Move login screen to center
+
+[33mcommit c8011669836f89ff4361d19d5f2b261902d21d9c[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Tue Mar 14 23:30:08 2017 -0600
+
+    Add login screen and employees
+
+[33mcommit 6f5510e9a87f451c6f2bec0d3b6683a0d16c06ce[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Tue Mar 14 12:21:47 2017 -0600
+
+    Final documentation for iteration 1
+
+[33mcommit a098cb74e9806da178f455a0b76d7216fdcaa92b[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Mar 13 19:59:41 2017 -0600
+
+    Add final UML diagram for Iteration 1
+
+[33mcommit e9ae9d64bea82af5c30c54bdd68b4af134b9205e[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Mar 13 19:53:34 2017 -0600
+
+    Update UML diagram
+
+[33mcommit df9e6d3894f097cb43b4e7337908b6ecbf6746e7[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Mar 13 19:40:49 2017 -0600
+
+    Rename add new product screen
+
+[33mcommit 12a037c64b7c549e6d017d50db40132e786c8d6a[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 12 20:00:19 2017 -0600
+
+    Update documentation for iteration 1
+
+[33mcommit 66c83fbc2b7cd21e40b67fd8f54696c4849e735b[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 12 12:45:20 2017 -0600
+
+    Allow user to choose delivery method
+
+[33mcommit 1f58815a1e3786dd176a620ed7bbe5136b45f132[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sat Mar 11 15:21:13 2017 -0700
+
+    Minor changes to database implementation and code optimizations
+
+[33mcommit 363157daf2782b14e1bac492fb09650372a19991[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sat Mar 11 13:52:32 2017 -0700
+
+    Improve database queries
+
+[33mcommit 0a86b01c646a66ecded7c5611ba7af08c70a1344[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Mar 10 18:30:55 2017 -0700
+
+    Change manage existing products to allow for changing of all attributes
+
+[33mcommit 55f1206824ad83c23fa3034ec204b124900d0601[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Wed Mar 8 15:35:51 2017 -0700
+
+    Minor changes and bug fixes: do multiple orders, correct availability on manage inventory
+
+[33mcommit e0e414a3ed4c5cf454709f19c1a4dac8206e6dbe[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Wed Mar 8 12:18:42 2017 -0700
+
+    Add error checking for various components, update database design
+
+[33mcommit b3fc466a9052f0c2e00584dd74de77fb490a3448[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Mon Mar 6 17:11:22 2017 -0700
+
+    Add database reference library
+
+[33mcommit 03105b6b5df4dff114121aa26212ebac14bb4d16[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 23:53:35 2017 -0700
+
+    Add full functionality for finish and pay
+
+[33mcommit 624b08df96be10987c6022b31f900302663d2119[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 23:52:16 2017 -0700
+
+    4
+
+[33mcommit df8d38d076ffa004e96e28a65dd0bff40bd4e48b[m
+Merge: eca38fb 3ae1cda
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 22:55:24 2017 -0700
+
+    Merge branch 'master' of https://github.com/JayBradshaw/CS3450_Course_Project
+
+[33mcommit eca38fb551e8465b365a39aa31c247a305b18571[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 22:55:14 2017 -0700
+
+    Add ability to print a receipt
+
+[33mcommit 3ae1cda1b0bc26ad5f0258308fa6dbb4f32886bd[m
+Author: anatin1 <anatin9@yahoo.com>
+Date:   Sun Mar 5 22:28:43 2017 -0700
+
+    added manageproductscreen and implementation
+
+[33mcommit f8a3f90ca9e3df89023e54e1aee3dd67b58ae1e6[m
+Merge: fb705b7 9df9078
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 21:57:08 2017 -0700
+
+    Merge branch 'master' of https://github.com/JayBradshaw/CS3450_Course_Project
+
+[33mcommit fb705b7fb2da78722de31640372a3082e9b50854[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 21:56:53 2017 -0700
+
+    Add part of the functionality for finish and pay button
+
+[33mcommit 9df90785da76ab4c1d1c6c5a0860bf4ca29c8235[m
+Author: anatin1 <anatin9@yahoo.com>
+Date:   Sun Mar 5 21:55:44 2017 -0700
+
+    spelling fixes
+
+[33mcommit 8eaaef42b802e84e9f46285caf4d76c5b42ef339[m
+Author: anatin1 <anatin9@yahoo.com>
+Date:   Sun Mar 5 21:52:52 2017 -0700
+
+    created addinventory screen and implementation
+
+[33mcommit 8a90d3ecd3869ef686b5bc4ea1280020b1ba9b02[m
+Merge: 648a237 ac23838
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 20:11:17 2017 -0700
+
+    Merge branch 'master' of https://github.com/JayBradshaw/CS3450_Course_Project
+
+[33mcommit 648a237f9ff6b52a8ebe9bd5fb7e360a7ddd9bc9[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 20:11:01 2017 -0700
+
+    Add functionality for removing products from an order
+
+[33mcommit ac2383854466e232d0395ee41e847eb393aed86e[m
+Merge: f18c26c 9a6d0dd
+Author: anatin1 <anatin9@yahoo.com>
+Date:   Sun Mar 5 19:50:58 2017 -0700
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #       Course_Project/.classpath
+
+[33mcommit f18c26c6c0c675e60f1c44a086692815e2580dac[m
+Author: anatin1 <anatin9@yahoo.com>
+Date:   Sun Mar 5 19:49:53 2017 -0700
+
+    finished product availability
+
+[33mcommit 9a6d0dd6472aca1bb09473088fc9b17e6fc0356c[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 19:10:11 2017 -0700
+
+    Remove database from the build path
+
+[33mcommit 564e37dc10c1d460ae6decc967328630f22702ac[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 19:00:58 2017 -0700
+
+    Make it so user cannot add 0 new items
+
+[33mcommit 2f404bf1185bf1b7aeffd97f6d02a3a38404f727[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 18:56:01 2017 -0700
+
+    Finish Add button from checkout screen
+
+[33mcommit d158b3853a5b3f893852158b55a7e5c2c7089e55[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 18:14:35 2017 -0700
+
+    Change finish and pay button so that it won't finish if there is no order present
+
+[33mcommit c074926778b669018f431f9094e88dfa44219cc3[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 17:55:23 2017 -0700
+
+    Minor changes
+
+[33mcommit b711013f692dfea7e8bffe8adb7c39bef8952fbc[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 17:15:12 2017 -0700
+
+    Add remove item screen
+
+[33mcommit 4ebaa5a04b03d624942f62562d7092c0c34ed20e[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 16:17:43 2017 -0700
+
+    Update commenting out database info:
+
+[33mcommit 369f774a32b136652727c14f88d7ed258e3048c0[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 16:15:47 2017 -0700
+
+    Add ability to create all tables from database or without database
+
+[33mcommit 330188a3496eebd7fa973e7deb46ae542f7f88b3[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Mar 5 01:27:33 2017 -0700
+
+    Minor bug fixes
+
+[33mcommit 62ccb54deaf406a3ba4921ffd6418985d6c1b0e9[m
+Author: anatin1 <anatin9@yahoo.com>
+Date:   Sat Mar 4 23:27:26 2017 -0700
+
+    new addproduct screen
+    
+    allows user to select item and quantity of item.
+
+[33mcommit 1cf78bba771366a1e38c03538aaed9ccced2781e[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sat Mar 4 20:14:58 2017 -0700
+
+    Allow functionality without database
+
+[33mcommit 8f331b0e875f740a9088d23c360b80ef8dd46da2[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Sat Mar 4 19:34:58 2017 -0700
+
+    allow movement from mainscreen to inventory screen and back
+
+[33mcommit a49328442294b004e82e2e9f0f1570ac4900a720[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sat Mar 4 19:17:59 2017 -0700
+
+    Add static boolean for MainScreen so that database isn't accessed every time the user returns to the main screen
+
+[33mcommit cab5ca17c3d87f06c69b7a7785699408c16e9ee3[m
+Merge: e030c6d 322953a
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sat Mar 4 19:00:22 2017 -0700
+
+    Merge branch 'master' of https://github.com/JayBradshaw/CS3450_Course_Project
+
+[33mcommit e030c6dd5789bf9a2b775dfff87e5ed1a37d13ea[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sat Mar 4 18:57:30 2017 -0700
+
+    Build initial database connection
+
+[33mcommit 322953ae6bc2d08ab3a48724f203d9aa8322cf97[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Sat Mar 4 18:54:00 2017 -0700
+
+    added inventory screen class
+
+[33mcommit 5e4e84d03b8dc188acdefc447ecdff9299c6f845[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sat Mar 4 18:24:26 2017 -0700
+
+    Add ability to move between main screen and checkout screen
+
+[33mcommit 3379867b78d3b0416fbbd72f58a9ac5643d03ffe[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sat Mar 4 18:23:57 2017 -0700
+
+    Add ability to move between main screen and checkout screen
+
+[33mcommit b1713b93c33e315ad20283cd09378146e4e0da57[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Sat Mar 4 17:49:14 2017 -0700
+
+    open checkout window on 'checkout' button click
+
+[33mcommit e8beb0c4e311a15e25aaec98d40baf585b7be14e[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Sat Mar 4 17:47:38 2017 -0700
+
+    open checkout screen on 'checkout' button click
+
+[33mcommit af3121be3d06404a51d38eb4d98e5bd9ac2010d8[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Sat Mar 4 17:30:43 2017 -0700
+
+    added all buttons to checkout screen
+
+[33mcommit a63d4b9070241b4193d14e296c3b8bf6c31c8c50[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Fri Mar 3 18:37:56 2017 -0700
+
+    added checkout class, not at all finished
+
+[33mcommit aa693fda88fc591429ec5dc79a0a8af7b63a12fd[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Mar 3 17:23:54 2017 -0700
+
+    Add documentation
+
+[33mcommit 810aa7532c7c02ea3fd2ce6b994d5b373053b52b[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Mar 3 11:56:59 2017 -0700
+
+    Add basic functionality for CreditCard, Product, Order, and Customer classes
+
+[33mcommit 2b82c6b29cc0fd790156e31c38acca005e5efc51[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Thu Mar 2 19:39:06 2017 -0700
+
+    Implementation of the main screen
+
+[33mcommit 3a0801449ac2ae6ad651a2671872347f44dd386f[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Feb 26 00:33:30 2017 -0700
+
+    Concatenate requirements for Architecture Design into one pdf
+
+[33mcommit 4c137cd16517949cabf3f3460c809135cb8fdded[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Feb 24 17:58:28 2017 -0700
+
+    Minor changes to design
+
+[33mcommit c873b7d831d6e16e250a72cba3fb96aacc9c9864[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Feb 24 17:37:23 2017 -0700
+
+    Delete temp files
+
+[33mcommit f6618d152d5e42626c9df4ec5141960b3914f413[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Feb 24 17:32:14 2017 -0700
+
+    Class Diagram:
+
+[33mcommit 3e7c39b839f080c844d60f74cded00f762e3837a[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Feb 24 17:26:44 2017 -0700
+
+    Update UML diagram
+
+[33mcommit 5dded34afcb8dbe167e9fc70c88f0be1f736d6d1[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Feb 24 16:30:27 2017 -0700
+
+    Edit potential classes
+
+[33mcommit 616e8b21113a4e3271c99d33b2cadbf71b8238be[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Feb 24 16:03:33 2017 -0700
+
+    PDF version of class diagram
+
+[33mcommit 3bfc6a357089246c7868e5606a45c64d101db0b8[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Feb 19 13:08:37 2017 -0700
+
+    Move database design elements to folder, concatenate database design into one pdf
+
+[33mcommit 12ae81029a8b3ef78fc594ed865adecad9f24741[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Feb 19 13:05:50 2017 -0700
+
+    Concatenated all database design elements into one file, created folder for database design
+
+[33mcommit cf879fc5e34b2fd5e175fc63437029b0e12147d5[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sat Feb 18 16:46:04 2017 -0700
+
+    Minor changes, add ID to specific tables, possibly don't need provider table
+
+[33mcommit ef1802de47cac0c3c78696f73edcd50a05dec755[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Sat Feb 18 15:24:27 2017 -0700
+
+    identified some keys
+
+[33mcommit ad25c5b8d5afe2ddd0face12d280dfbd15b0aef5[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Sat Feb 18 15:02:31 2017 -0700
+
+    identified some keys in the relationship data model
+
+[33mcommit a97e367775786442435c5d0fa66c718d79004be6[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Sat Feb 18 14:53:50 2017 -0700
+
+    renamed relationship date model file
+
+[33mcommit 533c4a0a3744ead75670b2bf858eb84e9c9823d5[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Sat Feb 18 14:52:46 2017 -0700
+
+    added logical design
+
+[33mcommit 85b024a3e421a2c04ac5afb4c0f39ae37d62be4d[m
+Author: Melanie Pena <penamelanie3@gmail.com>
+Date:   Sat Feb 18 14:15:59 2017 -0700
+
+    added relationship models based on entity relationship diagram
+
+[33mcommit 18f45268ed67e8cb24a7482202b2d1929e7c908e[m
+Author: anatin1 <anatin9@yahoo.com>
+Date:   Fri Feb 17 21:14:35 2017 -0700
+
+    SQL Table code
+    
+    Added some temporary SQL code to work off of, only 2 of the columns have
+    not been added due to misunderstanding of a data type.
+
+[33mcommit de2f52c988eaa79ec10af04ebe8bcdeaae5ad4e9[m
+Author: anatin1 <anatin9@yahoo.com>
+Date:   Fri Feb 17 20:45:38 2017 -0700
+
+    added logical diagram for sql database design.
+    
+    added Iteration_1_logical_diagram.docx and
+    Iteration_1_logical_diagram.pdf
+
+[33mcommit 1ab8a19a7e239c030788e46a88460555d3ddfd8b[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Fri Feb 17 17:35:36 2017 -0700
+
+    Add entity relationship diagram:
+
+[33mcommit 02b9265f92d318a653a98b26ba0b7e5ca5638697[m
+Author: Justin Bradshaw <justin.bradshaw@aggiemail.usu.edu>
+Date:   Sun Feb 12 20:41:43 2017 -0700
+
+    pdf version of Iteration 1 Requirements

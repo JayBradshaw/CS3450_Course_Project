@@ -36,7 +36,6 @@ import javax.swing.SwingUtilities;
 /**
  * @author Justin Bradshaw
  *
- *installation package for grocery store project
  */
 public class Installation implements ActionListener{
 	/**

@@ -564,6 +564,8 @@ public class DatabaseAccess {
     	return currentCustomer;
     }
     
+    
+    
 
     //all of the needed methods for accessing an an order and adding a new order to the database
     /**
@@ -926,11 +928,7 @@ public class DatabaseAccess {
     	return this.currentEmployee;
     }
     
-    /**
-     * @return
-     * 
-     * get the current max employee id
-     */
+    //needed  the max current employee ID in order to add another employee.
     public int getMaxEmployeeID(){
     	int temp = 0;
     	for(Employee e : employeeList){
@@ -1106,11 +1104,6 @@ public class DatabaseAccess {
     	saleList.add(item);
     }
     
-    /**
-     * @param item
-     * 
-     * remove a sale item
-     */
     public void removeSaleItem(SaleItem item){
     	//update the sale list based on a given item
     	Connection con = null;
@@ -1205,6 +1198,12 @@ public class DatabaseAccess {
     	return helperList;
     }
     
+    /**
+     * @param orderID
+     * @return
+     * 
+     * get the helper items based on an id
+     */
     /**
      * @param orderID
      * @return
