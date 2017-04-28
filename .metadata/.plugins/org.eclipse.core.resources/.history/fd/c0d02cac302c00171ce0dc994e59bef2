@@ -417,10 +417,6 @@ public class ManageSaleItems implements ActionListener{
 			frame.revalidate();
 		}
 		else if (e.getSource() == showInRange){ //show items in a given range
-			if (startField.getText().isEmpty() || endField.getText().isEmpty()){
-				JOptionPane.showMessageDialog(null, "Error! Invalid start or end date!");
-				return;
-			}
 			System.out.println("Show in Range button pressed");
 			scrollPane = new JScrollPane(createTable(startField.getText(),endField.getText()));
 			middlePanel.add(scrollPane,BorderLayout.CENTER);
